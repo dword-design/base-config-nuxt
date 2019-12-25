@@ -9,6 +9,7 @@ import { existsSync } from 'fs-extra'
 import eslintConfig from '@dword-design/eslint-config-vue'
 import babelConfig from '@dword-design/babel-config-vue'
 import nodeSassImporter from '@dword-design/node-sass-importer'
+import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 
 const mode = nodeEnv === 'production' ? 'production' : 'development'
 const host = '0.0.0.0'
@@ -27,6 +28,9 @@ export default {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
     },
+    plugins: [
+      new ResolverTestWebpackPlugin(),
+    ],
   },
   devServer: {
     hot: true,

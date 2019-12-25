@@ -21,6 +21,7 @@
     "@dword-design/depcheck-config-vue": "^1.0.0",
     "@dword-design/eslint-config-vue": "^1.0.0",
     "@dword-design/node-sass-importer": "^1.0.0",
+    "@dword-design/resolver-test": "^1.0.6",
     "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
     "better-node-env": "^1.0.3",
