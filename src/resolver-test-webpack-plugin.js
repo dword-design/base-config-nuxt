@@ -2,24 +2,21 @@ import resolverTest from '@dword-design/resolver-test'
 
 export default class {
 
-  constructor() {
-    this.source = 'resolve'
-    this.target = 'parsedResolve'
-  }
-
   apply(resolver) {
-    const target = resolver.ensureHook(this.target)
+    const target = resolver.ensureHook('resolve')
     resolver
-      .getHook(this.source)
+      .getHook('resolve')
       .tapAsync('ResolverTestWebpackPlugin', (request, resolveContext, callback) => {
         const path = resolverTest(request.request)
-        resolver.doResolve(
-          target,
-          { ...request, ...path !== undefined ? { request: path } : {} },
-          null,
-          resolveContext,
-          callback
-        )
+        return path !== undefined
+          ? resolver.doResolve(
+            target,
+            { ...request, ...path !== undefined ? { request: path } : {} },
+            null,
+            resolveContext,
+            callback
+          )
+          : callback()
       })
   }
 }
