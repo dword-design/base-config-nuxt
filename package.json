@@ -48,7 +48,7 @@
     "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
-    "@dword-design/base": "^3.8.2",
+    "@dword-design/base": "^4.0.0",
     "@dword-design/functions": "^2.2.4",
     "expect": "^24.9.0",
     "express": "^4.17.1",
