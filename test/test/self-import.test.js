@@ -1,21 +1,22 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 import { spawn } from 'child-process-promise'
-import sortPackageJson from 'sort-package-json'
 import { endent } from '@dword-design/functions'
-import packageConfig from '../package.config'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
     inner: {
-      'package.json': JSON.stringify(sortPackageJson({
-        ...packageConfig,
-        name: 'bar',
-        devDependencies: {
-          '@dword-design/base-config-vue-app': '^1.0.0',
-          expect: '^1.0.0',
-        },
-      }), undefined, 2),
+      'package.json': endent`
+        {
+          "name": "bar",
+          "baseConfig": "vue",
+          "devDependencies": {
+            "@dword-design/base-config-vue-app": "^1.0.0",
+            "expect": "^1.0.0"
+          }
+        }
+
+      `,
       'src/index.js': endent`
         import foo from 'foo'
 
@@ -28,7 +29,12 @@ export default () => withLocalTmpDir(__dirname, async () => {
         export default () => expect(bar).toEqual(1)
       `,
     },
-    'package.json': JSON.stringify(sortPackageJson(packageConfig), undefined, 2),
+    'package.json': endent`
+      {
+        "name": "foo"
+      }
+
+    `,
     'src/index.js': 'export default 1',
   })
 
