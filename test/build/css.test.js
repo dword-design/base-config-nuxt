@@ -23,6 +23,7 @@ export const it = () => withLocalTmpDir(__dirname, async () => {
           "@dword-design/base-config-vue-app": "^1.0.0"
         }
       }
+
     `,
     'src/index.js': endent`
       import Vue from '${getPackageName(require.resolve('vue'))}'
