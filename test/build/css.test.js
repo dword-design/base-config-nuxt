@@ -14,7 +14,7 @@ export const it = () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
     'package.json': endent`
       {
-        "baseConfig": "vue",
+        "baseConfig": "vue-app",
         "dependencies": {
           "linaria": "^1.0.0",
           "vue": "^1.0.0"

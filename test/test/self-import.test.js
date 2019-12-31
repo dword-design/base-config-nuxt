@@ -9,7 +9,7 @@ export default () => withLocalTmpDir(__dirname, async () => {
       'package.json': endent`
         {
           "name": "bar",
-          "baseConfig": "vue",
+          "baseConfig": "vue-app",
           "devDependencies": {
             "@dword-design/base-config-vue-app": "^1.0.0",
             "expect": "^1.0.0"
@@ -31,7 +31,8 @@ export default () => withLocalTmpDir(__dirname, async () => {
     },
     'package.json': endent`
       {
-        "name": "foo"
+        "name": "foo",
+        "main": "src/index.js"
       }
 
     `,

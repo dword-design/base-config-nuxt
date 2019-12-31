@@ -22,6 +22,7 @@ export const it = () => withLocalTmpDir(__dirname, async () => {
     },
     'package.json': endent`
       {
+        "baseConfig": "vue-app",
         "dependencies": {
           "sass-foo": "^1.0.0",
           "vue": "^1.0.0"
@@ -32,16 +33,18 @@ export const it = () => withLocalTmpDir(__dirname, async () => {
       }
 
     `,
-    'src/index.js': endent`
-      import Vue from '${getPackageName(require.resolve('vue'))}'
-      import './style.scss'
+    src: {
+      'index.js': endent`
+        import Vue from '${getPackageName(require.resolve('vue'))}'
+        import './style.scss'
 
-      new Vue({
-        el: '#app',
-        render: () => <div>Hello world</div>,
-      })
-    `,
-    'src/style.scss': '@import \'~sass-foo\'',
+        new Vue({
+          el: '#app',
+          render: () => <div>Hello world</div>,
+        })
+      `,
+      'style.scss': '@import \'~sass-foo\'',
+    },
   })
 
   await spawn('base', ['build'])

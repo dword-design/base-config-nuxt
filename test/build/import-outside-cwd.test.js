@@ -9,7 +9,7 @@ export default () => withLocalTmpDir(__dirname, async () => {
     inner: {
       'package.json': endent`
         {
-          "baseConfig": "vue",
+          "baseConfig": "vue-app",
           "devDependencies": {
             "@dword-design/base-config-vue-app": "^1.0.0"
           }
