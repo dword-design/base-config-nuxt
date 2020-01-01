@@ -1,9 +1,7 @@
 {
   "name": "@dword-design/base-config-vue-app",
   "version": "1.0.2",
-  "bugs": {
-    "url": "https://github.com/dword-design/base-config-vue-app/issues"
-  },
+  "description": "",
   "repository": "dword-design/base-config-vue-app",
   "license": "MIT",
   "author": "Sebastian Landwehr <info@dword-design.de>",
@@ -48,7 +46,7 @@
     "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
-    "@dword-design/base": "^3.8.2",
+    "@dword-design/base": "^4.0.0",
     "@dword-design/functions": "^2.2.4",
     "expect": "^24.9.0",
     "express": "^4.17.1",
@@ -56,10 +54,7 @@
     "output-files": "^1.1.10",
     "portfinder": "^1.0.25",
     "puppeteer": "^2.0.0",
-    "sort-package-json": "^1.31.0",
     "vue": "^2.6.11",
     "with-local-tmp-dir": "^2.2.4"
-  },
-  "contributors": [],
-  "maintainers": []
+  }
 }
