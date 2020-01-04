@@ -10,7 +10,7 @@ import expect from 'expect'
 import portfinder from 'portfinder'
 import { readFile } from 'fs-extra'
 
-export const it = () => withLocalTmpDir(__dirname, async () => {
+export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
     'package.json': endent`
       {
@@ -54,5 +54,3 @@ export const it = () => withLocalTmpDir(__dirname, async () => {
   app.close()
   expect(await readFile('.gitignore', 'utf8')).toMatch('.linaria-cache\n')
 })
-
-export const timeout = 30000

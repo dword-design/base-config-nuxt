@@ -9,7 +9,7 @@ import express from 'express'
 import expect from 'expect'
 import portfinder from 'portfinder'
 
-export const it = () => withLocalTmpDir(__dirname, async () => {
+export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
     'package.json': endent`
       {
@@ -44,5 +44,3 @@ export const it = () => withLocalTmpDir(__dirname, async () => {
   await browser.close()
   app.close()
 })
-
-export const timeout = 30000
