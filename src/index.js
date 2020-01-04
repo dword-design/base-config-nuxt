@@ -20,5 +20,5 @@ export default {
       },
     }
     : {},
-  gitignore: ['.linaria-cache'],
+  gitignore: [...vueConfig.gitignore, '.linaria-cache'],
 }
