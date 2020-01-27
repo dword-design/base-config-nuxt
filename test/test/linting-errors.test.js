@@ -21,16 +21,14 @@ export default () => withLocalTmpDir(__dirname, async () => {
 
     `,
     src: {
-      'app.vue': endent`
-        <script>
+      'app.js': endent`
         export default {
           render: () => <div>Hello world</div>,
         }
-        </script>
       `,
       'index.js': endent`
         import Vue from '${getPackageName(require.resolve('vue'))}'
-        import App from './app.vue'
+        import App from './app'
 
         new Vue({
           el: '#app',
@@ -40,12 +38,10 @@ export default () => withLocalTmpDir(__dirname, async () => {
     },
   })
   await spawn('base', ['build'])
-  await outputFile('app.vue', endent`
-    <script>
+  await outputFile('app.js', endent`
     export default {
       render: () => <div>Hello world</div>,
     };
-    </script>
   `)
   let stdout
   try {

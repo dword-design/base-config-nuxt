@@ -1,5 +1,4 @@
 import P from 'path'
-import VueLoaderPlugin from 'vue-loader/lib/plugin'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
@@ -77,7 +76,6 @@ export default {
     : {},
   plugins: [
     new CleanWebpackPlugin(),
-    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: P.resolve(__dirname, 'index.html'),
@@ -112,10 +110,6 @@ export default {
         test: /\.svg$/,
         loader: require.resolve('vue-svg-loader'),
         options: { svgo: { plugins: [{ removeViewBox: false }] } },
-      },
-      {
-        test: /\.vue$/,
-        loader: require.resolve('vue-loader'),
       },
       {
         test: /\.js$/,
