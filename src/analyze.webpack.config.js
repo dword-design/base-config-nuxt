@@ -8,5 +8,5 @@ export default webpackMerge(
     plugins: [
       new WebpackBundleAnalyzer.BundleAnalyzerPlugin,
     ],
-  }
+  },
 )

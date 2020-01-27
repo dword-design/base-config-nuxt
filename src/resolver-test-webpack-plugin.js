@@ -14,7 +14,7 @@ export default class {
             { ...request, ...path !== undefined ? { request: path } : {} },
             null,
             resolveContext,
-            callback
+            callback,
           )
           : callback()
       })
