@@ -7,15 +7,15 @@ import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
 import nodeEnv from 'better-node-env'
 import { existsSync } from 'fs-extra'
 import eslintConfig from '@dword-design/eslint-config-vue'
-import babelConfig from '@dword-design/babel-config-vue'
+import babelConfig from '@dword-design/babel-config'
 import nodeSassImporter from '@dword-design/node-sass-importer'
 import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 
 const mode = nodeEnv === 'production' ? 'production' : 'development'
 const host = '0.0.0.0'
 const port = '8080'
-const sourceMap = mode == 'development'
-const devtool = mode == 'development'
+const sourceMap = mode === 'development'
+const devtool = mode === 'development'
   // faster for development
   ? 'cheap-module-eval-source-map'
   : false
