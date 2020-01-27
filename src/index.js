@@ -1,9 +1,9 @@
 import nodeEnv from 'better-node-env'
 import { spawn } from 'child-process-promise'
-import vueConfig from '@dword-design/base-config-vue'
+import nodeConfig from '@dword-design/base-config-node'
 
 export default {
-  ...vueConfig,
+  ...nodeConfig,
   build: () => spawn('webpack-cli', ['--config', require.resolve('./webpack.config')], { stdio: 'inherit' }),
   start: () => {
     if (nodeEnv !== 'production') {
@@ -20,5 +20,5 @@ export default {
       },
     }
     : {},
-  gitignore: [...vueConfig.gitignore, '.linaria-cache'],
+  gitignore: [...nodeConfig.gitignore, '.linaria-cache'],
 }
