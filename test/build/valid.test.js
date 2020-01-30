@@ -2,45 +2,46 @@ import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 import { spawn } from 'child-process-promise'
 import { endent } from '@dword-design/functions'
-import getPackageName from 'get-package-name'
 import puppeteer from 'puppeteer'
-import P from 'path'
-import express from 'express'
 import expect from 'expect'
-import portfinder from 'portfinder'
+import { readFile } from 'fs-extra'
+import delay from 'delay'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
     'package.json': endent`
       {
-        "baseConfig": "vue-app",
-        "dependencies": {
-          "vue": "^1.0.0"
+        "baseConfig": {
+          "name": "nuxt",
+          "mode": "spa"
         },
         "devDependencies": {
-          "@dword-design/base-config-vue-app": "^1.0.0"
+          "@dword-design/base-config-nuxt": "^1.0.0"
         }
       }
 
     `,
-    'src/index.js': endent`
-      import Vue from '${getPackageName(require.resolve('vue'))}'
-
-      new Vue({
-        el: '#app',
+    'src/pages/index.js': endent`
+      export default {
         render: () => <div>Hello world</div>,
-      })
+      }
     `,
   })
 
   await spawn('base', ['build'])
-
-  const port = await portfinder.getPortPromise()
-  const app = express().use(express.static(P.resolve('dist'))).listen(port)
+  const childProcess = spawn('base', ['start'])
+    .catch(error => {
+      if (error.code !== null) {
+        throw error
+      }
+    })
+    .childProcess
+  await delay(5000)
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
-  await page.goto(`http://localhost:${port}`)
+  await page.goto('http://localhost:3000')
   expect(await page.content()).toMatch('<div>Hello world</div>')
   await browser.close()
-  app.close()
+  expect(await readFile('.gitignore', 'utf8')).toMatch('.nuxt\n')
+  childProcess.kill()
 })

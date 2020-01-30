@@ -14,13 +14,13 @@ export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
     'package.json': endent`
       {
-        "baseConfig": "vue-app",
+        "baseConfig": "nuxt",
         "dependencies": {
           "linaria": "^1.0.0",
           "vue": "^1.0.0"
         },
         "devDependencies": {
-          "@dword-design/base-config-vue-app": "^1.0.0"
+          "@dword-design/base-config-nuxt": "^1.0.0"
         }
       }
 

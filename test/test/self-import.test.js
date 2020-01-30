@@ -9,9 +9,9 @@ export default () => withLocalTmpDir(__dirname, async () => {
       'package.json': endent`
         {
           "name": "bar",
-          "baseConfig": "vue-app",
+          "baseConfig": "nuxt",
           "devDependencies": {
-            "@dword-design/base-config-vue-app": "^1.0.0",
+            "@dword-design/base-config-nuxt": "^1.0.0",
             "expect": "^1.0.0"
           }
         }
