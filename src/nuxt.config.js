@@ -6,22 +6,19 @@ import babelConfig from '@dword-design/babel-config'
 import nodeSassImporter from '@dword-design/node-sass-importer'
 import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 import getPackageName from 'get-package-name'
+import safeRequire from 'safe-require'
 
-const { baseConfig: rawConfig } = require(P.resolve('package.json'))
-const { mode = 'universal', port = 3000 } = (typeof rawConfig === 'string' ? {} : rawConfig) ?? {}
+const projectConfig = safeRequire(P.join(process.cwd(), 'src', 'index.js'))?.default ?? {}
+const title = projectConfig.title ?? 'Vue app'
 
 export default {
-  mode,
-  server: {
-    port,
-  },
   srcDir: 'src',
   head: {
-    title: 'Vue app',
+    title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Vue app' },
+      { hid: 'description', name: 'description', content: title },
     ],
   },
   build: {
@@ -66,8 +63,9 @@ export default {
       ],
     },
   },
-  ...existsSync(P.join('src', 'index.js'))
-    ? { plugins: ['index.js'] }
-    : {},
-  modules: [getPackageName(require.resolve('nuxt-svg-loader'))],
+  ...projectConfig,
+  modules: [
+    getPackageName(require.resolve('nuxt-svg-loader')),
+    ...projectConfig.modules ?? [],
+  ],
 }
