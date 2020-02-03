@@ -19,9 +19,6 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: title },
     ],
-    link: [
-      { rel: 'stylesheet', href: '/acss.css' },
-    ],
   },
   build: {
     babel: {
@@ -46,15 +43,6 @@ export default {
           options: eslintConfig,
         })
       }
-      config.module.rules
-        .find(({ test }) => test.test('.js'))
-        .use
-        .unshift({
-          loader: require.resolve('webpack-atomizer-loader'),
-          query: {
-            configPath: require.resolve('./acss.config.js'),
-          },
-        })
       if (existsSync(P.join('src', 'favicon.png'))) {
         config.plugins.push(new FaviconsWebpackPlugin(P.resolve('src', 'favicon.png')))
       }
@@ -70,6 +58,7 @@ export default {
   ...projectConfig,
   modules: [
     getPackageName(require.resolve('nuxt-svg-loader')),
+    require.resolve('./modules/acss'),
     ...projectConfig.modules ?? [],
   ],
 }
