@@ -5,19 +5,16 @@ import P from 'path'
 import nodeSassImporter from '@dword-design/node-sass-importer'
 import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 import getPackageName from 'get-package-name'
-import safeRequire from 'safe-require'
-
-const projectConfig = safeRequire(P.join(process.cwd(), 'src', 'index.js'))?.default ?? {}
-const title = projectConfig.title ?? 'Vue app'
+import projectConfig from './project.config'
 
 export default {
   srcDir: 'src',
   head: {
-    title,
+    title: projectConfig.title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: title },
+      { hid: 'description', name: 'description', content: projectConfig.title },
     ],
   },
   build: {
@@ -59,6 +56,6 @@ export default {
   modules: [
     getPackageName(require.resolve('nuxt-svg-loader')),
     require.resolve('./modules/acss'),
-    ...projectConfig.modules ?? [],
+    ...projectConfig.modules,
   ],
 }
