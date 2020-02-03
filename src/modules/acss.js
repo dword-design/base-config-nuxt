@@ -1,5 +1,6 @@
+import serveStatic from 'serve-static'
+
 export default function () {
-  this.options.head.link.push({ rel: 'stylesheet', href: '/acss.css' })
   this.extendBuild(config => {
     config.module.rules
       .find(({ test }) => test.test('.js'))
@@ -9,6 +10,8 @@ export default function () {
         query: {
           configPath: require.resolve('./config.js'),
         },
-      }),
-    })
+      })
+  })
+  this.options.head.link.push({ rel: 'stylesheet', href: '/acss.css' })
+  this.addServerMiddleware({ path: '/acss.css', handler: serveStatic('.acss/index.css') })
 }

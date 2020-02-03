@@ -1,5 +1,5 @@
 export default {
-  cssDest: 'src/static/acss.css',
+  cssDest: '.acss/index.css',
   configs: {
     classNames: [],
   },

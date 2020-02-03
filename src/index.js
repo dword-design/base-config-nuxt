@@ -2,7 +2,7 @@ import { spawn } from 'child-process-promise'
 import nodeConfig from '@dword-design/base-config-node'
 
 export default {
-  gitignore: ['src/static/acss.css', '.nuxt'],
+  gitignore: ['.acss', '.nuxt'],
   test: nodeConfig.test,
   commands: {
     dev: () => spawn('nuxt', ['--config-file', require.resolve('./nuxt.config')], { stdio: 'inherit' }),
