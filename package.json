@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@dword-design/babel-config": "^1.1.0",
-    "@dword-design/base-config-node": "^1.4.2",
+    "@dword-design/base-config-node": "^1.5.3",
     "@dword-design/eslint-config": "^1.4.0",
     "@dword-design/node-sass-importer": "^1.0.0",
     "@dword-design/resolver-test": "^1.0.6",
@@ -26,12 +26,12 @@
     "favicons-webpack-plugin": "^1.0.2",
     "fs-extra": "^8.1.0",
     "get-package-name": "^1.1.0",
-    "linaria": "dword-design/linaria#fork",
     "node-sass": "^4.13.1",
     "nuxt": "^2.11.0",
     "nuxt-svg-loader": "^1.2.0",
     "safe-require": "^1.0.3",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "webpack-atomizer-loader": "^1.0.2"
   },
   "devDependencies": {
     "@dword-design/base": "^5.0.0",

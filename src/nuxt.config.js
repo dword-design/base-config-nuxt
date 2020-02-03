@@ -2,7 +2,6 @@ import eslintConfig from '@dword-design/eslint-config'
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
 import { existsSync } from 'fs-extra'
 import P from 'path'
-import babelConfig from '@dword-design/babel-config'
 import nodeSassImporter from '@dword-design/node-sass-importer'
 import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 import getPackageName from 'get-package-name'
@@ -19,6 +18,9 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: title },
+    ],
+    link: [
+      { rel: 'stylesheet', href: '/acss.css' },
     ],
   },
   build: {
@@ -47,9 +49,11 @@ export default {
       config.module.rules
         .find(({ test }) => test.test('.js'))
         .use
-        .push({
-          loader: require.resolve('linaria/loader'),
-          options: { babelOptions: babelConfig },
+        .unshift({
+          loader: require.resolve('webpack-atomizer-loader'),
+          query: {
+            configPath: require.resolve('./acss.config.js'),
+          },
         })
       if (existsSync(P.join('src', 'favicon.png'))) {
         config.plugins.push(new FaviconsWebpackPlugin(P.resolve('src', 'favicon.png')))
