@@ -1,5 +1,7 @@
 import serveStatic from 'serve-static'
 import getPackageName from 'get-package-name'
+import stringifyObject from 'stringify-object'
+import config from './config'
 
 export default function () {
   this.extendBuild(config => {
@@ -15,7 +17,23 @@ export default function () {
   })
   this.options.head.link.push({ rel: 'stylesheet', href: '/acss.css' })
   if (this.options.dev) {
-    this.options.head.script.push({ src: 'https://unpkg.com/acss-browser' })
+    this.options.serverMiddleware.push(
+      {
+        path: '/register-acss-browser-config.js',
+        handler: (req, res) => res.end(`window.acssConfig = ${stringifyObject(config.configs, { indent: '  ' })};`),
+      },
+      {
+        path: '/acss-browser',
+        handler: serveStatic(require.resolve('acss-browser/acss-browser.min.js')),
+      },
+    )
+    this.options.head.script.push(
+      { src: '/register-acss-browser-config.js' },
+      { src: '/acss-browser' },
+    )
   }
-  this.addServerMiddleware({ path: '/acss.css', handler: serveStatic('.acss/index.css') })
+  this.options.serverMiddleware.push({
+    path: '/acss.css',
+    handler: serveStatic('.acss/index.css'),
+  })
 }
