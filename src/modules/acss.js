@@ -1,6 +1,7 @@
 import serveStatic from 'serve-static'
 import getPackageName from 'get-package-name'
 import stringifyObject from 'stringify-object'
+import autoprefixer from 'autoprefixer'
 import config from './config'
 
 export default function () {
@@ -11,6 +12,8 @@ export default function () {
       .unshift({
         loader: getPackageName(require.resolve('webpack-atomizer-loader')),
         query: {
+          postcssPlugins: [autoprefixer],
+          minimize: true,
           configPath: require.resolve('./config.js'),
         },
       })
