@@ -1,8 +1,9 @@
 import P from 'path'
 import babelConfig from '@dword-design/babel-config'
-import * as babel from '@babel/core'
-import requireFromString from 'require-from-string'
-import { existsSync } from 'fs-extra'
+import safeRequire from 'safe-require'
+import babelRegister from '@babel/register'
+
+babelRegister(babelConfig)
 
 export default {
   title: 'Vue app',
@@ -14,10 +15,5 @@ export default {
     lg: '@media (min-width: 992px)',
     xl: '@media (min-width: 1200px)',
   },
-  ...existsSync(P.join('src', 'index.js'))
-    ? requireFromString(
-      babel.transformFileSync(P.join('src', 'index.js'), babelConfig).code,
-      P.join('src', 'index.js'),
-    )
-    : {},
+  ...safeRequire(P.join(process.cwd(), 'src', 'index.js')) ?? {},
 }
