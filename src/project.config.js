@@ -1,6 +1,6 @@
 import P from 'path'
 import babelConfig from '@dword-design/babel-config'
-import babel from '@babel/core'
+import * as babel from '@babel/core'
 import requireFromString from 'require-from-string'
 import { existsSync } from 'fs-extra'
 
