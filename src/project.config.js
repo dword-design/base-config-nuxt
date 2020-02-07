@@ -17,6 +17,7 @@ export default {
   ...existsSync(P.join('src', 'index.js'))
     ? requireFromString(
       babel.transformFileSync(P.join('src', 'index.js'), babelConfig).code,
+      P.join('src', 'index.js'),
     )
     : {},
 }
