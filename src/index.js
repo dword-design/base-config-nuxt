@@ -1,7 +1,16 @@
 import { spawn } from 'child-process-promise'
 import nodeConfig from '@dword-design/base-config-node'
+import depcheckConfig from '@dword-design/depcheck-config'
+import depcheckSassParser from '@dword-design/depcheck-sass-parser'
 
 export default {
+  depcheckConfig: {
+    ...depcheckConfig,
+    parsers: {
+      ...depcheckConfig.parsers,
+      '*.scss': depcheckSassParser,
+    },
+  },
   gitignore: ['.acss', '.nuxt'],
   test: nodeConfig.test,
   commands: {

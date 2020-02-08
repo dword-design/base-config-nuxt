@@ -936,7 +936,7 @@
     with-local-tmp-dir "^2.1.2"
     wsrun "^5.2.0"
 
-"@dword-design/depcheck-config@^1.1.0":
+"@dword-design/depcheck-config@^1.1.0", "@dword-design/depcheck-config@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@dword-design/depcheck-config/-/depcheck-config-1.1.3.tgz#9dd47fcc8ee646e315152989da3309ec0431cebe"
   integrity sha512-SeOwyagCAVW5o4pj3hjStFmHvEIpvmm4yjon/0Wpilm+NZM0hz8izq5jwYBJG1Aql/ND8JmMgL+RuqpjucBhlg==
@@ -945,6 +945,17 @@
     "@dword-design/depcheck-spawn-detector" "^1.0.0"
     "@dword-design/get-depcheck-babel-parser" "^1.0.0"
     depcheck dword-design/depcheck#fork
+
+"@dword-design/depcheck-sass-parser@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@dword-design/depcheck-sass-parser/-/depcheck-sass-parser-1.0.2.tgz#40bec11550dcd40ac3a0798134144492b7ad225f"
+  integrity sha512-FPCa2XoIbR7ynfViQ37Nj7SLSC6NEGvAN39A2UEjbBB6XCEP81s8IM72qMygsZnDFXsAwyPQmUMmPSrEW+uaLQ==
+  dependencies:
+    "@dword-design/functions" "^2.2.4"
+    "@dword-design/node-sass-importer" "^1.0.0"
+    get-package-name "^1.1.0"
+    node-sass "^4.13.0"
+    require-package-name "^2.0.1"
 
 "@dword-design/depcheck-spawn-detector@^1.0.0":
   version "1.0.3"
@@ -8845,7 +8856,7 @@ node-sass-tilde-importer@^1.0.2:
   dependencies:
     find-parent-dir "^0.3.0"
 
-node-sass@^4.13.1:
+node-sass@^4.13.0, node-sass@^4.13.1:
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.13.1.tgz#9db5689696bb2eec2c32b98bfea4c7a2e992d0a3"
   integrity sha512-TTWFx+ZhyDx1Biiez2nB0L3YrCZ/8oHagaDalbuBSlqXgUPsdkUSzJsVxeDO9LtPB49+Fh3WQl3slABo6AotNw==
