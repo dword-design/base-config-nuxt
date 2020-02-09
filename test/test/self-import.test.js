@@ -8,25 +8,38 @@ export default () => withLocalTmpDir(__dirname, async () => {
     inner: {
       'package.json': endent`
         {
-          "name": "bar",
           "baseConfig": "nuxt",
           "devDependencies": {
             "@dword-design/base-config-nuxt": "^1.0.0",
-            "expect": "^1.0.0"
+            "nuxt": "^1.0.0",
+            "stealthy-require": "^1.0.0"
           }
         }
 
       `,
-      'src/index.js': endent`
+      'src/pages/index.js': endent`
         import foo from 'foo'
 
-        export default foo
+        export default {
+          render: () => <div>{ foo }</div>,
+        }
       `,
       'test/valid.test.js': endent`
-        import bar from 'bar'
-        import expect from 'expect'
+        import { Nuxt, Builder } from 'nuxt'
+        import stealthyRequire from 'stealthy-require'
 
-        export default () => expect(bar).toEqual(1)
+        export default async () => {
+          const nuxtConfig = stealthyRequire(require.cache, () => require('../../../../../src/nuxt.config'))
+          const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
+          await new Builder(nuxt).build()
+          try {
+            await nuxt.server.listen()
+            const { html } = await nuxt.server.renderRoute('/')
+            expect(html).toMatch('<div>Hello world</div>')
+          } finally {
+            nuxt.close()
+          }
+        }
       `,
     },
     'package.json': endent`
@@ -36,10 +49,10 @@ export default () => withLocalTmpDir(__dirname, async () => {
       }
 
     `,
-    'src/index.js': 'export default 1',
+    'src/index.js': 'export default \'Hello world\'',
   })
 
   process.chdir('inner')
-  await spawn('base', ['build'])
+  await spawn('base', ['prepare'])
   await spawn('base', ['test'])
 })

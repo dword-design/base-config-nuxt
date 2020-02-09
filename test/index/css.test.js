@@ -1,9 +1,9 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
-import { spawn } from 'child-process-promise'
 import { endent } from '@dword-design/functions'
-import stealthyRequire from 'stealthy-require'
+import { readFile } from 'fs-extra'
 import { Nuxt, Builder } from 'nuxt'
+import stealthyRequire from 'stealthy-require'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
@@ -18,19 +18,19 @@ export default () => withLocalTmpDir(__dirname, async () => {
     `,
     'src/pages/index.js': endent`
       export default {
-        render: () => <div>Hello world</div>,
+        render: () => <div class="C(red)">Hello world</div>,
       }
     `,
   })
 
-  await spawn('base', ['prepublishOnly'])
   const nuxtConfig = stealthyRequire(require.cache, () => require('../../src/nuxt.config'))
   const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
   await new Builder(nuxt).build()
   try {
     await nuxt.server.listen()
     const { html } = await nuxt.server.renderRoute('/')
-    expect(html).toMatch('<div>Hello world</div>')
+    expect(html).toMatch('"/acss.css"')
+    expect(await readFile('dist/acss.css', 'utf8')).toEqual('.C\\(red\\){color:red}')
   } finally {
     nuxt.close()
   }

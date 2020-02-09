@@ -2,8 +2,11 @@ import P from 'path'
 import babelConfig from '@dword-design/babel-config'
 import safeRequire from 'safe-require'
 import babelRegister from '@babel/register'
+import nodeEnv from 'better-node-env'
 
-babelRegister(babelConfig)
+if (nodeEnv !== 'test') {
+  babelRegister(babelConfig)
+}
 
 export default {
   title: 'Vue app',

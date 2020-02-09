@@ -1,7 +1,8 @@
-import projectConfig from '../project.config'
+import projectConfig from '../../project.config'
+import P from 'path'
 
 export default {
-  cssDest: '.acss/index.css',
+  cssDest: P.join('dist', 'acss.css'),
   configs: {
     classNames: [],
     breakPoints: projectConfig.breakpoints,

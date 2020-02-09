@@ -1,9 +1,8 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
-import { spawn } from 'child-process-promise'
 import { endent } from '@dword-design/functions'
-import stealthyRequire from 'stealthy-require'
 import { Nuxt, Builder } from 'nuxt'
+import stealthyRequire from 'stealthy-require'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
@@ -16,22 +15,36 @@ export default () => withLocalTmpDir(__dirname, async () => {
       }
 
     `,
-    'src/pages/index.js': endent`
-      export default {
-        render: () => <div>Hello world</div>,
-      }
-    `,
+    src: {
+      'assets/style.scss': endent`
+        body {
+          background: red;
+        }
+      `,
+      'index.js': endent`
+        export default {
+          css: [
+            '~/assets/style.scss',
+          ],
+        }
+      `,
+      'pages/index.js': endent`
+        export default {
+          render: () => <div>Hello world</div>,
+        }
+      `,
+    },
   })
 
-  await spawn('base', ['prepublishOnly'])
   const nuxtConfig = stealthyRequire(require.cache, () => require('../../src/nuxt.config'))
   const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
   await new Builder(nuxt).build()
   try {
     await nuxt.server.listen()
     const { html } = await nuxt.server.renderRoute('/')
+    expect(html).toMatch('body{background:red}')
     expect(html).toMatch('<div>Hello world</div>')
   } finally {
-    nuxt.close()
+    await nuxt.close()
   }
 })

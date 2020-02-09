@@ -6,9 +6,11 @@ import nodeSassImporter from '@dword-design/node-sass-importer'
 import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 import getPackageName from 'get-package-name'
 import projectConfig from './project.config'
+import acssModule from './modules/acss'
 
 export default {
   srcDir: 'src',
+  buildDir: 'dist',
   head: {
     title: projectConfig.title,
     meta: [
@@ -55,7 +57,7 @@ export default {
   ...projectConfig,
   modules: [
     getPackageName(require.resolve('nuxt-svg-loader')),
-    require.resolve('./modules/acss'),
+    acssModule,
     ...projectConfig.modules,
   ],
 }

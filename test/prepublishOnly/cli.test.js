@@ -1,7 +1,8 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
-import { spawn } from 'child-process-promise'
 import { endent } from '@dword-design/functions'
+import { chmod } from 'fs-extra'
+import { spawn } from 'child-process-promise'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
@@ -14,18 +15,15 @@ export default () => withLocalTmpDir(__dirname, async () => {
       }
 
     `,
-    'src/pages/index.js': endent`
-      export default {
-        render: () => <div>Hello world</div>,
-      };
+    'src/cli.js': endent`
+      #!/usr/bin/env node
+
+      console.log('foo')
     `,
   })
-  await spawn('base', ['prepare'])
-  let stdout
-  try {
-    await spawn('base', ['test'], { capture: ['stdout'] })
-  } catch (error) {
-    stdout = error.stdout
-  }
-  expect(stdout).toMatch('error  Extra semicolon  semi')
+
+  await spawn('base', ['prepublishOnly'])
+  await chmod('dist/cli.js', '755')
+  const { stdout } = await spawn('./dist/cli.js', [], { capture: ['stdout'] })
+  expect(stdout).toEqual('foo\n')
 })

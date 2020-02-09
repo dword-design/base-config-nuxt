@@ -3,6 +3,7 @@ import getPackageName from 'get-package-name'
 import stringifyObject from 'stringify-object'
 import autoprefixer from 'autoprefixer'
 import config from './config'
+import P from 'path'
 
 export default function () {
   this.extendBuild(config => {
@@ -37,6 +38,6 @@ export default function () {
   }
   this.options.serverMiddleware.push({
     path: '/acss.css',
-    handler: serveStatic('.acss/index.css'),
+    handler: serveStatic(P.join('dist', 'acss.css')),
   })
 }

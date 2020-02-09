@@ -1,9 +1,8 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
-import { spawn } from 'child-process-promise'
 import { endent } from '@dword-design/functions'
-import stealthyRequire from 'stealthy-require'
 import { Nuxt, Builder } from 'nuxt'
+import stealthyRequire from 'stealthy-require'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
@@ -23,7 +22,6 @@ export default () => withLocalTmpDir(__dirname, async () => {
     `,
   })
 
-  await spawn('base', ['prepublishOnly'])
   const nuxtConfig = stealthyRequire(require.cache, () => require('../../src/nuxt.config'))
   const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
   await new Builder(nuxt).build()
