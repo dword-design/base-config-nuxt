@@ -38,6 +38,6 @@ export default function () {
   }
   this.options.serverMiddleware.push({
     path: '/acss.css',
-    handler: serveStatic(P.join('dist', 'acss.css')),
+    handler: serveStatic(P.join('dist', 'nuxt', 'acss.css')),
   })
 }

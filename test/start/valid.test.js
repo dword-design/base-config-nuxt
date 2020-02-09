@@ -24,6 +24,7 @@ export default () => withLocalTmpDir(__dirname, async () => {
     `,
   })
 
+  await spawn('base', ['prepare'])
   await spawn('base', ['prepublishOnly'])
   const childProcess = spawn('base', ['start'], { stdio: 'ignore' })
     .catch(error => {

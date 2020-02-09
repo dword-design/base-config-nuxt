@@ -23,14 +23,14 @@ export default () => withLocalTmpDir(__dirname, async () => {
     `,
   })
 
-  const nuxtConfig = stealthyRequire(require.cache, () => require('../../src/nuxt.config'))
+  const { nuxtConfig } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
   const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
   await new Builder(nuxt).build()
   try {
     await nuxt.server.listen()
     const { html } = await nuxt.server.renderRoute('/')
     expect(html).toMatch('"/acss.css"')
-    expect(await readFile('dist/acss.css', 'utf8')).toEqual('.C\\(red\\){color:red}')
+    expect(await readFile('dist/nuxt/acss.css', 'utf8')).toEqual('.C\\(red\\){color:red}')
   } finally {
     nuxt.close()
   }

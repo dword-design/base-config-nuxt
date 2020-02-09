@@ -3,6 +3,7 @@ import outputFiles from 'output-files'
 import { endent } from '@dword-design/functions'
 import { Nuxt, Builder } from 'nuxt'
 import stealthyRequire from 'stealthy-require'
+import P from 'path'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
@@ -22,7 +23,8 @@ export default () => withLocalTmpDir(__dirname, async () => {
     `,
   })
 
-  const nuxtConfig = stealthyRequire(require.cache, () => require('../../src/nuxt.config'))
+  const { nuxtConfig, nuxtConfigFilename } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
+  expect(nuxtConfigFilename).toEqual(P.resolve(__dirname, '..', '..', 'src', 'nuxt.config.js'))
   const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
   await new Builder(nuxt).build()
   try {

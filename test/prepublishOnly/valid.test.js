@@ -23,6 +23,7 @@ export default () => withLocalTmpDir(__dirname, async () => {
     `,
   })
 
+  await spawn('base', ['prepare'])
   await spawn('base', ['prepublishOnly'])
   const nuxtConfig = stealthyRequire(require.cache, () => require('../../src/nuxt.config'))
   const nuxt = new Nuxt({ ...nuxtConfig, dev: false })

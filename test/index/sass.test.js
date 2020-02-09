@@ -36,7 +36,7 @@ export default () => withLocalTmpDir(__dirname, async () => {
     },
   })
 
-  const nuxtConfig = stealthyRequire(require.cache, () => require('../../src/nuxt.config'))
+  const { nuxtConfig } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
   const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
   await new Builder(nuxt).build()
   try {
