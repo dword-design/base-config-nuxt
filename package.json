@@ -16,7 +16,6 @@
     "test": "base test"
   },
   "dependencies": {
-    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/register": "^7.8.3",
     "@dword-design/babel-config": "^1.1.0",

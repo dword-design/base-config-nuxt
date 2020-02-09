@@ -10,7 +10,7 @@ import acssModule from './modules/acss'
 
 export default {
   srcDir: 'src',
-  buildDir: 'dist',
+  buildDir: P.join('dist', 'nuxt'),
   head: {
     title: projectConfig.title,
     meta: [
@@ -32,7 +32,9 @@ export default {
       },
     },
     extend: (config, { isDev, isClient }) => {
+
       config.resolve.plugins = [new ResolverTestWebpackPlugin()]
+      
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -42,6 +44,7 @@ export default {
           options: eslintConfig,
         })
       }
+
       if (existsSync(P.join('src', 'favicon.png'))) {
         config.plugins.push(new FaviconsWebpackPlugin(P.resolve('src', 'favicon.png')))
       }

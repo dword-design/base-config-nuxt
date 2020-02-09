@@ -15,15 +15,18 @@ export default () => withLocalTmpDir(__dirname, async () => {
       }
 
     `,
-    'src/cli.js': endent`
-      #!/usr/bin/env node
+    src: {
+      'cli.js': endent`
+        import foo from './foo'
 
-      console.log('foo')
-    `,
+        console.log(foo)
+      `,
+      'foo.js': 'export default \'foo\'',
+    },
   })
 
   await spawn('base', ['prepublishOnly'])
   await chmod('dist/cli.js', '755')
-  const { stdout } = await spawn('./dist/cli.js', [], { capture: ['stdout'] })
+  const { stdout } = await spawn('node', ['./dist/cli.js'], { capture: ['stdout'] })
   expect(stdout).toEqual('foo\n')
 })
