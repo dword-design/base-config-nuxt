@@ -19,5 +19,5 @@ export default {
     lg: '@media (min-width: 992px)',
     xl: '@media (min-width: 1200px)',
   },
-  ...safeRequire(P.join(rootDir, nodeEnv === 'test' ? 'src' : 'dist', 'index.js')) ?? {},
+  ...safeRequire(P.join(rootDir, 'src', 'index.js')) ?? {},
 }

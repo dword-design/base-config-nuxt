@@ -1,10 +1,11 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 import { spawn } from 'child-process-promise'
-import { endent } from '@dword-design/functions'
+import { endent, includes } from '@dword-design/functions'
 import portReady from 'port-ready'
 import puppeteer from 'puppeteer'
 import kill from 'tree-kill'
+import waitFor from 'p-wait-for'
 
 export default () => withLocalTmpDir(__dirname, async () => {
   await outputFiles({
@@ -25,8 +26,7 @@ export default () => withLocalTmpDir(__dirname, async () => {
   })
 
   await spawn('base', ['prepare'])
-  await spawn('base', ['prepublishOnly'])
-  const childProcess = spawn('base', ['start'])
+  const childProcess = spawn('base', ['dev'])
     .catch(error => {
       if (error.code !== null) {
         throw error
@@ -37,7 +37,10 @@ export default () => withLocalTmpDir(__dirname, async () => {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto('http://localhost:3000')
-  expect(await page.content()).toMatch('<div>Hello world</div>')
+  await waitFor(
+    async () => page.content() |> await |> includes('<div>Hello world</div>'),
+    { interval: 300 },
+  )
   await browser.close()
   kill(childProcess.pid)
 })

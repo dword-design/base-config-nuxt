@@ -42,7 +42,7 @@ export default {
           enforce: 'pre',
           test: /\.js$/,
           loader: getPackageName(require.resolve('eslint-loader')),
-          exclude: /node_modules/,
+          include: P.join(rootDir, 'src'),
           options: eslintConfig,
         })
       }

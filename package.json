@@ -46,6 +46,7 @@
     "@dword-design/base": "^5.0.0",
     "@dword-design/functions": "^2.2.4",
     "output-files": "^1.1.10",
+    "p-wait-for": "^3.1.0",
     "port-ready": "^0.1.0",
     "puppeteer": "^2.1.1",
     "stealthy-require": "^1.1.1",
