@@ -24,7 +24,7 @@ export default {
       ['build', '--analyze', '--config-file', require.resolve('./nuxt.config')],
       { stdio: 'inherit' },
     ),
-    start: ({ log = true, rootDir }) => spawn(
+    start: ({ log = true, rootDir } = {}) => spawn(
       'nuxt',
       ['start', '--config-file', require.resolve('./nuxt.config')],
       { stdio: log ? 'inherit' : 'ignore', env: { ...process.env, NUXT_ROOT_DIR: rootDir } },
