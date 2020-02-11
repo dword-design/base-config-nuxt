@@ -20,7 +20,6 @@ export default function () {
         },
       })
   })
-  this.options.head.link.push({ rel: 'stylesheet', href: '/acss.css' })
   if (this.options.dev) {
     this.options.serverMiddleware.push(
       {
@@ -36,9 +35,11 @@ export default function () {
       { src: '/register-acss-browser-config.js' },
       { src: '/acss-browser' },
     )
+  } else {
+    this.options.serverMiddleware.push({
+      path: '/acss.css',
+      handler: serveStatic(P.join(rootDir, 'dist', 'nuxt', 'acss.css')),
+    })
+    this.options.head.link.push({ rel: 'stylesheet', href: '/acss.css' })
   }
-  this.options.serverMiddleware.push({
-    path: '/acss.css',
-    handler: serveStatic(P.join(rootDir, 'dist', 'nuxt', 'acss.css')),
-  })
 }
