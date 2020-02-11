@@ -3,6 +3,7 @@ import babelConfig from '@dword-design/babel-config'
 import safeRequire from 'safe-require'
 import babelRegister from '@babel/register'
 import nodeEnv from 'better-node-env'
+import rootDir from './root-dir'
 
 if (nodeEnv !== 'test') {
   babelRegister(babelConfig)
@@ -18,5 +19,5 @@ export default {
     lg: '@media (min-width: 992px)',
     xl: '@media (min-width: 1200px)',
   },
-  ...safeRequire(P.join(process.cwd(), 'src', 'index.js')) ?? {},
+  ...safeRequire(P.join(rootDir, nodeEnv === 'test' ? 'src' : 'dist', 'index.js')) ?? {},
 }

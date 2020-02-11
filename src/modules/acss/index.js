@@ -4,6 +4,7 @@ import stringifyObject from 'stringify-object'
 import autoprefixer from 'autoprefixer'
 import config from './config'
 import P from 'path'
+import rootDir from '../../root-dir'
 
 export default function () {
   this.extendBuild(config => {
@@ -38,6 +39,6 @@ export default function () {
   }
   this.options.serverMiddleware.push({
     path: '/acss.css',
-    handler: serveStatic(P.join('dist', 'nuxt', 'acss.css')),
+    handler: serveStatic(P.join(rootDir, 'dist', 'nuxt', 'acss.css')),
   })
 }

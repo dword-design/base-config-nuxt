@@ -7,8 +7,10 @@ import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 import getPackageName from 'get-package-name'
 import projectConfig from './project.config'
 import acssModule from './modules/acss'
+import rootDir from './root-dir'
 
 export default {
+  rootDir,
   srcDir: 'src',
   buildDir: P.join('dist', 'nuxt'),
   head: {
@@ -45,8 +47,8 @@ export default {
         })
       }
 
-      if (existsSync(P.join('src', 'favicon.png'))) {
-        config.plugins.push(new FaviconsWebpackPlugin(P.resolve('src', 'favicon.png')))
+      if (existsSync(P.join(rootDir, 'src', 'favicon.png'))) {
+        config.plugins.push(new FaviconsWebpackPlugin(P.resolve(rootDir, 'src', 'favicon.png')))
       }
     },
   },
