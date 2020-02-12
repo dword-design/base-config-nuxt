@@ -6,8 +6,10 @@ import nodeSassImporter from '@dword-design/node-sass-importer'
 import ResolverTestWebpackPlugin from './resolver-test-webpack-plugin'
 import getPackageName from 'get-package-name'
 import projectConfig from './project.config'
-import acssModule from './modules/acss'
+import atomizerModule from '@dword-design/nuxt-atomizer'
 import rootDir from './root-dir'
+import verticalRhythmAtomizerPlugin from '@dword-design/atomizer-plugin-vertical-rhythm'
+import autoprefixerAtomizerPlugin from '@dword-design/atomizer-plugin-autoprefixer'
 
 export default {
   rootDir,
@@ -59,10 +61,19 @@ export default {
       ],
     },
   },
+  atomizer: {
+    classNames: [],
+    breakPoints: projectConfig.breakpoints,
+    custom: projectConfig.cssVariables,
+    plugins: [
+      verticalRhythmAtomizerPlugin(projectConfig.cssVariables),
+      autoprefixerAtomizerPlugin,
+    ],
+  },
   ...projectConfig,
   modules: [
     getPackageName(require.resolve('nuxt-svg-loader')),
-    acssModule,
+    atomizerModule,
     ...projectConfig.modules,
   ],
 }
