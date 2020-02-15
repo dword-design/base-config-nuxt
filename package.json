@@ -37,7 +37,7 @@
     "node-sass": "^4.13.1",
     "nuxt": "^2.11.0",
     "nuxt-svg-loader": "^1.2.0",
-    "safe-require": "^1.0.3",
+    "safe-require": "dword-design/node-safe-require#fork",
     "sass-loader": "^8.0.0"
   },
   "devDependencies": {
