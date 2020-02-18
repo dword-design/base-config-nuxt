@@ -38,7 +38,7 @@ export default {
     extend: (config, { isDev, isClient }) => {
 
       config.resolve.plugins = [new ResolverTestWebpackPlugin()]
-      
+
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
