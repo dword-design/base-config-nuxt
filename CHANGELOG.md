@@ -1,3 +1,12 @@
+## [1.8.10](https://github.com/dword-design/base-config-nuxt/compare/v1.8.9...v1.8.10) (2020-02-22)
+
+
+### Bug Fixes
+
+* fix head manipulation ([4353201](https://github.com/dword-design/base-config-nuxt/commit/4353201021ca6907878acdd59ac8bc3e33526eae))
+* replace tree-kill ([466eb47](https://github.com/dword-design/base-config-nuxt/commit/466eb4722894013058bcd683c3004ecc3aa717c5))
+* upgrades ([cd67178](https://github.com/dword-design/base-config-nuxt/commit/cd67178b6d2f360743dd5263a41e64a6ad207c91))
+
 ## [1.8.9](https://github.com/dword-design/base-config-nuxt/compare/v1.8.8...v1.8.9) (2020-02-22)
 
 
