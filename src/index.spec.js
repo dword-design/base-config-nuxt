@@ -41,7 +41,7 @@ export default {
       await nuxt.server.listen()
       const { html } = await nuxt.server.renderRoute('/')
       expect(html).toMatch('"/acss.css"')
-      expect(await readFile('dist/nuxt/acss.css', 'utf8')).toEqual('.C\\(red\\){color:red}.Fz\\(1ms\\){font-size:1.61803398875rem}.P\\(2vr\\){padding:2rem}')
+      expect(await readFile('dist/nuxt/acss.css', 'utf8')).toEqual('.C\\(red\\){color:red}.Fz\\(1ms\\){font-size:1.61803398875rem}.P\\(2vr\\){padding:1.5rem}')
     } finally {
       nuxt.close()
     }
@@ -164,7 +164,7 @@ export default {
     })
 
     const { nuxtConfig, nuxtConfigFilename } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
-    expect(nuxtConfigFilename).toEqual(P.resolve(__dirname, '..', '..', 'src', 'nuxt.config.js'))
+    expect(nuxtConfigFilename).toEqual(P.resolve(__dirname, '..', 'src', 'nuxt.config.js'))
     const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
     await new Builder(nuxt).build()
     try {

@@ -56,7 +56,7 @@ export default {
           import stealthyRequire from 'stealthy-require'
 
           export default async () => {
-            const nuxtConfig = stealthyRequire(require.cache, () => require('../../../../../src/nuxt.config'))
+            const nuxtConfig = stealthyRequire(require.cache, () => require('../../../../src/nuxt.config'))
             const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
             await new Builder(nuxt).build()
             try {

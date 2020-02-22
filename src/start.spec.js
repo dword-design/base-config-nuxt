@@ -1,12 +1,12 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 import execa from 'execa'
-import { endent } from '@dword-design/functions'
-import stealthyRequire from 'stealthy-require'
+import { endent, property } from '@dword-design/functions'
 import portReady from 'port-ready'
-import puppeteer from '@dword-design/puppeteer'
+import axios from 'axios'
 import kill from 'tree-kill'
 import { mkdir } from 'fs-extra'
+import start from './start'
 
 export default {
   subdir: () => withLocalTmpDir(async () => {
@@ -31,23 +31,12 @@ export default {
     await execa.command('base prepublishOnly')
     await mkdir('foo')
     process.chdir('foo')
-    const baseConfigNuxt = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
-    const childProcess = baseConfigNuxt.commands.start({ rootDir: '..' })
-      .catch(error => {
-        if (error.code !== null) {
-          throw error
-        }
-      })
-      .childProcess
+    const childProcess = start({ rootDir: '..' })
     await portReady(3000)
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.goto('http://localhost:3000')
-    expect(page.content() |> await).toMatch('<div>Hello world</div>'),
-    await browser.close()
+    expect(axios.get('http://localhost:3000') |> await |> property('data')).toMatch('<div>Hello world</div>'),
     kill(childProcess.pid)
   }),
-  valid: () => withLocalTmpDir(__dirname, async () => {
+  valid: () => withLocalTmpDir(async () => {
     await outputFiles({
       'package.json': endent`
         {
@@ -67,13 +56,9 @@ export default {
 
     await execa.command('base prepare')
     await execa.command('base prepublishOnly')
-    const childProcess = execa.command('base start')
+    const childProcess = start()
     await portReady(3000)
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.goto('http://localhost:3000')
-    expect(await page.content()).toMatch('<div>Hello world</div>')
-    await browser.close()
+    expect(axios.get('http://localhost:3000') |> await |> property('data')).toMatch('<div>Hello world</div>')
     kill(childProcess.pid)
   }),
 }

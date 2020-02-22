@@ -3,6 +3,7 @@ import outputFiles from 'output-files'
 import { endent } from '@dword-design/functions'
 import { chmod } from 'fs-extra'
 import execa from 'execa'
+import P from 'path'
 
 export default {
   cli: () => withLocalTmpDir(async () => {
@@ -18,6 +19,8 @@ export default {
       `,
       src: {
         'cli.js': endent`
+          #!/usr/bin/env node
+
           import foo from './foo'
 
           console.log(foo)
@@ -28,7 +31,7 @@ export default {
 
     await execa.command('base prepare')
     await execa.command('base prepublishOnly')
-    await chmod('dist/cli.js', '755')
+    await chmod(P.join('dist', 'cli.js'), '755')
     const { all } = await execa.command('./dist/cli.js', { all: true })
     expect(all).toEqual('foo')
   }),
