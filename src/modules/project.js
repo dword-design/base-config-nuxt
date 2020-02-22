@@ -14,6 +14,8 @@ export default function () {
   const projectConfig = {
     title: 'Vue app',
     modules: [],
+    plugins: [],
+    css: [],
     ...safeRequire(P.join(this.options.srcDir, 'index.js')) ?? {},
   }
 
@@ -24,7 +26,9 @@ export default function () {
     { hid: 'description', name: 'description', content: projectConfig.title },
   )
 
+  Object.assign(this.options, projectConfig |> omit(['modules', 'plugins', 'css', 'title']))
+
   projectConfig.modules.forEach(module => this.addModule(module))
-  
-  Object.assign(this.options, projectConfig |> omit(['modules', 'title']))
+  projectConfig.plugins.forEach(plugin => this.addPlugin(plugin))
+  projectConfig.css.forEach(css => this.options.css.push(css))
 }
