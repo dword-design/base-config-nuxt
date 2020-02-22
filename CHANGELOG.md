@@ -1,3 +1,10 @@
+## [1.8.11](https://github.com/dword-design/base-config-nuxt/compare/v1.8.10...v1.8.11) (2020-02-22)
+
+
+### Bug Fixes
+
+* fix project config merging ([068a61b](https://github.com/dword-design/base-config-nuxt/commit/068a61b98afac2321d940a193f930de962900d0f))
+
 ## [1.8.10](https://github.com/dword-design/base-config-nuxt/compare/v1.8.9...v1.8.10) (2020-02-22)
 
 
