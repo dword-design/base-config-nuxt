@@ -1,51 +1,11 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 import { endent } from '@dword-design/functions'
-import { readFile } from 'fs-extra'
 import { Nuxt, Builder } from 'nuxt'
 import stealthyRequire from 'stealthy-require'
 import P from 'path'
 
 export default {
-  css: () => withLocalTmpDir(async () => {
-    await outputFiles({
-      'package.json': endent`
-        {
-          "baseConfig": "nuxt",
-          "devDependencies": {
-            "@dword-design/base-config-nuxt": "^1.0.0"
-          }
-        }
-
-      `,
-      src: {
-        'index.js': endent`
-          export default {
-            cssVariables: {
-              grid: 16,
-            },
-          }
-        `,
-        'pages/index.js': endent`
-          export default {
-            render: () => <div class="P(2vr) Fz(1ms) C(red)">Hello world</div>,
-          }
-        `,
-      },
-    })
-
-    const { nuxtConfig } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
-    const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
-    await new Builder(nuxt).build()
-    try {
-      await nuxt.server.listen()
-      const { html } = await nuxt.server.renderRoute('/')
-      expect(html).toMatch('"/acss.css"')
-      expect(await readFile('dist/nuxt/acss.css', 'utf8')).toEqual('.C\\(red\\){color:red}.Fz\\(1ms\\){font-size:1.61803398875rem}.P\\(2vr\\){padding:1.5rem}')
-    } finally {
-      nuxt.close()
-    }
-  }),
   'sass imports': () => withLocalTmpDir(async () => {
     await outputFiles({
       'node_modules/sass-foo': {
@@ -89,7 +49,7 @@ export default {
       },
     })
 
-    const { nuxtConfig } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
+    const { nuxtConfig } = stealthyRequire(require.cache, () => require('.'))
     const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
     await new Builder(nuxt).build()
     try {
@@ -133,7 +93,7 @@ export default {
       },
     })
 
-    const { nuxtConfig } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
+    const { nuxtConfig } = stealthyRequire(require.cache, () => require('.'))
     const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
     await new Builder(nuxt).build()
     try {
@@ -163,7 +123,7 @@ export default {
       `,
     })
 
-    const { nuxtConfig, nuxtConfigFilename } = stealthyRequire(require.cache, () => require('@dword-design/base-config-nuxt'))
+    const { nuxtConfig, nuxtConfigFilename } = stealthyRequire(require.cache, () => require('.'))
     expect(nuxtConfigFilename).toEqual(P.resolve(__dirname, '..', 'src', 'nuxt.config.js'))
     const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
     await new Builder(nuxt).build()
