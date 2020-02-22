@@ -17,14 +17,12 @@ export default function () {
     ...safeRequire(P.join(this.options.srcDir, 'index.js')) ?? {},
   }
 
-  this.options.head = {
-    title: projectConfig.title,
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: projectConfig.title },
-    ],
-  }
+  this.options.head.title = projectConfig.title
+  this.options.head.meta.push(
+    { charset: 'utf-8' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { hid: 'description', name: 'description', content: projectConfig.title },
+  )
 
   projectConfig.modules.forEach(module => this.addModule(module))
   
