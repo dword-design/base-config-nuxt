@@ -3,7 +3,7 @@ import outputFiles from 'output-files'
 import execa from 'execa'
 import { endent, includes, property } from '@dword-design/functions'
 import portReady from 'port-ready'
-import kill from 'tree-kill'
+import kill from 'tree-kill-promise'
 import waitFor from 'p-wait-for'
 import axios from 'axios'
 
@@ -36,6 +36,6 @@ export default {
         |> includes('<div>Hello world</div>'),
       { interval: 300 },
     )
-    kill(childProcess.pid)
+    await kill(childProcess.pid)
   }),
 }

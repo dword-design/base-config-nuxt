@@ -4,7 +4,7 @@ import execa from 'execa'
 import { endent, property } from '@dword-design/functions'
 import portReady from 'port-ready'
 import axios from 'axios'
-import kill from 'tree-kill'
+import kill from 'tree-kill-promise'
 import { mkdir } from 'fs-extra'
 import start from './start'
 
@@ -34,7 +34,7 @@ export default {
     const childProcess = start({ rootDir: '..' })
     await portReady(3000)
     expect(axios.get('http://localhost:3000') |> await |> property('data')).toMatch('<div>Hello world</div>'),
-    kill(childProcess.pid)
+    await kill(childProcess.pid)
   }),
   valid: () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -59,6 +59,6 @@ export default {
     const childProcess = start()
     await portReady(3000)
     expect(axios.get('http://localhost:3000') |> await |> property('data')).toMatch('<div>Hello world</div>')
-    kill(childProcess.pid)
+    await kill(childProcess.pid)
   }),
 }
