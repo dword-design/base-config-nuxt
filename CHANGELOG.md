@@ -1,3 +1,10 @@
+## [1.8.9](https://github.com/dword-design/base-config-nuxt/compare/v1.8.8...v1.8.9) (2020-02-22)
+
+
+### Bug Fixes
+
+* refactoring and outsource atomizer ([7dbedde](https://github.com/dword-design/base-config-nuxt/commit/7dbeddede2923ccbc84e302ca266b2a98d9602cc))
+
 ## [1.8.8](https://github.com/dword-design/base-config-nuxt/compare/v1.8.7...v1.8.8) (2020-02-22)
 
 
