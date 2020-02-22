@@ -1,3 +1,10 @@
+## [1.8.8](https://github.com/dword-design/base-config-nuxt/compare/v1.8.7...v1.8.8) (2020-02-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency favicons-webpack-plugin to v3 ([4b8f9f4](https://github.com/dword-design/base-config-nuxt/commit/4b8f9f497f2365810a0ef980f356d3158eaad76a))
+
 ## [1.8.7](https://github.com/dword-design/base-config-nuxt/compare/v1.8.6...v1.8.7) (2020-02-22)
 
 
