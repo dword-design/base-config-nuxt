@@ -17,7 +17,7 @@ export default function () {
     plugins: [],
     css: [],
     serverMiddleware: [],
-    ...safeRequire(P.join(this.options.srcDir, 'index.js')) ?? {},
+    ...safeRequire(P.join(this.options.rootDir, this.options.dev ? 'src': 'dist', 'index.js')) ?? {},
   }
 
   this.options.head.title = projectConfig.title
