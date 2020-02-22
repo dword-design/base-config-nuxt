@@ -3,7 +3,7 @@ import babelRegister from '@babel/register'
 import nodeEnv from 'better-node-env'
 import safeRequire from 'safe-require'
 import P from 'path'
-import { omit } from '@dword-design/functions'
+import { omit, keys } from '@dword-design/functions'
 
 export default function () {
 
@@ -16,6 +16,7 @@ export default function () {
     modules: [],
     plugins: [],
     css: [],
+    serverMiddleware: [],
     ...safeRequire(P.join(this.options.srcDir, 'index.js')) ?? {},
   }
 
@@ -26,9 +27,10 @@ export default function () {
     { hid: 'description', name: 'description', content: projectConfig.title },
   )
 
-  Object.assign(this.options, projectConfig |> omit(['modules', 'plugins', 'css', 'title']))
+  Object.assign(this.options, projectConfig |> omit(this.options |> keys))
 
   projectConfig.modules.forEach(module => this.addModule(module))
   projectConfig.plugins.forEach(plugin => this.addPlugin(plugin))
-  projectConfig.css.forEach(css => this.options.css.push(css))
+  this.options.css.push(...projectConfig.css)
+  this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
 }
