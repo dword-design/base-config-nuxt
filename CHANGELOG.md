@@ -1,3 +1,10 @@
+## [1.8.13](https://github.com/dword-design/base-config-nuxt/compare/v1.8.12...v1.8.13) (2020-02-23)
+
+
+### Bug Fixes
+
+* undo last change and fix tests ([2073a3d](https://github.com/dword-design/base-config-nuxt/commit/2073a3d32978eb71809859f72a72a047151b2c93))
+
 ## [1.8.12](https://github.com/dword-design/base-config-nuxt/compare/v1.8.11...v1.8.12) (2020-02-23)
 
 
