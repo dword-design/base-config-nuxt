@@ -1,3 +1,12 @@
+## [1.8.12](https://github.com/dword-design/base-config-nuxt/compare/v1.8.11...v1.8.12) (2020-02-23)
+
+
+### Bug Fixes
+
+* fix ([fcd9927](https://github.com/dword-design/base-config-nuxt/commit/fcd992754678ade717f10685e0e64408e52721a3))
+* fix project config include in prod ([b37790e](https://github.com/dword-design/base-config-nuxt/commit/b37790ec83808f9e4c41fdb89becbeb8cdda2328))
+* fixes ([d311469](https://github.com/dword-design/base-config-nuxt/commit/d311469acc1b438899c8b4c359e4343507ccd530))
+
 ## [1.8.11](https://github.com/dword-design/base-config-nuxt/compare/v1.8.10...v1.8.11) (2020-02-22)
 
 
