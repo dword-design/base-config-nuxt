@@ -6,7 +6,7 @@ import stealthyRequire from 'stealthy-require'
 import P from 'path'
 
 export default {
-  'sass imports': () => withLocalTmpDir(async () => {
+  'sass import': () => withLocalTmpDir(async () => {
     await outputFiles({
       'node_modules/sass-foo': {
         'package.json': endent`
