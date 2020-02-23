@@ -37,9 +37,11 @@ export default {
           {
             "baseConfig": "nuxt",
             "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0",
-              "nuxt": "^1.0.0",
-              "stealthy-require": "^1.0.0"
+              "@dword-design/functions": "^1.0.0",
+              "axios": "^1.0.0",
+              "execa": "^1.0.0",
+              "port-ready": "^1.0.0",
+              "tree-kill-promise": "^1.0.0"
             }
           }
 
@@ -52,20 +54,20 @@ export default {
           }
         `,
         'test/valid.test.js': endent`
-          import { Nuxt, Builder } from 'nuxt'
-          import stealthyRequire from 'stealthy-require'
+          import axios from 'axios'
+          import execa from 'execa'
+          import portReady from 'port-ready'
+          import { property } from '@dword-design/functions'
+          import kill from 'tree-kill-promise'
 
           export default async () => {
-            const nuxtConfig = stealthyRequire(require.cache, () => require('../../../../src/nuxt.config'))
-            const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
-            await new Builder(nuxt).build()
-            try {
-              await nuxt.server.listen()
-              const { html } = await nuxt.server.renderRoute('/')
-              expect(html).toMatch('<div>Hello world</div>')
-            } finally {
-              nuxt.close()
-            }
+            await execa.command('base prepare')
+            await execa.command('base prepublishOnly')
+            const childProcess = execa.command('base start')
+            await portReady(3000)
+            const html = axios.get('http://localhost:3000') |> await |> property('data')
+            expect(html).toMatch('<div>Hello world</div>')
+            await kill(childProcess)
           }
         `,
       },

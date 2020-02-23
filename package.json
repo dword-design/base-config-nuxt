@@ -45,7 +45,6 @@
     "output-files": "^1.1.10",
     "p-wait-for": "^3.1.0",
     "port-ready": "^0.1.0",
-    "stealthy-require": "^1.1.1",
     "tree-kill-promise": "^1.0.0",
     "with-local-tmp-dir": "^2.2.4"
   },
