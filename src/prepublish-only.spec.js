@@ -1,15 +1,23 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
-import { endent, property } from '@dword-design/functions'
+import { endent } from '@dword-design/functions'
 import P from 'path'
 import execa from 'execa'
-import axios from 'axios'
 import kill from 'tree-kill-promise'
 import { mkdir, chmod } from 'fs-extra'
 import portReady from 'port-ready'
+import puppeteer from '@dword-design/puppeteer'
 import start from './start'
 
+let browser
+let page
+
 export default {
+  before: async () => {
+    browser = await puppeteer.launch()
+    page = await browser.newPage()
+  },
+  after: () => browser.close(),
   valid: () => withLocalTmpDir(async () => {
     await outputFiles({
       'package.json': endent`
@@ -31,8 +39,8 @@ export default {
     await execa.command('base prepublishOnly')
     const childProcess = start()
     await portReady(3000)
-    const html = axios.get('http://localhost:3000') |> await |> property('data')
-    expect(html).toMatch('<div>Hello world</div>')
+    await page.goto('http://localhost:3000')
+    expect(await page.$eval('div', div => div.textContent)).toEqual('Hello world')
     await kill(childProcess.pid)
   }),
   'sass import': () => withLocalTmpDir(async () => {
@@ -81,9 +89,9 @@ export default {
     await execa.command('base prepublishOnly')
     const childProcess = start()
     await portReady(3000)
-    const html = axios.get('http://localhost:3000') |> await |> property('data')
-    expect(html).toMatch('body{background:red}')
-    expect(html).toMatch('<div>Hello world</div>')
+    await page.goto('http://localhost:3000')
+    const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+    expect(backgroundColor).toMatch('rgb(255, 0, 0)')
     await kill(childProcess.pid)
   }),
   sass: () => withLocalTmpDir(async () => {
@@ -121,9 +129,9 @@ export default {
     await execa.command('base prepublishOnly')
     const childProcess = start()
     await portReady(3000)
-    const html = axios.get('http://localhost:3000') |> await |> property('data')
-    expect(html).toMatch('body{background:red}')
-    expect(html).toMatch('<div>Hello world</div>')
+    await page.goto('http://localhost:3000')
+    const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+    expect(backgroundColor).toMatch('rgb(255, 0, 0)')
     await kill(childProcess.pid)
   }),
   subdir: () => withLocalTmpDir(async () => {
@@ -150,7 +158,110 @@ export default {
     process.chdir('foo')
     const childProcess = start({ rootDir: '..' })
     await portReady(3000)
-    expect(axios.get('http://localhost:3000') |> await |> property('data')).toMatch('<div>Hello world</div>'),
+    await page.goto('http://localhost:3000')
+    expect(await page.$eval('div', div => div.textContent)).toEqual('Hello world')
+    await kill(childProcess.pid)
+  }),
+  htmlAttrs: () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'index.js': endent`
+          export default {
+            htmlAttrs: {
+              class: 'foo bar',
+            },
+          }
+        `,
+        'pages/index.js': endent`
+          export default {
+            render: () => <div>Hello world</div>,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    await portReady(3000)
+    await page.goto('http://localhost:3000')
+    expect(await page.$eval('html', el => el.className)).toEqual('foo bar')
+    await kill(childProcess.pid)
+  }),
+  headAttrs: () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'index.js': endent`
+          export default {
+            headAttrs: {
+              class: 'foo bar',
+            },
+          }
+        `,
+        'pages/index.js': endent`
+          export default {
+            render: () => <div>Hello world</div>,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    await portReady(3000)
+    await page.goto('http://localhost:3000')
+    expect(await page.$eval('head', el => el.className)).toEqual('foo bar')
+    await kill(childProcess.pid)
+  }),
+  bodyAttrs: () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'index.js': endent`
+          export default {
+            bodyAttrs: {
+              class: 'foo bar',
+            },
+          }
+        `,
+        'pages/index.js': endent`
+          export default {
+            render: () => <div>Hello world</div>,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    await portReady(3000)
+    await page.goto('http://localhost:3000')
+    expect(await page.$eval('body', el => el.className)).toEqual('foo bar')
     await kill(childProcess.pid)
   }),
   cli: () => withLocalTmpDir(async () => {

@@ -11,12 +11,19 @@ export default function () {
     babelRegister(babelConfig)
   }
   
-  const projectConfig = {
+  const defaultConfig = {
     title: 'Vue app',
+    htmlAttrs: {},
+    headAttrs: {},
+    bodyAttrs: {},
     modules: [],
     plugins: [],
     css: [],
     serverMiddleware: [],
+  }
+
+  const projectConfig = {
+    ...defaultConfig,
     ...safeRequire(P.join(this.options.rootDir, this.options.dev ? 'src' : 'dist', 'index.js')) ?? {},
   }
 
@@ -26,11 +33,14 @@ export default function () {
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { hid: 'description', name: 'description', content: projectConfig.title },
   )
-
-  Object.assign(this.options, projectConfig |> omit(this.options |> keys))
+  this.options.head.htmlAttrs = projectConfig.htmlAttrs
+  this.options.head.headAttrs = projectConfig.headAttrs
+  this.options.head.bodyAttrs = projectConfig.bodyAttrs
 
   projectConfig.modules.forEach(module => this.addModule(module))
   projectConfig.plugins.forEach(plugin => this.addPlugin(plugin))
   this.options.css.push(...projectConfig.css)
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
+
+  Object.assign(this.options, projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys))
 }

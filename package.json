@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@dword-design/base": "^6.0.0",
+    "@dword-design/puppeteer": "^1.0.1",
     "axios": "^0.19.2",
     "output-files": "^1.1.10",
     "p-wait-for": "^3.1.0",
