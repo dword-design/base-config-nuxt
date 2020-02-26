@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/dword-design/base-config-nuxt/compare/v1.9.0...v1.9.1) (2020-02-26)
+
+
+### Bug Fixes
+
+* reset favicons version to 2 for html-webpack-plugin compatibility ([7077e3a](https://github.com/dword-design/base-config-nuxt/commit/7077e3a4b834e65fe383669526523114aa07014f))
+
 # [1.9.0](https://github.com/dword-design/base-config-nuxt/compare/v1.8.13...v1.9.0) (2020-02-25)
 
 
