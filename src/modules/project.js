@@ -37,12 +37,12 @@ export default function () {
   this.options.head.htmlAttrs = projectConfig.htmlAttrs
   this.options.head.headAttrs = projectConfig.headAttrs
   this.options.head.bodyAttrs = projectConfig.bodyAttrs
-
-  projectConfig.modules.forEach(module => this.addModule(module))
-  projectConfig.plugins.forEach(plugin => this.addPlugin(plugin))
   this.options.css.push(...projectConfig.css)
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
+  
   Object.assign(this.options.router, projectConfig.router)
-
   Object.assign(this.options, projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys))
+  
+  projectConfig.modules.forEach(module => this.addModule(module))
+  projectConfig.plugins.forEach(plugin => this.addPlugin(plugin))
 }
