@@ -9,6 +9,7 @@ export default {
   srcDir: 'src',
   buildDir: P.join('dist', 'nuxt'),
   build: {
+    quiet: false,
     babel: {
       configFile: require.resolve('@dword-design/babel-config'),
     },

@@ -264,6 +264,68 @@ export default {
     expect(await page.$eval('body', el => el.className)).toEqual('foo bar')
     await kill(childProcess.pid)
   }),
+  'router config': () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'index.js': endent`
+          export default {
+            router: {
+              base: '/app/',
+            },
+          }
+        `,
+        'pages/index.js': endent`
+          export default {
+            render: () => <div class="foo">Hello world</div>,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    try {
+      await portReady(3000)
+      await page.goto('http://localhost:3000/app')
+      expect(await page.$eval('.foo', el => el.textContent)).toEqual('Hello world')
+    } finally {
+      await kill(childProcess.pid)
+    }
+  }),
+  'console output': () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'index.js': endent`
+          export default {
+            modules: [
+              () => console.log('foo bar'),
+            ],
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    const { all } = await execa.command('base prepublishOnly', { all: true })
+    expect(all).toMatch('foo bar')
+  }),
   cli: () => withLocalTmpDir(async () => {
     await outputFiles({
       'package.json': endent`

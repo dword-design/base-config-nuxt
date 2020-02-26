@@ -19,6 +19,7 @@ export default function () {
     modules: [],
     plugins: [],
     css: [],
+    router: {},
     serverMiddleware: [],
   }
 
@@ -41,6 +42,7 @@ export default function () {
   projectConfig.plugins.forEach(plugin => this.addPlugin(plugin))
   this.options.css.push(...projectConfig.css)
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
+  Object.assign(this.options.router, projectConfig.router)
 
   Object.assign(this.options, projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys))
 }
