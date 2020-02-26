@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/dword-design/base-config-nuxt/compare/v1.8.13...v1.9.0) (2020-02-25)
+
+
+### Features
+
+* add html, head and body attrs and use puppeteer for tests ([700e800](https://github.com/dword-design/base-config-nuxt/commit/700e8002dea4f7f9e5136dc916e8feef7979cebb))
+
 ## [1.8.13](https://github.com/dword-design/base-config-nuxt/compare/v1.8.12...v1.8.13) (2020-02-23)
 
 
