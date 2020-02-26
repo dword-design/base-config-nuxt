@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/dword-design/base-config-nuxt/compare/v1.9.1...v1.10.0) (2020-02-26)
+
+
+### Features
+
+* add router config and set quiet flag to false to get console output in tests ([56cf2b3](https://github.com/dword-design/base-config-nuxt/commit/56cf2b3a88299eed5363c2117202d3b344524488))
+
 ## [1.9.1](https://github.com/dword-design/base-config-nuxt/compare/v1.9.0...v1.9.1) (2020-02-26)
 
 
