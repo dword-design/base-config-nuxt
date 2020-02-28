@@ -19,6 +19,7 @@ export default function () {
     modules: [],
     plugins: [],
     css: [],
+    postcssPlugins: {},
     router: {},
     serverMiddleware: [],
   }
@@ -39,6 +40,7 @@ export default function () {
   this.options.head.bodyAttrs = projectConfig.bodyAttrs
   this.options.css.push(...projectConfig.css)
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
+  this.options.build.postcss.plugins = projectConfig.postcssPlugins
   
   Object.assign(this.options.router, projectConfig.router)
   Object.assign(this.options, projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys))

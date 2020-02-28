@@ -7,6 +7,7 @@ import kill from 'tree-kill-promise'
 import { mkdir, chmod } from 'fs-extra'
 import portReady from 'port-ready'
 import puppeteer from '@dword-design/puppeteer'
+import getPackageName from 'get-package-name'
 import start from './start'
 
 let browser
@@ -297,6 +298,91 @@ export default {
       await portReady(3000)
       await page.goto('http://localhost:3000/app')
       expect(await page.$eval('.foo', el => el.textContent)).toEqual('Hello world')
+    } finally {
+      await kill(childProcess.pid)
+    }
+  }),
+  hexrgba: () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'assets/style.css': endent`
+          body {
+            background: rgba(#fff, .5);
+          }
+        `,
+        'index.js': endent`
+          export default {
+            css: ['assets/style.css'],
+          }
+        `,
+        'pages/index.js': endent`
+          export default {
+            render: () => <div />,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    try {
+      await portReady(3000)
+      await page.goto('http://localhost:3000/app')
+      const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+      expect(backgroundColor).toEqual('rgba(0, 0, 0, 0)')
+    } finally {
+      await kill(childProcess.pid)
+    }
+  }),
+  'postcss plugin': () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'assets/style.css': endent`
+          body {
+            background: rgba(#fff, .5);
+          }
+        `,
+        'index.js': endent`
+          export default {
+            css: ['assets/style.css'],
+            postcssPlugins: {
+              '${getPackageName(require.resolve('postcss-hexrgba'))}': {},
+            },
+          }
+        `,
+        'pages/index.js': endent`
+          export default {
+            render: () => <div />,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    try {
+      await portReady(3000)
+      await page.goto('http://localhost:3000/app')
+      const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+      expect(backgroundColor).toEqual('rgba(255, 255, 255, 0.5)')
     } finally {
       await kill(childProcess.pid)
     }
