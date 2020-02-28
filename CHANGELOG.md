@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/dword-design/base-config-nuxt/compare/v1.10.0...v1.10.1) (2020-02-26)
+
+
+### Bug Fixes
+
+* fix order of project options ([fc7d00a](https://github.com/dword-design/base-config-nuxt/commit/fc7d00a8a86905cb9481805d4f71740250ec45a6))
+
 # [1.10.0](https://github.com/dword-design/base-config-nuxt/compare/v1.9.1...v1.10.0) (2020-02-26)
 
 
