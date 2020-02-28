@@ -1,11 +1,11 @@
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
-import { existsSync } from 'fs-extra'
+import { exists } from 'fs-extra'
 import P from 'path'
 
-export default function () {
-  this.extendBuild(config => {
-    if (existsSync(P.join(this.options.srcDir, 'favicon.png'))) {
+export default async function () {
+  if (await exists(P.join(this.options.srcDir, 'favicon.png'))) {
+    this.extendBuild(() => {
       config.plugins.push(new FaviconsWebpackPlugin(P.resolve(this.options.srcDir, 'favicon.png')))
-    }
-  })
+    })
+  }
 }

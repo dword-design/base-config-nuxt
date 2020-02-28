@@ -8,6 +8,7 @@ import { mkdir, chmod } from 'fs-extra'
 import portReady from 'port-ready'
 import puppeteer from '@dword-design/puppeteer'
 import start from './start'
+import emptyGif from 'empty-gif'
 
 let browser
 let page
@@ -297,6 +298,37 @@ export default {
       await portReady(3000)
       await page.goto('http://localhost:3000/app')
       expect(await page.$eval('.foo', el => el.textContent)).toEqual('Hello world')
+    } finally {
+      await kill(childProcess.pid)
+    }
+  }),
+  favicon: () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'favicon.png': emptyGif,
+        'pages/index.js': endent`
+          export default {
+            render: () => <div />,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    try {
+      await portReady(3000)
+      await page.goto('http://localhost:3000')
+      expect(await page.$('link[rel=icon]')).not.toBeNull()
     } finally {
       await kill(childProcess.pid)
     }
