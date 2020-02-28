@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/dword-design/base-config-nuxt/compare/v1.10.1...v1.11.0) (2020-02-28)
+
+
+### Features
+
+* postcss plugin support ([49d0ea4](https://github.com/dword-design/base-config-nuxt/commit/49d0ea4a6c5ab0edc9277a2a00665e4e68cc1067))
+
 ## [1.10.1](https://github.com/dword-design/base-config-nuxt/compare/v1.10.0...v1.10.1) (2020-02-26)
 
 
