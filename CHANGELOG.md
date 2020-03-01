@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/dword-design/base-config-nuxt/compare/v1.11.0...v1.11.1) (2020-03-01)
+
+
+### Bug Fixes
+
+* remove favicons webpack plugin and refactoring ([c416e29](https://github.com/dword-design/base-config-nuxt/commit/c416e29474d26ecf699a3bdb84b4573b84c0a378))
+
 # [1.11.0](https://github.com/dword-design/base-config-nuxt/compare/v1.10.1...v1.11.0) (2020-02-28)
 
 
