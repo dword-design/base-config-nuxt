@@ -284,11 +284,21 @@ export default {
             },
           }
         `,
-        'pages/index.js': endent`
-          export default {
-            render: () => <div class="foo">Hello world</div>,
-          }
-        `,
+        pages: {
+          'index.js': endent`
+            export default {
+              render: () => <div class="foo">
+                <nuxt-link to={{ name: 'index' }} class="home">Home</nuxt-link>
+                <nuxt-link to={{ name: 'inner.info' }} class="info">Info</nuxt-link>
+              </div>,
+            }
+          `,
+          'inner/info.js': endent`
+            export default {
+              render: () => {},
+            }
+          `,
+        },
       },
     })
     await execa.command('base prepare')
@@ -297,7 +307,8 @@ export default {
     try {
       await portReady(3000)
       await page.goto('http://localhost:3000/app')
-      expect(await page.$eval('.foo', el => el.textContent)).toEqual('Hello world')
+      expect(await page.$eval('.home.active', el => el.textContent)).toEqual('Home')
+      expect(await page.$eval('.info', el => el.getAttribute('href'))).toEqual('/app/inner/info')
     } finally {
       await kill(childProcess.pid)
     }
