@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/dword-design/base-config-nuxt/compare/v1.11.1...v1.12.0) (2020-03-09)
+
+
+### Features
+
+* add default params to router ([de26aa8](https://github.com/dword-design/base-config-nuxt/commit/de26aa8cd6f4839757dbc5bf7fe2b5fd2e4bcf15))
+
 ## [1.11.1](https://github.com/dword-design/base-config-nuxt/compare/v1.11.0...v1.11.1) (2020-03-01)
 
 
