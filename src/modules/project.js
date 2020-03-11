@@ -13,6 +13,7 @@ export default function () {
 
   const defaultConfig = {
     title: 'Vue app',
+    port: 3000,
     htmlAttrs: {},
     headAttrs: {},
     bodyAttrs: {},
@@ -29,6 +30,8 @@ export default function () {
     ...safeRequire(P.join(this.options.rootDir, this.options.dev ? 'src' : 'dist', 'index.js')) ?? {},
   }
 
+  this.options.server.port = projectConfig.port
+  this.options.server.host = '0.0.0.0'
   this.options.head.title = projectConfig.title
   this.options.head.meta.push(
     { charset: 'utf-8' },
