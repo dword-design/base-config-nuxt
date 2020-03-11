@@ -1,3 +1,11 @@
+## [1.12.1](https://github.com/dword-design/base-config-nuxt/compare/v1.12.0...v1.12.1) (2020-03-11)
+
+
+### Bug Fixes
+
+* add port and host config ([a5bccca](https://github.com/dword-design/base-config-nuxt/commit/a5bccca4974c41f917a95b29f068345bbac20cca))
+* fix server config for prepublishOnly ([db41ae8](https://github.com/dword-design/base-config-nuxt/commit/db41ae80d6fe47d0acce553b62dd81b58f68711d))
+
 # [1.12.0](https://github.com/dword-design/base-config-nuxt/compare/v1.11.1...v1.12.0) (2020-03-09)
 
 
