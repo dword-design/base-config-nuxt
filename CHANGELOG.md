@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/dword-design/base-config-nuxt/compare/v1.12.1...v1.12.2) (2020-03-13)
+
+
+### Bug Fixes
+
+* remove custom sass loader ([a98e60e](https://github.com/dword-design/base-config-nuxt/commit/a98e60e5a58486b1fc4f54269e9711711a3c15c6))
+
 ## [1.12.1](https://github.com/dword-design/base-config-nuxt/compare/v1.12.0...v1.12.1) (2020-03-11)
 
 
