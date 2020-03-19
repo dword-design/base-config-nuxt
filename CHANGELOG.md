@@ -1,3 +1,10 @@
+## [1.12.3](https://github.com/dword-design/base-config-nuxt/compare/v1.12.2...v1.12.3) (2020-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-extra to v9 ([c52e1cf](https://github.com/dword-design/base-config-nuxt/commit/c52e1cf2600d4d6d6dfc89e36a8e3fb0f4b4a52d))
+
 ## [1.12.2](https://github.com/dword-design/base-config-nuxt/compare/v1.12.1...v1.12.2) (2020-03-13)
 
 
