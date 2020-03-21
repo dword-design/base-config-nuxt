@@ -1,3 +1,10 @@
+## [1.12.4](https://github.com/dword-design/base-config-nuxt/compare/v1.12.3...v1.12.4) (2020-03-21)
+
+
+### Bug Fixes
+
+* use src when in testing ([0c65b5e](https://github.com/dword-design/base-config-nuxt/commit/0c65b5ebfca278954c393cc4b9497896d9aecb58))
+
 ## [1.12.3](https://github.com/dword-design/base-config-nuxt/compare/v1.12.2...v1.12.3) (2020-03-19)
 
 
