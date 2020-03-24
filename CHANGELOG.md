@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/dword-design/base-config-nuxt/compare/v1.12.4...v1.13.0) (2020-03-24)
+
+
+### Features
+
+* add title template and tests ([87e2013](https://github.com/dword-design/base-config-nuxt/commit/87e2013af094f95baf060bdb968a5d09863d1fba))
+
 ## [1.12.4](https://github.com/dword-design/base-config-nuxt/compare/v1.12.3...v1.12.4) (2020-03-21)
 
 
