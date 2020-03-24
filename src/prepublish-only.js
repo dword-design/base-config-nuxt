@@ -1,7 +1,9 @@
 import nodeConfig from '@dword-design/base-config-node'
-import execa from 'execa'
+import { Nuxt, Builder } from 'nuxt'
+import nuxtConfig from './nuxt.config'
 
 export default async () => {
   await nodeConfig.commands.prepublishOnly()
-  return execa('nuxt', ['build', '--config-file', require.resolve('./nuxt.config')], { stdio: 'inherit' })
+  const nuxt = new Nuxt({ ...nuxtConfig, dev: false })
+  return new Builder(nuxt).build()
 }

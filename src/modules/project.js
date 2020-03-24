@@ -12,7 +12,7 @@ export default function () {
   }
 
   const defaultConfig = {
-    title: 'Vue app',
+    name: 'Vue app',
     port: 3000,
     htmlAttrs: {},
     headAttrs: {},
@@ -35,11 +35,12 @@ export default function () {
     this.options.server.host = '0.0.0.0'
   }
   
+  this.options.head.titleTemplate = projectConfig.title ? `${projectConfig.name} - %s` : projectConfig.name
   this.options.head.title = projectConfig.title
   this.options.head.meta.push(
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { hid: 'description', name: 'description', content: projectConfig.title },
+    { hid: 'description', name: 'description', content: projectConfig.name },
   )
   this.options.head.htmlAttrs = projectConfig.htmlAttrs
   this.options.head.headAttrs = projectConfig.headAttrs
