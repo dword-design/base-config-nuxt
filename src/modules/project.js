@@ -13,7 +13,6 @@ export default function () {
 
   const defaultConfig = {
     name: 'Vue app',
-    port: 3000,
     htmlAttrs: {},
     headAttrs: {},
     bodyAttrs: {},
@@ -31,7 +30,7 @@ export default function () {
   }
 
   if (this.options.server !== false) {
-    this.options.server.port = projectConfig.port
+    this.options.server.port = process.env.PORT ?? 3000
     this.options.server.host = '0.0.0.0'
   }
   
