@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/dword-design/base-config-nuxt/compare/v1.14.0...v1.15.0) (2020-03-27)
+
+
+### Features
+
+* add dotenv ([9d51016](https://github.com/dword-design/base-config-nuxt/commit/9d51016eb03a59fc01a7d0b94efb43ebacbe69b7))
+
 # [1.14.0](https://github.com/dword-design/base-config-nuxt/compare/v1.13.0...v1.14.0) (2020-03-27)
 
 
