@@ -17,7 +17,7 @@ export default {
   after: () => browser.close(),
   ...{
     valid: {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -32,11 +32,11 @@ export default {
             render: () => <div>Hello world</div>,
           }
         `,
-      }),
+      },
       test: async () => expect(await page.$eval('div', div => div.textContent)).toEqual('Hello world'),
     },
     'sass import': {
-      setup: () => outputFiles({
+      files: {
         'node_modules/sass-foo': {
           'package.json': endent`
             {
@@ -76,14 +76,14 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => {
         const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
     sass: {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -112,14 +112,14 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => {
         const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
     name: {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -141,11 +141,11 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => expect(await page.title()).toEqual('Test-App'),
     },
     'name and title': {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -168,11 +168,11 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => expect(await page.title()).toEqual('Test-App - This is the ultimate app!'),
     },
     'page with title': {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -198,12 +198,12 @@ export default {
             }
           `,
         },
-      }),
+      },
       url: '/foo',
       test: async () => expect(await page.title()).toEqual('Test-App - Foo page'),
     },
     htmlAttrs: {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -227,11 +227,11 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => expect(await page.$eval('html', el => el.className)).toEqual('foo bar'),
     },
     headAttrs: {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -255,11 +255,11 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => expect(await page.$eval('head', el => el.className)).toEqual('foo bar'),
     },
     bodyAttrs: {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -283,11 +283,11 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => expect(await page.$eval('body', el => el.className)).toEqual('foo bar'),
     },
     'router config': {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -321,7 +321,7 @@ export default {
             `,
           },
         },
-      }),
+      },
       url: '/app',
       test: async () => {
         expect(await page.$eval('.home.active', el => el.textContent)).toEqual('Home')
@@ -329,7 +329,7 @@ export default {
       },
     },
     hexrgba: {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -356,14 +356,14 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => {
         const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
         expect(backgroundColor).toEqual('rgba(0, 0, 0, 0)')
       },
     },
     'postcss plugin': {
-      setup: () => outputFiles({
+      files: {
         'package.json': endent`
           {
             "baseConfig": "nuxt",
@@ -393,14 +393,14 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => {
         const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
         expect(backgroundColor).toEqual('rgba(255, 255, 255, 0.5)')
       },
     },
     dotenv: {
-      setup: () => outputFiles({
+      files: {
         '.env.json': { foo: 'bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         'package.json': endent`
@@ -433,31 +433,29 @@ export default {
             }
           `,
         },
-      }),
+      },
       test: async () => expect(await page.title()).toEqual('bar'),
     },
     port: {
-      setup: () => {
-        return outputFiles({
-          '.env.json': { port: 3005 } |> JSON.stringify,
-          '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
-          'package.json': endent`
-            {
-              "baseConfig": "nuxt",
-              "devDependencies": {
-                "@dword-design/base-config-nuxt": "^1.0.0"
-              }
+      files: {
+        '.env.json': { port: 3005 } |> JSON.stringify,
+        '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
+        'package.json': endent`
+          {
+            "baseConfig": "nuxt",
+            "devDependencies": {
+              "@dword-design/base-config-nuxt": "^1.0.0"
             }
+          }
 
+        `,
+        src: {
+          'pages/index.js': endent`
+            export default {
+              render: () => <div>Hello world</div>,
+            }
           `,
-          src: {
-            'pages/index.js': endent`
-              export default {
-                render: () => <div>Hello world</div>,
-              }
-            `,
-          },
-        })
+        },
       },
       port: 3005,
       test: async () => {
@@ -466,8 +464,8 @@ export default {
       },
     },
   }
-    |> mapValues(({ setup, port = 3000, url = '', test }) => () => withLocalTmpDir(async () => {
-      setup() |> await
+    |> mapValues(({ files, port = 3000, url = '', test }) => () => withLocalTmpDir(async () => {
+      outputFiles(files) |> await
       const nuxt = new Nuxt({ ...self, dev: false, build: { quiet: true } })
       new Builder(nuxt).build() |> await
       nuxt.listen() |> await
