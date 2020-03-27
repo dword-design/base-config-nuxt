@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/dword-design/base-config-nuxt/compare/v1.13.0...v1.14.0) (2020-03-27)
+
+
+### Features
+
+* set port via env ([070b8fc](https://github.com/dword-design/base-config-nuxt/commit/070b8fc733575e5b8fa3dd64bbdee073589a23cf))
+
 # [1.13.0](https://github.com/dword-design/base-config-nuxt/compare/v1.12.4...v1.13.0) (2020-03-24)
 
 
