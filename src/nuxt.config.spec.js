@@ -438,8 +438,9 @@ export default {
     },
     port: {
       setup: () => {
-        process.env.PORT = 3005
         return outputFiles({
+          '.env.json': { port: 3005 } |> JSON.stringify,
+          '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
           'package.json': endent`
             {
               "baseConfig": "nuxt",
