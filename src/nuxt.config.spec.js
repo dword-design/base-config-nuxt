@@ -399,6 +399,43 @@ export default {
         expect(backgroundColor).toEqual('rgba(255, 255, 255, 0.5)')
       },
     },
+    dotenv: {
+      setup: () => outputFiles({
+        '.env.json': { foo: 'bar' } |> JSON.stringify,
+        '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+        'package.json': endent`
+          {
+            "baseConfig": "nuxt",
+            "devDependencies": {
+              "@dword-design/base-config-nuxt": "^1.0.0"
+            }
+          }
+
+        `,
+        src: {
+          'index.js': endent`
+            export default {
+              modules: [
+                'modules/foo',
+              ],
+            }
+          `,
+          'modules/foo.js': endent`
+            export default function () {
+              this.options.head.titleTemplate = process.env.FOO
+            }
+          `,
+          'pages/index.js': endent`
+            export default {
+              render() {
+                return <div>Hello world</div>
+              },
+            }
+          `,
+        },
+      }),
+      test: async () => expect(await page.title()).toEqual('bar'),
+    },
     port: {
       setup: () => {
         process.env.PORT = 3005

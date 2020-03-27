@@ -1,4 +1,5 @@
 import P from 'path'
+import dotenvModule from './modules/dotenv'
 import babelModule from './modules/babel'
 import resolverTestModule from './modules/resolver-test'
 import eslintModule from './modules/eslint'
@@ -11,6 +12,7 @@ export default {
     quiet: false,
   },
   modules: [
+    dotenvModule,
     babelModule,
     resolverTestModule,
     eslintModule,
