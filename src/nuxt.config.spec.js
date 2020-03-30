@@ -401,7 +401,7 @@ export default {
     },
     dotenv: {
       files: {
-        '.env.json': { foo: 'bar' } |> JSON.stringify,
+        '.test.env.json': { foo: 'bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         'package.json': endent`
           {
@@ -438,7 +438,7 @@ export default {
     },
     port: {
       files: {
-        '.env.json': { port: 3005 } |> JSON.stringify,
+        '.test.env.json': { port: 3005 } |> JSON.stringify,
         '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
         'package.json': endent`
           {
