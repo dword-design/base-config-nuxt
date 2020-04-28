@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/dword-design/base-config-nuxt/compare/v1.15.1...v1.16.0) (2020-04-28)
+
+
+### Features
+
+* add alias support to eslint ([afbc812](https://github.com/dword-design/base-config-nuxt/commit/afbc812c29b7006a5a3fd66c6abf1d16d0b6518d))
+
 ## [1.15.1](https://github.com/dword-design/base-config-nuxt/compare/v1.15.0...v1.15.1) (2020-03-30)
 
 
