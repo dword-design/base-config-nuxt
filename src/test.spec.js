@@ -106,4 +106,30 @@ export default {
     await execa.command('base prepare')
     await execa.command('base test')
   }),
+  aliases: () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'model/foo.js': 'export default \'bar\'',
+        'pages/index.js': endent`
+          import foo from '@/model/foo'
+
+          export default {
+            render: () => <div>{ foo }</div>,
+          }
+        `,
+      },
+    })
+
+    await execa.command('base prepare')
+    await execa.command('base test')
+  }),
 }

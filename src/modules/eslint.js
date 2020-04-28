@@ -1,5 +1,5 @@
-import eslintConfig from '@dword-design/eslint-config'
 import getPackageName from 'get-package-name'
+import eslintConfig from '../eslint.config'
 
 export default function () {
   this.extendBuild((config, { isDev, isClient }) => {
@@ -9,7 +9,9 @@ export default function () {
         test: /\.js$/,
         loader: getPackageName(require.resolve('eslint-loader')),
         include: this.options.srcDir,
-        options: eslintConfig,
+        options: {
+          baseConfig: eslintConfig,
+        },
       })
     }
   })

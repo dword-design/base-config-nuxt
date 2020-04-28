@@ -3,6 +3,7 @@ import depcheckConfig from '@dword-design/depcheck-config'
 import depcheckSassParser from '@dword-design/depcheck-sass-parser'
 import nuxtConfig from './nuxt.config'
 import dev from './dev'
+import lint from './lint'
 import prepublishOnly from './prepublish-only'
 import analyze from './analyze'
 import start from './start'
@@ -16,6 +17,7 @@ export default {
       '*.scss': depcheckSassParser,
     },
   },
+  test: lint,
   commands: {
     dev,
     prepublishOnly,

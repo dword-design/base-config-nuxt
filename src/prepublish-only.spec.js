@@ -38,6 +38,39 @@ export default {
     await kill(childProcess.pid)
     await browser.close()
   }),
+  aliases: () => withLocalTmpDir(async () => {
+    await outputFiles({
+      'package.json': endent`
+        {
+          "baseConfig": "nuxt",
+          "devDependencies": {
+            "@dword-design/base-config-nuxt": "^1.0.0"
+          }
+        }
+
+      `,
+      src: {
+        'model/foo.js': 'export default \'Hello world\'',
+        'pages/index.js': endent`
+          import foo from '@/model/foo'
+
+          export default {
+            render: () => <div>{ foo }</div>,
+          }
+        `,
+      },
+    })
+    await execa.command('base prepare')
+    await execa.command('base prepublishOnly')
+    const childProcess = start()
+    await portReady(3000)
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.goto('http://localhost:3000')
+    expect(await page.$eval('div', div => div.textContent)).toEqual('Hello world')
+    await kill(childProcess.pid)
+    await browser.close()
+  }),
   'console output': () => withLocalTmpDir(async () => {
     await outputFiles({
       'package.json': endent`
