@@ -29,7 +29,7 @@
     "@dword-design/functions": "^2.2.4",
     "@dword-design/resolver-test": "^1.0.6",
     "better-node-env": "^1.0.3",
-    "eslint-import-resolver-nuxt": "dword-design/eslint-import-resolver-nuxt#fork",
+    "eslint-import-resolver-nuxt": "^1.0.1",
     "eslint-loader": "^3.0.3",
     "execa": "^4.0.0",
     "fs-extra": "^9.0.0",

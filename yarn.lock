@@ -5511,9 +5511,10 @@ eslint-import-resolver-node@^0.3.2:
     debug "^2.6.9"
     resolve "^1.13.1"
 
-eslint-import-resolver-nuxt@dword-design/eslint-import-resolver-nuxt#fork:
-  version "1.0.0"
-  resolved "https://codeload.github.com/dword-design/eslint-import-resolver-nuxt/tar.gz/f07ae03d0549e67811cc4802a070b2dd8ff80337"
+eslint-import-resolver-nuxt@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-import-resolver-nuxt/-/eslint-import-resolver-nuxt-1.0.1.tgz#dadb6ea404c6260cf46ebe6f5e91787ab6093cf4"
+  integrity sha512-VY44yOhlsdnkJQCU4FrYGygiiMVHIJWaLbKDElG8WlGCuWLZt5zSWrHGLZtT3MVdIsEBY+Kr3OQRNoeA6e75TQ==
   dependencies:
     debug "^3.1.0"
     resolve "^1.7.1"
