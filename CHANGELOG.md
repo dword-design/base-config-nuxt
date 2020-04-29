@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/dword-design/base-config-nuxt/compare/v1.16.0...v1.16.1) (2020-04-29)
+
+
+### Bug Fixes
+
+* use official version of eslint-import-resolver-nuxt ([88c8dc0](https://github.com/dword-design/base-config-nuxt/commit/88c8dc005ec969acc4365b7ca041b9c1b4d9b5e2))
+
 # [1.16.0](https://github.com/dword-design/base-config-nuxt/compare/v1.15.1...v1.16.0) (2020-04-28)
 
 
