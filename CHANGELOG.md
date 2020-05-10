@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/dword-design/base-config-nuxt/compare/v1.16.1...v1.17.0) (2020-05-10)
+
+
+### Features
+
+* add depcheck special ([1abc151](https://github.com/dword-design/base-config-nuxt/commit/1abc151f7e3425665bd89e9a4042c5bfa8f38360))
+
 ## [1.16.1](https://github.com/dword-design/base-config-nuxt/compare/v1.16.0...v1.16.1) (2020-04-29)
 
 
