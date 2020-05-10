@@ -7,6 +7,7 @@ import lint from './lint'
 import prepublishOnly from './prepublish-only'
 import analyze from './analyze'
 import start from './start'
+import depcheckSpecial from './depcheck-special'
 
 export default {
   ...nodeConfig,
@@ -16,6 +17,10 @@ export default {
       ...depcheckConfig.parsers,
       '*.scss': depcheckSassParser,
     },
+    specials: [
+      ...depcheckConfig.specials,
+      depcheckSpecial,
+    ],
   },
   test: lint,
   commands: {
