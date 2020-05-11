@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/dword-design/base-config-nuxt/compare/v1.17.1...v1.18.0) (2020-05-11)
+
+
+### Features
+
+* add depcheck vue parser ([bac4e92](https://github.com/dword-design/base-config-nuxt/commit/bac4e9276cd0e1d48fd9905a4c923ebd6166eac5))
+
 ## [1.17.1](https://github.com/dword-design/base-config-nuxt/compare/v1.17.0...v1.17.1) (2020-05-11)
 
 
