@@ -7,12 +7,13 @@ export default {
   'linting error': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'model/foo.js': 'const foo = 1',
           'pages/index.js': endent`
@@ -36,12 +37,13 @@ export default {
   valid: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         'src/pages/index.js': endent`
           export default {
             render: () => <div>Hello world</div>,
@@ -56,12 +58,13 @@ export default {
   aliases: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'model/foo.js': "export default 'bar'",
           'pages/index.js': endent`
@@ -81,15 +84,16 @@ export default {
   'external modules': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
-        {
-          "baseConfig": "${require.resolve('.')}",
-          "dependencies": {
-            "foo": "^1.0.0"
-          }
-        }
-
-      `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+            dependencies: {
+              foo: '^1.0.0',
+            },
+          },
+          undefined,
+          2
+        ),
         'src/index.js': endent`
           export default {
             modules: [

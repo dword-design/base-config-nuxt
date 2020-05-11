@@ -32,12 +32,13 @@ export default {
   ...({
     valid: {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         'src/pages/index.js': endent`
           export default {
             render: () => <div>Hello world</div>,
@@ -63,15 +64,16 @@ export default {
             }
           `,
         },
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}",
-            "dependencies": {
-              "sass-foo": "^1.0.0"
-            }
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+            dependencies: {
+              'sass-foo': '^1.0.0',
+            },
+          },
+          undefined,
+          2
+        ),
         src: {
           'assets/style.scss': "@import '~sass-foo'",
           'index.js': endent`
@@ -98,12 +100,13 @@ export default {
     },
     sass: {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'assets/style.scss': endent`
             body {
@@ -134,12 +137,13 @@ export default {
     },
     name: {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -157,12 +161,13 @@ export default {
     },
     'name and title': {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -184,12 +189,13 @@ export default {
     },
     'page with title': {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -213,12 +219,13 @@ export default {
     },
     htmlAttrs: {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -239,12 +246,13 @@ export default {
     },
     headAttrs: {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -265,12 +273,13 @@ export default {
     },
     bodyAttrs: {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -291,12 +300,13 @@ export default {
     },
     'router config': {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -334,12 +344,13 @@ export default {
     },
     hexrgba: {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'assets/style.css': endent`
             body {
@@ -368,12 +379,13 @@ export default {
     },
     'postcss plugin': {
       files: {
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'assets/style.css': endent`
             body {
@@ -407,12 +419,13 @@ export default {
       files: {
         '.test.env.json': { foo: 'bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
             export default {
@@ -441,12 +454,13 @@ export default {
       files: {
         '.test.env.json': { port: 3005 } |> JSON.stringify,
         '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
-        'package.json': endent`
+        'package.json': JSON.stringify(
           {
-            "baseConfig": "${require.resolve('.')}"
-          }
-
-        `,
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'pages/index.js': endent`
             export default {

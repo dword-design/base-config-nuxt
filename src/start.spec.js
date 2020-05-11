@@ -13,12 +13,13 @@ let page
 const runTest = ({ files, test }) => () =>
   withLocalTmpDir(async () => {
     await outputFiles({
-      'package.json': endent`
+      'package.json': JSON.stringify(
         {
-          "baseConfig": "${require.resolve('.')}"
-        }
-
-      `,
+          baseConfig: require.resolve('.'),
+        },
+        undefined,
+        2
+      ),
       src: files,
     })
     await execa.command('base prepare')

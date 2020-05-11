@@ -11,12 +11,13 @@ export default {
   valid: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
-        {
-          "baseConfig": "${require.resolve('.')}"
-        }
-
-      `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         'src/pages/index.js': endent`
         export default {
           render: () => <div>Hello world</div>,

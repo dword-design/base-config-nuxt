@@ -9,12 +9,13 @@ export default {
   'fixable linting error': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
-        {
-          "baseConfig": "${require.resolve('.')}"
-        }
-
-      `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'model/index.js': endent`
           export default 1;
@@ -41,12 +42,13 @@ export default {
   'console output': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
-        {
-          "baseConfig": "${require.resolve('.')}"
-        }
-
-      `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'index.js': endent`
           export default {
@@ -64,12 +66,13 @@ export default {
   cli: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
-        {
-          "baseConfig": "${require.resolve('.')}"
-        }
-
-      `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         src: {
           'cli.js': endent`
           #!/usr/bin/env node
@@ -90,12 +93,13 @@ export default {
   'linting error in cli': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': endent`
-        {
-          "baseConfig": "${require.resolve('.')}"
-        }
-
-      `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
         'src/cli.js': endent`
         #!/usr/bin/env node
 
