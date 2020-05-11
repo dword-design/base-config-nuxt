@@ -11,7 +11,7 @@ export default {
       await outputFiles({
         'package.json': endent`
         {
-          "baseConfig": "${require.resolve('.')}",
+          "baseConfig": "${require.resolve('.')}"
         }
 
       `,
@@ -21,11 +21,12 @@ export default {
 
         `,
           'pages/index.js': endent`
-          import model '@/model'
+          import model from '@/model'
 
           export default {
-            render: () => <div>{ model }</model>,
+            render: () => <div>{ model }</div>,
           }
+
         `,
         },
       })
@@ -42,10 +43,7 @@ export default {
       await outputFiles({
         'package.json': endent`
         {
-          "baseConfig": "nuxt",
-          "devDependencies": {
-            "@dword-design/base-config-nuxt": "^1.0.0"
-          }
+          "baseConfig": "${require.resolve('.')}"
         }
 
       `,
@@ -68,10 +66,7 @@ export default {
       await outputFiles({
         'package.json': endent`
         {
-          "baseConfig": "nuxt",
-          "devDependencies": {
-            "@dword-design/base-config-nuxt": "^1.0.0"
-          }
+          "baseConfig": "${require.resolve('.')}"
         }
 
       `,
@@ -97,17 +92,15 @@ export default {
       await outputFiles({
         'package.json': endent`
         {
-          "baseConfig": "nuxt",
-          "devDependencies": {
-            "@dword-design/base-config-nuxt": "^1.0.0"
-          }
+          "baseConfig": "${require.resolve('.')}"
         }
 
       `,
         'src/cli.js': endent`
         #!/usr/bin/env node
 
-        console.log('foo');
+        const foo = 'bar'
+
       `,
       })
 
@@ -118,6 +111,6 @@ export default {
       } catch (error) {
         all = error.all
       }
-      expect(all).toMatch('error  Extra semicolon  semi')
+      expect(all).toMatch("foo' is assigned a value but never used")
     }),
 }
