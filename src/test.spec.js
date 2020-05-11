@@ -107,4 +107,34 @@ export default {
       await execa.command('base prepare')
       await execa.command('base test')
     }),
+  'dependency inside vue file': () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+            dependencies: {
+              foo: '^1.0.0',
+            },
+          },
+          undefined,
+          2
+        ),
+        'src/pages/index.vue': endent`
+          <script>
+          import foo from 'foo'
+
+          export default {
+            computed: {
+              foo: () => 1 |> (x => x * 2),
+            },
+          }
+          </script>
+
+        `,
+      })
+
+      await execa.command('base prepare')
+      await execa.command('base test')
+    }),
 }

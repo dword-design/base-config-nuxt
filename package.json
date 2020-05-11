@@ -35,7 +35,8 @@
     "node-sass": "^4.13.1",
     "nuxt": "^2.11.0",
     "safe-require": "dword-design/node-safe-require#fork",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.11"
   },
   "devDependencies": {
     "@dword-design/base": "^6.0.0",

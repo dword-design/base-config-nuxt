@@ -8,6 +8,7 @@ import prepublishOnly from './prepublish-only'
 import analyze from './analyze'
 import start from './start'
 import depcheckSpecial from './depcheck-special'
+import depcheckVueParser from './depcheck-vue-parser'
 
 export default {
   ...nodeConfig,
@@ -16,6 +17,7 @@ export default {
     parsers: {
       ...depcheckConfig.parsers,
       '*.scss': depcheckSassParser,
+      '*.vue': depcheckVueParser,
     },
     specials: [...depcheckConfig.specials, depcheckSpecial],
   },
