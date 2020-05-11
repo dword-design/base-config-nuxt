@@ -1,3 +1,12 @@
+## [1.17.1](https://github.com/dword-design/base-config-nuxt/compare/v1.17.0...v1.17.1) (2020-05-11)
+
+
+### Bug Fixes
+
+* fix tests ([406d726](https://github.com/dword-design/base-config-nuxt/commit/406d7260277d0ff30eed42e649c3ca8f630edb8d))
+* make tests windows compatible ([f1b8a24](https://github.com/dword-design/base-config-nuxt/commit/f1b8a249d70c77081256782bc1979e5212db00b6))
+* upgrade base and add lintfix ([7412d20](https://github.com/dword-design/base-config-nuxt/commit/7412d2023ccef4fe859aca541829f71a67c4bce6))
+
 # [1.17.0](https://github.com/dword-design/base-config-nuxt/compare/v1.16.1...v1.17.0) (2020-05-10)
 
 
