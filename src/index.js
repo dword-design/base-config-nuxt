@@ -17,10 +17,7 @@ export default {
       ...depcheckConfig.parsers,
       '*.scss': depcheckSassParser,
     },
-    specials: [
-      ...depcheckConfig.specials,
-      depcheckSpecial,
-    ],
+    specials: [...depcheckConfig.specials, depcheckSpecial],
   },
   test: lint,
   commands: {

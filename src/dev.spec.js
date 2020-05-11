@@ -8,34 +8,33 @@ import waitFor from 'p-wait-for'
 import axios from 'axios'
 
 export default {
-  valid: () => withLocalTmpDir(async () => {
-    await outputFiles({
-      'package.json': endent`
+  valid: () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'package.json': endent`
         {
-          "baseConfig": "nuxt",
-          "devDependencies": {
-            "@dword-design/base-config-nuxt": "^1.0.0"
-          }
+          "baseConfig": "${require.resolve('.')}"
         }
 
       `,
-      'src/pages/index.js': endent`
+        'src/pages/index.js': endent`
         export default {
           render: () => <div>Hello world</div>,
         }
       `,
-    })
+      })
 
-    await execa.command('base prepare')
-    const childProcess = execa.command('base dev')
-    await portReady(3000)
-    await waitFor(
-      async () => axios.get('http://localhost:3000')
-        |> await
-        |> property('data')
-        |> includes('<div>Hello world</div>'),
-      { interval: 300 },
-    )
-    await kill(childProcess.pid)
-  }),
+      await execa.command('base prepare')
+      const childProcess = execa.command('base dev')
+      await portReady(3000)
+      await waitFor(
+        async () =>
+          axios.get('http://localhost:3000')
+          |> await
+          |> property('data')
+          |> includes('<div>Hello world</div>'),
+        { interval: 300 }
+      )
+      await kill(childProcess.pid)
+    }),
 }

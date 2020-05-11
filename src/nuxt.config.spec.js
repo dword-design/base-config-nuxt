@@ -9,21 +9,32 @@ import self from './nuxt.config'
 let browser
 let page
 
+const runTest = ({ files, port = 3000, url = '', test }) => () =>
+  withLocalTmpDir(async () => {
+    await outputFiles(files)
+    const nuxt = new Nuxt({ ...self, dev: false, build: { quiet: true } })
+    await new Builder(nuxt).build()
+    await nuxt.listen()
+    try {
+      await page.goto(`http://localhost:${port}${url}`)
+      await test()
+    } finally {
+      await nuxt.close()
+    }
+  })
+
 export default {
   before: async () => {
     browser = await puppeteer.launch()
     page = await browser.newPage()
   },
   after: () => browser.close(),
-  ...{
+  ...({
     valid: {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -33,7 +44,10 @@ export default {
           }
         `,
       },
-      test: async () => expect(await page.$eval('div', div => div.textContent)).toEqual('Hello world'),
+      test: async () =>
+        expect(await page.$eval('div', div => div.textContent)).toEqual(
+          'Hello world'
+        ),
     },
     'sass import': {
       files: {
@@ -51,18 +65,15 @@ export default {
         },
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
+            "baseConfig": "${require.resolve('.')}",
             "dependencies": {
               "sass-foo": "^1.0.0"
-            },
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
             }
           }
 
         `,
         src: {
-          'assets/style.scss': '@import \'~sass-foo\'',
+          'assets/style.scss': "@import '~sass-foo'",
           'index.js': endent`
             export default {
               css: [
@@ -78,7 +89,10 @@ export default {
         },
       },
       test: async () => {
-        const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+        const backgroundColor = await page.$eval(
+          'body',
+          el => getComputedStyle(el).backgroundColor
+        )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
@@ -86,10 +100,7 @@ export default {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -114,7 +125,10 @@ export default {
         },
       },
       test: async () => {
-        const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+        const backgroundColor = await page.$eval(
+          'body',
+          el => getComputedStyle(el).backgroundColor
+        )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
@@ -122,10 +136,7 @@ export default {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -148,10 +159,7 @@ export default {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -169,16 +177,16 @@ export default {
           `,
         },
       },
-      test: async () => expect(await page.title()).toEqual('Test-App - This is the ultimate app!'),
+      test: async () =>
+        expect(await page.title()).toEqual(
+          'Test-App - This is the ultimate app!'
+        ),
     },
     'page with title': {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -200,16 +208,14 @@ export default {
         },
       },
       url: '/foo',
-      test: async () => expect(await page.title()).toEqual('Test-App - Foo page'),
+      test: async () =>
+        expect(await page.title()).toEqual('Test-App - Foo page'),
     },
     htmlAttrs: {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -228,16 +234,14 @@ export default {
           `,
         },
       },
-      test: async () => expect(await page.$eval('html', el => el.className)).toEqual('foo bar'),
+      test: async () =>
+        expect(await page.$eval('html', el => el.className)).toEqual('foo bar'),
     },
     headAttrs: {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -256,16 +260,14 @@ export default {
           `,
         },
       },
-      test: async () => expect(await page.$eval('head', el => el.className)).toEqual('foo bar'),
+      test: async () =>
+        expect(await page.$eval('head', el => el.className)).toEqual('foo bar'),
     },
     bodyAttrs: {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -284,16 +286,14 @@ export default {
           `,
         },
       },
-      test: async () => expect(await page.$eval('body', el => el.className)).toEqual('foo bar'),
+      test: async () =>
+        expect(await page.$eval('body', el => el.className)).toEqual('foo bar'),
     },
     'router config': {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -324,18 +324,19 @@ export default {
       },
       url: '/app',
       test: async () => {
-        expect(await page.$eval('.home.active', el => el.textContent)).toEqual('Home')
-        expect(await page.$eval('.info', el => el.getAttribute('href'))).toEqual('/app/inner/info')
+        expect(await page.$eval('.home.active', el => el.textContent)).toEqual(
+          'Home'
+        )
+        expect(
+          await page.$eval('.info', el => el.getAttribute('href'))
+        ).toEqual('/app/inner/info')
       },
     },
     hexrgba: {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -358,7 +359,10 @@ export default {
         },
       },
       test: async () => {
-        const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+        const backgroundColor = await page.$eval(
+          'body',
+          el => getComputedStyle(el).backgroundColor
+        )
         expect(backgroundColor).toEqual('rgba(0, 0, 0, 0)')
       },
     },
@@ -366,10 +370,7 @@ export default {
       files: {
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -395,7 +396,10 @@ export default {
         },
       },
       test: async () => {
-        const backgroundColor = await page.$eval('body', el => getComputedStyle(el).backgroundColor)
+        const backgroundColor = await page.$eval(
+          'body',
+          el => getComputedStyle(el).backgroundColor
+        )
         expect(backgroundColor).toEqual('rgba(255, 255, 255, 0.5)')
       },
     },
@@ -405,10 +409,7 @@ export default {
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -442,10 +443,7 @@ export default {
         '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
         'package.json': endent`
           {
-            "baseConfig": "nuxt",
-            "devDependencies": {
-              "@dword-design/base-config-nuxt": "^1.0.0"
-            }
+            "baseConfig": "${require.resolve('.')}"
           }
 
         `,
@@ -459,21 +457,11 @@ export default {
       },
       port: 3005,
       test: async () => {
-        expect(await page.$eval('div', div => div.textContent)).toEqual('Hello world')
+        expect(await page.$eval('div', div => div.textContent)).toEqual(
+          'Hello world'
+        )
         delete process.env.PORT
       },
     },
-  }
-    |> mapValues(({ files, port = 3000, url = '', test }) => () => withLocalTmpDir(async () => {
-      outputFiles(files) |> await
-      const nuxt = new Nuxt({ ...self, dev: false, build: { quiet: true } })
-      new Builder(nuxt).build() |> await
-      nuxt.listen() |> await
-      try {
-        page.goto(`http://localhost:${port}${url}`) |> await
-        test() |> await
-      } finally {
-        nuxt.close() |> await
-      }
-    })),
+  } |> mapValues(runTest)),
 }

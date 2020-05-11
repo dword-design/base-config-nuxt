@@ -11,6 +11,7 @@ export default function () {
         include: this.options.srcDir,
         options: {
           baseConfig: eslintConfig,
+          fix: true,
         },
       })
     }

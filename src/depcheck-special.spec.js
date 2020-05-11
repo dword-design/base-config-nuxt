@@ -4,9 +4,10 @@ import { endent } from '@dword-design/functions'
 import execa from 'execa'
 
 export default {
-  valid: () => withLocalTmpDir(async () => {
-    await outputFiles({
-      'depcheck.config.js': endent`
+  valid: () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'depcheck.config.js': endent`
         const special = require('../src/depcheck-special')
         module.exports = {
           specials: [
@@ -14,24 +15,25 @@ export default {
           ],
         }
       `,
-      'src/index.js': endent`
+        'src/index.js': endent`
         export default {
           modules: [
             'foo',
           ],
         }
       `,
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
-    })
-    await execa.command('depcheck --config depcheck.config.js')
-  }),
-  'unused dependency': () => withLocalTmpDir(async () => {
-    await outputFiles({
-      'depcheck.config.js': endent`
+        'package.json': JSON.stringify({
+          dependencies: {
+            foo: '^1.0.0',
+          },
+        }),
+      })
+      await execa.command('depcheck --config depcheck.config.js')
+    }),
+  'unused dependency': () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'depcheck.config.js': endent`
         const special = require('../src/depcheck-special')
         module.exports = {
           specials: [
@@ -39,12 +41,14 @@ export default {
           ],
         }
       `,
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
-    })
-    await expect(execa.command('depcheck --config depcheck.config.js')).rejects.toThrow('Unused dependencies')
-  }),
+        'package.json': JSON.stringify({
+          dependencies: {
+            foo: '^1.0.0',
+          },
+        }),
+      })
+      await expect(
+        execa.command('depcheck --config depcheck.config.js')
+      ).rejects.toThrow('Unused dependencies')
+    }),
 }
