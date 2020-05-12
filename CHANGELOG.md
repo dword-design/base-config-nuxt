@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/dword-design/base-config-nuxt/compare/v1.19.0...v1.19.1) (2020-05-12)
+
+
+### Bug Fixes
+
+* enable webpack loader syntax ([8584c34](https://github.com/dword-design/base-config-nuxt/commit/8584c345ba1cdd2868391ea954f626cf96e89c0d))
+
 # [1.19.0](https://github.com/dword-design/base-config-nuxt/compare/v1.18.0...v1.19.0) (2020-05-12)
 
 
