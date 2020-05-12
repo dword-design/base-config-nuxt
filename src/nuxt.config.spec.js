@@ -4,6 +4,7 @@ import { endent, mapValues } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import getPackageName from 'get-package-name'
 import { Nuxt, Builder } from 'nuxt'
+import execa from 'execa'
 import self from './nuxt.config'
 
 let browser
@@ -12,6 +13,7 @@ let page
 const runTest = ({ files, port = 3000, url = '', test }) => () =>
   withLocalTmpDir(async () => {
     await outputFiles(files)
+    await execa.command('base prepare')
     const nuxt = new Nuxt({ ...self, dev: false, build: { quiet: true } })
     await new Builder(nuxt).build()
     await nuxt.listen()
@@ -39,7 +41,7 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
           </template>
@@ -75,22 +77,20 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'assets/style.scss': "@import '~sass-foo'",
-          'index.js': endent`
-            export default {
-              css: [
-                '~/assets/style.scss',
-              ],
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'assets/style.scss': "@import '~sass-foo'",
+        'nuxt.config.js': endent`
+          export default {
+            css: [
+              '~/assets/style.scss',
+            ],
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () => {
         const backgroundColor = await page.$eval(
@@ -109,26 +109,24 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'assets/style.scss': endent`
-            body {
-              background: red;
-            }
-          `,
-          'index.js': endent`
-            export default {
-              css: [
-                '~/assets/style.scss',
-              ],
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'assets/style.scss': endent`
+          body {
+            background: red;
+          }
+        `,
+        'nuxt.config.js': endent`
+          export default {
+            css: [
+              '~/assets/style.scss',
+            ],
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () => {
         const backgroundColor = await page.$eval(
@@ -147,19 +145,17 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              name: 'Test-App',
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'nuxt.config.js': endent`
+          export default {
+            name: 'Test-App',
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () => expect(await page.title()).toEqual('Test-App'),
     },
@@ -172,20 +168,18 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              name: 'Test-App',
-              title: 'This is the ultimate app!',
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'nuxt.config.js': endent`
+          export default {
+            name: 'Test-App',
+            title: 'This is the ultimate app!',
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () =>
         expect(await page.title()).toEqual(
@@ -201,28 +195,26 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              name: 'Test-App',
-              title: 'This is the ultimate app!',
-            }
-          `,
-          'pages/foo.vue': endent`
-            <template>
-              <div>Hello worldy</div>
-            </template>
+        'nuxt.config.js': endent`
+          export default {
+            name: 'Test-App',
+            title: 'This is the ultimate app!',
+          }
+        `,
+        'pages/foo.vue': endent`
+          <template>
+            <div>Hello worldy</div>
+          </template>
 
-            <script>
-            export default {
-              head: {
-                title: () => 'Foo page',
-              },
-            }
-            </script>
+          <script>
+          export default {
+            head: {
+              title: () => 'Foo page',
+            },
+          }
+          </script>
 
-          `,
-        },
+        `,
       },
       url: '/foo',
       test: async () =>
@@ -237,21 +229,19 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              htmlAttrs: {
-                class: 'foo bar',
-              },
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'nuxt.config.js': endent`
+          export default {
+            htmlAttrs: {
+              class: 'foo bar',
+            },
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () =>
         expect(await page.$eval('html', el => el.className)).toEqual('foo bar'),
@@ -265,21 +255,19 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              headAttrs: {
-                class: 'foo bar',
-              },
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'nuxt.config.js': endent`
+          export default {
+            headAttrs: {
+              class: 'foo bar',
+            },
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () =>
         expect(await page.$eval('head', el => el.className)).toEqual('foo bar'),
@@ -293,21 +281,19 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              bodyAttrs: {
-                class: 'foo bar',
-              },
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'nuxt.config.js': endent`
+          export default {
+            bodyAttrs: {
+              class: 'foo bar',
+            },
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () =>
         expect(await page.$eval('body', el => el.className)).toEqual('foo bar'),
@@ -321,30 +307,28 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              router: {
-                base: '/app/',
-              },
-            }
-          `,
-          pages: {
-            'index.vue': endent`
-              <template>
-                <div class="foo">
-                  <nuxt-link :to="{ name: 'index' }" class="home">
-                    Home
-                  </nuxt-link>
-                  <nuxt-link :to="{ name: 'inner.info' }" class="info">
-                    Info
-                  </nuxt-link>
-                </div>
-              </template>
+        'nuxt.config.js': endent`
+          export default {
+            router: {
+              base: '/app/',
+            },
+          }
+        `,
+        pages: {
+          'index.vue': endent`
+            <template>
+              <div class="foo">
+                <nuxt-link :to="{ name: 'index' }" class="home">
+                  Home
+                </nuxt-link>
+                <nuxt-link :to="{ name: 'inner.info' }" class="info">
+                  Info
+                </nuxt-link>
+              </div>
+            </template>
 
-            `,
-            'inner/info.vue': '',
-          },
+          `,
+          'inner/info.vue': '',
         },
       },
       url: '/app',
@@ -366,24 +350,22 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'assets/style.css': endent`
-            body {
-              background: rgba(#fff, .5);
-            }
-          `,
-          'index.js': endent`
-            export default {
-              css: ['assets/style.css'],
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div />
-            </template>
-            
-          `,
-        },
+        'assets/style.css': endent`
+          body {
+            background: rgba(#fff, .5);
+          }
+        `,
+        'nuxt.config.js': endent`
+          export default {
+            css: ['assets/style.css'],
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+          
+        `,
       },
       test: async () => {
         const backgroundColor = await page.$eval(
@@ -402,27 +384,25 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'assets/style.css': endent`
-            body {
-              background: rgba(#fff, .5);
-            }
-          `,
-          'index.js': endent`
-            export default {
-              css: ['assets/style.css'],
-              postcssPlugins: {
-                '${getPackageName(require.resolve('postcss-hexrgba'))}': {},
-              },
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div />
-            </template>
+        'assets/style.css': endent`
+          body {
+            background: rgba(#fff, .5);
+          }
+        `,
+        'nuxt.config.js': endent`
+          export default {
+            css: ['assets/style.css'],
+            postcssPlugins: {
+              '${getPackageName(require.resolve('postcss-hexrgba'))}': {},
+            },
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () => {
         const backgroundColor = await page.$eval(
@@ -443,26 +423,24 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
-            export default {
-              modules: [
-                'modules/foo',
-              ],
-            }
-          `,
-          'modules/foo.js': endent`
-            export default function () {
-              this.options.head.titleTemplate = process.env.FOO
-            }
-          `,
-          'pages/index.vue': endent`
-            <template>
-              <div>Hello world</div>
-            </template>
+        'nuxt.config.js': endent`
+          export default {
+            modules: [
+              'modules/foo',
+            ],
+          }
+        `,
+        'modules/foo.js': endent`
+          export default function () {
+            this.options.head.titleTemplate = process.env.FOO
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
 
-          `,
-        },
+        `,
       },
       test: async () => expect(await page.title()).toEqual('bar'),
     },
@@ -477,7 +455,7 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
           </template>

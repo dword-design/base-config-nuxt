@@ -6,7 +6,7 @@ import outputFiles from 'output-files'
 const runTest = ({ files, match = '' }) => () =>
   withLocalTmpDir(async () => {
     await outputFiles({
-      src: files,
+      ...files,
       '.eslintrc.json': JSON.stringify(
         {
           extends: require.resolve('./eslint.config'),

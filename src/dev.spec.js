@@ -18,7 +18,7 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
           </template>

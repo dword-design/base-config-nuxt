@@ -24,7 +24,7 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.vue': endent`
+        'pages/index.vue': endent`
           <script>
           import foo from 'foo'
 

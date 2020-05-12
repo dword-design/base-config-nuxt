@@ -27,7 +27,7 @@ const runTest = ({ files, fail }) => () =>
 export default {
   valid: {
     files: {
-      'src/index.js': endent`
+      'nuxt.config.js': endent`
         export default {
           modules: [
             'foo',
@@ -43,7 +43,7 @@ export default {
   },
   'array syntax': {
     files: {
-      'src/index.js': endent`
+      'nuxt.config.js': endent`
         export default {
           modules: [
             ['foo', { bar: 'baz' }],

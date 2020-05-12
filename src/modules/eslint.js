@@ -8,9 +8,10 @@ export default function () {
         enforce: 'pre',
         test: /\.(js|vue)$/,
         loader: getPackageName(require.resolve('eslint-loader')),
-        include: this.options.srcDir, // avoid linting of with-local-tmp-dir paths
+        exclude: /(node_modules)/,
         options: {
           baseConfig: eslintConfig,
+          ignorePath: '.gitignore',
           fix: true,
         },
       })

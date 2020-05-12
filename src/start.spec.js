@@ -20,7 +20,7 @@ const runTest = ({ files, test }) => () =>
         undefined,
         2
       ),
-      src: files,
+      ...files,
     })
     await execa.command('base prepare')
     await execa.command('base prepublishOnly')

@@ -14,21 +14,19 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'model/foo.js': 'const foo = 1',
-          'pages/index.vue': endent`
-            <script>
-            import foo from '@/model/foo'
+        'model/foo.js': 'const foo = 1',
+        'pages/index.vue': endent`
+          <script>
+          import foo from '@/model/foo'
 
-            export default {
-              computed: {
-                foo: () => foo,
-              },
-            }
-            </script>
+          export default {
+            computed: {
+              foo: () => foo,
+            },
+          }
+          </script>
 
-          `,
-        },
+        `,
       })
       await execa.command('base prepare')
       let all
@@ -49,14 +47,12 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'pages/index.vue': endent`
-            <script>
-            foo bar
-            </script>
+        'pages/index.vue': endent`
+          <script>
+          foo bar
+          </script>
 
-          `,
-        },
+        `,
       })
       await execa.command('base prepare')
       let all
@@ -77,7 +73,7 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
           </template>
@@ -98,25 +94,23 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'model/foo.js': "export default 'bar'",
-          'pages/index.vue': endent`
-            <template>
-              <div />
-            </template>
+        'model/foo.js': "export default 'bar'",
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
 
-            <script>
-            import foo from '@/model/foo'
+          <script>
+          import foo from '@/model/foo'
 
-            export default {
-              computed: {
-                foo: () => foo,
-              },
-            }
-            </script>
+          export default {
+            computed: {
+              foo: () => foo,
+            },
+          }
+          </script>
 
-          `,
-        },
+        `,
       })
 
       await execa.command('base prepare')
@@ -135,7 +129,7 @@ export default {
           undefined,
           2
         ),
-        'src/index.js': endent`
+        'nuxt.config.js': endent`
           export default {
             modules: [
               'foo',
@@ -162,7 +156,7 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div />
           </template>

@@ -5,7 +5,6 @@ import eslintModule from './modules/eslint'
 import projectModule from './modules/project'
 
 export default {
-  srcDir: 'src',
   buildDir: P.join('dist', 'nuxt'),
   build: {
     quiet: false,

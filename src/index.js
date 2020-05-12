@@ -21,6 +21,18 @@ export default {
     },
     specials: [...depcheckConfig.specials, depcheckSpecial],
   },
+  allowedMatches: [
+    'assets',
+    'components',
+    'i18n',
+    'layouts',
+    'modules',
+    'nuxt.config.js',
+    'pages',
+    'model',
+    'static',
+    'store',
+  ],
   test: lint,
   commands: {
     dev,

@@ -16,7 +16,7 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div />
           </template>
@@ -28,7 +28,7 @@ export default {
       })
       await execa.command('base prepare')
       await execa.command('base prepublishOnly')
-      expect(await readFile(P.join('src', 'pages', 'index.vue'), 'utf8'))
+      expect(await readFile(P.join('pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
           <template>
             <div />
@@ -49,15 +49,13 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'index.js': endent`
+        'nuxt.config.js': endent`
           export default {
             modules: [
               () => console.log('foo bar'),
             ],
           }
         `,
-        },
       })
       await execa.command('base prepare')
       const { all } = await execa.command('base prepublishOnly', { all: true })
@@ -73,14 +71,14 @@ export default {
           undefined,
           2
         ),
-        src: {
+        model: {
           'cli.js': endent`
-          #!/usr/bin/env node
+            #!/usr/bin/env node
 
-          import foo from './foo'
+            import foo from './foo'
 
-          console.log(foo)
-        `,
+            console.log(foo)
+          `,
           'foo.js': "export default 'foo'",
         },
       })
@@ -100,12 +98,12 @@ export default {
           undefined,
           2
         ),
-        'src/cli.js': endent`
-        #!/usr/bin/env node
+        'model/cli.js': endent`
+          #!/usr/bin/env node
 
-        const foo = 'bar'
+          const foo = 'bar'
 
-      `,
+        `,
       })
 
       await execa.command('base prepare')
