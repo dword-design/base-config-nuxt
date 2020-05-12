@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/dword-design/base-config-nuxt/compare/v1.18.0...v1.19.0) (2020-05-12)
+
+
+### Features
+
+* many changes and fixes ([07223ff](https://github.com/dword-design/base-config-nuxt/commit/07223ffdc3fe3997fa0c3e6c7087c64c2b9023f9))
+
 # [1.18.0](https://github.com/dword-design/base-config-nuxt/compare/v1.17.1...v1.18.0) (2020-05-11)
 
 
