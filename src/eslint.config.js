@@ -9,4 +9,7 @@ export default {
       },
     },
   },
+  rules: {
+    'import/no-webpack-loader-syntax': 'off',
+  },
 }
