@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/dword-design/base-config-nuxt/compare/v1.19.1...v1.20.0) (2020-05-12)
+
+
+### Features
+
+* support array syntax in depcheck special ([bc19f9d](https://github.com/dword-design/base-config-nuxt/commit/bc19f9dd04ad6b8fa0c7b599f624aae00c0e0789))
+
 ## [1.19.1](https://github.com/dword-design/base-config-nuxt/compare/v1.19.0...v1.19.1) (2020-05-12)
 
 
