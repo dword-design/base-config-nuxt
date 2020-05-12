@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/dword-design/base-config-nuxt/compare/v1.20.0...v2.0.0) (2020-05-12)
+
+
+### Features
+
+* new folder structure ([593d985](https://github.com/dword-design/base-config-nuxt/commit/593d985c9a8513559dda17bcb133d19ba8ad87a1))
+
+
+### BREAKING CHANGES
+
+* new folder structure
+
 # [1.20.0](https://github.com/dword-design/base-config-nuxt/compare/v1.19.1...v1.20.0) (2020-05-12)
 
 
