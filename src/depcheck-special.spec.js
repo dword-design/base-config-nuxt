@@ -41,6 +41,22 @@ export default {
       }),
     },
   },
+  'array syntax': {
+    files: {
+      'src/index.js': endent`
+        export default {
+          modules: [
+            ['foo', { bar: 'baz' }],
+          ],
+        }
+      `,
+      'package.json': JSON.stringify({
+        dependencies: {
+          foo: '^1.0.0',
+        },
+      }),
+    },
+  },
   'unused dependency': {
     files: {
       'package.json': JSON.stringify({
