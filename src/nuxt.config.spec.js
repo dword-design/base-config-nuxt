@@ -39,10 +39,11 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.js': endent`
-          export default {
-            render: () => <div>Hello world</div>,
-          }
+        'src/pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
+
         `,
       },
       test: async () =>
@@ -83,10 +84,11 @@ export default {
               ],
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -120,10 +122,11 @@ export default {
               ],
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -150,10 +153,11 @@ export default {
               name: 'Test-App',
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -175,10 +179,11 @@ export default {
               title: 'This is the ultimate app!',
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -203,13 +208,19 @@ export default {
               title: 'This is the ultimate app!',
             }
           `,
-          'pages/foo.js': endent`
+          'pages/foo.vue': endent`
+            <template>
+              <div>Hello worldy</div>
+            </template>
+
+            <script>
             export default {
               head: {
                 title: () => 'Foo page',
               },
-              render: () => <div>Hello world</div>,
             }
+            </script>
+
           `,
         },
       },
@@ -234,10 +245,11 @@ export default {
               },
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -261,10 +273,11 @@ export default {
               },
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -288,10 +301,11 @@ export default {
               },
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -316,25 +330,26 @@ export default {
             }
           `,
           pages: {
-            'index.js': endent`
-              export default {
-                render: () => <div class="foo">
-                  <nuxt-link to={{ name: 'index' }} class="home">Home</nuxt-link>
-                  <nuxt-link to={{ name: 'inner.info' }} class="info">Info</nuxt-link>
-                </div>,
-              }
+            'index.vue': endent`
+              <template>
+                <div class="foo">
+                  <nuxt-link :to="{ name: 'index' }" class="home">
+                    Home
+                  </nuxt-link>
+                  <nuxt-link :to="{ name: 'inner.info' }" class="info">
+                    Info
+                  </nuxt-link>
+                </div>
+              </template>
+
             `,
-            'inner/info.js': endent`
-              export default {
-                render: () => {},
-              }
-            `,
+            'inner/info.vue': '',
           },
         },
       },
       url: '/app',
       test: async () => {
-        expect(await page.$eval('.home.active', el => el.textContent)).toEqual(
+        expect(await page.$eval('.home.active', el => el.textContent)).toMatch(
           'Home'
         )
         expect(
@@ -362,10 +377,11 @@ export default {
               css: ['assets/style.css'],
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div />,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div />
+            </template>
+            
           `,
         },
       },
@@ -400,10 +416,11 @@ export default {
               },
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render: () => <div />,
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div />
+            </template>
+
           `,
         },
       },
@@ -439,12 +456,11 @@ export default {
               this.options.head.titleTemplate = process.env.FOO
             }
           `,
-          'pages/index.js': endent`
-            export default {
-              render() {
-                return <div>Hello world</div>
-              },
-            }
+          'pages/index.vue': endent`
+            <template>
+              <div>Hello world</div>
+            </template>
+
           `,
         },
       },
@@ -461,13 +477,12 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'pages/index.js': endent`
-            export default {
-              render: () => <div>Hello world</div>,
-            }
-          `,
-        },
+        'src/pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
+
+        `,
       },
       port: 3005,
       test: async () => {

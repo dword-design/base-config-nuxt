@@ -4,7 +4,7 @@ import execa from 'execa'
 import { endent } from '@dword-design/functions'
 
 export default {
-  'linting error': () =>
+  'linting error in js file': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
         'package.json': JSON.stringify(
@@ -16,12 +16,17 @@ export default {
         ),
         src: {
           'model/foo.js': 'const foo = 1',
-          'pages/index.js': endent`
+          'pages/index.vue': endent`
+            <script>
             import foo from '@/model/foo'
 
             export default {
-              render: () => <div>{ foo }</div>,
-            };
+              computed: {
+                foo: () => foo,
+              },
+            }
+            </script>
+
           `,
         },
       })
@@ -32,7 +37,35 @@ export default {
       } catch (error) {
         all = error.all
       }
-      expect(all).toMatch("foo' is assigned a value but never used")
+      expect(all).toMatch("'foo' is assigned a value but never used")
+    }),
+  'linting error in vue file': () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        src: {
+          'pages/index.vue': endent`
+            <script>
+            foo bar
+            </script>
+
+          `,
+        },
+      })
+      await execa.command('base prepare')
+      let all
+      try {
+        await execa.command('base test', { all: true })
+      } catch (error) {
+        all = error.all
+      }
+      expect(all).toMatch('Unexpected token, expected ";"')
     }),
   valid: () =>
     withLocalTmpDir(async () => {
@@ -44,10 +77,10 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.js': endent`
-          export default {
-            render: () => <div>Hello world</div>,
-          }
+        'src/pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
           
         `,
       })
@@ -67,12 +100,20 @@ export default {
         ),
         src: {
           'model/foo.js': "export default 'bar'",
-          'pages/index.js': endent`
+          'pages/index.vue': endent`
+            <template>
+              <div />
+            </template>
+
+            <script>
             import foo from '@/model/foo'
 
             export default {
-              render: () => <div>{ foo }</div>,
+              computed: {
+                foo: () => foo,
+              },
             }
+            </script>
 
           `,
         },
@@ -110,6 +151,7 @@ export default {
   'dependency inside vue file': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/foo/index.js': '',
         'package.json': JSON.stringify(
           {
             baseConfig: require.resolve('.'),
@@ -121,12 +163,17 @@ export default {
           2
         ),
         'src/pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+
           <script>
           import foo from 'foo'
 
           export default {
             computed: {
-              foo: () => 1 |> (x => x * 2),
+              foo: () => foo,
+              bar: () => 1 |> (x => x * 2),
             },
           }
           </script>

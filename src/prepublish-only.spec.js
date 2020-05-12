@@ -16,28 +16,28 @@ export default {
           undefined,
           2
         ),
-        src: {
-          'model/index.js': endent`
-          export default 1;
+        'src/pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+          <script>
+          export default {};
+          </script>
 
         `,
-          'pages/index.js': endent`
-          import model from '@/model'
-
-          export default {
-            render: () => <div>{ model }</div>,
-          }
-
-        `,
-        },
       })
       await execa.command('base prepare')
       await execa.command('base prepublishOnly')
-      expect(await readFile(P.join('src', 'model', 'index.js'), 'utf8'))
+      expect(await readFile(P.join('src', 'pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
-      export default 1
-      
-    `)
+          <template>
+            <div />
+          </template>
+          <script>
+          export default {}
+          </script>
+
+        `)
     }),
   'console output': () =>
     withLocalTmpDir(async () => {

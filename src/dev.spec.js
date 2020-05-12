@@ -18,11 +18,12 @@ export default {
           undefined,
           2
         ),
-        'src/pages/index.js': endent`
-        export default {
-          render: () => <div>Hello world</div>,
-        }
-      `,
+        'src/pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
+
+        `,
       })
 
       await execa.command('base prepare')

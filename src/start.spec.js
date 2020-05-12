@@ -40,10 +40,11 @@ export default {
   ...({
     valid: {
       files: {
-        'pages/index.js': endent`
-          export default {
-            render: () => <div>Hello world</div>,
-          }
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
+          
         `,
       },
       test: async () =>
@@ -54,12 +55,21 @@ export default {
     aliases: {
       files: {
         'model/foo.js': "export default 'Hello world'",
-        'pages/index.js': endent`
+        'pages/index.vue': endent`
+          <template>
+            <div>{{ foo }}</div>
+          </template>
+
+          <script>
           import foo from '@/model/foo'
 
           export default {
-            render: () => <div>{ foo }</div>,
+            computed: {
+              foo: () => foo,
+            },
           }
+          </script>
+
         `,
       },
       test: async () =>

@@ -6,7 +6,7 @@ import lint from './lint'
 import nuxtConfig from './nuxt.config'
 
 export default async () => {
-  await lint()
+  await lint({ excludeVueFiles: true })
   await remove('dist')
   await copy('src', 'dist', {
     filter: async file =>
