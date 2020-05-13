@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/dword-design/base-config-nuxt/compare/v2.4.0...v2.4.1) (2020-05-13)
+
+
+### Bug Fixes
+
+* add nuxt-i18n fork ([30202e4](https://github.com/dword-design/base-config-nuxt/commit/30202e4fd58151caffcb453ee3a8fda8ec278952))
+
 # [2.4.0](https://github.com/dword-design/base-config-nuxt/compare/v2.3.0...v2.4.0) (2020-05-13)
 
 
