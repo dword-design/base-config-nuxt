@@ -1,5 +1,6 @@
 import P from 'path'
 import getPackageName from 'get-package-name'
+import bodyParser from 'body-parser'
 import dotenvModule from './modules/dotenv'
 import babelModule from './modules/babel'
 import eslintModule from './modules/eslint'
@@ -26,5 +27,9 @@ export default {
     getPackageName(require.resolve('nuxt-svg-loader')),
     getPackageName(require.resolve('@nuxtjs/global-components')),
     projectModule,
+  ],
+  serverMiddleware: [
+    bodyParser.urlencoded({ extended: false }),
+    bodyParser.json(),
   ],
 }

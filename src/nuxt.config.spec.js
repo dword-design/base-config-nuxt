@@ -675,5 +675,41 @@ export default {
         )
       },
     },
+    'request body': {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'pages/index.vue': endent`
+          <template>
+            <div>{{ foo }}</div>
+          </template>
+
+          <script>
+          export default {
+            asyncData: async ({ req }) => ({ foo: req.body.foo }),
+          }
+          </script>
+
+        `,
+      },
+      test: async () => {
+        await page.setRequestInterception(true)
+        page.once('request', request => {
+          request.continue({
+            method: 'POST',
+            postData: JSON.stringify({ foo: 'bar' }),
+            headers: { 'Content-Type': 'application/json' },
+          })
+          return page.setRequestInterception(false)
+        })
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('div', div => div.textContent)).toEqual('bar')
+      },
+    },
   } |> mapValues(runTest)),
 }

@@ -30,6 +30,7 @@
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/global-components": "^0.6.1",
     "better-node-env": "^1.0.3",
+    "body-parser": "^1.19.0",
     "eslint-import-resolver-nuxt": "^1.0.1",
     "eslint-loader": "^3.0.3",
     "execa": "^4.0.0",
