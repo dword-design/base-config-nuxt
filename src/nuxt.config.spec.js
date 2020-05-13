@@ -10,7 +10,7 @@ import self from './nuxt.config'
 let browser
 let page
 
-const runTest = ({ files, port = 3000, url = '', test }) => () =>
+const runTest = ({ files, test }) => () =>
   withLocalTmpDir(async () => {
     await outputFiles(files)
     await execa.command('base prepare')
@@ -18,7 +18,6 @@ const runTest = ({ files, port = 3000, url = '', test }) => () =>
     await new Builder(nuxt).build()
     await nuxt.listen()
     try {
-      await page.goto(`http://localhost:${port}${url}`)
       await test()
     } finally {
       await nuxt.close()
@@ -48,10 +47,12 @@ export default {
 
         `,
       },
-      test: async () =>
+      test: async () => {
+        await page.goto('http://localhost:3000')
         expect(await page.$eval('div', div => div.textContent)).toEqual(
           'Hello world'
-        ),
+        )
+      },
     },
     'sass import': {
       files: {
@@ -93,6 +94,7 @@ export default {
         `,
       },
       test: async () => {
+        await page.goto('http://localhost:3000')
         const backgroundColor = await page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
@@ -129,6 +131,7 @@ export default {
         `,
       },
       test: async () => {
+        await page.goto('http://localhost:3000')
         const backgroundColor = await page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
@@ -157,7 +160,10 @@ export default {
 
         `,
       },
-      test: async () => expect(await page.title()).toEqual('Test-App'),
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.title()).toEqual('Test-App')
+      },
     },
     'name and title': {
       files: {
@@ -181,10 +187,12 @@ export default {
 
         `,
       },
-      test: async () =>
+      test: async () => {
+        await page.goto('http://localhost:3000')
         expect(await page.title()).toEqual(
           'Test-App - This is the ultimate app!'
-        ),
+        )
+      },
     },
     'page with title': {
       files: {
@@ -216,9 +224,10 @@ export default {
 
         `,
       },
-      url: '/foo',
-      test: async () =>
-        expect(await page.title()).toEqual('Test-App - Foo page'),
+      test: async () => {
+        await page.goto('http://localhost:3000/foo')
+        expect(await page.title()).toEqual('Test-App - Foo page')
+      },
     },
     htmlAttrs: {
       files: {
@@ -243,8 +252,10 @@ export default {
 
         `,
       },
-      test: async () =>
-        expect(await page.$eval('html', el => el.className)).toEqual('foo bar'),
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('html', el => el.className)).toEqual('foo bar')
+      },
     },
     headAttrs: {
       files: {
@@ -269,8 +280,10 @@ export default {
 
         `,
       },
-      test: async () =>
-        expect(await page.$eval('head', el => el.className)).toEqual('foo bar'),
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('head', el => el.className)).toEqual('foo bar')
+      },
     },
     bodyAttrs: {
       files: {
@@ -295,8 +308,10 @@ export default {
 
         `,
       },
-      test: async () =>
-        expect(await page.$eval('body', el => el.className)).toEqual('foo bar'),
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('body', el => el.className)).toEqual('foo bar')
+      },
     },
     'router config': {
       files: {
@@ -331,8 +346,8 @@ export default {
           'inner/info.vue': '',
         },
       },
-      url: '/app',
       test: async () => {
+        await page.goto('http://localhost:3000/app')
         expect(await page.$eval('.home.active', el => el.textContent)).toMatch(
           'Home'
         )
@@ -368,6 +383,7 @@ export default {
         `,
       },
       test: async () => {
+        await page.goto('http://localhost:3000')
         const backgroundColor = await page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
@@ -405,6 +421,7 @@ export default {
         `,
       },
       test: async () => {
+        await page.goto('http://localhost:3000')
         const backgroundColor = await page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
@@ -442,7 +459,10 @@ export default {
 
         `,
       },
-      test: async () => expect(await page.title()).toEqual('bar'),
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.title()).toEqual('bar')
+      },
     },
     port: {
       files: {
@@ -462,8 +482,8 @@ export default {
 
         `,
       },
-      port: 3005,
       test: async () => {
+        await page.goto('http://localhost:3005')
         expect(await page.$eval('div', div => div.textContent)).toEqual(
           'Hello world'
         )
