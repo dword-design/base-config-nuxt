@@ -645,5 +645,35 @@ export default {
         )
       },
     },
+    i18n: {
+      files: {
+        'i18n/en.json': JSON.stringify(
+          {
+            foo: 'Hello world',
+          },
+          undefined,
+          2
+        ),
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'pages/index.vue': endent`
+          <template>
+            <div>{{ $t('foo') }}</div>
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('div', div => div.textContent)).toEqual(
+          'Hello world'
+        )
+      },
+    },
   } |> mapValues(runTest)),
 }
