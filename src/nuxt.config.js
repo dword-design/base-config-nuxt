@@ -18,7 +18,9 @@ export default {
     eslintModule,
     rawModule,
     serverMiddlewareModule,
+    getPackageName(require.resolve('@nuxtjs/axios')),
     getPackageName(require.resolve('nuxt-svg-loader')),
+    getPackageName(require.resolve('@nuxtjs/global-components')),
     projectModule,
   ],
 }

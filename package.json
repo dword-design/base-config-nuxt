@@ -26,6 +26,8 @@
     "@dword-design/dotenv-json-extended": "^1.2.0",
     "@dword-design/eslint-config": "^1.4.0",
     "@dword-design/functions": "^2.2.4",
+    "@nuxtjs/axios": "^5.10.3",
+    "@nuxtjs/global-components": "^0.6.1",
     "better-node-env": "^1.0.3",
     "eslint-import-resolver-nuxt": "^1.0.1",
     "eslint-loader": "^3.0.3",

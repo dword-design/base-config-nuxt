@@ -616,5 +616,34 @@ export default {
         )
       },
     },
+    'global components': {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'components/foo.global.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
+          
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <foo />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('div', div => div.textContent)).toEqual(
+          'Hello world'
+        )
+      },
+    },
   } |> mapValues(runTest)),
 }
