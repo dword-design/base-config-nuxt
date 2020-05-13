@@ -9212,10 +9212,9 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt-i18n@^6.11.1:
-  version "6.11.1"
-  resolved "https://registry.yarnpkg.com/nuxt-i18n/-/nuxt-i18n-6.11.1.tgz#4dfe37d98e973dd0fe6f284e2c8fd5215bd1a17a"
-  integrity sha512-nyr53JhHRoF3Ig6slUaXRALtAUOyGbKonL5AcNXxGkRdHpzF9HJ6mZ13W2wZCf2AiH3XatRYEh6GAmwLAOUj3A==
+nuxt-i18n@dword-design/nuxt-i18n#fork:
+  version "6.11.0"
+  resolved "https://codeload.github.com/dword-design/nuxt-i18n/tar.gz/eb249de4aa692a1883b8f22237855d3c515a234b"
   dependencies:
     "@babel/parser" "^7.5.5"
     "@babel/traverse" "^7.5.5"

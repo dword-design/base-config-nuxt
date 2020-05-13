@@ -41,7 +41,7 @@
     "glob-promise": "^3.4.0",
     "node-sass": "^4.13.1",
     "nuxt": "^2.11.0",
-    "nuxt-i18n": "^6.11.1",
+    "nuxt-i18n": "dword-design/nuxt-i18n#fork",
     "nuxt-svg-loader": "^1.2.0",
     "raw-loader": "^4.0.1",
     "safe-require": "dword-design/node-safe-require#fork",
