@@ -2,6 +2,7 @@ import P from 'path'
 import dotenvModule from './modules/dotenv'
 import babelModule from './modules/babel'
 import eslintModule from './modules/eslint'
+import apiModule from './modules/api'
 import projectModule from './modules/project'
 
 export default {
@@ -9,5 +10,5 @@ export default {
   build: {
     quiet: false,
   },
-  modules: [dotenvModule, babelModule, eslintModule, projectModule],
+  modules: [dotenvModule, babelModule, eslintModule, apiModule, projectModule],
 }

@@ -1,10 +1,11 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
-import { endent, mapValues } from '@dword-design/functions'
+import { endent, mapValues, property } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import getPackageName from 'get-package-name'
 import { Nuxt, Builder } from 'nuxt'
 import execa from 'execa'
+import axios from 'axios'
 import self from './nuxt.config'
 
 let browser
@@ -488,6 +489,28 @@ export default {
           'Hello world'
         )
         delete process.env.PORT
+      },
+    },
+    api: {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'api/foo.js': endent`
+          export const GET = (req, res) => res.json({ foo: 'bar' })
+
+        `,
+      },
+      test: async () => {
+        const result =
+          axios.get('http://localhost:3000/api/foo')
+          |> await
+          |> property('data')
+        expect(result).toEqual({ foo: 'bar' })
       },
     },
   } |> mapValues(runTest)),

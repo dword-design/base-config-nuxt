@@ -22,6 +22,7 @@ export default {
     specials: [...depcheckConfig.specials, depcheckSpecial],
   },
   allowedMatches: [
+    'api',
     'assets',
     'components',
     'i18n',
