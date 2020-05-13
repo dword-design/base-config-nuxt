@@ -1,9 +1,9 @@
 import P from 'path'
 import express from 'express'
-import rainbow from 'rainbow'
+import mountFiles from 'express-mount-files'
 
 export default function () {
   const app = express()
-  app.use(rainbow({ controllers: P.join(this.options.srcDir, 'api') }))
+  app.use(mountFiles(P.join(this.options.srcDir, 'api'), { paramChar: '_' }))
   this.addServerMiddleware({ path: '/api', handler: app })
 }

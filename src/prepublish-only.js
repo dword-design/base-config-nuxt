@@ -1,7 +1,6 @@
 import { Nuxt, Builder } from 'nuxt'
 import execa from 'execa'
 import { remove, exists } from 'fs-extra'
-import getPackageName from 'get-package-name'
 import lint from './lint'
 import nuxtConfig from './nuxt.config'
 
@@ -12,8 +11,6 @@ export default async () => {
     await execa(
       'babel',
       [
-        '--config-file',
-        getPackageName(require.resolve('@dword-design/babel-config')),
         '--out-dir',
         'dist',
         '--copy-files',

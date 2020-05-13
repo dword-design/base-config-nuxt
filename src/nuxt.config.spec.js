@@ -500,8 +500,8 @@ export default {
           undefined,
           2
         ),
-        'api/foo.js': endent`
-          export const GET = (req, res) => res.json({ foo: 'bar' })
+        'api/foo.get.js': endent`
+          export default (req, res) => res.json({ foo: 'bar' })
 
         `,
       },
@@ -511,6 +511,109 @@ export default {
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
+      },
+    },
+    'raw file': {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'assets/foo.txt': 'Hello world',
+        'pages/index.vue': endent`
+          <template>
+            <div>{{ foo }}</div>
+          </template>
+
+          <script>
+          import foo from '@/assets/foo.txt'
+
+          export default {
+            computed: {
+              foo: () => foo,
+            },
+          }
+          </script>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('div', div => div.textContent)).toEqual(
+          'Hello world'
+        )
+      },
+    },
+    svg: {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'assets/foo.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
+        'pages/index.vue': endent`
+          <template>
+            <Foo class="svg" />
+          </template>
+
+          <script>
+          import Foo from '@/assets/foo.svg'
+
+          export default {
+            components: {
+              Foo,
+            },
+          }
+          </script>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('.svg', foo => foo.tagName)).toEqual('svg')
+      },
+    },
+    aliases: {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'model/foo.js': endent`
+          export default 'Hello world'
+          
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>{{ foo }}</div>
+          </template>
+
+          <script>
+          import foo from '@/model/foo'
+
+          export default {
+            computed: {
+              foo: () => foo,
+            },
+          }
+          </script>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('div', div => div.textContent)).toEqual(
+          'Hello world'
+        )
       },
     },
   } |> mapValues(runTest)),

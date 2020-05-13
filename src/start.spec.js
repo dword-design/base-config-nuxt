@@ -52,30 +52,5 @@ export default {
           'Hello world'
         ),
     },
-    aliases: {
-      files: {
-        'model/foo.js': "export default 'Hello world'",
-        'pages/index.vue': endent`
-          <template>
-            <div>{{ foo }}</div>
-          </template>
-
-          <script>
-          import foo from '@/model/foo'
-
-          export default {
-            computed: {
-              foo: () => foo,
-            },
-          }
-          </script>
-
-        `,
-      },
-      test: async () =>
-        expect(await page.$eval('div', div => div.textContent)).toEqual(
-          'Hello world'
-        ),
-    },
   } |> mapValues(runTest)),
 }
