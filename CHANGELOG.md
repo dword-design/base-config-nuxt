@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/dword-design/base-config-nuxt/compare/v2.0.0...v2.1.0) (2020-05-13)
+
+
+### Features
+
+* add api feature ([8185fef](https://github.com/dword-design/base-config-nuxt/commit/8185fefbd7cf09f16fe6dabcd7dbd27d3058ec9e))
+* integrated various modules ([b546ac7](https://github.com/dword-design/base-config-nuxt/commit/b546ac74067c1ab9d6ed59092dc5421d5c98d54e))
+
 # [2.0.0](https://github.com/dword-design/base-config-nuxt/compare/v1.20.0...v2.0.0) (2020-05-12)
 
 
