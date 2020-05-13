@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/dword-design/base-config-nuxt/compare/v2.2.0...v2.3.0) (2020-05-13)
+
+
+### Features
+
+* add some modules ([f1ba8df](https://github.com/dword-design/base-config-nuxt/commit/f1ba8dffead0ed7dece57eeff7583fa7e1bffb29))
+
 # [2.2.0](https://github.com/dword-design/base-config-nuxt/compare/v2.1.0...v2.2.0) (2020-05-13)
 
 
