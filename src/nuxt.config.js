@@ -13,6 +13,9 @@ import axiosDynamicBaseurlModule from './modules/nuxt-axios-dynamic-baseurl'
 export default {
   buildDir: P.join('dist', 'nuxt'),
   build: {
+    babel: {
+      presets: [['@nuxt/babel-preset-app', { jsx: false }]],
+    },
     quiet: false,
   },
   modules: [

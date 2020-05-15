@@ -29,13 +29,9 @@ export default {
         `,
       })
       await execa.command('base prepare')
-      let all
-      try {
-        await execa.command('base test', { all: true })
-      } catch (error) {
-        all = error.all
-      }
-      expect(all).toMatch("'foo' is assigned a value but never used")
+      await expect(execa.command('base test')).rejects.toThrow(
+        "'foo' is assigned a value but never used"
+      )
     }),
   'linting error in vue file': () =>
     withLocalTmpDir(async () => {
@@ -55,13 +51,9 @@ export default {
         `,
       })
       await execa.command('base prepare')
-      let all
-      try {
-        await execa.command('base test', { all: true })
-      } catch (error) {
-        all = error.all
-      }
-      expect(all).toMatch('Unexpected token, expected ";"')
+      await expect(execa.command('base test')).rejects.toThrow(
+        'Unexpected token, expected ";"'
+      )
     }),
   valid: () =>
     withLocalTmpDir(async () => {
@@ -177,5 +169,32 @@ export default {
 
       await execa.command('base prepare')
       await execa.command('base test')
+    }),
+  jsx: () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'pages/index.vue': endent`
+          <script>
+          import foo from 'foo'
+
+          export default {
+            render: () => <div />,
+          }
+          </script>
+
+        `,
+      })
+
+      await execa.command('base prepare')
+      await expect(execa.command('base test')).rejects.toThrow(
+        'Unexpected token'
+      )
     }),
 }

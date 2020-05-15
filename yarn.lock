@@ -39,7 +39,7 @@
     invariant "^2.2.4"
     semver "^5.5.0"
 
-"@babel/core@^7.6.4", "@babel/core@^7.7.5", "@babel/core@^7.7.7", "@babel/core@^7.8.4", "@babel/core@^7.9.0":
+"@babel/core@^7.6.4", "@babel/core@^7.7.5", "@babel/core@^7.7.7", "@babel/core@^7.8.4", "@babel/core@^7.9.0", "@babel/core@^7.9.6":
   version "7.9.6"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.9.6.tgz#d9aa1f580abf3b2286ef40b6904d390904c63376"
   integrity sha512-nD3deLvbsApbHAHttzIssYqgb883yU/d9roe4RZymBCDaZryMJDbptVpEpeQuRh4BJ+SYI8le9YGxKvFEvl1Wg==
@@ -876,7 +876,7 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@dword-design/babel-config@^1.0.0", "@dword-design/babel-config@^1.0.10", "@dword-design/babel-config@^1.0.4", "@dword-design/babel-config@^1.1.0":
+"@dword-design/babel-config@^1.0.0", "@dword-design/babel-config@^1.0.10", "@dword-design/babel-config@^1.0.4", "@dword-design/babel-config@^1.1.0", "@dword-design/babel-config@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@dword-design/babel-config/-/babel-config-1.3.0.tgz#969e61b1f01dba90c66bf6187ee8632492c06a5d"
   integrity sha512-XrT0tCRp51dRowlRNA+54oJKKMVPInnsGqGvzrwu7zWrpiK5Ggz7VX/cNP8lnZSO5ils3fCe27PIX3SrI/J8Rw==
@@ -890,7 +890,7 @@
     get-package-name "^1.0.0"
     param-case "^3.0.3"
 
-"@dword-design/base-config-node@^1.5.3", "@dword-design/base-config-node@^1.6.0":
+"@dword-design/base-config-node@^1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@dword-design/base-config-node/-/base-config-node-1.6.0.tgz#dd453d9e0cc416465a404ed3e153f9eeba503d03"
   integrity sha512-3DuJ2MTM0cB/jYzKKsIs8eamJF3G+X34fNhOJbP3VhcVwwm6BrGotGkuBMrLg9AnlJdLORyXk6GbEW5jfypm4g==
@@ -968,7 +968,20 @@
     make-cli "^1.0.16"
     safe-readfile "^1.0.2"
 
-"@dword-design/depcheck-config@^1.1.0", "@dword-design/depcheck-config@^1.1.3":
+"@dword-design/depcheck-config-vue@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@dword-design/depcheck-config-vue/-/depcheck-config-vue-1.1.1.tgz#3952c7fd07d43e6d8b7689148961e13750eb8fbf"
+  integrity sha512-za/6cybZfLopk1YHVZ0MDRhTjlNlVqVDKivA353h8QLf3TjZy/aVADQsnsWXdGHRpyTKaRMX5I/nurRSGUfIUA==
+  dependencies:
+    "@babel/core" "^7.9.6"
+    "@dword-design/babel-config" "^1.3.0"
+    "@dword-design/depcheck-config" "^1.1.6"
+    "@dword-design/depcheck-sass-parser" "^1.0.5"
+    "@dword-design/functions" "^1.1.1"
+    fs-extra "^9.0.0"
+    vue-template-compiler "^2.6.11"
+
+"@dword-design/depcheck-config@^1.1.0", "@dword-design/depcheck-config@^1.1.6":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@dword-design/depcheck-config/-/depcheck-config-1.1.6.tgz#8dbd361ae483c57af6e66ff16f3644e7677b5d89"
   integrity sha512-SOZEtwdLFbzarBIoDSnzIo82rqDlIAtEgBY5nsUKmDL3CvvDbT5uHiGiTsOQ5XEWrA06At0SaQaZISEYOnBgdg==
@@ -986,7 +999,7 @@
     "@dword-design/functions" "^2.2.4"
     resolve-from "^5.0.0"
 
-"@dword-design/depcheck-sass-parser@^1.0.2":
+"@dword-design/depcheck-sass-parser@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@dword-design/depcheck-sass-parser/-/depcheck-sass-parser-1.0.5.tgz#6d03de0e10a9297e3a553be528b43336fbdcea15"
   integrity sha512-2HN/BOhCdGAPP5KLyn5WvnZMK3blTW4nsYyjgRQa5oxakqJDWTIzvrVQYbJeG8dqzj5mSV77ZLYNmLKlEcQggw==
@@ -1028,7 +1041,7 @@
     safe-require dword-design/node-safe-require#fork
     vue-eslint-parser "^7.0.0"
 
-"@dword-design/functions@^1.1.0":
+"@dword-design/functions@^1.1.0", "@dword-design/functions@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@dword-design/functions/-/functions-1.1.1.tgz#255a4661dba1271f70fe40d0dc7379a14b685294"
   integrity sha512-djaV/ExhyXvhHOyisML8GGULqgbQsydpsf3Lfqe0D0GKeWPrsnYBqmJHk80wRzYqiRtbVPE9LadYVrIz/m4LUg==

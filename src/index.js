@@ -1,6 +1,4 @@
-import nodeConfig from '@dword-design/base-config-node'
-import depcheckConfig from '@dword-design/depcheck-config'
-import depcheckSassParser from '@dword-design/depcheck-sass-parser'
+import depcheckConfig from '@dword-design/depcheck-config-vue'
 import { outputFile } from 'fs-extra'
 import nuxtConfig from './nuxt.config'
 import dev from './dev'
@@ -9,18 +7,11 @@ import prepublishOnly from './prepublish-only'
 import analyze from './analyze'
 import start from './start'
 import depcheckSpecial from './depcheck-special'
-import depcheckVueParser from './depcheck-vue-parser'
 import eslintConfig from './eslint.config'
 
 export default {
-  ...nodeConfig,
   depcheckConfig: {
     ...depcheckConfig,
-    parsers: {
-      ...depcheckConfig.parsers,
-      '*.scss': depcheckSassParser,
-      '*.vue': depcheckVueParser,
-    },
     specials: [...depcheckConfig.specials, depcheckSpecial],
   },
   allowedMatches: [
@@ -36,6 +27,7 @@ export default {
     'static',
     'store',
   ],
+  gitignore: ['/.eslintrc.json'],
   prepare: () =>
     outputFile('.eslintrc.json', JSON.stringify(eslintConfig, undefined, 2)),
   test: lint,
