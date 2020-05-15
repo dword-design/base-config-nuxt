@@ -1,3 +1,10 @@
+## [2.4.2](https://github.com/dword-design/base-config-nuxt/compare/v2.4.1...v2.4.2) (2020-05-15)
+
+
+### Bug Fixes
+
+* refactoring ([7632225](https://github.com/dword-design/base-config-nuxt/commit/763222530cbb9ab4b37c3eca5d7e6d73640f7023))
+
 ## [2.4.1](https://github.com/dword-design/base-config-nuxt/compare/v2.4.0...v2.4.1) (2020-05-13)
 
 
