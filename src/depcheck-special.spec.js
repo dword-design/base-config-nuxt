@@ -67,4 +67,21 @@ export default {
     },
     fail: true,
   },
+  function: {
+    files: {
+      'nuxt.config.js': endent`
+        export default {
+          modules: [
+            'foo',
+            () => {},
+          ],
+        }
+      `,
+      'package.json': JSON.stringify({
+        dependencies: {
+          foo: '^1.0.0',
+        },
+      }),
+    },
+  },
 } |> mapValues(runTest)
