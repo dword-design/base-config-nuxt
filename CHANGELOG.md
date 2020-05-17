@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/dword-design/base-config-nuxt/compare/v2.4.2...v2.5.0) (2020-05-17)
+
+
+### Features
+
+* configure css modules ([71e9202](https://github.com/dword-design/base-config-nuxt/commit/71e920253ef8c47b632ba9838a5219a56de511a6))
+
 ## [2.4.2](https://github.com/dword-design/base-config-nuxt/compare/v2.4.1...v2.4.2) (2020-05-15)
 
 
