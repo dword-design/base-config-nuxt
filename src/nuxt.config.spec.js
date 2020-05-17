@@ -55,6 +55,72 @@ export default {
         )
       },
     },
+    style: {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'pages/index.vue': endent`
+          <template>
+            <div :class="['foo', $style.foo]">
+              Hello world
+            </div>
+          </template>
+
+          <style lang="scss" module>
+          .foo {
+            background: red;
+          }
+          </style>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        const backgroundColor = await page.$eval(
+          '.foo',
+          el => getComputedStyle(el).backgroundColor
+        )
+        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
+      },
+    },
+    'css class casing': {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'pages/index.vue': endent`
+          <template>
+            <div :class="['foo', $style.fooBar]">
+              Hello world
+            </div>
+          </template>
+
+          <style lang="scss" module>
+          .foo-bar {
+            background: red;
+          }
+          </style>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        const backgroundColor = await page.$eval(
+          '.foo',
+          el => getComputedStyle(el).backgroundColor
+        )
+        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
+      },
+    },
     'sass import': {
       files: {
         'node_modules/sass-foo': {
@@ -64,9 +130,7 @@ export default {
             }
           `,
           'index.scss': endent`
-            body {
-              background: red;
-            }
+            $color: red;
           `,
         },
         'package.json': JSON.stringify(
@@ -79,31 +143,33 @@ export default {
           undefined,
           2
         ),
-        'assets/style.scss': "@import '~sass-foo'",
-        'nuxt.config.js': endent`
-          export default {
-            css: [
-              '~/assets/style.scss',
-            ],
-          }
-        `,
         'pages/index.vue': endent`
           <template>
-            <div>Hello world</div>
+            <div :class="['foo', $style.foo]">
+              Hello world
+            </div>
           </template>
+
+          <style lang="scss" module>
+          @import '~sass-foo';
+
+          .foo {
+            background: red;
+          }
+          </style>
 
         `,
       },
       test: async () => {
         await page.goto('http://localhost:3000')
         const backgroundColor = await page.$eval(
-          'body',
+          '.foo',
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
-    sass: {
+    'global styles': {
       files: {
         'package.json': JSON.stringify(
           {

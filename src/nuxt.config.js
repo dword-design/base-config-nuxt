@@ -9,6 +9,7 @@ import rawModule from './modules/raw'
 import serverMiddlewareModule from './modules/server-middleware'
 import projectModule from './modules/project'
 import axiosDynamicBaseurlModule from './modules/nuxt-axios-dynamic-baseurl'
+import cssModulesModule from './modules/css-modules'
 
 export default {
   buildDir: P.join('dist', 'nuxt'),
@@ -22,6 +23,7 @@ export default {
     dotenvModule,
     babelModule,
     eslintModule,
+    cssModulesModule,
     rawModule,
     i18nModule,
     serverMiddlewareModule,

@@ -10,6 +10,7 @@ export default function () {
         exclude: /(node_modules)/,
         options: {
           ignorePath: '.gitignore',
+          failOnWarning: true,
           fix: true,
         },
       })
