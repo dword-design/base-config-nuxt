@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/dword-design/base-config-nuxt/compare/v2.5.1...v2.6.0) (2020-05-18)
+
+
+### Features
+
+* allow some directories ([5757fd6](https://github.com/dword-design/base-config-nuxt/commit/5757fd67d1921c67b97b5698aab6536f60ab0bde))
+
 ## [2.5.1](https://github.com/dword-design/base-config-nuxt/compare/v2.5.0...v2.5.1) (2020-05-17)
 
 
