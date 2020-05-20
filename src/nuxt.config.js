@@ -10,6 +10,7 @@ import serverMiddlewareModule from './modules/server-middleware'
 import projectModule from './modules/project'
 import axiosDynamicBaseurlModule from './modules/nuxt-axios-dynamic-baseurl'
 import cssModulesModule from './modules/css-modules'
+import localeLinkModule from './modules/nuxt-locale-link'
 
 export default {
   buildDir: P.join('dist', 'nuxt'),
@@ -31,6 +32,7 @@ export default {
     axiosDynamicBaseurlModule,
     getPackageName(require.resolve('nuxt-svg-loader')),
     getPackageName(require.resolve('@nuxtjs/global-components')),
+    localeLinkModule,
     projectModule,
   ],
   serverMiddleware: [

@@ -43,7 +43,8 @@
     "nuxt-svg-loader": "^1.2.0",
     "raw-loader": "^4.0.1",
     "safe-require": "dword-design/node-safe-require#fork",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@dword-design/base": "^6.0.0",

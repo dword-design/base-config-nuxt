@@ -777,5 +777,37 @@ export default {
         expect(await page.$eval('div', div => div.textContent)).toEqual('bar')
       },
     },
+    'locale link': {
+      files: {
+        'i18n/en.json': JSON.stringify({}, undefined, 2),
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        pages: {
+          'foo.vue': endent`
+            <template>
+              <div />
+            </template>
+
+          `,
+          'index.vue': endent`
+            <template>
+              <nuxt-locale-link :to="{ name: 'foo' }">foo</nuxt-locale-link>
+            </template>
+
+          `,
+        },
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.$eval('a', a => a.getAttribute('href'))).toEqual(
+          '/en/foo'
+        )
+      },
+    },
   } |> mapValues(runTest)),
 }
