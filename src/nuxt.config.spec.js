@@ -796,7 +796,9 @@ export default {
           `,
           'index.vue': endent`
             <template>
-              <nuxt-locale-link :to="{ name: 'foo' }">foo</nuxt-locale-link>
+              <nuxt-locale-link :to="{ name: 'foo' }">
+                foo
+              </nuxt-locale-link>
             </template>
 
           `,
