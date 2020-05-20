@@ -1,3 +1,15 @@
+# [2.7.0](https://github.com/dword-design/base-config-nuxt/compare/v2.6.0...v2.7.0) (2020-05-20)
+
+
+### Bug Fixes
+
+* fix linting issue ([d2126c3](https://github.com/dword-design/base-config-nuxt/commit/d2126c3507b8d760d9e6a95c8d1500f5b647cc0b))
+
+
+### Features
+
+* add nuxt-locale-link ([d388d45](https://github.com/dword-design/base-config-nuxt/commit/d388d45bc658f205d3fb24e53073db974c164aca))
+
 # [2.6.0](https://github.com/dword-design/base-config-nuxt/compare/v2.5.1...v2.6.0) (2020-05-18)
 
 
