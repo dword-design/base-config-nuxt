@@ -11,11 +11,11 @@ import self from './nuxt.config'
 let browser
 let page
 
-const runTest = ({ files, test }) => () =>
+const runTest = ({ files, test, dev }) => () =>
   withLocalTmpDir(async () => {
     await outputFiles(files)
     await execa.command('base prepare')
-    const nuxt = new Nuxt({ ...self, dev: false, build: { quiet: true } })
+    const nuxt = new Nuxt({ ...self, dev, build: { quiet: true } })
     await new Builder(nuxt).build()
     await nuxt.listen()
     try {
@@ -66,7 +66,7 @@ export default {
         ),
         'pages/index.vue': endent`
           <template>
-            <div :class="['foo', $style.foo]">
+            <div :class="$style.foo">
               Hello world
             </div>
           </template>
@@ -82,7 +82,41 @@ export default {
       test: async () => {
         await page.goto('http://localhost:3000')
         const backgroundColor = await page.$eval(
-          '.foo',
+          '._2064edUr8FaER8IUynnErP',
+          el => getComputedStyle(el).backgroundColor
+        )
+        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
+      },
+    },
+    'style in dev': {
+      dev: true,
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'pages/index.vue': endent`
+          <template>
+            <div :class="$style.foo">
+              Hello world
+            </div>
+          </template>
+
+          <style lang="scss" module>
+          .foo {
+            background: red;
+          }
+          </style>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        const backgroundColor = await page.$eval(
+          '.index__foo',
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
@@ -796,9 +830,9 @@ export default {
           `,
           'index.vue': endent`
             <template>
-              <nuxt-locale-link :to="{ name: 'foo' }">
+              <nuxt-link :to="{ name: 'foo' }">
                 foo
-              </nuxt-locale-link>
+              </nuxt-link>
             </template>
 
           `,
