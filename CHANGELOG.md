@@ -1,3 +1,11 @@
+## [2.7.1](https://github.com/dword-design/base-config-nuxt/compare/v2.7.0...v2.7.1) (2020-05-23)
+
+
+### Bug Fixes
+
+* adjust cssmodules name format ([c326343](https://github.com/dword-design/base-config-nuxt/commit/c326343c5fd565cd297fd7c73ce24d36299d9f85))
+* fix test ([a006ae0](https://github.com/dword-design/base-config-nuxt/commit/a006ae0755e85c1e8657b1c26a84c4b3508d9fdc))
+
 # [2.7.0](https://github.com/dword-design/base-config-nuxt/compare/v2.6.0...v2.7.0) (2020-05-20)
 
 
