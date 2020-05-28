@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/dword-design/base-config-nuxt/compare/v2.7.1...v2.8.0) (2020-05-28)
+
+
+### Features
+
+* add npmPublish field ([181d2aa](https://github.com/dword-design/base-config-nuxt/commit/181d2aac6d53d4bf28d56cc53d211464ecf3a893))
+
 ## [2.7.1](https://github.com/dword-design/base-config-nuxt/compare/v2.7.0...v2.7.1) (2020-05-23)
 
 
