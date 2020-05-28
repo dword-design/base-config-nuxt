@@ -42,4 +42,5 @@ export default {
   },
   nuxtConfig,
   nuxtConfigFilename: require.resolve('./nuxt.config'),
+  npmPublish: true,
 }
