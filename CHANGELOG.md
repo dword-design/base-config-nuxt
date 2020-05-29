@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/dword-design/base-config-nuxt/compare/v2.8.0...v2.9.0) (2020-05-29)
+
+
+### Features
+
+* add job matrix ([21de8d6](https://github.com/dword-design/base-config-nuxt/commit/21de8d648c22aacc714d9ba4672bdc9842f2cebc))
+
 # [2.8.0](https://github.com/dword-design/base-config-nuxt/compare/v2.7.1...v2.8.0) (2020-05-28)
 
 
