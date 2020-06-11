@@ -1,3 +1,10 @@
+## [2.9.1](https://github.com/dword-design/base-config-nuxt/compare/v2.9.0...v2.9.1) (2020-06-11)
+
+
+### Bug Fixes
+
+* trigger release ([49025bb](https://github.com/dword-design/base-config-nuxt/commit/49025bb2ee8fa89cdc74e07115bd8e1df7c96af9))
+
 # [2.9.0](https://github.com/dword-design/base-config-nuxt/compare/v2.8.0...v2.9.0) (2020-05-29)
 
 
