@@ -29,6 +29,7 @@ export default {
     'plugins',
     'static',
     'store',
+    'types',
   ],
   gitignore: ['/.eslintrc.json'],
   prepare: () =>
