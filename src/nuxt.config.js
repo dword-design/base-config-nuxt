@@ -2,7 +2,6 @@ import P from 'path'
 import getPackageName from 'get-package-name'
 import bodyParser from 'body-parser'
 import dotenvModule from './modules/dotenv'
-import babelModule from './modules/babel'
 import eslintModule from './modules/eslint'
 import i18nModule from './modules/i18n'
 import rawModule from './modules/raw'
@@ -16,13 +15,12 @@ export default {
   buildDir: P.join('dist', 'nuxt'),
   build: {
     babel: {
-      presets: [['@nuxt/babel-preset-app', { jsx: false }]],
+      babelrc: true,
     },
     quiet: false,
   },
   modules: [
     dotenvModule,
-    babelModule,
     eslintModule,
     cssModulesModule,
     rawModule,
