@@ -58,8 +58,8 @@ export default {
         `,
       })
       await execa.command('base prepare')
-      const { all } = await execa.command('base prepublishOnly', { all: true })
-      expect(all).toMatch('foo bar')
+      const output = await execa.command('base prepublishOnly', { all: true })
+      expect(output.all).toMatch('foo bar')
     }),
   cli: () =>
     withLocalTmpDir(async () => {
@@ -85,8 +85,8 @@ export default {
       await execa.command('base prepare')
       await execa.command('base prepublishOnly')
       await chmod(P.join('dist', 'cli.js'), '755')
-      const { all } = await execa.command('./dist/cli.js', { all: true })
-      expect(all).toEqual('foo')
+      const output = await execa.command('./dist/cli.js', { all: true })
+      expect(output.all).toEqual('foo')
     }),
   'linting error in cli': () =>
     withLocalTmpDir(async () => {

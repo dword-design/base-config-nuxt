@@ -1,14 +1,14 @@
 import execa from 'execa'
 
-export default async ({ excludeVueFiles } = {}) => {
+export default async (options = {}) => {
   try {
     await execa.command(
       `eslint --fix --ext .js,.json${
-        excludeVueFiles ? '' : ',.vue'
+        options.excludeVueFiles ? '' : ',.vue'
       } --ignore-path .gitignore .`,
       { all: true }
     )
-  } catch ({ all }) {
-    throw new Error(all)
+  } catch (error) {
+    throw new Error(error.all)
   }
 }

@@ -3,7 +3,7 @@ import outputFiles from 'output-files'
 import { endent, mapValues } from '@dword-design/functions'
 import execa from 'execa'
 
-const runTest = ({ files, fail }) => () =>
+const runTest = config => () =>
   withLocalTmpDir(async () => {
     await outputFiles({
       'depcheck.config.js': endent`
@@ -14,13 +14,13 @@ const runTest = ({ files, fail }) => () =>
         ],
       }
     `,
-      ...files,
+      ...config.files,
     })
     try {
       await execa.command('depcheck --config depcheck.config.js')
     } catch (error) {
       expect(error.message).toMatch('Unused dependencies')
-      expect(fail).toBeTruthy()
+      expect(config.fail).toBeTruthy()
     }
   })
 

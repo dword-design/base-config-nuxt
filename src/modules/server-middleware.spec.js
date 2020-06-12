@@ -4,14 +4,18 @@ import { endent, mapValues, property } from '@dword-design/functions'
 import { Nuxt, Builder } from 'nuxt'
 import axios from 'axios'
 
-const runTest = ({ config, files, test }) => () =>
+const runTest = config => () =>
   withLocalTmpDir(async () => {
-    await outputFiles(files)
-    const nuxt = new Nuxt({ ...config, dev: false, build: { quiet: true } })
+    await outputFiles(config.files)
+    const nuxt = new Nuxt({
+      ...config.config,
+      dev: false,
+      build: { quiet: true },
+    })
     await new Builder(nuxt).build()
     await nuxt.listen()
     try {
-      await test()
+      await config.test()
     } finally {
       await nuxt.close()
     }

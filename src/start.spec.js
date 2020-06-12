@@ -10,7 +10,7 @@ import start from './start'
 let browser
 let page
 
-const runTest = ({ files, test }) => () =>
+const runTest = config => () =>
   withLocalTmpDir(async () => {
     await outputFiles({
       'package.json': JSON.stringify(
@@ -20,14 +20,14 @@ const runTest = ({ files, test }) => () =>
         undefined,
         2
       ),
-      ...files,
+      ...config.files,
     })
     await execa.command('base prepare')
     await execa.command('base prepublishOnly')
     const childProcess = start()
     await portReady(3000)
     await page.goto('http://localhost:3000')
-    await test()
+    await config.test()
     await kill(childProcess.pid)
   })
 

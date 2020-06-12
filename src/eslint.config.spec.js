@@ -3,10 +3,11 @@ import execa from 'execa'
 import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 
-const runTest = ({ files, match = '' }) => () =>
-  withLocalTmpDir(async () => {
+const runTest = config => () => {
+  const match = config.match || ''
+  return withLocalTmpDir(async () => {
     await outputFiles({
-      ...files,
+      ...config.files,
       '.eslintrc.json': JSON.stringify(
         {
           extends: require.resolve('./eslint.config'),
@@ -16,10 +17,10 @@ const runTest = ({ files, match = '' }) => () =>
       ),
     })
     try {
-      const { all } = await execa('eslint', ['--ext', '.js,.json,.vue', '.'], {
+      const output = await execa('eslint', ['--ext', '.js,.json,.vue', '.'], {
         all: true,
       })
-      expect(all).toBeFalsy()
+      expect(output.all).toBeFalsy()
     } catch (error) {
       if (match) {
         expect(error.all).toMatch(match)
@@ -28,6 +29,7 @@ const runTest = ({ files, match = '' }) => () =>
       }
     }
   })
+}
 
 export default {
   'webpack loader import syntax': {

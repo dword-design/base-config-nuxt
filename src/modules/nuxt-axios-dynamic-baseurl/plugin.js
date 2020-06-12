@@ -1,5 +1,5 @@
-export default ({ $axios }) => {
+export default context => {
   if (process.client) {
-    $axios.defaults.baseURL = window.location.origin
+    context.$axios.defaults.baseURL = window.location.origin
   }
 }

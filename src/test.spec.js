@@ -72,7 +72,6 @@ export default {
           
         `,
       })
-
       await execa.command('base prepare')
       await execa.command('base test')
     }),
@@ -104,7 +103,6 @@ export default {
 
         `,
       })
-
       await execa.command('base prepare')
       await execa.command('base test')
     }),
@@ -130,7 +128,6 @@ export default {
 
         `,
       })
-
       await execa.command('base prepare')
       await execa.command('base test')
     }),
@@ -166,7 +163,6 @@ export default {
 
         `,
       })
-
       await execa.command('base prepare')
       await execa.command('base test')
     }),
@@ -191,7 +187,6 @@ export default {
 
         `,
       })
-
       await execa.command('base prepare')
       await expect(execa.command('base test')).rejects.toThrow(
         'Unexpected token'

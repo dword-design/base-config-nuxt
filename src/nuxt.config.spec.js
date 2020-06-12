@@ -11,15 +11,15 @@ import self from './nuxt.config'
 let browser
 let page
 
-const runTest = ({ files, test, dev }) => () =>
+const runTest = config => () =>
   withLocalTmpDir(async () => {
-    await outputFiles(files)
+    await outputFiles(config.files)
     await execa.command('base prepare')
-    const nuxt = new Nuxt({ ...self, dev, build: { quiet: true } })
+    const nuxt = new Nuxt({ ...self, dev: config.dev, build: { quiet: true } })
     await new Builder(nuxt).build()
     await nuxt.listen()
     try {
-      await test()
+      await config.test()
     } finally {
       await nuxt.close()
     }

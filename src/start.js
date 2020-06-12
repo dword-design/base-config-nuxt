@@ -1,13 +1,13 @@
 import execa from 'execa'
 
-export default ({ log = true, rootDir } = {}) =>
+export default (options = {}) =>
   execa(
     'nuxt',
     [
       'start',
-      ...(rootDir !== undefined ? [rootDir] : []),
+      ...(options.rootDir ? [options.rootDir] : []),
       '--config-file',
       require.resolve('./nuxt.config'),
     ],
-    { stdio: log ? 'inherit' : 'ignore' }
+    { stdio: options.log !== false ? 'inherit' : 'ignore' }
   )
