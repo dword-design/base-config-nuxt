@@ -1,15 +1,9 @@
-import babelConfig from '@dword-design/babel-config'
-import babelRegister from '@babel/register'
-import nodeEnv from 'better-node-env'
+import pushPlugins from '@dword-design/nuxt-push-plugins'
 import safeRequire from 'safe-require'
 import P from 'path'
 import { omit, keys } from '@dword-design/functions'
 
 export default function () {
-  if (nodeEnv !== 'test') {
-    babelRegister(babelConfig)
-  }
-
   const defaultConfig = {
     name: 'Vue app',
     htmlAttrs: {},
@@ -60,5 +54,5 @@ export default function () {
   )
 
   projectConfig.modules.forEach(module => this.addModule(module))
-  projectConfig.plugins.forEach(plugin => this.addPlugin(plugin))
+  pushPlugins(this, ...projectConfig.plugins)
 }
