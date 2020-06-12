@@ -1,3 +1,10 @@
+## [2.9.3](https://github.com/dword-design/base-config-nuxt/compare/v2.9.2...v2.9.3) (2020-06-12)
+
+
+### Bug Fixes
+
+* use nuxtPushPlugins and remove babelRegister ([099865b](https://github.com/dword-design/base-config-nuxt/commit/099865be9a57f3cf1b228b9fb554e1e9cfa8858d))
+
 ## [2.9.2](https://github.com/dword-design/base-config-nuxt/compare/v2.9.1...v2.9.2) (2020-06-12)
 
 
