@@ -791,7 +791,7 @@ export default {
 
           <script>
           export default {
-            asyncData: async ({ req }) => ({ foo: req.body.foo }),
+            asyncData: context => ({ foo: context.req.body.foo }),
           }
           </script>
 
