@@ -34,7 +34,7 @@ export default {
   gitignore: ['/.eslintrc.json'],
   prepare: () =>
     outputFile('.eslintrc.json', JSON.stringify(eslintConfig, undefined, 2)),
-  test: lint,
+  lint,
   commands: {
     dev,
     prepublishOnly,
