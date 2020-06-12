@@ -1,3 +1,13 @@
+## [2.9.2](https://github.com/dword-design/base-config-nuxt/compare/v2.9.1...v2.9.2) (2020-06-12)
+
+
+### Bug Fixes
+
+* fix test ([702815d](https://github.com/dword-design/base-config-nuxt/commit/702815dcd0437ccf12173705841b8954c3fbf56f))
+* rename to lint ([4d102d9](https://github.com/dword-design/base-config-nuxt/commit/4d102d9d2d891de1b53471464f615b6e150d4c23))
+* upgrades ([294135f](https://github.com/dword-design/base-config-nuxt/commit/294135f1eae3b380144992324d1dd2572e55cc4d))
+* use babelrc ([5a34859](https://github.com/dword-design/base-config-nuxt/commit/5a34859da4dd210b08fd1613b4bd4997581424e7))
+
 ## [2.9.1](https://github.com/dword-design/base-config-nuxt/compare/v2.9.0...v2.9.1) (2020-06-11)
 
 
