@@ -1,3 +1,10 @@
+# [2.11.0](https://github.com/dword-design/base-config-nuxt/compare/v2.10.0...v2.11.0) (2020-06-13)
+
+
+### Features
+
+* add babel runtime support ([097e8fd](https://github.com/dword-design/base-config-nuxt/commit/097e8fd2ef59d7d8ef81348c8bf2dbb24977e185))
+
 # [2.10.0](https://github.com/dword-design/base-config-nuxt/compare/v2.9.4...v2.10.0) (2020-06-13)
 
 
