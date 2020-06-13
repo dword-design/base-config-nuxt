@@ -28,15 +28,18 @@ export default {
 
       await execa.command('base prepare')
       const childProcess = execa.command('base dev')
-      await portReady(3000)
-      await waitFor(
-        async () =>
-          axios.get('http://localhost:3000')
-          |> await
-          |> property('data')
-          |> includes('<div>Hello world</div>'),
-        { interval: 300 }
-      )
-      await kill(childProcess.pid)
+      try {
+        await portReady(3000)
+        await waitFor(
+          async () =>
+            axios.get('http://localhost:3000')
+            |> await
+            |> property('data')
+            |> includes('<div>Hello world</div>'),
+          { interval: 300 }
+        )
+      } finally {
+        await kill(childProcess.pid)
+      }
     }),
 }
