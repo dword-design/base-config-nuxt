@@ -1,3 +1,10 @@
+## [2.9.4](https://github.com/dword-design/base-config-nuxt/compare/v2.9.3...v2.9.4) (2020-06-13)
+
+
+### Bug Fixes
+
+* add transpile for runtime ([5c6c14d](https://github.com/dword-design/base-config-nuxt/commit/5c6c14da8bb28870ad852720365a8038d7642e2a))
+
 ## [2.9.3](https://github.com/dword-design/base-config-nuxt/compare/v2.9.2...v2.9.3) (2020-06-12)
 
 
