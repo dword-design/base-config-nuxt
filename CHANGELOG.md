@@ -1,3 +1,10 @@
+# [2.10.0](https://github.com/dword-design/base-config-nuxt/compare/v2.9.4...v2.10.0) (2020-06-13)
+
+
+### Features
+
+* add babel transpile support ([95f11af](https://github.com/dword-design/base-config-nuxt/commit/95f11af83094aa124832f9e32119690978d50a0b))
+
 ## [2.9.4](https://github.com/dword-design/base-config-nuxt/compare/v2.9.3...v2.9.4) (2020-06-13)
 
 
