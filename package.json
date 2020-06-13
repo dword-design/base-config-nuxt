@@ -18,6 +18,7 @@
     "test": "base test"
   },
   "dependencies": {
+    "@babel/register": "^7.10.1",
     "@dword-design/depcheck-config-vue": "^1.1.1",
     "@dword-design/dotenv-json-extended": "^1.2.0",
     "@dword-design/eslint-config": "^1.4.0",

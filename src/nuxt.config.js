@@ -1,6 +1,7 @@
 import P from 'path'
 import getPackageName from 'get-package-name'
 import bodyParser from 'body-parser'
+import babelRegister from '@babel/register'
 import dotenvModule from './modules/dotenv'
 import eslintModule from './modules/eslint'
 import i18nModule from './modules/i18n'
@@ -18,6 +19,9 @@ export default {
       babelrc: true,
     },
     quiet: false,
+  },
+  hooks: {
+    'run:before': () => babelRegister(),
   },
   modules: [
     dotenvModule,
