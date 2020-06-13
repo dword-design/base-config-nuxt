@@ -17,8 +17,6 @@ export default {
   allowedMatches: [
     'api',
     'assets',
-    'auth-plugins',
-    'auth-schemes',
     'components',
     'i18n',
     'layouts',

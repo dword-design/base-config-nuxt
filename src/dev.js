@@ -1,6 +1,6 @@
 import execa from 'execa'
 
 export default () =>
-  execa('nuxt', ['--config-file', require.resolve('./nuxt.config')], {
+  execa('nuxt-babel', ['--config-file', require.resolve('./nuxt.config')], {
     stdio: 'inherit',
   })

@@ -1,14 +1,10 @@
 import P from 'path'
 import getPackageName from 'get-package-name'
-import babelRegister from '@babel/register'
 
 export default {
   buildDir: P.join('dist', 'nuxt'),
   build: {
     quiet: false,
-  },
-  hooks: {
-    'run:before': () => babelRegister(),
   },
   modules: [
     require.resolve('./modules/babel'),

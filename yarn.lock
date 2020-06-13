@@ -46,7 +46,7 @@
     invariant "^2.2.4"
     semver "^5.5.0"
 
-"@babel/core@^7.6.4", "@babel/core@^7.7.5", "@babel/core@^7.7.7", "@babel/core@^7.9.0", "@babel/core@^7.9.6":
+"@babel/core@^7.10.2", "@babel/core@^7.6.4", "@babel/core@^7.7.5", "@babel/core@^7.7.7", "@babel/core@^7.9.0", "@babel/core@^7.9.6":
   version "7.10.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.10.2.tgz#bd6786046668a925ac2bd2fd95b579b92a23b36a"
   integrity sha512-KQmV9yguEjQsXqyOUGKjS4+3K8/DlOCE2pZcq4augdQmtTy5iv5EHtmMSJ7V4c1BIPjuwtZYqYLCq9Ga+hGBRQ==
@@ -1245,7 +1245,7 @@
     serialize-javascript "^3.0.0"
     upath "^1.2.0"
 
-"@nuxt/cli@2.12.2":
+"@nuxt/cli@2.12.2", "@nuxt/cli@^2.12.2":
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/@nuxt/cli/-/cli-2.12.2.tgz#fb2a5278e9cda89010fbdcd8515257ae09960d17"
   integrity sha512-370xCIRhFHXgyBowMvISn46NbDQIWSxXaXvJGLyac1OWN+zFWp1kO/f/OXNcXJmEevFxiFg5WBsUl4dzMty23Q==
@@ -9327,6 +9327,16 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
+nuxt-babel-runtime@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-1.0.0.tgz#b00c4842e74df796ad220330469d16fe02961e65"
+  integrity sha512-pXu2s9NNLWfemUaj5bNt4eN4d8dbGNAtsVFaNIHLNhN6/SNOSjp6mJSrlAWuOvMOkssHvKfWACHCwuMYuz5oZQ==
+  dependencies:
+    "@babel/core" "^7.10.2"
+    "@babel/register" "^7.10.1"
+    "@nuxt/cli" "^2.12.2"
+    nuxt "^2.12.2"
+
 nuxt-i18n@dword-design/nuxt-i18n#fork:
   version "6.11.0"
   resolved "https://codeload.github.com/dword-design/nuxt-i18n/tar.gz/eb249de4aa692a1883b8f22237855d3c515a234b"
@@ -9348,7 +9358,7 @@ nuxt-svg-loader@^1.2.0:
     consola "^2.3.2"
     svg-to-vue-component "^0.3.1"
 
-nuxt@^2.11.0:
+nuxt@^2.11.0, nuxt@^2.12.2:
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.12.2.tgz#959baa919bfef4adcd9e88f84bc948a49a03edd8"
   integrity sha512-rARTgQBUZ0ALl9De7TRhHNzzYJT+RUGHTppDDaWno7a50YvZO85mXHCIVpOuXweNZzGq9njIAYHDHF/LO3esJQ==

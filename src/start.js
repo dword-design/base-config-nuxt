@@ -2,7 +2,7 @@ import execa from 'execa'
 
 export default (options = {}) =>
   execa(
-    'nuxt',
+    'nuxt-babel',
     [
       'start',
       ...(options.rootDir ? [options.rootDir] : []),
