@@ -1,3 +1,17 @@
+# [2.12.0](https://github.com/dword-design/base-config-nuxt/compare/v2.11.0...v2.12.0) (2020-06-14)
+
+
+### Bug Fixes
+
+* fix import ([f3ccde1](https://github.com/dword-design/base-config-nuxt/commit/f3ccde1e292129f0186496830daab791c96b7485))
+
+
+### Features
+
+* add some watchers ([3912a43](https://github.com/dword-design/base-config-nuxt/commit/3912a4345adf9f2fa24e95ae470ed6fa62d85827))
+* add stylelint ([35d5973](https://github.com/dword-design/base-config-nuxt/commit/35d59730c2f6b9fb7dc8f96de47a2b0eb8a74cbc))
+* add stylelint autofix ([0c34f55](https://github.com/dword-design/base-config-nuxt/commit/0c34f5597f345ede3b863a9d01db627d10236b35))
+
 # [2.11.0](https://github.com/dword-design/base-config-nuxt/compare/v2.10.0...v2.11.0) (2020-06-13)
 
 
