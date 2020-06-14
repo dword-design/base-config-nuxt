@@ -10,6 +10,7 @@ export default {
     require.resolve('./modules/babel'),
     require.resolve('./modules/dotenv'),
     require.resolve('./modules/eslint'),
+    getPackageName(require.resolve('@nuxtjs/stylelint-module')),
     require.resolve('./modules/css-modules'),
     require.resolve('./modules/raw'),
     require.resolve('./modules/i18n'),

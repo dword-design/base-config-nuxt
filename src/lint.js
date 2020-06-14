@@ -8,6 +8,10 @@ export default async (options = {}) => {
       } --ignore-path .gitignore .`,
       { all: true }
     )
+    await execa.command(
+      `stylelint --fix **/*.{css,scss${options.excludeVueFiles ? '' : ',vue}'}`,
+      { all: true }
+    )
   } catch (error) {
     throw new Error(error.all)
   }

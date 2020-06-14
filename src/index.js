@@ -1,5 +1,6 @@
 import depcheckConfig from '@dword-design/depcheck-config-vue'
-import { outputFile } from 'fs-extra'
+import outputFiles from 'output-files'
+import getPackageName from 'get-package-name'
 import nuxtConfig from './nuxt.config'
 import dev from './dev'
 import lint from './lint'
@@ -29,9 +30,20 @@ export default {
     'store',
     'types',
   ],
-  gitignore: ['/.eslintrc.json'],
+  gitignore: ['/.eslintrc.json', '/.stylelintrc.json'],
   prepare: () =>
-    outputFile('.eslintrc.json', JSON.stringify(eslintConfig, undefined, 2)),
+    outputFiles({
+      '.eslintrc.json': JSON.stringify(eslintConfig, undefined, 2),
+      '.stylelintrc.json': JSON.stringify(
+        {
+          extends: getPackageName(
+            require.resolve('@dword-design/stylelint-config')
+          ),
+        },
+        undefined,
+        2
+      ),
+    }),
   lint,
   commands: {
     dev,
