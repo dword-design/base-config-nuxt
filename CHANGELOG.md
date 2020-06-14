@@ -1,3 +1,15 @@
+# [2.13.0](https://github.com/dword-design/base-config-nuxt/compare/v2.12.0...v2.13.0) (2020-06-14)
+
+
+### Bug Fixes
+
+* merge ([a56e0be](https://github.com/dword-design/base-config-nuxt/commit/a56e0be0556e0ad6f0d226aaa65571fe10ebe4e8))
+
+
+### Features
+
+* replace linter with nuxt-community ([89fba52](https://github.com/dword-design/base-config-nuxt/commit/89fba5205b35fdbad25bf919d48bb6c9166af27c))
+
 # [2.12.0](https://github.com/dword-design/base-config-nuxt/compare/v2.11.0...v2.12.0) (2020-06-14)
 
 
