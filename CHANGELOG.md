@@ -1,3 +1,10 @@
+## [2.13.1](https://github.com/dword-design/base-config-nuxt/compare/v2.13.0...v2.13.1) (2020-06-14)
+
+
+### Bug Fixes
+
+* ignore files with stylelint ([54ec93c](https://github.com/dword-design/base-config-nuxt/commit/54ec93c76646883ac6f560e0e62f0ede0eeec81d))
+
 # [2.13.0](https://github.com/dword-design/base-config-nuxt/compare/v2.12.0...v2.13.0) (2020-06-14)
 
 
