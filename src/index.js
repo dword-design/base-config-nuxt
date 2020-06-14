@@ -30,7 +30,8 @@ export default {
     'store',
     'types',
   ],
-  gitignore: ['/.eslintrc.json', '/.stylelintrc.json', '/.nuxt'],
+  gitignore: ['/.eslintrc.json', '/.stylelintrc.json', '/.nuxt', '/dist'],
+  main: 'dist/index.js',
   prepare: () =>
     outputFiles({
       '.eslintrc.json': JSON.stringify(eslintConfig, undefined, 2),
