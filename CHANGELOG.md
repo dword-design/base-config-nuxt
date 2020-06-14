@@ -1,3 +1,10 @@
+## [2.13.2](https://github.com/dword-design/base-config-nuxt/compare/v2.13.1...v2.13.2) (2020-06-14)
+
+
+### Bug Fixes
+
+* fix prepublishOnly ([3547cd6](https://github.com/dword-design/base-config-nuxt/commit/3547cd67b2f1c3b902cf350e4c77cbfa33cc72de))
+
 ## [2.13.1](https://github.com/dword-design/base-config-nuxt/compare/v2.13.0...v2.13.1) (2020-06-14)
 
 
