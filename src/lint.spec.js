@@ -2,6 +2,7 @@ import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 import { endent } from '@dword-design/functions'
 import execa from 'execa'
+import { outputFile } from 'fs-extra'
 import lint from './lint'
 
 export default {
@@ -22,5 +23,26 @@ export default {
       })
       await execa.command('base prepare')
       await expect(lint()).rejects.toThrow('CssSyntaxError')
+    }),
+  ignored: () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+      })
+      await execa.command('base prepare')
+      await outputFile(
+        'coverage/foo.scss',
+        endent`
+        foo bar
+
+      `
+      )
+      await lint()
     }),
 }

@@ -3,11 +3,11 @@ import execa from 'execa'
 export default async () => {
   try {
     await execa.command(
-      'eslint --fix --ext .js,.json,.vue --ignore-path .gitignore .',
+      'eslint --fix --ignore-path .gitignore --ext .js,.json,.vue .',
       { all: true }
     )
     await execa.command(
-      'stylelint --fix --allow-empty-input **/*.{css,scss,vue}',
+      'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
       { all: true }
     )
   } catch (error) {
