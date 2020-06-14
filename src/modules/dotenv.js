@@ -1,4 +1,5 @@
 import dotenv from '@dword-design/dotenv-json-extended'
+import P from 'path'
 
 export default function () {
   dotenv.config()

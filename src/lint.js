@@ -9,7 +9,9 @@ export default async (options = {}) => {
       { all: true }
     )
     await execa.command(
-      `stylelint --fix --allow-empty-input **/*.{css,scss${options.excludeVueFiles ? '' : ',vue'}}`,
+      `stylelint --fix --allow-empty-input **/*.{css,scss${
+        options.excludeVueFiles ? '' : ',vue'
+      }}`,
       { all: true }
     )
   } catch (error) {
