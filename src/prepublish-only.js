@@ -5,7 +5,7 @@ import lint from './lint'
 import nuxtConfig from './nuxt.config'
 
 export default async () => {
-  await lint({ excludeVueFiles: true })
+  await lint()
   if (await exists('model')) {
     await remove('dist')
     await execa(

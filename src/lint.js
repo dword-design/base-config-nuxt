@@ -1,17 +1,13 @@
 import execa from 'execa'
 
-export default async (options = {}) => {
+export default async () => {
   try {
     await execa.command(
-      `eslint --fix --ext .js,.json${
-        options.excludeVueFiles ? '' : ',.vue'
-      } --ignore-path .gitignore .`,
+      'eslint --fix --ext .js,.json,.vue --ignore-path .gitignore .',
       { all: true }
     )
     await execa.command(
-      `stylelint --fix --allow-empty-input **/*.{css,scss${
-        options.excludeVueFiles ? '' : ',vue'
-      }}`,
+      'stylelint --fix --allow-empty-input **/*.{css,scss,vue}',
       { all: true }
     )
   } catch (error) {
