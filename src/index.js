@@ -33,7 +33,6 @@ export default {
   gitignore: ['/.eslintrc.json', '/.stylelintrc.json', '/.nuxt', '/dist'],
   packageConfig: {
     main: 'dist/index.js',
-    workspaces: ['modules/*'],
   },
   prepare: () =>
     outputFiles({
