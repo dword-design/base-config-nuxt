@@ -1,3 +1,10 @@
+# [2.14.0](https://github.com/dword-design/base-config-nuxt/compare/v2.13.2...v2.14.0) (2020-06-16)
+
+
+### Features
+
+* add workspaces to package config ([13df73f](https://github.com/dword-design/base-config-nuxt/commit/13df73f0d2c6d829e90e7c6b5396cbca52cb06cd))
+
 ## [2.13.2](https://github.com/dword-design/base-config-nuxt/compare/v2.13.1...v2.13.2) (2020-06-14)
 
 
