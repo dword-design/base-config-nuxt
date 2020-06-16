@@ -1,3 +1,10 @@
+## [2.14.1](https://github.com/dword-design/base-config-nuxt/compare/v2.14.0...v2.14.1) (2020-06-16)
+
+
+### Bug Fixes
+
+* remove workspace config ([cc20088](https://github.com/dword-design/base-config-nuxt/commit/cc20088cd890bb0edfb0d4e3a22c7f19d301119b))
+
 # [2.14.0](https://github.com/dword-design/base-config-nuxt/compare/v2.13.2...v2.14.0) (2020-06-16)
 
 
