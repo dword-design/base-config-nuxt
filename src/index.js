@@ -1,14 +1,15 @@
 import depcheckConfig from '@dword-design/depcheck-config-vue'
-import outputFiles from 'output-files'
 import getPackageName from 'get-package-name'
-import nuxtConfig from './nuxt.config'
-import dev from './dev'
-import lint from './lint'
-import prepublishOnly from './prepublish-only'
+import outputFiles from 'output-files'
+
 import analyze from './analyze'
-import start from './start'
 import depcheckSpecial from './depcheck-special'
+import dev from './dev'
 import eslintConfig from './eslint.config'
+import lint from './lint'
+import nuxtConfig from './nuxt.config'
+import prepublishOnly from './prepublish-only'
+import start from './start'
 
 export default {
   depcheckConfig: {

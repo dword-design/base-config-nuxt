@@ -1,16 +1,16 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
 import { endent, mapValues, property } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
-import getPackageName from 'get-package-name'
-import { Nuxt, Builder } from 'nuxt'
-import execa from 'execa'
 import axios from 'axios'
+import execa from 'execa'
+import getPackageName from 'get-package-name'
+import { Builder, Nuxt } from 'nuxt'
+import outputFiles from 'output-files'
+import withLocalTmpDir from 'with-local-tmp-dir'
+
 import self from './nuxt.config'
 
 let browser
 let page
-
 const runTest = config => () =>
   withLocalTmpDir(async () => {
     await outputFiles(config.files)

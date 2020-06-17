@@ -1,7 +1,7 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
 import { endent, mapValues } from '@dword-design/functions'
 import execa from 'execa'
+import outputFiles from 'output-files'
+import withLocalTmpDir from 'with-local-tmp-dir'
 
 const runTest = config => () =>
   withLocalTmpDir(async () => {

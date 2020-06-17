@@ -1,15 +1,15 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
 import { endent, mapValues } from '@dword-design/functions'
-import execa from 'execa'
-import kill from 'tree-kill-promise'
-import portReady from 'port-ready'
 import puppeteer from '@dword-design/puppeteer'
+import execa from 'execa'
+import outputFiles from 'output-files'
+import portReady from 'port-ready'
+import kill from 'tree-kill-promise'
+import withLocalTmpDir from 'with-local-tmp-dir'
+
 import start from './start'
 
 let browser
 let page
-
 const runTest = config => () =>
   withLocalTmpDir(async () => {
     await outputFiles({

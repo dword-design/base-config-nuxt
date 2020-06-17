@@ -1,7 +1,7 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
-import execa from 'execa'
 import { endent } from '@dword-design/functions'
+import execa from 'execa'
+import outputFiles from 'output-files'
+import withLocalTmpDir from 'with-local-tmp-dir'
 
 export default {
   'linting error in js file': () =>

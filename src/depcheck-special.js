@@ -1,5 +1,5 @@
+import { filter, first, map } from '@dword-design/functions'
 import P from 'path'
-import { map, first, filter } from '@dword-design/functions'
 
 export default filename => {
   if (P.basename(filename) === 'nuxt.config.js') {

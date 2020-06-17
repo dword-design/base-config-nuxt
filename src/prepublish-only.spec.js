@@ -1,9 +1,9 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
 import { endent } from '@dword-design/functions'
 import execa from 'execa'
-import { readFile, chmod } from 'fs-extra'
+import { chmod, readFile } from 'fs-extra'
+import outputFiles from 'output-files'
 import P from 'path'
+import withLocalTmpDir from 'with-local-tmp-dir'
 
 export default {
   'fixable linting error': () =>
@@ -105,7 +105,6 @@ export default {
 
         `,
       })
-
       await execa.command('base prepare')
       let all
       try {

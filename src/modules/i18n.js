@@ -1,10 +1,10 @@
-import glob from 'glob-promise'
-import getPackageName from 'get-package-name'
-import P from 'path'
 import { map } from '@dword-design/functions'
+import getPackageName from 'get-package-name'
+import globby from 'globby'
+import P from 'path'
 
 export default async function () {
-  const localeFiles = await glob('*.json', {
+  const localeFiles = await globby('*.json', {
     cwd: P.join(this.options.srcDir, 'i18n'),
   })
   if (localeFiles.length > 0) {

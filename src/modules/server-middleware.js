@@ -1,6 +1,6 @@
-import P from 'path'
 import express from 'express'
 import mountFiles from 'express-mount-files'
+import P from 'path'
 
 export default function () {
   const app = express()

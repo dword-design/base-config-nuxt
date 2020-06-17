@@ -1,5 +1,6 @@
 import execa from 'execa'
-import { remove, exists } from 'fs-extra'
+import { exists, remove } from 'fs-extra'
+
 import lint from './lint'
 
 export default async (options = {}) => {

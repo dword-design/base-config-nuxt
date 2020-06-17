@@ -1,11 +1,11 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
-import execa from 'execa'
 import { endent, includes, property } from '@dword-design/functions'
+import axios from 'axios'
+import execa from 'execa'
+import outputFiles from 'output-files'
+import waitFor from 'p-wait-for'
 import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
-import waitFor from 'p-wait-for'
-import axios from 'axios'
+import withLocalTmpDir from 'with-local-tmp-dir'
 
 export default {
   valid: () =>
@@ -25,7 +25,6 @@ export default {
 
         `,
       })
-
       await execa.command('base prepare')
       const childProcess = execa.command('base dev')
       try {

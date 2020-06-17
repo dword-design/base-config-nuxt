@@ -1,8 +1,8 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
 import { endent, mapValues, property } from '@dword-design/functions'
-import { Nuxt, Builder } from 'nuxt'
 import axios from 'axios'
+import { Builder, Nuxt } from 'nuxt'
+import outputFiles from 'output-files'
+import withLocalTmpDir from 'with-local-tmp-dir'
 
 const runTest = config => () =>
   withLocalTmpDir(async () => {

@@ -1,7 +1,7 @@
+import { keys, omit } from '@dword-design/functions'
 import pushPlugins from '@dword-design/nuxt-push-plugins'
-import safeRequire from 'safe-require'
 import P from 'path'
-import { omit, keys } from '@dword-design/functions'
+import safeRequire from 'safe-require'
 
 export default function () {
   const defaultConfig = {
