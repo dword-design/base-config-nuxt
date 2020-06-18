@@ -1,13 +1,20 @@
-import { endent, includes, property } from '@dword-design/functions'
-import axios from 'axios'
+import { endent } from '@dword-design/functions'
+import puppeteer from '@dword-design/puppeteer'
 import execa from 'execa'
 import outputFiles from 'output-files'
-import waitFor from 'p-wait-for'
 import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 import withLocalTmpDir from 'with-local-tmp-dir'
 
+let browser
+let page
+
 export default {
+  before: async () => {
+    browser = await puppeteer.launch()
+    page = await browser.newPage()
+  },
+  after: () => browser.close(),
   valid: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
@@ -20,7 +27,7 @@ export default {
         ),
         'pages/index.vue': endent`
           <template>
-            <div>Hello world</div>
+            <div class="foo">Hello world</div>
           </template>
 
         `,
@@ -29,13 +36,10 @@ export default {
       const childProcess = execa.command('base dev')
       try {
         await portReady(3000)
-        await waitFor(
-          async () =>
-            axios.get('http://localhost:3000')
-            |> await
-            |> property('data')
-            |> includes('<div>Hello world</div>'),
-          { interval: 300 }
+        await page.goto('http://localhost:3000')
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(el => el.textContent)).toEqual(
+          'Hello world'
         )
       } finally {
         await kill(childProcess.pid)

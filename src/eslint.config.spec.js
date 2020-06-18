@@ -8,6 +8,7 @@ const runTest = config => () => {
   return withLocalTmpDir(async () => {
     await outputFiles({
       ...config.files,
+      'package.json': JSON.stringify({}),
       '.eslintrc.json': JSON.stringify(
         {
           extends: require.resolve('./eslint.config'),

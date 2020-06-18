@@ -13,7 +13,7 @@ export default {
     ],
     [
       getPackageName(require.resolve('@nuxtjs/stylelint-module')),
-      { fix: true, failOnWarning: true },
+      { fix: true, failOnWarning: true, allowEmptyInput: true },
     ],
     require.resolve('./modules/css-modules'),
     require.resolve('./modules/raw'),

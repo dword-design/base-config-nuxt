@@ -15,7 +15,11 @@ const runTest = config => () =>
   withLocalTmpDir(async () => {
     await outputFiles(config.files)
     await execa.command('base prepare')
-    const nuxt = new Nuxt({ ...self, dev: config.dev, build: { quiet: true } })
+    const nuxt = new Nuxt({
+      ...self,
+      dev: !!config.dev,
+      build: { quiet: true },
+    })
     await new Builder(nuxt).build()
     await nuxt.listen()
     try {
@@ -43,14 +47,15 @@ export default {
         ),
         'pages/index.vue': endent`
           <template>
-            <div>Hello world</div>
+            <div class="foo">Hello world</div>
           </template>
 
         `,
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        expect(await page.$eval('div', div => div.textContent)).toEqual(
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
       },
@@ -81,8 +86,9 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        const backgroundColor = await page.$eval(
-          '._2064edUr8FaER8IUynnErP',
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        const handle = await page.waitForSelector('._2064edUr8FaER8IUynnErP')
+        const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
@@ -115,8 +121,8 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        const backgroundColor = await page.$eval(
-          '.index__foo',
+        const handle = await page.waitForSelector('.index__foo')
+        const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
@@ -148,8 +154,8 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        const backgroundColor = await page.$eval(
-          '.foo',
+        const handle = await page.waitForSelector('.foo')
+        const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
@@ -196,8 +202,8 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        const backgroundColor = await page.$eval(
-          '.foo',
+        const handle = await page.waitForSelector('.foo')
+        const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
@@ -213,7 +219,7 @@ export default {
           2
         ),
         'assets/style.scss': endent`
-          body {
+          .foo {
             background: red;
           }
         `,
@@ -226,15 +232,15 @@ export default {
         `,
         'pages/index.vue': endent`
           <template>
-            <div>Hello world</div>
+            <div class="foo">Hello world</div>
           </template>
 
         `,
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        const backgroundColor = await page.$eval(
-          'body',
+        const handle = await page.waitForSelector('.foo')
+        const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
@@ -532,7 +538,7 @@ export default {
     },
     dotenv: {
       files: {
-        '.test.env.json': { foo: 'bar' } |> JSON.stringify,
+        '.env.json': { foo: 'bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         'package.json': JSON.stringify(
           {
@@ -567,7 +573,7 @@ export default {
     },
     port: {
       files: {
-        '.test.env.json': { port: 3005 } |> JSON.stringify,
+        '.env.json': { port: 3005 } |> JSON.stringify,
         '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
         'package.json': JSON.stringify(
           {
@@ -578,14 +584,15 @@ export default {
         ),
         'pages/index.vue': endent`
           <template>
-            <div>Hello world</div>
+            <div class="foo">Hello world</div>
           </template>
 
         `,
       },
       test: async () => {
         await page.goto('http://localhost:3005')
-        expect(await page.$eval('div', div => div.textContent)).toEqual(
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
         delete process.env.PORT
@@ -625,7 +632,7 @@ export default {
         'assets/foo.txt': 'Hello world',
         'pages/index.vue': endent`
           <template>
-            <div>{{ foo }}</div>
+            <div class="foo">{{ foo }}</div>
           </template>
 
           <script>
@@ -642,7 +649,8 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        expect(await page.$eval('div', div => div.textContent)).toEqual(
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
       },
@@ -676,7 +684,8 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        expect(await page.$eval('.svg', foo => foo.tagName)).toEqual('svg')
+        const handle = await page.waitForSelector('.svg')
+        expect(await handle.evaluate(foo => foo.tagName)).toEqual('svg')
       },
     },
     aliases: {
@@ -694,7 +703,7 @@ export default {
         `,
         'pages/index.vue': endent`
           <template>
-            <div>{{ foo }}</div>
+            <div class="foo">{{ foo }}</div>
           </template>
 
           <script>
@@ -711,7 +720,8 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        expect(await page.$eval('div', div => div.textContent)).toEqual(
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
       },
@@ -727,7 +737,7 @@ export default {
         ),
         'components/foo.global.vue': endent`
           <template>
-            <div>Hello world</div>
+            <div class="foo">Hello world</div>
           </template>
           
         `,
@@ -740,7 +750,8 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        expect(await page.$eval('div', div => div.textContent)).toEqual(
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
       },
@@ -763,14 +774,15 @@ export default {
         ),
         'pages/index.vue': endent`
           <template>
-            <div>{{ $t('foo') }}</div>
+            <div class="foo">{{ $t('foo') }}</div>
           </template>
 
         `,
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        expect(await page.$eval('div', div => div.textContent)).toEqual(
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
       },
@@ -786,7 +798,7 @@ export default {
         ),
         'pages/index.vue': endent`
           <template>
-            <div>{{ foo }}</div>
+            <div class="foo">{{ foo }}</div>
           </template>
 
           <script>
@@ -808,7 +820,8 @@ export default {
           return page.setRequestInterception(false)
         })
         await page.goto('http://localhost:3000')
-        expect(await page.$eval('div', div => div.textContent)).toEqual('bar')
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual('bar')
       },
     },
     'locale link': {
