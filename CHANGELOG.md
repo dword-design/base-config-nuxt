@@ -1,3 +1,10 @@
+## [2.14.3](https://github.com/dword-design/base-config-nuxt/compare/v2.14.2...v2.14.3) (2020-06-18)
+
+
+### Bug Fixes
+
+* fix nuxt dep ([87cfae8](https://github.com/dword-design/base-config-nuxt/commit/87cfae843f7479e45bf1865676225366343d9b90))
+
 ## [2.14.2](https://github.com/dword-design/base-config-nuxt/compare/v2.14.1...v2.14.2) (2020-06-18)
 
 
