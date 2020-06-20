@@ -4572,6 +4572,13 @@ depcheck-execa-detector@^1.0.2:
     "@dword-design/functions" "^2.2.4"
     resolve-from "^5.0.0"
 
+depcheck-special-nuxt@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/depcheck-special-nuxt/-/depcheck-special-nuxt-1.0.0.tgz#c27f7cb57cb6d5d46fde2dda5835dec9600e09c7"
+  integrity sha512-pNQzznU/UH9gvUcD3HzpnhJ+1Bff0+JYzbiXJb97JdNsu2R1PC0MzxZkMV1aX7UeI0nEgw+o4srpBAAoVH3KgQ==
+  dependencies:
+    "@dword-design/functions" "^1.1.2"
+
 depcheck@dword-design/depcheck#fork:
   version "0.0.1"
   resolved "https://codeload.github.com/dword-design/depcheck/tar.gz/8a9eb41006c2c6f9cbd79e4e68bf265e1c1df1dc"
