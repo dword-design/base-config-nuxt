@@ -1,3 +1,10 @@
+## [2.14.4](https://github.com/dword-design/base-config-nuxt/compare/v2.14.3...v2.14.4) (2020-06-20)
+
+
+### Bug Fixes
+
+* use external depcheck special ([1f7a0a3](https://github.com/dword-design/base-config-nuxt/commit/1f7a0a3a36dc59e4bd3cfcb7e01b6f3b61f8d546))
+
 ## [2.14.3](https://github.com/dword-design/base-config-nuxt/compare/v2.14.2...v2.14.3) (2020-06-18)
 
 
