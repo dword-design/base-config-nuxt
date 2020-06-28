@@ -32,6 +32,7 @@ export default {
     'types',
   ],
   gitignore: ['/.eslintrc.json', '/.stylelintrc.json', '/.nuxt', '/dist'],
+  editorIgnore: ['.eslintrc.json', '.stylelintrc.json', '.nuxt', '.dist'],
   packageConfig: {
     main: 'dist/index.js',
   },
