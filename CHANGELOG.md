@@ -1,3 +1,10 @@
+## [2.14.5](https://github.com/dword-design/base-config-nuxt/compare/v2.14.4...v2.14.5) (2020-06-28)
+
+
+### Bug Fixes
+
+* Add editor ignore files ([0669d76](https://github.com/dword-design/base-config-nuxt/commit/0669d76fdef60a4f4172bd04b2d0926ecf74505f))
+
 ## [2.14.4](https://github.com/dword-design/base-config-nuxt/compare/v2.14.3...v2.14.4) (2020-06-20)
 
 
