@@ -1,5 +1,6 @@
-import depcheckConfig from '@dword-design/depcheck-config-vue'
-import depcheckSpecial from 'depcheck-special-nuxt'
+import depcheckParserSass from '@dword-design/depcheck-parser-sass'
+import depcheckParserVue from 'depcheck-parser-vue'
+import depcheckSpecialNuxt from 'depcheck-special-nuxt'
 import getPackageName from 'get-package-name'
 import outputFiles from 'output-files'
 
@@ -13,8 +14,11 @@ import start from './start'
 
 export default {
   depcheckConfig: {
-    ...depcheckConfig,
-    specials: [...depcheckConfig.specials, depcheckSpecial],
+    parsers: {
+      '*.scss': depcheckParserSass,
+      '*.vue': depcheckParserVue,
+    },
+    specials: [depcheckSpecialNuxt],
   },
   allowedMatches: [
     'api',
