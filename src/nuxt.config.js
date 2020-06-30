@@ -1,6 +1,13 @@
+import dotenv from '@dword-design/dotenv-json-extended'
 import getPackageName from 'get-package-name'
 
+dotenv.config()
+
 export default {
+  server: {
+    host: '0.0.0.0',
+    port: process.env.PORT || 3000,
+  },
   build: {
     quiet: false,
   },

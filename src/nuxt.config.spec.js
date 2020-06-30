@@ -5,16 +5,17 @@ import execa from 'execa'
 import getPackageName from 'get-package-name'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
+import stealthyRequire from 'stealthy-require'
 import withLocalTmpDir from 'with-local-tmp-dir'
-
-import self from './nuxt.config'
 
 let browser
 let page
 const runTest = config => () =>
   withLocalTmpDir(async () => {
+    const oldEnv = process.env
     await outputFiles(config.files)
     await execa.command('base prepare')
+    const self = stealthyRequire(require.cache, () => require('./nuxt.config'))
     const nuxt = new Nuxt({
       ...self,
       dev: !!config.dev,
@@ -26,6 +27,7 @@ const runTest = config => () =>
       await config.test()
     } finally {
       await nuxt.close()
+      process.env = oldEnv
     }
   })
 
@@ -536,7 +538,7 @@ export default {
         expect(backgroundColor).toEqual('rgba(255, 255, 255, 0.5)')
       },
     },
-    dotenv: {
+    'dotenv: module': {
       files: {
         '.env.json': { foo: 'bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
@@ -571,7 +573,35 @@ export default {
         expect(await page.title()).toEqual('bar')
       },
     },
-    port: {
+    'dotenv: config': {
+      files: {
+        '.env.json': { foo: 'Bar' } |> JSON.stringify,
+        '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'nuxt.config.js': endent`
+          export default {
+            name: process.env.FOO,
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.title()).toEqual('Bar')
+      },
+    },
+    'port foo': {
       files: {
         '.env.json': { port: 3005 } |> JSON.stringify,
         '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,

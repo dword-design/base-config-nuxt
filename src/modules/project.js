@@ -21,10 +21,6 @@ export default function () {
     ...(safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')) || {}),
   }
   this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
-  if (this.options.server !== false) {
-    this.options.server.port = process.env.PORT || 3000
-    this.options.server.host = '0.0.0.0'
-  }
   this.options.head.titleTemplate = projectConfig.title
     ? `${projectConfig.name} - %s`
     : projectConfig.name
