@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/dword-design/base-config-nuxt/compare/v2.15.0...v2.15.1) (2020-07-01)
+
+
+### Bug Fixes
+
+* remove config export due to incompatibilities ([6ea5330](https://github.com/dword-design/base-config-nuxt/commit/6ea53307a7156aef26169b413c0ef1e1667e6152))
+
 # [2.15.0](https://github.com/dword-design/base-config-nuxt/compare/v2.14.6...v2.15.0) (2020-06-30)
 
 
