@@ -8,7 +8,6 @@ import analyze from './analyze'
 import dev from './dev'
 import eslintConfig from './eslint.config'
 import lint from './lint'
-import nuxtConfig from './nuxt.config'
 import prepublishOnly from './prepublish-only'
 import start from './start'
 
@@ -60,8 +59,6 @@ export default {
     analyze,
     start,
   },
-  nuxtConfig,
-  nuxtConfigFilename: require.resolve('./nuxt.config'),
   npmPublish: true,
   useJobMatrix: true,
 }
