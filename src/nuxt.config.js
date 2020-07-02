@@ -24,7 +24,6 @@ export default {
     ],
     require.resolve('./modules/css-modules'),
     require.resolve('./modules/raw'),
-    require.resolve('./modules/i18n'),
     require.resolve('./modules/body-parser'),
     require.resolve('./modules/server-middleware'),
     getPackageName(require.resolve('@nuxtjs/axios')),
@@ -33,5 +32,6 @@ export default {
     getPackageName(require.resolve('@nuxtjs/global-components')),
     require.resolve('./modules/locale-link'),
     require.resolve('./modules/project'),
+    require.resolve('./modules/i18n'),
   ],
 }

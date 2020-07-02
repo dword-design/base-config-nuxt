@@ -888,5 +888,48 @@ export default {
         )
       },
     },
+    'i18n: middleware': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'middleware/foo.js': endent`
+          export default () => {}
+          
+        `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'nuxt.config.js': endent`
+          export default {
+            router: {
+              middleware: ['foo']
+            }
+          }
+
+        `,
+        pages: {
+          'index.vue': endent`
+            <template>
+              <div class="foo">Hello world</div>
+            </template>
+
+          `,
+        },
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        console.log(await page.content())
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
+          'Hello world'
+        )
+      },
+    },
   } |> mapValues(runTest)),
 }

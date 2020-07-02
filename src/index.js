@@ -25,6 +25,7 @@ export default {
     'components',
     'i18n',
     'layouts',
+    'middleware',
     'model',
     'modules',
     'nuxt.config.js',
