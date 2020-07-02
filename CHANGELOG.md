@@ -1,3 +1,10 @@
+## [2.15.2](https://github.com/dword-design/base-config-nuxt/compare/v2.15.1...v2.15.2) (2020-07-02)
+
+
+### Bug Fixes
+
+* fix middleware issues ([7d4c2d4](https://github.com/dword-design/base-config-nuxt/commit/7d4c2d46da4f5d4411fc542072b6eafbf2988a89))
+
 ## [2.15.1](https://github.com/dword-design/base-config-nuxt/compare/v2.15.0...v2.15.1) (2020-07-01)
 
 
