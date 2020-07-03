@@ -1,4 +1,4 @@
-import { endent, mapValues, property } from '@dword-design/functions'
+import { endent, endsWith, mapValues, property } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import axios from 'axios'
 import execa from 'execa'
@@ -924,11 +924,43 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        console.log(await page.content())
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
+      },
+    },
+    userScalable: {
+      files: {
+        'package.json': JSON.stringify(
+          {
+            baseConfig: require.resolve('.'),
+          },
+          undefined,
+          2
+        ),
+        'nuxt.config.js': endent`
+          export default {
+            userScalable: false,
+          }
+
+        `,
+        pages: {
+          'index.vue': endent`
+            <template>
+              <div />
+            </template>
+
+          `,
+        },
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        const handle = await page.waitForSelector('meta[name=viewport]')
+        expect(
+          (await handle.evaluate(meta => meta.content))
+            |> endsWith('user-scalable=0')
+        ).toBeTruthy()
       },
     },
   } |> mapValues(runTest)),

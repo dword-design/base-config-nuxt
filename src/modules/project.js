@@ -1,4 +1,4 @@
-import { keys, omit } from '@dword-design/functions'
+import { join, keys, omit } from '@dword-design/functions'
 import pushPlugins from '@dword-design/nuxt-push-plugins'
 import P from 'path'
 import safeRequire from 'safe-require'
@@ -15,10 +15,11 @@ export default function () {
     postcssPlugins: {},
     router: {},
     serverMiddleware: [],
+    userScalable: true,
   }
   const projectConfig = {
     ...defaultConfig,
-    ...(safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')) || {}),
+    ...safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')),
   }
   this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
   this.options.head.titleTemplate = projectConfig.title
@@ -27,7 +28,15 @@ export default function () {
   this.options.head.title = projectConfig.title
   this.options.head.meta.push(
     { charset: 'utf-8' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    {
+      name: 'viewport',
+      content:
+        [
+          'width=device-width',
+          'initial-scale=1',
+          ...(!projectConfig.userScalable ? ['user-scalable=0'] : []),
+        ] |> join(', '),
+    },
     { hid: 'description', name: 'description', content: projectConfig.name }
   )
   this.options.head.htmlAttrs = projectConfig.htmlAttrs
