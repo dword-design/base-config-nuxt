@@ -1,3 +1,10 @@
+# [2.16.0](https://github.com/dword-design/base-config-nuxt/compare/v2.15.2...v2.16.0) (2020-07-03)
+
+
+### Features
+
+* add userScalable option ([2c876df](https://github.com/dword-design/base-config-nuxt/commit/2c876df12b35b418410093f3473be635f746be08))
+
 ## [2.15.2](https://github.com/dword-design/base-config-nuxt/compare/v2.15.1...v2.15.2) (2020-07-02)
 
 
