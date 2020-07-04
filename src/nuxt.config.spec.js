@@ -13,7 +13,18 @@ let page
 const runTest = config => () =>
   withLocalTmpDir(async () => {
     const oldEnv = process.env
-    await outputFiles(config.files)
+    await outputFiles({
+      'node_modules/base-config-self/index.js':
+        "module.exports = require('../../../src')",
+      'package.json': JSON.stringify(
+        {
+          baseConfig: 'self',
+        },
+        undefined,
+        2
+      ),
+      ...config.files,
+    })
     await execa.command('base prepare')
     const self = stealthyRequire(require.cache, () => require('./nuxt.config'))
     const nuxt = new Nuxt({
@@ -42,15 +53,8 @@ export default {
       files: {
         'model/foo.js': endent`
           export default 'Hello world'
-          
+
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div class="foo">{{ foo }}</div>
@@ -82,13 +86,6 @@ export default {
           export default (req, res) => res.json({ foo: 'bar' })
 
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
       },
       test: async () => {
         const result =
@@ -107,13 +104,6 @@ export default {
             },
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
@@ -128,13 +118,6 @@ export default {
     },
     'css class casing': {
       files: {
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div :class="['foo', $style.fooBar]">
@@ -161,20 +144,13 @@ export default {
     },
     'dotenv: config': {
       files: {
-        '.env.json': { foo: 'Bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+        '.test.env.json': { foo: 'Bar' } |> JSON.stringify,
         'nuxt.config.js': endent`
           export default {
             name: process.env.FOO,
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
@@ -189,8 +165,8 @@ export default {
     },
     'dotenv: module': {
       files: {
-        '.env.json': { foo: 'bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+        '.test.env.json': { foo: 'bar' } |> JSON.stringify,
         'modules/foo.js': endent`
           export default function () {
             this.options.head.titleTemplate = process.env.FOO
@@ -203,13 +179,6 @@ export default {
             ],
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
@@ -228,15 +197,8 @@ export default {
           <template>
             <div class="foo">Hello world</div>
           </template>
-          
+
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <foo />
@@ -266,13 +228,6 @@ export default {
             ],
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
@@ -298,13 +253,6 @@ export default {
             },
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
@@ -329,18 +277,11 @@ export default {
             css: ['assets/style.css'],
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
-          
+
         `,
       },
       test: async () => {
@@ -361,13 +302,6 @@ export default {
             },
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
@@ -385,13 +319,6 @@ export default {
         'i18n/en.json': JSON.stringify(
           {
             foo: 'Hello world',
-          },
-          undefined,
-          2
-        ),
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
           },
           undefined,
           2
@@ -419,7 +346,7 @@ export default {
         },
         'middleware/foo.js': endent`
           export default () => {}
-          
+
         `,
         'nuxt.config.js': endent`
           export default {
@@ -429,13 +356,6 @@ export default {
           }
 
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         pages: {
           'index.vue': endent`
             <template>
@@ -456,13 +376,6 @@ export default {
     'locale link': {
       files: {
         'i18n/en.json': JSON.stringify({}, undefined, 2),
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         pages: {
           'foo.vue': endent`
             <template>
@@ -494,13 +407,6 @@ export default {
             name: 'Test-App',
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
@@ -521,13 +427,6 @@ export default {
             title: 'This is the ultimate app!',
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
@@ -550,13 +449,6 @@ export default {
             title: 'This is the ultimate app!',
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/foo.vue': endent`
           <template>
             <div>Hello worldy</div>
@@ -577,17 +469,10 @@ export default {
         expect(await page.title()).toEqual('Test-App - Foo page')
       },
     },
-    'port foo': {
+    port: {
       files: {
-        '.env.json': { port: 3005 } |> JSON.stringify,
         '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
+        '.test.env.json': { port: 3005 } |> JSON.stringify,
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
@@ -619,13 +504,6 @@ export default {
             },
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div />
@@ -645,13 +523,6 @@ export default {
     'raw file': {
       files: {
         'assets/foo.txt': 'Hello world',
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div class="foo">{{ foo }}</div>
@@ -679,13 +550,6 @@ export default {
     },
     'request body': {
       files: {
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div class="foo">{{ foo }}</div>
@@ -723,13 +587,6 @@ export default {
             },
           }
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         pages: {
           'index.vue': endent`
             <template>
@@ -769,16 +626,6 @@ export default {
             }
           `,
         },
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-            dependencies: {
-              'sass-foo': '^1.0.0',
-            },
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div :class="['foo', $style.foo]">
@@ -807,13 +654,6 @@ export default {
     },
     style: {
       files: {
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div :class="$style.foo">
@@ -842,13 +682,6 @@ export default {
     'style in dev': {
       dev: true,
       files: {
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div :class="$style.foo">
@@ -876,13 +709,6 @@ export default {
     svg: {
       files: {
         'assets/foo.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <Foo class="svg" />
@@ -914,13 +740,6 @@ export default {
           }
 
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         pages: {
           'index.vue': endent`
             <template>
@@ -941,13 +760,6 @@ export default {
     },
     valid: {
       files: {
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>

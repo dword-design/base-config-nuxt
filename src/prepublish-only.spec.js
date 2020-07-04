@@ -19,9 +19,11 @@ export default {
           `,
           'foo.js': "export default 'foo'",
         },
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -36,6 +38,8 @@ export default {
   'console output': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'nuxt.config.js': endent`
           export default {
             modules: [
@@ -45,7 +49,7 @@ export default {
         `,
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -58,9 +62,11 @@ export default {
   'fixable linting error': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -97,9 +103,11 @@ export default {
           const foo = 'bar'
 
         `,
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2

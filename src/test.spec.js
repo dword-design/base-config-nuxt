@@ -8,9 +8,11 @@ export default {
     withLocalTmpDir(async () => {
       await outputFiles({
         'model/foo.js': "export default 'bar'",
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -38,10 +40,14 @@ export default {
   'dependency inside vue file': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'node_modules/foo/index.js': '',
+        node_modules: {
+          'base-config-self/index.js':
+            "module.exports = require('../../../src')",
+          'foo/index.js': '',
+        },
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
             dependencies: {
               foo: '^1.0.0',
             },
@@ -73,6 +79,8 @@ export default {
   'external modules': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'nuxt.config.js': endent`
           export default {
             modules: [
@@ -83,7 +91,7 @@ export default {
         `,
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
             dependencies: {
               foo: '^1.0.0',
             },
@@ -98,17 +106,17 @@ export default {
   jsx: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
         ),
         'pages/index.vue': endent`
           <script>
-          import foo from 'foo'
-
           export default {
             render: () => <div />,
           }
@@ -117,17 +125,17 @@ export default {
         `,
       })
       await execa.command('base prepare')
-      await expect(execa.command('base test')).rejects.toThrow(
-        'Unexpected token'
-      )
+      await execa.command('base test')
     }),
   'linting error in js file': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
         'model/foo.js': 'const foo = 1',
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -153,9 +161,11 @@ export default {
   'linting error in vue file': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -175,9 +185,11 @@ export default {
   valid: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -186,7 +198,7 @@ export default {
           <template>
             <div>Hello world</div>
           </template>
-          
+
         `,
       })
       await execa.command('base prepare')
