@@ -14,9 +14,11 @@ export default {
           foo bar
 
         `,
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -28,9 +30,11 @@ export default {
   ignored: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2

@@ -10,17 +10,19 @@ let browser
 let page
 
 export default {
+  after: () => browser.close(),
   before: async () => {
     browser = await puppeteer.launch()
     page = await browser.newPage()
   },
-  after: () => browser.close(),
   valid: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2

@@ -12,13 +12,6 @@ import prepublishOnly from './prepublish-only'
 import start from './start'
 
 export default {
-  depcheckConfig: {
-    parsers: {
-      '*.scss': depcheckParserSass,
-      '*.vue': depcheckParserVue,
-    },
-    specials: [depcheckSpecialNuxt],
-  },
   allowedMatches: [
     'api',
     'assets',
@@ -35,8 +28,23 @@ export default {
     'store',
     'types',
   ],
-  gitignore: ['/.eslintrc.json', '/.stylelintrc.json', '/.nuxt', '/dist'],
+  commands: {
+    analyze,
+    dev,
+    prepublishOnly,
+    start,
+  },
+  depcheckConfig: {
+    parsers: {
+      '*.scss': depcheckParserSass,
+      '*.vue': depcheckParserVue,
+    },
+    specials: [depcheckSpecialNuxt],
+  },
   editorIgnore: ['.eslintrc.json', '.stylelintrc.json', '.nuxt', 'dist'],
+  gitignore: ['/.eslintrc.json', '/.stylelintrc.json', '/.nuxt', '/dist'],
+  lint,
+  npmPublish: true,
   packageConfig: {
     main: 'dist/index.js',
   },
@@ -53,13 +61,5 @@ export default {
         2
       ),
     }),
-  lint,
-  commands: {
-    dev,
-    prepublishOnly,
-    analyze,
-    start,
-  },
-  npmPublish: true,
   useJobMatrix: true,
 }

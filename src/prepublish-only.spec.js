@@ -6,12 +6,67 @@ import P from 'path'
 import withLocalTmpDir from 'with-local-tmp-dir'
 
 export default {
+  cli: () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        model: {
+          'cli.js': endent`
+            #!/usr/bin/env node
+
+            import foo from './foo'
+
+            console.log(foo)
+          `,
+          'foo.js': "export default 'foo'",
+        },
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+          },
+          undefined,
+          2
+        ),
+      })
+      await execa.command('base prepare')
+      await execa.command('base prepublishOnly')
+      await chmod(P.join('dist', 'cli.js'), '755')
+      const output = await execa.command('./dist/cli.js', { all: true })
+      expect(output.all).toEqual('foo')
+    }),
+  'console output': () =>
+    withLocalTmpDir(async () => {
+      await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'nuxt.config.js': endent`
+          export default {
+            modules: [
+              () => console.log('foo bar'),
+            ],
+          }
+        `,
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+          },
+          undefined,
+          2
+        ),
+      })
+      await execa.command('base prepare')
+      const output = await execa.command('base prepublishOnly', { all: true })
+      expect(output.all).toMatch('foo bar')
+    }),
   'fixable linting error': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: require.resolve('.'),
+            baseConfig: 'self',
           },
           undefined,
           2
@@ -39,71 +94,24 @@ export default {
 
         `)
     }),
-  'console output': () =>
-    withLocalTmpDir(async () => {
-      await outputFiles({
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
-        'nuxt.config.js': endent`
-          export default {
-            modules: [
-              () => console.log('foo bar'),
-            ],
-          }
-        `,
-      })
-      await execa.command('base prepare')
-      const output = await execa.command('base prepublishOnly', { all: true })
-      expect(output.all).toMatch('foo bar')
-    }),
-  cli: () =>
-    withLocalTmpDir(async () => {
-      await outputFiles({
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
-        model: {
-          'cli.js': endent`
-            #!/usr/bin/env node
-
-            import foo from './foo'
-
-            console.log(foo)
-          `,
-          'foo.js': "export default 'foo'",
-        },
-      })
-      await execa.command('base prepare')
-      await execa.command('base prepublishOnly')
-      await chmod(P.join('dist', 'cli.js'), '755')
-      const output = await execa.command('./dist/cli.js', { all: true })
-      expect(output.all).toEqual('foo')
-    }),
   'linting error in cli': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
         'model/cli.js': endent`
           #!/usr/bin/env node
 
           const foo = 'bar'
 
         `,
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+          },
+          undefined,
+          2
+        ),
       })
       await execa.command('base prepare')
       let all

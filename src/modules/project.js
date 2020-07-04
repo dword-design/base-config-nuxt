@@ -5,13 +5,13 @@ import safeRequire from 'safe-require'
 
 export default function () {
   const defaultConfig = {
-    name: 'Vue app',
-    htmlAttrs: {},
-    headAttrs: {},
     bodyAttrs: {},
-    modules: [],
-    plugins: [],
     css: [],
+    headAttrs: {},
+    htmlAttrs: {},
+    modules: [],
+    name: 'Vue app',
+    plugins: [],
     postcssPlugins: {},
     router: {},
     serverMiddleware: [],
@@ -29,15 +29,15 @@ export default function () {
   this.options.head.meta.push(
     { charset: 'utf-8' },
     {
-      name: 'viewport',
       content:
         [
           'width=device-width',
           'initial-scale=1',
-          ...(!projectConfig.userScalable ? ['user-scalable=0'] : []),
+          ...(projectConfig.userScalable ? [] : ['user-scalable=0']),
         ] |> join(', '),
+      name: 'viewport',
     },
-    { hid: 'description', name: 'description', content: projectConfig.name }
+    { content: projectConfig.name, hid: 'description', name: 'description' }
   )
   this.options.head.htmlAttrs = projectConfig.htmlAttrs
   this.options.head.headAttrs = projectConfig.headAttrs
@@ -46,8 +46,8 @@ export default function () {
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
   this.options.build.postcss.plugins = projectConfig.postcssPlugins
   Object.assign(this.options.router, {
-    routeNameSplitter: '.',
     linkActiveClass: 'active',
+    routeNameSplitter: '.',
     ...projectConfig.router,
   })
   Object.assign(
