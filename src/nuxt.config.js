@@ -4,10 +4,6 @@ import getPackageName from 'get-package-name'
 dotenv.config()
 
 export default {
-  server: {
-    host: '0.0.0.0',
-    port: process.env.PORT || 3000,
-  },
   build: {
     quiet: false,
   },
@@ -16,11 +12,11 @@ export default {
     require.resolve('./modules/dotenv'),
     [
       getPackageName(require.resolve('@nuxtjs/eslint-module')),
-      { fix: true, failOnWarning: true },
+      { failOnWarning: true, fix: true },
     ],
     [
       getPackageName(require.resolve('@nuxtjs/stylelint-module')),
-      { fix: true, failOnWarning: true, allowEmptyInput: true },
+      { allowEmptyInput: true, failOnWarning: true, fix: true },
     ],
     require.resolve('./modules/css-modules'),
     require.resolve('./modules/raw'),
@@ -34,4 +30,8 @@ export default {
     require.resolve('./modules/project'),
     require.resolve('./modules/i18n'),
   ],
+  server: {
+    host: '0.0.0.0',
+    port: process.env.PORT || 3000,
+  },
 }

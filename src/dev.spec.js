@@ -10,11 +10,11 @@ let browser
 let page
 
 export default {
+  after: () => browser.close(),
   before: async () => {
     browser = await puppeteer.launch()
     page = await browser.newPage()
   },
-  after: () => browser.close(),
   valid: () =>
     withLocalTmpDir(async () => {
       await outputFiles({

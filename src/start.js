@@ -9,5 +9,5 @@ export default (options = {}) =>
       '--config-file',
       require.resolve('./nuxt.config'),
     ],
-    { stdio: options.log !== false ? 'inherit' : 'ignore' }
+    { stdio: options.log === false ? 'ignore' : 'inherit' }
   )

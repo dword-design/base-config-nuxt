@@ -13,7 +13,7 @@ export default async (options = {}) => {
       '--config-file',
       require.resolve('./nuxt.config'),
     ],
-    { stdio: options.log !== false ? 'inherit' : 'ignore' }
+    { stdio: options.log === false ? 'ignore' : 'inherit' }
   )
   if (await exists('model')) {
     await remove('dist')
@@ -28,7 +28,7 @@ export default async (options = {}) => {
         '**/*.spec.js',
         'model',
       ],
-      { stdio: options.log !== false ? 'inherit' : 'ignore' }
+      { stdio: options.log === false ? 'ignore' : 'inherit' }
     )
   }
 }

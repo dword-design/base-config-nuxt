@@ -8,7 +8,6 @@ const runTest = config => () => {
   return withLocalTmpDir(async () => {
     await outputFiles({
       ...config.files,
-      'package.json': JSON.stringify({}),
       '.eslintrc.json': JSON.stringify(
         {
           extends: require.resolve('./eslint.config'),
@@ -16,6 +15,7 @@ const runTest = config => () => {
         undefined,
         2
       ),
+      'package.json': JSON.stringify({}),
     })
     try {
       const output = await execa('eslint', ['--ext', '.js,.json,.vue', '.'], {

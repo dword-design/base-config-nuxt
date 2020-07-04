@@ -32,11 +32,11 @@ const runTest = config => () =>
   })
 
 export default {
+  after: () => browser.close(),
   before: async () => {
     browser = await puppeteer.launch()
     page = await browser.newPage()
   },
-  after: () => browser.close(),
   ...({
     valid: {
       files: {

@@ -11,20 +11,20 @@ export default async function () {
     this.addModule([
       getPackageName(require.resolve('nuxt-i18n')),
       {
+        detectBrowserLanguage: {
+          fallbackLocale: 'en',
+          useCookie: false,
+        },
+        langDir: 'i18n/',
+        lazy: true,
         locales:
           localeFiles
           |> map(filename => {
             const code = P.basename(filename, '.json')
-            return { code, iso: code, file: filename }
+            return { code, file: filename, iso: code }
           }),
-        lazy: true,
-        langDir: 'i18n/',
-        strategy: 'prefix',
-        detectBrowserLanguage: {
-          useCookie: false,
-          fallbackLocale: 'en',
-        },
         seo: true,
+        strategy: 'prefix',
         vueI18n: {
           fallbackLocale: 'en',
         },

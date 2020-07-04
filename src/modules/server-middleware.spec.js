@@ -9,8 +9,8 @@ const runTest = config => () =>
     await outputFiles(config.files)
     const nuxt = new Nuxt({
       ...config.config,
-      dev: false,
       build: { quiet: true },
+      dev: false,
     })
     await new Builder(nuxt).build()
     await nuxt.listen()
@@ -22,20 +22,22 @@ const runTest = config => () =>
   })
 
 export default {
-  valid: {
+  'parameter after': {
     config: {
       modules: [require.resolve('./server-middleware')],
     },
     files: {
-      'api/foo.get.js': endent`
-        export default (req, res) => res.json({ foo: 'bar' })
+      'api/foo/_param.get.js': endent`
+        export default (req, res) => res.json({ foo: req.params.param })
 
       `,
     },
     test: async () => {
       const result =
-        axios.get('http://localhost:3000/api/foo') |> await |> property('data')
-      expect(result).toEqual({ foo: 'bar' })
+        axios.get('http://localhost:3000/api/foo/abc')
+        |> await
+        |> property('data')
+      expect(result).toEqual({ foo: 'abc' })
     },
   },
   'parameter before': {
@@ -56,22 +58,20 @@ export default {
       expect(result).toEqual({ foo: 'abc' })
     },
   },
-  'parameter after': {
+  valid: {
     config: {
       modules: [require.resolve('./server-middleware')],
     },
     files: {
-      'api/foo/_param.get.js': endent`
-        export default (req, res) => res.json({ foo: req.params.param })
+      'api/foo.get.js': endent`
+        export default (req, res) => res.json({ foo: 'bar' })
 
       `,
     },
     test: async () => {
       const result =
-        axios.get('http://localhost:3000/api/foo/abc')
-        |> await
-        |> property('data')
-      expect(result).toEqual({ foo: 'abc' })
+        axios.get('http://localhost:3000/api/foo') |> await |> property('data')
+      expect(result).toEqual({ foo: 'bar' })
     },
   },
 } |> mapValues(runTest)
