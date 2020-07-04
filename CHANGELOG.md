@@ -1,3 +1,11 @@
+## [2.16.1](https://github.com/dword-design/base-config-nuxt/compare/v2.16.0...v2.16.1) (2020-07-04)
+
+
+### Bug Fixes
+
+* fix linting issues ([19c8163](https://github.com/dword-design/base-config-nuxt/commit/19c8163528180d71e1d562826dd8b5be62d3374d))
+* fixes after upgrades ([aa2e060](https://github.com/dword-design/base-config-nuxt/commit/aa2e06050ee433c8b7c36609847d0aef728cc2c1))
+
 # [2.16.0](https://github.com/dword-design/base-config-nuxt/compare/v2.15.2...v2.16.0) (2020-07-03)
 
 
