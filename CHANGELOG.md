@@ -1,3 +1,12 @@
+## [2.16.2](https://github.com/dword-design/base-config-nuxt/compare/v2.16.1...v2.16.2) (2020-07-05)
+
+
+### Bug Fixes
+
+* fix deps ([0d96d3d](https://github.com/dword-design/base-config-nuxt/commit/0d96d3d2b067a2ca26af1c4ec4fb2446b2413601))
+* **deps:** update dependency nuxt to ~2.13.0 ([5e501bb](https://github.com/dword-design/base-config-nuxt/commit/5e501bb5a0f0ec46a4db0fbc9d491a4835992b90))
+* **deps:** update dependency sass-loader to v9 ([3c70f3d](https://github.com/dword-design/base-config-nuxt/commit/3c70f3d95013c65d8ade3b26beaae53d46fa2917))
+
 ## [2.16.1](https://github.com/dword-design/base-config-nuxt/compare/v2.16.0...v2.16.1) (2020-07-04)
 
 
