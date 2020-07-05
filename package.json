@@ -45,7 +45,7 @@
     "output-files": "^1.1.10",
     "raw-loader": "^4.0.1",
     "safe-require": "dword-design/node-safe-require#fork",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^9.0.0",
     "stylelint": "^13.6.0",
     "vue": "^2.6.11"
   },
