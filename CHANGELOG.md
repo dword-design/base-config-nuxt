@@ -1,3 +1,10 @@
+## [2.16.3](https://github.com/dword-design/base-config-nuxt/compare/v2.16.2...v2.16.3) (2020-07-16)
+
+
+### Bug Fixes
+
+* remove 0.0.0.0 port ([ade4746](https://github.com/dword-design/base-config-nuxt/commit/ade47462c75f78daeb028d0528f321f8560b679c))
+
 ## [2.16.2](https://github.com/dword-design/base-config-nuxt/compare/v2.16.1...v2.16.2) (2020-07-05)
 
 
