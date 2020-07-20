@@ -1,3 +1,11 @@
+## [2.16.4](https://github.com/dword-design/base-config-nuxt/compare/v2.16.3...v2.16.4) (2020-07-20)
+
+
+### Bug Fixes
+
+* fix router ([fbdb139](https://github.com/dword-design/base-config-nuxt/commit/fbdb1393fdacf32f1ab97488bcfc7e81e9990ccc))
+* fix sitemap issue ([88ccf5c](https://github.com/dword-design/base-config-nuxt/commit/88ccf5c654c224a2c8b40af45a527ff638c6def2))
+
 ## [2.16.3](https://github.com/dword-design/base-config-nuxt/compare/v2.16.2...v2.16.3) (2020-07-16)
 
 
