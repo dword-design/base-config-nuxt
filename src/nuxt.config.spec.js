@@ -7,7 +7,9 @@ import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
 import stealthyRequire from 'stealthy-require'
 import withLocalTmpDir from 'with-local-tmp-dir'
+import xmlFormatter from 'xml-formatter'
 
+console.log(require.resolve('xml-formatter'))
 let browser
 let page
 const runTest = config => () =>
@@ -650,6 +652,50 @@ export default {
           el => getComputedStyle(el).backgroundColor
         )
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
+      },
+    },
+    sitemap: {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'nuxt.config.js': endent`
+          export default {
+            modules: [
+              '${getPackageName(require.resolve('@nuxtjs/sitemap'))}',
+            ]
+          }
+
+        `,
+        pages: {
+          'index.vue': endent`
+            <template>
+              <div class="foo">Hello world</div>
+            </template>
+
+          `,
+        },
+      },
+      test: async () => {
+        const response = await page.goto('http://localhost:3000/sitemap.xml')
+        expect(
+          xmlFormatter(response.text() |> await, {
+            collapseContent: true,
+            indentation: '  ',
+            lineSeparator: '\n',
+          })
+        ).toEqual(endent`
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+            <url>
+              <loc>http://localhost:3000/de/</loc>
+            </url>
+            <url>
+              <loc>http://localhost:3000/en/</loc>
+            </url>
+          </urlset>
+        `)
       },
     },
     style: {

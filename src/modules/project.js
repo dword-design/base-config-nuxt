@@ -48,8 +48,12 @@ export default function () {
   Object.assign(this.options.router, {
     linkActiveClass: 'active',
     routeNameSplitter: '.',
-    ...projectConfig.router,
+    ...(projectConfig.router |> omit('middleware')),
   })
+  this.options.router.middleware = [
+    ...this.options.router.middleware,
+    projectConfig.router.middleware || [],
+  ]
   Object.assign(
     this.options,
     projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys)
