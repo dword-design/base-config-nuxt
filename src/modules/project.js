@@ -52,7 +52,7 @@ export default function () {
   })
   this.options.router.middleware = [
     ...this.options.router.middleware,
-    projectConfig.router.middleware || [],
+    ...projectConfig.router.middleware || [],
   ]
   Object.assign(
     this.options,
