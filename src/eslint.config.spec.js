@@ -1,8 +1,8 @@
 import { endent, mapValues } from '@dword-design/functions'
 import execa from 'execa'
+import { outputFile } from 'fs-extra'
 import outputFiles from 'output-files'
 import withLocalTmpDir from 'with-local-tmp-dir'
-import { outputFile } from 'fs-extra'
 
 const runTest = config => () => {
   config = { match: '', ...config }
@@ -13,13 +13,16 @@ const runTest = config => () => {
     })
     try {
       await execa.command('base prepare')
-      await outputFile('.eslintrc.json', JSON.stringify(
-        {
-          extends: require.resolve('./eslint.config'),
-        },
-        undefined,
-        2
-      ))
+      await outputFile(
+        '.eslintrc.json',
+        JSON.stringify(
+          {
+            extends: require.resolve('./eslint.config'),
+          },
+          undefined,
+          2
+        )
+      )
       const output = await execa('eslint', ['--ext', '.js,.json,.vue', '.'], {
         all: true,
       })
