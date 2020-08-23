@@ -54,7 +54,7 @@
     "@dword-design/base": "^6.0.0",
     "@dword-design/puppeteer": "^1.0.1",
     "@nuxtjs/sitemap": "^2.4.0",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "port-ready": "^0.1.0",
     "postcss-hexrgba": "^2.0.0",
     "stealthy-require": "^1.1.1",
