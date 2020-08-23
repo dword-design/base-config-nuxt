@@ -2,30 +2,31 @@ import { endent, mapValues } from '@dword-design/functions'
 import execa from 'execa'
 import outputFiles from 'output-files'
 import withLocalTmpDir from 'with-local-tmp-dir'
+import { outputFile } from 'fs-extra'
 
 const runTest = config => () => {
-  const match = config.match || ''
+  config = { match: '', ...config }
   return withLocalTmpDir(async () => {
     await outputFiles({
       ...config.files,
-      '.eslintrc.json': JSON.stringify(
+      'package.json': JSON.stringify({}),
+    })
+    try {
+      await execa.command('base prepare')
+      await outputFile('.eslintrc.json', JSON.stringify(
         {
           extends: require.resolve('./eslint.config'),
         },
         undefined,
         2
-      ),
-      'package.json': JSON.stringify({}),
-    })
-    try {
-      await execa.command('base prepare')
+      ))
       const output = await execa('eslint', ['--ext', '.js,.json,.vue', '.'], {
         all: true,
       })
       expect(output.all).toBeFalsy()
     } catch (error) {
-      if (match) {
-        expect(error.all).toMatch(match)
+      if (config.match) {
+        expect(error.all).toMatch(config.match)
       } else {
         throw error
       }
