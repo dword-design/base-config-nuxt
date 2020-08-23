@@ -1,3 +1,12 @@
+## [2.16.5](https://github.com/dword-design/base-config-nuxt/compare/v2.16.4...v2.16.5) (2020-08-23)
+
+
+### Bug Fixes
+
+* fix test ([088792d](https://github.com/dword-design/base-config-nuxt/commit/088792d2d2f52d5b7b10d67ce58c72c880e6b295))
+* upgrades ([021300b](https://github.com/dword-design/base-config-nuxt/commit/021300b92471e8052942867731b5bb29437229ac))
+* **deps:** update dependency nuxt to ~2.14.0 ([cc26166](https://github.com/dword-design/base-config-nuxt/commit/cc2616605ab5c255d7ff742c134bed71381c8861))
+
 ## [2.16.4](https://github.com/dword-design/base-config-nuxt/compare/v2.16.3...v2.16.4) (2020-07-20)
 
 
