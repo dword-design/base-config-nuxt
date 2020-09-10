@@ -1,3 +1,10 @@
+# [2.17.0](https://github.com/dword-design/base-config-nuxt/compare/v2.16.6...v2.17.0) (2020-09-10)
+
+
+### Features
+
+* add content directory ([4e37f66](https://github.com/dword-design/base-config-nuxt/commit/4e37f663a681a63a696dbc08b2e58769bf2db457))
+
 ## [2.16.6](https://github.com/dword-design/base-config-nuxt/compare/v2.16.5...v2.16.6) (2020-08-23)
 
 
