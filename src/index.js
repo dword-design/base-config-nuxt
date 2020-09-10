@@ -16,6 +16,7 @@ export default {
     'api',
     'assets',
     'components',
+    'content',
     'i18n',
     'layouts',
     'middleware',
