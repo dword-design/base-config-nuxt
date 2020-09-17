@@ -1,3 +1,10 @@
+# [2.18.0](https://github.com/dword-design/base-config-nuxt/compare/v2.17.0...v2.18.0) (2020-09-17)
+
+
+### Features
+
+* add vue-i18n-loader ([7a3df30](https://github.com/dword-design/base-config-nuxt/commit/7a3df30fe21d183c5bfcf5f9efeb4c14ee6e33e3))
+
 # [2.17.0](https://github.com/dword-design/base-config-nuxt/compare/v2.16.6...v2.17.0) (2020-09-10)
 
 
