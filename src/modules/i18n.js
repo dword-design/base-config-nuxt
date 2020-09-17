@@ -28,6 +28,7 @@ export default async function () {
         vueI18n: {
           fallbackLocale: 'en',
         },
+        vueI18nLoader: true,
       },
     ])
   }
