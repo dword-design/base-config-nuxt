@@ -1,3 +1,10 @@
+## [2.18.1](https://github.com/dword-design/base-config-nuxt/compare/v2.18.0...v2.18.1) (2020-09-18)
+
+
+### Bug Fixes
+
+* revert last change ([48e6c07](https://github.com/dword-design/base-config-nuxt/commit/48e6c078116f12bbebaa4bad251fd47c8ca25af0))
+
 # [2.18.0](https://github.com/dword-design/base-config-nuxt/compare/v2.17.0...v2.18.0) (2020-09-17)
 
 
