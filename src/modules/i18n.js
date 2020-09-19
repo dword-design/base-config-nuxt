@@ -11,10 +11,6 @@ export default async function () {
     this.addModule([
       getPackageName(require.resolve('nuxt-i18n')),
       {
-        detectBrowserLanguage: {
-          fallbackLocale: 'en',
-          useCookie: false,
-        },
         langDir: 'i18n/',
         lazy: true,
         locales:
