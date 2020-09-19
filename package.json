@@ -41,7 +41,7 @@
     "node-sass": "^4.13.1",
     "nuxt": "~2.14.0",
     "nuxt-babel-runtime": "^2.0.0",
-    "nuxt-i18n": "^6.15.1",
+    "nuxt-i18n": "dword-design/i18n-module#fork",
     "nuxt-svg-loader": "^1.2.0",
     "output-files": "^1.1.10",
     "raw-loader": "^4.0.1",
