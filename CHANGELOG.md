@@ -1,3 +1,12 @@
+## [2.18.2](https://github.com/dword-design/base-config-nuxt/compare/v2.18.1...v2.18.2) (2020-09-19)
+
+
+### Bug Fixes
+
+* fix ([ef91a43](https://github.com/dword-design/base-config-nuxt/commit/ef91a436d4056318a4f4d7c4fe8d614b6c10d87b))
+* fix test ([41a8630](https://github.com/dword-design/base-config-nuxt/commit/41a86305c39d3ee2a364e5f3e0f82800b1163887))
+* remove i18n fork ([50b9aa4](https://github.com/dword-design/base-config-nuxt/commit/50b9aa4212b61f313d9896f17cf5293de7e3c3d8))
+
 ## [2.18.1](https://github.com/dword-design/base-config-nuxt/compare/v2.18.0...v2.18.1) (2020-09-18)
 
 
