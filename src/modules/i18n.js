@@ -13,6 +13,7 @@ export default async function () {
       {
         detectBrowserLanguage: {
           useCookie: false,
+          fallbackLocale: 'en',
         },
         langDir: 'i18n/',
         lazy: true,
