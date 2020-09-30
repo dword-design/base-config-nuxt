@@ -1,3 +1,10 @@
+## [2.18.3](https://github.com/dword-design/base-config-nuxt/compare/v2.18.2...v2.18.3) (2020-09-30)
+
+
+### Bug Fixes
+
+* fix fallbackLocale ([509531c](https://github.com/dword-design/base-config-nuxt/commit/509531c0e1bd7a28890e6393d856b7097dc73ba4))
+
 ## [2.18.2](https://github.com/dword-design/base-config-nuxt/compare/v2.18.1...v2.18.2) (2020-09-19)
 
 
