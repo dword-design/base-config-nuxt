@@ -1,3 +1,10 @@
+## [2.19.1](https://github.com/dword-design/base-config-nuxt/compare/v2.19.0...v2.19.1) (2020-10-04)
+
+
+### Bug Fixes
+
+* add base url to i18n ([5e80bf9](https://github.com/dword-design/base-config-nuxt/commit/5e80bf9c02c23705c9ae7171567326da4db9168f))
+
 # [2.19.0](https://github.com/dword-design/base-config-nuxt/compare/v2.18.3...v2.19.0) (2020-10-04)
 
 
