@@ -40,7 +40,11 @@ export default function () {
     { content: projectConfig.name, hid: 'description', name: 'description' }
   )
   if (projectConfig.ogImage) {
-    this.options.head.meta.push({ hid: 'og:image', name: 'og:image', content: projectConfig.ogImage })
+    this.options.head.meta.push({
+      content: projectConfig.ogImage,
+      hid: 'og:image',
+      name: 'og:image',
+    })
   }
   this.options.head.htmlAttrs = projectConfig.htmlAttrs
   this.options.head.headAttrs = projectConfig.headAttrs
