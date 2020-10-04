@@ -28,7 +28,7 @@ export default async function () {
         vueI18n: {
           fallbackLocale: 'en',
         },
-        ...process.env.BASE_URL && { baseUrl: process.env.BASE_URL },
+        ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
       },
     ])
   }
