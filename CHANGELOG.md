@@ -1,3 +1,10 @@
+# [2.19.0](https://github.com/dword-design/base-config-nuxt/compare/v2.18.3...v2.19.0) (2020-10-04)
+
+
+### Features
+
+* add og:image ([fca8799](https://github.com/dword-design/base-config-nuxt/commit/fca8799758307009fdd2b1c86aea5e14c24e972c))
+
 ## [2.18.3](https://github.com/dword-design/base-config-nuxt/compare/v2.18.2...v2.18.3) (2020-09-30)
 
 
