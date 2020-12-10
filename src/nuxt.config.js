@@ -1,5 +1,5 @@
 import dotenv from '@dword-design/dotenv-json-extended'
-import getPackageName from 'get-package-name'
+import packageName from 'depcheck-package-name'
 
 dotenv.config()
 
@@ -10,12 +10,9 @@ export default {
   modules: [
     require.resolve('./modules/babel'),
     require.resolve('./modules/dotenv'),
+    [packageName`@nuxtjs/eslint-module`, { failOnWarning: true, fix: true }],
     [
-      getPackageName(require.resolve('@nuxtjs/eslint-module')),
-      { failOnWarning: true, fix: true },
-    ],
-    [
-      getPackageName(require.resolve('@nuxtjs/stylelint-module')),
+      packageName`@nuxtjs/stylelint-module`,
       { allowEmptyInput: true, failOnWarning: true, fix: true },
     ],
     require.resolve('./modules/css-modules'),
@@ -23,10 +20,10 @@ export default {
     require.resolve('./modules/i18n'),
     require.resolve('./modules/body-parser'),
     require.resolve('./modules/server-middleware'),
-    getPackageName(require.resolve('@nuxtjs/axios')),
+    packageName`@nuxtjs/axios`,
     require.resolve('./modules/axios-dynamic-baseurl'),
-    getPackageName(require.resolve('nuxt-svg-loader')),
-    getPackageName(require.resolve('@nuxtjs/global-components')),
+    packageName`nuxt-svg-loader`,
+    packageName`@nuxtjs/global-components`,
     require.resolve('./modules/locale-link'),
     require.resolve('./modules/project'),
   ],

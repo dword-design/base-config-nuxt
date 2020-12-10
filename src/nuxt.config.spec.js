@@ -1,15 +1,14 @@
 import { endent, endsWith, mapValues, property } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import axios from 'axios'
+import packageName from 'depcheck-package-name'
 import execa from 'execa'
-import getPackageName from 'get-package-name'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
 import stealthyRequire from 'stealthy-require'
 import withLocalTmpDir from 'with-local-tmp-dir'
 import xmlFormatter from 'xml-formatter'
 
-console.log(require.resolve('xml-formatter'))
 let browser
 let page
 const runTest = config => () =>
@@ -502,7 +501,7 @@ export default {
           export default {
             css: ['assets/style.css'],
             postcssPlugins: {
-              '${getPackageName(require.resolve('postcss-hexrgba'))}': {},
+              '${packageName`postcss-hexrgba`}': {},
             },
           }
         `,
@@ -663,7 +662,7 @@ export default {
         'nuxt.config.js': endent`
           export default {
             modules: [
-              '${getPackageName(require.resolve('@nuxtjs/sitemap'))}',
+              '${packageName`@nuxtjs/sitemap`}',
             ]
           }
 

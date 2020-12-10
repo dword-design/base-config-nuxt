@@ -1,5 +1,5 @@
 import { map } from '@dword-design/functions'
-import getPackageName from 'get-package-name'
+import packageName from 'depcheck-package-name'
 import globby from 'globby'
 import P from 'path'
 
@@ -9,7 +9,7 @@ export default async function () {
   })
   if (localeFiles.length > 0) {
     this.addModule([
-      getPackageName(require.resolve('nuxt-i18n')),
+      packageName`nuxt-i18n`,
       {
         detectBrowserLanguage: {
           fallbackLocale: 'en',

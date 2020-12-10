@@ -1,7 +1,7 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
+import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
 import depcheckSpecialNuxt from 'depcheck-special-nuxt'
-import getPackageName from 'get-package-name'
 import outputFiles from 'output-files'
 
 import analyze from './analyze'
@@ -54,9 +54,7 @@ export default {
       '.eslintrc.json': JSON.stringify(eslintConfig, undefined, 2),
       '.stylelintrc.json': JSON.stringify(
         {
-          extends: getPackageName(
-            require.resolve('@dword-design/stylelint-config')
-          ),
+          extends: packageName`@dword-design/stylelint-config`,
         },
         undefined,
         2
