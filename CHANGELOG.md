@@ -1,3 +1,10 @@
+## [2.19.5](https://github.com/dword-design/base-config-nuxt/compare/v2.19.4...v2.19.5) (2020-12-10)
+
+
+### Bug Fixes
+
+* **config:** Update changed files ([da3b872](https://github.com/dword-design/base-config-nuxt/commit/da3b872520c6c9cba56579ae2eecaf1ce9c6def0))
+
 ## [2.19.4](https://github.com/dword-design/base-config-nuxt/compare/v2.19.3...v2.19.4) (2020-12-10)
 
 
