@@ -1,3 +1,10 @@
+## [2.19.6](https://github.com/dword-design/base-config-nuxt/compare/v2.19.5...v2.19.6) (2020-12-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency node-sass to v5 ([17b1199](https://github.com/dword-design/base-config-nuxt/commit/17b119914e40a703367eaa23396284a3a4f0f1c3))
+
 ## [2.19.5](https://github.com/dword-design/base-config-nuxt/compare/v2.19.4...v2.19.5) (2020-12-10)
 
 
