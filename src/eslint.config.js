@@ -1,7 +1,7 @@
-import getPackageName from 'get-package-name'
+import packageName from 'depcheck-package-name'
 
 export default {
-  extends: getPackageName(require.resolve('@dword-design/eslint-config')),
+  extends: packageName`@dword-design/eslint-config`,
   rules: {
     'import/no-webpack-loader-syntax': 'off',
   },
