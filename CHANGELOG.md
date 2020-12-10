@@ -1,3 +1,11 @@
+## [2.19.7](https://github.com/dword-design/base-config-nuxt/compare/v2.19.6...v2.19.7) (2020-12-10)
+
+
+### Bug Fixes
+
+* replace get-package-name with depcheck-package-name ([0de8984](https://github.com/dword-design/base-config-nuxt/commit/0de89842723bd055b69a12f5607bf881ae531848))
+* **deps:** update dependency get-package-name to v2 ([9661eb3](https://github.com/dword-design/base-config-nuxt/commit/9661eb339de44c784fa616445d8ddf496fe06e9e))
+
 ## [2.19.6](https://github.com/dword-design/base-config-nuxt/compare/v2.19.5...v2.19.6) (2020-12-10)
 
 
