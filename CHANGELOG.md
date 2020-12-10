@@ -1,3 +1,10 @@
+## [2.19.2](https://github.com/dword-design/base-config-nuxt/compare/v2.19.1...v2.19.2) (2020-12-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency execa to v5 ([97d0f02](https://github.com/dword-design/base-config-nuxt/commit/97d0f0217d3a82d8509a2ac762f96d8c128d4bdb))
+
 ## [2.19.1](https://github.com/dword-design/base-config-nuxt/compare/v2.19.0...v2.19.1) (2020-10-04)
 
 
