@@ -38,7 +38,7 @@
     "fs-extra": "^9.0.0",
     "get-package-name": "^1.1.0",
     "globby": "^11.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^5.0.0",
     "nuxt": "~2.14.0",
     "nuxt-babel-runtime": "^2.0.0",
     "nuxt-i18n": "dword-design/i18n-module#fork",
