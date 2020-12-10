@@ -1,3 +1,10 @@
+## [2.19.4](https://github.com/dword-design/base-config-nuxt/compare/v2.19.3...v2.19.4) (2020-12-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sass-loader to v10 ([db92802](https://github.com/dword-design/base-config-nuxt/commit/db92802fe27f8c6d12a504deaccce6bcb1c589a2))
+
 ## [2.19.3](https://github.com/dword-design/base-config-nuxt/compare/v2.19.2...v2.19.3) (2020-12-10)
 
 
