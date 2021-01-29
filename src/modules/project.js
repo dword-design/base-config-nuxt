@@ -46,6 +46,9 @@ export default function () {
       name: 'og:image',
     })
   }
+  if (projectConfig.webApp) {
+    this.options.head.meta.push({ name: 'apple-mobile-web-app-capable', content: 'yes' })
+  }
   this.options.head.htmlAttrs = projectConfig.htmlAttrs
   this.options.head.headAttrs = projectConfig.headAttrs
   this.options.head.bodyAttrs = projectConfig.bodyAttrs
