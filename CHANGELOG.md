@@ -1,3 +1,10 @@
+# [2.20.0](https://github.com/dword-design/base-config-nuxt/compare/v2.19.7...v2.20.0) (2021-01-29)
+
+
+### Features
+
+* add web app capability ([37fa0f0](https://github.com/dword-design/base-config-nuxt/commit/37fa0f077bc605485b965fdd47aa0b862c24aa37))
+
 ## [2.19.7](https://github.com/dword-design/base-config-nuxt/compare/v2.19.6...v2.19.7) (2020-12-10)
 
 
