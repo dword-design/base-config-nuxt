@@ -179,7 +179,7 @@ export default {
       })
       await execa.command('base prepare')
       await expect(execa.command('base test')).rejects.toThrow(
-        'Unexpected token, expected ";"'
+        'pages/index.vue: Missing semicolon (2:3)'
       )
     }),
   valid: () =>
