@@ -1039,9 +1039,9 @@
     param-case "^3.0.3"
 
 "@dword-design/base-config-node@^1.6.0":
-  version "1.8.16"
-  resolved "https://registry.yarnpkg.com/@dword-design/base-config-node/-/base-config-node-1.8.16.tgz#48421a7460755e63abafa062446e3c4b0a2f60e1"
-  integrity sha512-IM2/qmpLs1w3Q75AYmgy3tUGues1g42R82fJ60GVB6wBsmyM4+cL6E7Vjsu0x8wkDF+yIqq+AOWgq/oulKdqiw==
+  version "1.8.17"
+  resolved "https://registry.yarnpkg.com/@dword-design/base-config-node/-/base-config-node-1.8.17.tgz#25970f82cb90222a8001b7debee9f4af0d06dbb6"
+  integrity sha512-Z7GNMlcj9pdB6ItpMfDAIPX/+INLbthlbARlzId/vjzUg9ismjwtJQ1sxWF20/ofalKA0bXmf6zvWV+lnEUXpA==
   dependencies:
     "@babel/cli" "^7.7.5"
     "@babel/core" "^7.7.5"
@@ -1051,14 +1051,14 @@
     chokidar "^3.4.0"
     debounce "^1.2.0"
     depcheck-package-name "^1.0.0"
-    eslint "~7.15.0"
+    eslint "~7.19.0"
     execa "^5.0.0"
     fs-extra "^9.0.0"
 
 "@dword-design/base@^6.0.0":
-  version "6.32.2"
-  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-6.32.2.tgz#216749126fb8a8df5d25d5d556a5badd7f08b52a"
-  integrity sha512-VfaU2Ji/VYCRv3NhQwNkn4AJCgA9jWTl1Cfo89V2+T1MjK0jNNSuLDtGgH9lnoe7D0CPu3yxF6NAc4fSkIToVQ==
+  version "6.32.3"
+  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-6.32.3.tgz#2c30f29ca69fc5b99e6faf7da26b61d0acdd1caa"
+  integrity sha512-/5b5prrq8tqovN0oqkReIWSLtLXx4O4nvYh0S4v99d1g+H6AuLHhHQm5qWqrx7qJW8Szfww2vnVWEdtOLebfwg==
   dependencies:
     "@babel/core" "^7.6.4"
     "@babel/register" "^7.6.2"
@@ -1110,9 +1110,9 @@
     yaml "^1.8.2"
 
 "@dword-design/chdir@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@dword-design/chdir/-/chdir-1.0.2.tgz#ae956baddee6fbd7153d9b207dad5364423e1740"
-  integrity sha512-uJy9dB0w03AHeF/rsvVU8gv2ZB52mwBiimjK1seSrnA5MYRhtpjza6F9EVki7iXDXvcXbEWsuYpZcC08SLpmeA==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@dword-design/chdir/-/chdir-1.0.3.tgz#b36637b7335bc2e17d8f51a3bf52f3c6531709ae"
+  integrity sha512-OYS1drt7xw15eTnZea3UhNSUxOX6ZIcA9MMItbMhj9oKFBdIwC4WEYAjqftiStjz2ms0M9OWUurLl70fiCDp1A==
 
 "@dword-design/ci@^1.0.1":
   version "1.1.1"
@@ -1231,10 +1231,10 @@
     stylelint-scss "^3.17.2"
     stylelint-use-nesting "github:dword-design/stylelint-use-nesting#fork"
 
-"@eslint/eslintrc@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.2.2.tgz#d01fc791e2fc33e88a29d6f3dc7e93d0cd784b76"
-  integrity sha512-EfB5OHNYp1F4px/LI/FEnGylop7nOqkQ1LRzCM0KccA2U8tvV8w01KBv37LbO7nW4H+YhKyo2LcJhRwjjV17QQ==
+"@eslint/eslintrc@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.3.0.tgz#d736d6963d7003b6514e6324bec9c602ac340318"
+  integrity sha512-1JTKgrOKAHVivSvOYw+sJOunkBjUOvjqWk1DPja7ZFhIS2mX/4EgTT8M7eTK9jrKhL/FvXXEbQwIs3pg1xp3dg==
   dependencies:
     ajv "^6.12.4"
     debug "^4.1.1"
@@ -1243,7 +1243,7 @@
     ignore "^4.0.6"
     import-fresh "^3.2.1"
     js-yaml "^3.13.1"
-    lodash "^4.17.19"
+    lodash "^4.17.20"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
@@ -2822,11 +2822,6 @@ assign-symbols@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
   integrity sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
-
-astral-regex@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
-  integrity sha512-+Ryf6g3BKoRc7jfp7ad8tM4TtMiaWvbF/1/sQcZPkkS7ag3D5nMBCe2UfOTONtAkaG0tO0ij3C5Lwmf1EiyjHg==
 
 astral-regex@^2.0.0:
   version "2.0.0"
@@ -5500,14 +5495,14 @@ eslint-plugin-sort-keys-fix@^1.1.1:
     requireindex "~1.2.0"
 
 eslint-plugin-vue@^7.0.0-alpha.6:
-  version "7.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.5.0.tgz#cc6d983eb22781fa2440a7573cf39af439bb5725"
-  integrity sha512-QnMMTcyV8PLxBz7QQNAwISSEs6LYk2LJvGlxalXvpCtfKnqo7qcY0aZTIxPe8QOnHd7WCwiMZLOJzg6A03T0Gw==
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.6.0.tgz#ea616e6dfd45d545adb16cba628c5a992cc31f0b"
+  integrity sha512-qYpKwAvpcQXyUXVcG8Zd+fxHDx9iSgTQuO7dql7Ug/2BCvNNDr6s3I9p8MoUo23JJdO7ZAjW3vSwY/EBf4uBcw==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
     semver "^7.3.2"
-    vue-eslint-parser "^7.4.1"
+    vue-eslint-parser "^7.5.0"
 
 eslint-scope@5.0.0:
   version "5.0.0"
@@ -5550,13 +5545,13 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha512-QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==
 
-eslint@~7.15.0:
-  version "7.15.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.15.0.tgz#eb155fb8ed0865fcf5d903f76be2e5b6cd7e0bc7"
-  integrity sha512-Vr64xFDT8w30wFll643e7cGrIkPEU50yIiI36OdSIDoSGguIeaLzBo0vpGvzo9RECUqq7htURfwEtKqwytkqzA==
+eslint@~7.19.0:
+  version "7.19.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.19.0.tgz#6719621b196b5fad72e43387981314e5d0dc3f41"
+  integrity sha512-CGlMgJY56JZ9ZSYhJuhow61lMPPjUzWmChFya71Z/jilVos7mR/jPgaEfVGgMBY5DshbKdG8Ezb8FDCHcoMEMg==
   dependencies:
     "@babel/code-frame" "^7.0.0"
-    "@eslint/eslintrc" "^0.2.2"
+    "@eslint/eslintrc" "^0.3.0"
     ajv "^6.10.0"
     chalk "^4.0.0"
     cross-spawn "^7.0.2"
@@ -5580,7 +5575,7 @@ eslint@~7.15.0:
     js-yaml "^3.13.1"
     json-stable-stringify-without-jsonify "^1.0.1"
     levn "^0.4.1"
-    lodash "^4.17.19"
+    lodash "^4.17.20"
     minimatch "^3.0.4"
     natural-compare "^1.4.0"
     optionator "^0.9.1"
@@ -5589,7 +5584,7 @@ eslint@~7.15.0:
     semver "^7.2.1"
     strip-ansi "^6.0.0"
     strip-json-comments "^3.1.0"
-    table "^5.2.3"
+    table "^6.0.4"
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
@@ -12878,15 +12873,6 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-slice-ansi@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-2.1.0.tgz#cacd7693461a637a5788d92a7dd4fba068e81636"
-  integrity sha512-Qu+VC3EwYLldKa1fCxuuvULvSJOKEgk9pi8dZeCVK7TqBfUNTH4sFkk4joj8afVSfAYgJoSOetjx9QWOJ5mYoQ==
-  dependencies:
-    ansi-styles "^3.2.0"
-    astral-regex "^1.0.0"
-    is-fullwidth-code-point "^2.0.0"
-
 slice-ansi@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-4.0.0.tgz#500e8dd0fd55b05815086255b3195adf2a45fe6b"
@@ -13722,17 +13708,7 @@ swap-case@^1.1.0:
     lower-case "^1.1.1"
     upper-case "^1.1.1"
 
-table@^5.2.3:
-  version "5.4.6"
-  resolved "https://registry.yarnpkg.com/table/-/table-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
-  integrity sha512-wmEc8m4fjnob4gt5riFRtTu/6+4rSe12TpAELNSqHMfF3IqnA+CH37USM6/YR3qRZv7e56kAEAtd6nKZaxe0Ug==
-  dependencies:
-    ajv "^6.10.2"
-    lodash "^4.17.14"
-    slice-ansi "^2.1.0"
-    string-width "^3.0.0"
-
-table@^6.0.7:
+table@^6.0.4, table@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/table/-/table-6.0.7.tgz#e45897ffbcc1bcf9e8a87bf420f2c9e5a7a52a34"
   integrity sha512-rxZevLGTUzWna/qBLObOe16kB2RTnnbhciwgPbMMlazz1yZGVEgnZK762xyVdVznhqxrfCeBMmMkgOOaPwjH7g==
@@ -14562,7 +14538,7 @@ vue-client-only@^2.0.0:
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.0.0.tgz#ddad8d675ee02c761a14229f0e440e219de1da1c"
   integrity sha512-arhk1wtWAfLsJyxGMoEYhoBowM87/i6HLSG2LH/03Yog6i2d9JEN1peMP0Ceis+/n9DxdenGYZZTxbPPJyHciA==
 
-vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.4.1:
+vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.5.0:
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.5.0.tgz#b68221c55fee061899afcfb4441ec74c1495285e"
   integrity sha512-6EHzl00hIpy4yWZo3qSbtvtVw1A1cTKOv1w95QSuAqGgk4113XtRjvNIiEGo49r0YWOPYsrmI4Dl64axL5Agrw==
@@ -14837,9 +14813,9 @@ widest-line@^3.1.0:
     string-width "^4.0.0"
 
 with-local-tmp-dir@^2.2.4:
-  version "2.2.13"
-  resolved "https://registry.yarnpkg.com/with-local-tmp-dir/-/with-local-tmp-dir-2.2.13.tgz#3bcb260150c319e18eefd5c55373ea5c5d923713"
-  integrity sha512-wO8wK8G5rpMvj07HlWGCCX0dDbui7xhIO2U+4pMjT2MY4BBHLkiwtEXv4UAAel0I2WT9j4U1Yardw8DZbNvDmg==
+  version "2.2.14"
+  resolved "https://registry.yarnpkg.com/with-local-tmp-dir/-/with-local-tmp-dir-2.2.14.tgz#8c27f341557a2eff2f56e853118eff97ce656f8e"
+  integrity sha512-aFD5YUSryj4pYzhRnzxCAVtCJ4IQCtHkeSutvVk2k3qWOxPV9mhqFVs/sPpx4JDwUhm7uWs8ytdElP9zTaplJQ==
   dependencies:
     "@dword-design/chdir" "^1.0.0"
     tmp-promise "^3.0.0"
