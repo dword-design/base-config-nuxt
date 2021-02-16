@@ -1,3 +1,10 @@
+## [2.20.1](https://github.com/dword-design/base-config-nuxt/compare/v2.20.0...v2.20.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/base to v7 ([#27](https://github.com/dword-design/base-config-nuxt/issues/27)) ([285a1da](https://github.com/dword-design/base-config-nuxt/commit/285a1da55a41a89aef14f420b00c5ef7eaf1b996))
+
 # [2.20.0](https://github.com/dword-design/base-config-nuxt/compare/v2.19.7...v2.20.0) (2021-01-29)
 
 
