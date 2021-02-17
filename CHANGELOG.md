@@ -1,3 +1,10 @@
+## [2.20.2](https://github.com/dword-design/base-config-nuxt/compare/v2.20.1...v2.20.2) (2021-02-17)
+
+
+### Bug Fixes
+
+* update dependency @nuxtjs/eslint-module to v3 ([#18](https://github.com/dword-design/base-config-nuxt/issues/18)) ([86f55b7](https://github.com/dword-design/base-config-nuxt/commit/86f55b7365f0dbd0e2c03303c16b4198ac33303a))
+
 ## [2.20.1](https://github.com/dword-design/base-config-nuxt/compare/v2.20.0...v2.20.1) (2021-02-16)
 
 
