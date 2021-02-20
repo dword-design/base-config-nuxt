@@ -1,3 +1,10 @@
+## [2.20.5](https://github.com/dword-design/base-config-nuxt/compare/v2.20.4...v2.20.5) (2021-02-20)
+
+
+### Bug Fixes
+
+* allow eslintrc and stylelintrc ([1071979](https://github.com/dword-design/base-config-nuxt/commit/1071979842c22e923424fc13065874f2ea336114))
+
 ## [2.20.4](https://github.com/dword-design/base-config-nuxt/compare/v2.20.3...v2.20.4) (2021-02-20)
 
 
