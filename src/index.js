@@ -13,6 +13,8 @@ import start from './start'
 
 export default {
   allowedMatches: [
+    '.eslintrc.json',
+    '.stylelintrc.json',
     'api',
     'assets',
     'components',
