@@ -1,3 +1,10 @@
+## [2.20.4](https://github.com/dword-design/base-config-nuxt/compare/v2.20.3...v2.20.4) (2021-02-20)
+
+
+### Bug Fixes
+
+* version stylelint and eslint config ([922cab4](https://github.com/dword-design/base-config-nuxt/commit/922cab4619d5aaafcd64b6575d89182c1cac1d04))
+
 ## [2.20.3](https://github.com/dword-design/base-config-nuxt/compare/v2.20.2...v2.20.3) (2021-02-17)
 
 
