@@ -1,3 +1,10 @@
+## [2.20.6](https://github.com/dword-design/base-config-nuxt/compare/v2.20.5...v2.20.6) (2021-03-07)
+
+
+### Bug Fixes
+
+* adjust title format ([#34](https://github.com/dword-design/base-config-nuxt/issues/34)) ([4694f59](https://github.com/dword-design/base-config-nuxt/commit/4694f598643932ec4e21fd384742f36508172a8b))
+
 ## [2.20.5](https://github.com/dword-design/base-config-nuxt/compare/v2.20.4...v2.20.5) (2021-02-20)
 
 
