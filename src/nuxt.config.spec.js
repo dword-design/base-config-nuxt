@@ -438,7 +438,7 @@ export default {
       test: async () => {
         await page.goto('http://localhost:3000')
         expect(await page.title()).toEqual(
-          'Test-App - This is the ultimate app!'
+          'Test-App: This is the ultimate app!'
         )
       },
     },
@@ -458,7 +458,7 @@ export default {
           <script>
           export default {
             head: {
-              title: () => 'Foo page',
+              title: 'Foo page',
             },
           }
           </script>
@@ -467,7 +467,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000/foo')
-        expect(await page.title()).toEqual('Test-App - Foo page')
+        expect(await page.title()).toEqual('Foo page | Test-App')
       },
     },
     port: {
