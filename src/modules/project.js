@@ -22,10 +22,17 @@ export default function () {
     ...safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')),
   }
   this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
-  this.options.head.titleTemplate = projectConfig.title
-    ? `${projectConfig.name} - %s`
-    : projectConfig.name
-  this.options.head.title = projectConfig.title
+  this.options.publicRuntimeConfig.name = projectConfig.name
+  this.options.publicRuntimeConfig.title = projectConfig.title
+  /* istanbul ignore next */
+  this.options.head.titleTemplate = function (title) {
+    return title
+      ? `${title} | ${this.$config.name}`
+      : [
+          this.$config.name,
+          ...(this.$config.title ? [this.$config.title] : []),
+        ].join(': ')
+  }
   this.options.head.meta.push(
     { charset: 'utf-8' },
     {
