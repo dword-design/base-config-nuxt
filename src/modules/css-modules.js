@@ -3,5 +3,6 @@ export default function () {
     .dev
     ? '[name]__[local]'
     : '[hash:base64]'
-  this.options.build.loaders.cssModules.localsConvention = 'camelCase'
+  this.options.build.loaders.cssModules.modules.exportLocalsConvention =
+    'camelCase'
 }
