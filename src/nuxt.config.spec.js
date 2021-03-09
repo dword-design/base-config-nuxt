@@ -713,8 +713,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        const handle = await page.waitForSelector('._2064edUr8FaER8IUynnErP')
+        const handle = await page.waitForSelector('._76xd7v-o5SCrB2-x8wCOe')
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )

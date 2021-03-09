@@ -1,5 +1,6 @@
 import dotenv from '@dword-design/dotenv-json-extended'
 import packageName from 'depcheck-package-name'
+import esm from 'esm'
 
 dotenv.config()
 
@@ -7,6 +8,7 @@ export default {
   build: {
     quiet: false,
   },
+  createRequire: () => esm(module),
   modules: [
     require.resolve('./modules/babel'),
     require.resolve('./modules/dotenv'),
