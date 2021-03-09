@@ -1,3 +1,12 @@
+## [2.20.8](https://github.com/dword-design/base-config-nuxt/compare/v2.20.7...v2.20.8) (2021-03-09)
+
+
+### Bug Fixes
+
+* fix css modules options passing ([b938c55](https://github.com/dword-design/base-config-nuxt/commit/b938c550daa939f60fa461cf9fadd84911bbfad0))
+* update dependency nuxt to ~2.15.0 ([f3e1ac3](https://github.com/dword-design/base-config-nuxt/commit/f3e1ac3741fab604068fe10c68af3ad544f46b8e))
+* use esm to require modules ([0cd52bf](https://github.com/dword-design/base-config-nuxt/commit/0cd52bf325eb348f6d25b98faf4cd8bb7b1b18b7))
+
 ## [2.20.7](https://github.com/dword-design/base-config-nuxt/compare/v2.20.6...v2.20.7) (2021-03-09)
 
 
