@@ -3,7 +3,7 @@
 <!-- /TITLE -->
 
 <!-- BADGES/ -->
-[![NPM version](https://img.shields.io/npm/v/@dword-design/base-config-nuxt.svg)](https://npmjs.org/package/@dword-design/base-config-nuxt)
+[![npm version](https://img.shields.io/npm/v/@dword-design/base-config-nuxt.svg)](https://npmjs.org/package/@dword-design/base-config-nuxt)
 ![Linux macOS Windows compatible](https://img.shields.io/badge/os-linux%20%7C%C2%A0macos%20%7C%C2%A0windows-blue)
 [![Build status](https://github.com/dword-design/base-config-nuxt/workflows/build/badge.svg)](https://github.com/dword-design/base-config-nuxt/actions)
 [![Coverage status](https://img.shields.io/coveralls/dword-design/base-config-nuxt)](https://coveralls.io/github/dword-design/base-config-nuxt)
@@ -41,7 +41,7 @@
 ## Install
 
 ```bash
-# NPM
+# npm
 $ npm install @dword-design/base-config-nuxt
 
 # Yarn
