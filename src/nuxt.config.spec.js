@@ -584,7 +584,7 @@ export default {
         'nuxt.config.js': endent`
           export default {
             router: {
-              base: '/app/',
+              linkActiveClass: 'is-active',
             },
           }
         `,
@@ -606,13 +606,10 @@ export default {
         },
       },
       test: async () => {
-        await page.goto('http://localhost:3000/app')
-        expect(await page.$eval('.home.active', el => el.textContent)).toMatch(
-          'Home'
-        )
+        await page.goto('http://localhost:3000')
         expect(
-          await page.$eval('.info', el => el.getAttribute('href'))
-        ).toEqual('/app/inner/info')
+          await page.$eval('.home.is-active', el => el.textContent)
+        ).toMatch('Home')
       },
     },
     'sass import': {
