@@ -5,9 +5,6 @@ import esm from 'esm'
 dotenv.config()
 
 export default {
-  build: {
-    quiet: false,
-  },
   createRequire: () => esm(module),
   modules: [
     require.resolve('./modules/babel'),
