@@ -7,11 +7,7 @@ import withLocalTmpDir from 'with-local-tmp-dir'
 const runTest = config => () =>
   withLocalTmpDir(async () => {
     await outputFiles(config.files)
-    const nuxt = new Nuxt({
-      ...config.config,
-      build: { quiet: true },
-      dev: false,
-    })
+    const nuxt = new Nuxt({ dev: false, ...config.config })
     await new Builder(nuxt).build()
     await nuxt.listen()
     try {
