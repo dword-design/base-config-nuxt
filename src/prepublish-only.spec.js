@@ -35,30 +35,6 @@ export default {
       const output = await execa.command('./dist/cli.js', { all: true })
       expect(output.all).toEqual('foo')
     }),
-  'console output': () =>
-    withLocalTmpDir(async () => {
-      await outputFiles({
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'nuxt.config.js': endent`
-          export default {
-            modules: [
-              () => console.log('foo bar'),
-            ],
-          }
-        `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
-      })
-      await execa.command('base prepare')
-      const output = await execa.command('base prepublishOnly', { all: true })
-      expect(output.all).toMatch('foo bar')
-    }),
   'fixable linting error': () =>
     withLocalTmpDir(async () => {
       await outputFiles({
