@@ -28,11 +28,7 @@ const runTest = config => () =>
     })
     await execa.command('base prepare')
     const self = stealthyRequire(require.cache, () => require('./nuxt.config'))
-    const nuxt = new Nuxt({
-      ...self,
-      build: { quiet: true },
-      dev: !!config.dev,
-    })
+    const nuxt = new Nuxt({ ...self, dev: !!config.dev })
     await new Builder(nuxt).build()
     await nuxt.listen()
     try {
