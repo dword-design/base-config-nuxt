@@ -1,3 +1,12 @@
+## [2.20.10](https://github.com/dword-design/base-config-nuxt/compare/v2.20.9...v2.20.10) (2021-03-11)
+
+
+### Bug Fixes
+
+* remove quiet: false ([1f91e54](https://github.com/dword-design/base-config-nuxt/commit/1f91e54996ef3255b7946814cf9e9bc25f1c60af))
+* remove quiet: false ([ad359c7](https://github.com/dword-design/base-config-nuxt/commit/ad359c7bee6654a13bddad3c1ad7efc032736e5b))
+* remove quiet: false ([b3aaf41](https://github.com/dword-design/base-config-nuxt/commit/b3aaf412e300f456f5d2ac7e9b899dd1ab1d872f))
+
 ## [2.20.9](https://github.com/dword-design/base-config-nuxt/compare/v2.20.8...v2.20.9) (2021-03-09)
 
 
