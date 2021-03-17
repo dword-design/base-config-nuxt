@@ -1,3 +1,10 @@
+## [2.20.12](https://github.com/dword-design/base-config-nuxt/compare/v2.20.11...v2.20.12) (2021-03-17)
+
+
+### Bug Fixes
+
+* depcheck special ([#39](https://github.com/dword-design/base-config-nuxt/issues/39)) ([a184c42](https://github.com/dword-design/base-config-nuxt/commit/a184c42ba44b38f4c04acf6d56a96cfd475dbba6))
+
 ## [2.20.11](https://github.com/dword-design/base-config-nuxt/compare/v2.20.10...v2.20.11) (2021-03-17)
 
 
