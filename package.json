@@ -3,6 +3,7 @@
   "version": "2.20.10",
   "description": "",
   "repository": "dword-design/base-config-nuxt",
+  "funding": "https://www.buymeacoffee.com/dword",
   "license": "MIT",
   "author": "Sebastian Landwehr <info@dword-design.de>",
   "main": "dist/index.js",
