@@ -1,6 +1,6 @@
+import babelRegister from '@babel/register'
 import { filter, first, map } from '@dword-design/functions'
 import P from 'path'
-import babelRegister from '@babel/register'
 
 export default filename => {
   if (P.basename(filename) === 'nuxt.config.js') {

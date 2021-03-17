@@ -1,10 +1,10 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
-import depcheckSpecial from './depcheck-special'
 import outputFiles from 'output-files'
 
 import analyze from './analyze'
+import depcheckSpecial from './depcheck-special'
 import dev from './dev'
 import eslintConfig from './eslint.config'
 import lint from './lint'
