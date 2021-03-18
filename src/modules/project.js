@@ -75,6 +75,7 @@ export default function () {
     ...this.options.router.middleware,
     ...(projectConfig.router.middleware || []),
   ]
+  forIn((func, name) => this.nuxt.hook(name, func))(projectConfig.hooks)
   Object.assign(
     this.options,
     projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys)
