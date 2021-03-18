@@ -1,3 +1,10 @@
+# [2.21.0](https://github.com/dword-design/base-config-nuxt/compare/v2.20.12...v2.21.0) (2021-03-18)
+
+
+### Features
+
+* support nuxt hooks ([#40](https://github.com/dword-design/base-config-nuxt/issues/40)) ([128b1c4](https://github.com/dword-design/base-config-nuxt/commit/128b1c47a8633d1a5e471d2fe27d18ba0d2fee2c))
+
 ## [2.20.12](https://github.com/dword-design/base-config-nuxt/compare/v2.20.11...v2.20.12) (2021-03-17)
 
 
