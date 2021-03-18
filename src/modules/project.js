@@ -1,4 +1,4 @@
-import { join, keys, omit } from '@dword-design/functions'
+import { forIn, join, keys, omit } from '@dword-design/functions'
 import pushPlugins from '@dword-design/nuxt-push-plugins'
 import P from 'path'
 import safeRequire from 'safe-require'
@@ -8,6 +8,7 @@ export default function () {
     bodyAttrs: {},
     css: [],
     headAttrs: {},
+    hooks: [],
     htmlAttrs: {},
     modules: [],
     name: 'Vue app',

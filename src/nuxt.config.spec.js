@@ -92,6 +92,20 @@ export default {
         expect(result).toEqual({ foo: 'bar' })
       },
     },
+    hooks: {
+      files: {
+        'nuxt.config.js': endent`
+          import { outputFile } from 'fs-extra'
+          
+          export default {
+            hooks: {
+              'build:done': () => outputFile('build-done.txt', '')
+            },
+          }
+        `,
+      },
+      test: async () => expect(await exists('build-done.txt')).toBeTruthy(),
+    },
     bodyAttrs: {
       files: {
         'nuxt.config.js': endent`
