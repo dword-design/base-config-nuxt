@@ -1,4 +1,4 @@
-import { forIn, join, keys, omit } from '@dword-design/functions'
+import { forEach, join, keys, omit } from '@dword-design/functions'
 import pushPlugins from '@dword-design/nuxt-push-plugins'
 import P from 'path'
 import safeRequire from 'safe-require'
@@ -75,7 +75,7 @@ export default function () {
     ...this.options.router.middleware,
     ...(projectConfig.router.middleware || []),
   ]
-  forIn((func, name) => this.nuxt.hook(name, func))(projectConfig.hooks)
+  forEach(projectConfig.hooks, (func, name) => this.nuxt.hook(name, func))
   Object.assign(
     this.options,
     projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys)
