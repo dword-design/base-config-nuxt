@@ -1,3 +1,10 @@
+## [2.21.2](https://github.com/dword-design/base-config-nuxt/compare/v2.21.1...v2.21.2) (2021-03-23)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/functions to v3 ([#42](https://github.com/dword-design/base-config-nuxt/issues/42)) ([ef1864e](https://github.com/dword-design/base-config-nuxt/commit/ef1864e319d2f4081423442a878b0082c2bf527c))
+
 ## [2.21.1](https://github.com/dword-design/base-config-nuxt/compare/v2.21.0...v2.21.1) (2021-03-22)
 
 
