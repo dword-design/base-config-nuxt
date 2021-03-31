@@ -22,6 +22,7 @@ export default async function () {
           localeFiles
           |> map(filename => {
             const code = P.basename(filename, '.json')
+
             return { code, file: filename, iso: code }
           }),
         seo: true,

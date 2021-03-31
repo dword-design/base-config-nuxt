@@ -6,6 +6,7 @@ import withLocalTmpDir from 'with-local-tmp-dir'
 
 const runTest = config => () => {
   config = { match: '', ...config }
+
   return withLocalTmpDir(async () => {
     await outputFiles({
       ...config.files,
@@ -23,6 +24,7 @@ const runTest = config => () => {
           2
         )
       )
+
       const output = await execa('eslint', ['--ext', '.js,.json,.vue', '.'], {
         all: true,
       })

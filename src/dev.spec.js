@@ -35,10 +35,12 @@ export default {
         `,
       })
       await execa.command('base prepare')
+
       const childProcess = execa.command('base dev')
       try {
         await portReady(3000)
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world'

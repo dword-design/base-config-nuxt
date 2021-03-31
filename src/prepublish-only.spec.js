@@ -32,6 +32,7 @@ export default {
       await execa.command('base prepare')
       await execa.command('base prepublishOnly')
       await chmod(P.join('dist', 'cli.js'), '755')
+
       const output = await execa.command('./dist/cli.js', { all: true })
       expect(output.all).toEqual('foo')
     }),

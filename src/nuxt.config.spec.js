@@ -12,6 +12,7 @@ import xmlFormatter from 'xml-formatter'
 
 let browser
 let page
+
 const runTest = config => () =>
   withLocalTmpDir(async () => {
     const oldEnv = process.env
@@ -28,7 +29,9 @@ const runTest = config => () =>
       ...config.files,
     })
     await execa.command('base prepare')
+
     const self = stealthyRequire(require.cache, () => require('./nuxt.config'))
+
     const nuxt = new Nuxt({ ...self, dev: !!config.dev })
     await new Builder(nuxt).build()
     await nuxt.listen()
@@ -72,6 +75,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
@@ -133,7 +137,9 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
+
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
@@ -206,6 +212,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
@@ -235,7 +242,9 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
+
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
@@ -284,6 +293,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const backgroundColor = await page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
@@ -344,6 +354,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
@@ -379,6 +390,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
@@ -494,6 +506,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3005')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
@@ -525,6 +538,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const backgroundColor = await page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
@@ -554,6 +568,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
@@ -583,9 +598,11 @@ export default {
             method: 'POST',
             postData: JSON.stringify({ foo: 'bar' }),
           })
+
           return page.setRequestInterception(false)
         })
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual('bar')
       },
@@ -654,7 +671,9 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
+
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
@@ -724,7 +743,9 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('._76xd7v-o5SCrB2-x8wCOe')
+
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
@@ -751,7 +772,9 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.index__foo')
+
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
         )
@@ -780,6 +803,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.svg')
         expect(await handle.evaluate(foo => foo.tagName)).toEqual('svg')
       },
@@ -803,6 +827,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('meta[name=viewport]')
         expect(
           (await handle.evaluate(meta => meta.content))
@@ -821,6 +846,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000')
+
         const handle = await page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'

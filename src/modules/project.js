@@ -18,6 +18,7 @@ export default function () {
     serverMiddleware: [],
     userScalable: true,
   }
+
   const projectConfig = {
     ...defaultConfig,
     ...safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')),
