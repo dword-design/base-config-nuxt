@@ -240,7 +240,7 @@ export default {
     },
     'global components': {
       files: {
-        'components/foo.global.vue': endent`
+        'components/foo.vue': endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
