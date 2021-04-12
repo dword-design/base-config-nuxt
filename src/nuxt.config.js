@@ -22,7 +22,6 @@ export default {
     packageName`@nuxtjs/axios`,
     require.resolve('./modules/axios-dynamic-baseurl'),
     packageName`nuxt-svg-loader`,
-    packageName`@nuxtjs/global-components`,
     require.resolve('./modules/locale-link'),
     require.resolve('./modules/project'),
   ],
