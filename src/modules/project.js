@@ -68,6 +68,7 @@ export default async function () {
   this.options.css.push(...projectConfig.css)
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
   this.options.build.postcss.plugins = projectConfig.postcssPlugins
+  this.options.components = true
   Object.assign(this.options.router, {
     linkActiveClass: 'active',
     routeNameSplitter: '.',

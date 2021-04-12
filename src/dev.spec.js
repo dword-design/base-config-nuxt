@@ -36,7 +36,7 @@ export default {
       })
       await execa.command('base prepare')
 
-      const childProcess = execa.command('base dev')
+      const childProcess = execa.command('base dev', { stdio: 'inherit' })
       try {
         await portReady(3000)
         await page.goto('http://localhost:3000')
