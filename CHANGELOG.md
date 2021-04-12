@@ -1,3 +1,10 @@
+## [2.21.5](https://github.com/dword-design/base-config-nuxt/compare/v2.21.4...v2.21.5) (2021-04-12)
+
+
+### Bug Fixes
+
+* support async modules ([#50](https://github.com/dword-design/base-config-nuxt/issues/50)) ([f950251](https://github.com/dword-design/base-config-nuxt/commit/f950251734b4ba7b48e15060f8f18d3c2c2eb61c))
+
 ## [2.21.4](https://github.com/dword-design/base-config-nuxt/compare/v2.21.3...v2.21.4) (2021-04-12)
 
 
