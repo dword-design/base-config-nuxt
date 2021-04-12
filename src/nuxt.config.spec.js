@@ -97,6 +97,49 @@ export default {
         expect(result).toEqual({ foo: 'bar' })
       },
     },
+    'async modules': {
+      files: {
+        'modules/foo': {
+          'index.js': endent`
+            import { delay } from '@dword-design/functions'
+            
+            export default async function () {
+              await delay(100)
+              this.addPlugin(require.resolve('./plugin'))
+            }
+          `,
+          'plugin.js':
+            "export default (context, inject) => inject('foo', 'Hello world')",
+        },
+        'nuxt.config.js': endent`
+          export default {
+            modules: [
+              '~/modules/foo',
+            ]
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script>
+          export default {
+            asyncData: context => ({
+              foo: context.$foo,
+            }),
+          }
+          </script>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+
+        const foo = await page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world')
+      },
+    },
     bodyAttrs: {
       files: {
         'nuxt.config.js': endent`

@@ -46,6 +46,7 @@
     "nuxt-i18n": "^6.20.6",
     "nuxt-svg-loader": "^1.2.0",
     "output-files": "^1.1.10",
+    "promise-sequential": "^1.1.1",
     "raw-loader": "^4.0.1",
     "safe-require": "dword-design/node-safe-require#fork",
     "sass-loader": "^10.0.0",

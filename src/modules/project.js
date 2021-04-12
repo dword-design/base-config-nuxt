@@ -1,9 +1,10 @@
-import { forEach, join, keys, omit } from '@dword-design/functions'
+import { forEach, join, keys, map, omit } from '@dword-design/functions'
 import pushPlugins from '@dword-design/nuxt-push-plugins'
 import P from 'path'
+import sequential from 'promise-sequential'
 import safeRequire from 'safe-require'
 
-export default function () {
+export default async function () {
   const defaultConfig = {
     bodyAttrs: {},
     css: [],
@@ -81,6 +82,8 @@ export default function () {
     this.options,
     projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys)
   )
-  projectConfig.modules.forEach(module => this.addModule(module))
+  await sequential(
+    projectConfig.modules |> map(module => () => this.addModule(module))
+  )
   pushPlugins(this, ...projectConfig.plugins)
 }
