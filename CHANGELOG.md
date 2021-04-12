@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/dword-design/base-config-nuxt/compare/v2.21.5...v3.0.0) (2021-04-12)
+
+
+### Bug Fixes
+
+* move to @nuxt/components ([#51](https://github.com/dword-design/base-config-nuxt/issues/51)) ([1336b66](https://github.com/dword-design/base-config-nuxt/commit/1336b66acc89a0ba42c23d4415fc615e3b005774))
+
+
+### BREAKING CHANGES
+
+* Works without the .global filename postfix
+
 ## [2.21.5](https://github.com/dword-design/base-config-nuxt/compare/v2.21.4...v2.21.5) (2021-04-12)
 
 
