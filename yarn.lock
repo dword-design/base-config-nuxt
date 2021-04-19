@@ -9914,10 +9914,10 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt-babel-runtime@^2.0.0:
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-2.0.11.tgz#1b50ed5ef8ad77c7f5e32163748ac5ef791ed6f0"
-  integrity sha512-R3ALgEngkztpDc8MLuA3DwroMcFrHd3MzxURkngYMFE9UccLSM7ncYRoDajXPlw0X3RmVs1TL2k6eukchZmw2Q==
+nuxt-babel-runtime@^2.0.11:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-2.0.12.tgz#1525b28a78262574f6169f33929b7755fc88983a"
+  integrity sha512-0CtGt00C7mA/Oge5ykmEC6Bnsx1uXgE7Ti9C2NdvJjT+DF4Z3QSuuMMTJEV8E6Kh2IQ9y2mbqQho1CjmHlRIqw==
   dependencies:
     "@babel/core" "^7.10.2"
     "@babel/register" "^7.10.1"

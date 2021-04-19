@@ -41,7 +41,7 @@
     "globby": "^11.0.1",
     "node-sass": "^5.0.0",
     "nuxt": "~2.15.0",
-    "nuxt-babel-runtime": "^2.0.0",
+    "nuxt-babel-runtime": "^2.0.11",
     "nuxt-i18n": "^6.20.6",
     "nuxt-svg-loader": "^1.2.0",
     "output-files": "^1.1.10",
