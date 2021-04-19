@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/dword-design/base-config-nuxt/compare/v3.0.0...v3.0.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* fix deprecated dependency ([#68](https://github.com/dword-design/base-config-nuxt/issues/68)) ([9c07f60](https://github.com/dword-design/base-config-nuxt/commit/9c07f60cc781fb82dd0c45b2ccc940ee96a5fa86))
+
 # [3.0.0](https://github.com/dword-design/base-config-nuxt/compare/v2.21.5...v3.0.0) (2021-04-12)
 
 
