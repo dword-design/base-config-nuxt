@@ -1,4 +1,4 @@
-import pushPlugins from '@dword-design/nuxt-push-plugins'
+import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 
 export default function () {
@@ -6,7 +6,7 @@ export default function () {
     fileName: P.join('nuxt-locale-link', 'nuxt-locale-link.vue'),
     src: require.resolve('./nuxt-locale-link.vue'),
   })
-  pushPlugins(this, {
+  nuxtPushPlugins(this, {
     fileName: P.join('nuxt-locale-link', 'plugin.js'),
     src: require.resolve('./plugin'),
   })
