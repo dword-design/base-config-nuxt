@@ -1193,10 +1193,10 @@
     node-sass-package-importer "^5.3.2"
     require-package-name "^2.0.1"
 
-"@dword-design/dotenv-json-extended@^1.2.0":
-  version "1.3.12"
-  resolved "https://registry.yarnpkg.com/@dword-design/dotenv-json-extended/-/dotenv-json-extended-1.3.12.tgz#6ca1227f9e10aef66a56986bdd9311da36b69268"
-  integrity sha512-pWGvJsWm85HYtZvPRT3WsWGKpgK7/Vnk3OFGEkubFgqrnJUDt/pJQcq3IRRoEvVZhpLGNasbptR6RP5Ex8iM0A==
+"@dword-design/dotenv-json-extended@^1.3.12":
+  version "1.3.13"
+  resolved "https://registry.yarnpkg.com/@dword-design/dotenv-json-extended/-/dotenv-json-extended-1.3.13.tgz#37e6fd9cd33cd27d552cd0d1b40e49017914f975"
+  integrity sha512-LR234+yZnX2DyuFbX706/jfd+GBTV39lh2Cgwq5tEL5G/ued2ZyjD1n+LJ29RZXyjkhz3Yvb2Ek4m/KKoZKx8A==
   dependencies:
     "@dword-design/functions" "^3.0.0"
     ajv "^8.0.0"
