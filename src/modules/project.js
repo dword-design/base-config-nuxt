@@ -1,5 +1,5 @@
 import { forEach, join, keys, map, omit } from '@dword-design/functions'
-import pushPlugins from '@dword-design/nuxt-push-plugins'
+import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
 import safeRequire from 'safe-require'
@@ -86,5 +86,5 @@ export default async function () {
   await sequential(
     projectConfig.modules |> map(module => () => this.addModule(module))
   )
-  pushPlugins(this, ...projectConfig.plugins)
+  nuxtPushPlugins(this, ...projectConfig.plugins)
 }
