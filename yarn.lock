@@ -4932,10 +4932,10 @@ depcheck-parser-babel@^1.2.0:
     "@babel/core" "^7.7.7"
     fs-extra "^9.0.0"
 
-depcheck-parser-vue@^1.0.0:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/depcheck-parser-vue/-/depcheck-parser-vue-1.0.10.tgz#c10bccc2aa6dd20f4fc3b80611672f3336545d98"
-  integrity sha512-CW2TP8sif7Zl+Xwi2aU4KpMbjknaKvBsAVBxtBGRpAfWSX6VeeTYjFNmYPnXCkYiyxTXBtLaTjKJeAA35LcBmA==
+depcheck-parser-vue@^1.0.10:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/depcheck-parser-vue/-/depcheck-parser-vue-1.0.11.tgz#42ed3ed5ad85b53310a91840729281335c5098e6"
+  integrity sha512-/l+bB3tpaf2+rN4ztG5e7tzHIQUiWNcFC9XaAwitx/GrnONGahAZ2dTMG4WeyXd2QPRv6ZdZCTz72/+veHgAMg==
   dependencies:
     "@babel/core" "^7.10.3"
     fs-extra "^9.0.1"
