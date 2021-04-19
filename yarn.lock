@@ -1113,10 +1113,10 @@
     fs-extra "^9.0.0"
     micromatch "^4.0.2"
 
-"@dword-design/base@^7.0.0":
-  version "7.12.3"
-  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-7.12.3.tgz#0d049c6e632f57dc94bffae1594d9e305e01d29c"
-  integrity sha512-y3aX+567cu4jwAL/UH8Okg7PoP/s8CMMFggTwk9k1bslw12Ipmw3Ise0nqYH0T5aTj3W+N6Wc8VyalXgMLwuvw==
+"@dword-design/base@^7.13.2":
+  version "7.13.2"
+  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-7.13.2.tgz#b1bf1c495c2bfec6d9d9de6f202d9f379633643c"
+  integrity sha512-+tG14FNQhwK0F+fLik/IY+CewqR0DgR/ucrTU1BL2qb+qBFNHpU9WEY/DLm+vjl2qip0lUDczImbRutV9AqkoQ==
   dependencies:
     "@babel/core" "^7.6.4"
     "@babel/register" "^7.6.2"
@@ -1132,7 +1132,7 @@
     commitizen "^4.0.3"
     constant-case "^3.0.3"
     cz-conventional-changelog "^3.1.0"
-    depcheck dword-design/depcheck#fork
+    depcheck "github:dword-design/depcheck#fork"
     depcheck-detector-execa "^1.2.1"
     depcheck-detector-package-name "^1.0.0"
     depcheck-package-name "^1.0.0"
@@ -1141,7 +1141,7 @@
     execa "^5.0.0"
     expect "^26.0.0"
     expect-mocha-image-snapshot "^1.0.0"
-    expect-mocha-snapshot dword-design/expect-mocha-snapshot#fork
+    expect-mocha-snapshot "github:dword-design/expect-mocha-snapshot#fork"
     find-up "^5.0.0"
     fs-extra "^9.0.0"
     get-projectz-readme-section-regex "^2.0.0"
@@ -4941,8 +4941,9 @@ depcheck-parser-vue@^1.0.0:
     fs-extra "^9.0.1"
     vue-template-compiler "^2.6.11"
 
-depcheck@dword-design/depcheck#fork:
+"depcheck@github:dword-design/depcheck#fork":
   version "0.0.1"
+  uid "8a9eb41006c2c6f9cbd79e4e68bf265e1c1df1dc"
   resolved "https://codeload.github.com/dword-design/depcheck/tar.gz/8a9eb41006c2c6f9cbd79e4e68bf265e1c1df1dc"
   dependencies:
     "@babel/parser" "^7.8.4"
@@ -5814,8 +5815,9 @@ expect-mocha-image-snapshot@^1.0.0:
     jest-image-snapshot "^4.4.0"
     jest-snapshot "^26.6.2"
 
-expect-mocha-snapshot@dword-design/expect-mocha-snapshot#fork:
+"expect-mocha-snapshot@github:dword-design/expect-mocha-snapshot#fork":
   version "2.0.1"
+  uid f5d168a871ef9073f1b56046dbf875aca6eff1db
   resolved "https://codeload.github.com/dword-design/expect-mocha-snapshot/tar.gz/f5d168a871ef9073f1b56046dbf875aca6eff1db"
   dependencies:
     expect "^1.20.2"
