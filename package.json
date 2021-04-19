@@ -60,7 +60,7 @@
     "port-ready": "^0.1.0",
     "postcss-hexrgba": "^2.0.0",
     "stealthy-require": "^1.1.1",
-    "tree-kill-promise": "^1.0.0",
+    "tree-kill-promise": "^1.0.10",
     "with-local-tmp-dir": "^2.2.4",
     "xml-formatter": "^2.1.2"
   },
