@@ -1263,10 +1263,10 @@
   dependencies:
     puppeteer "^8.0.0"
 
-"@dword-design/stylelint-config@^1.0.0":
-  version "1.2.13"
-  resolved "https://registry.yarnpkg.com/@dword-design/stylelint-config/-/stylelint-config-1.2.13.tgz#9642733812a1656cc48a7af8e0e25fdd721978f0"
-  integrity sha512-94S6chWtQZxlzVieZs3iAblVB2r1zNEX+LuptExQ9+7hjJj68s4k/TlQc+SFMFQXL24pl3cxp0bVsCIjkLZk/w==
+"@dword-design/stylelint-config@^1.2.13":
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/@dword-design/stylelint-config/-/stylelint-config-1.2.14.tgz#cf8eb428b9d61a8a87183067626c7a0be68b179c"
+  integrity sha512-y/3GvJWuOFdiEiol3EQZm4zxggbSm15GDcrzdvOTB2EPupjk+h3eVNQryUNzPTGR1dVXEwLKSUKgUtFvXA7/7g==
   dependencies:
     depcheck-package-name "^1.0.0"
     stylelint-config-hudochenkov "^5.0.0"
@@ -1277,7 +1277,7 @@
     stylelint-order "^4.1.0"
     stylelint-prettier "^1.1.2"
     stylelint-scss "^3.17.2"
-    stylelint-use-nesting dword-design/stylelint-use-nesting#fork
+    stylelint-use-nesting "github:dword-design/stylelint-use-nesting#fork"
 
 "@eslint/eslintrc@^0.4.0":
   version "0.4.0"
@@ -13444,8 +13444,9 @@ stylelint-scss@^3.17.2:
     postcss-selector-parser "^6.0.2"
     postcss-value-parser "^4.1.0"
 
-stylelint-use-nesting@dword-design/stylelint-use-nesting#fork:
+"stylelint-use-nesting@github:dword-design/stylelint-use-nesting#fork":
   version "3.0.0"
+  uid "3fa262d8898e33da3831ed526e45dade37c270e7"
   resolved "https://codeload.github.com/dword-design/stylelint-use-nesting/tar.gz/3fa262d8898e33da3831ed526e45dade37c270e7"
 
 stylelint-webpack-plugin@^2.0.0:
