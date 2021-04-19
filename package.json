@@ -44,7 +44,7 @@
     "nuxt-babel-runtime": "^2.0.0",
     "nuxt-i18n": "^6.20.6",
     "nuxt-svg-loader": "^1.2.0",
-    "output-files": "^1.1.10",
+    "output-files": "^1.1.24",
     "promise-sequential": "^1.1.1",
     "raw-loader": "^4.0.1",
     "safe-require": "dword-design/node-safe-require#fork",
