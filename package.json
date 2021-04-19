@@ -25,7 +25,7 @@
     "@dword-design/dotenv-json-extended": "^1.2.0",
     "@dword-design/eslint-config": "^1.4.0",
     "@dword-design/functions": "^3.0.0",
-    "@dword-design/nuxt-push-plugins": "^1.0.0",
+    "@dword-design/nuxt-push-plugins": "^1.0.13",
     "@dword-design/stylelint-config": "^1.0.0",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/eslint-module": "^3.0.0",
