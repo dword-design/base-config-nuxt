@@ -1,3 +1,10 @@
+## [3.0.4](https://github.com/dword-design/base-config-nuxt/compare/v3.0.3...v3.0.4) (2021-04-26)
+
+
+### Bug Fixes
+
+* update dependency with-local-tmp-dir to v3 ([#72](https://github.com/dword-design/base-config-nuxt/issues/72)) ([29060cb](https://github.com/dword-design/base-config-nuxt/commit/29060cb0a0ef9be580bbfe8f3bb077f11f9d8d5b))
+
 ## [3.0.3](https://github.com/dword-design/base-config-nuxt/compare/v3.0.2...v3.0.3) (2021-04-22)
 
 
