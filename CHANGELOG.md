@@ -1,3 +1,10 @@
+## [3.0.5](https://github.com/dword-design/base-config-nuxt/compare/v3.0.4...v3.0.5) (2021-04-26)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/puppeteer to v4 ([#77](https://github.com/dword-design/base-config-nuxt/issues/77)) ([947d90c](https://github.com/dword-design/base-config-nuxt/commit/947d90cfad179cac0dd13282f294cdf6f9be2e6d))
+
 ## [3.0.4](https://github.com/dword-design/base-config-nuxt/compare/v3.0.3...v3.0.4) (2021-04-26)
 
 
