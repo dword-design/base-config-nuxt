@@ -1,49 +1,15 @@
-import { endent, mapValues } from '@dword-design/functions'
+import { endent } from '@dword-design/functions'
+import tester from '@dword-design/tester'
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
-import { outputFile } from 'fs-extra'
 import outputFiles from 'output-files'
-import withLocalTmpDir from 'with-local-tmp-dir'
 
-const runTest = config => () => {
-  config = { match: '', ...config }
-
-  return withLocalTmpDir(async () => {
-    await outputFiles({
-      ...config.files,
-      'package.json': JSON.stringify({}),
-    })
-    try {
-      await execa.command('base prepare')
-      await outputFile(
-        '.eslintrc.json',
-        JSON.stringify(
-          {
-            extends: require.resolve('./eslint.config'),
-          },
-          undefined,
-          2
-        )
-      )
-
-      const output = await execa('eslint', ['--ext', '.js,.json,.vue', '.'], {
-        all: true,
-      })
-      expect(output.all).toBeFalsy()
-    } catch (error) {
-      if (config.match) {
-        expect(error.all).toMatch(config.match)
-      } else {
-        throw error
-      }
-    }
-  })
-}
-
-export default {
-  'webpack loader import syntax': {
-    files: {
-      'assets/hero.svg': '',
-      'pages/index.vue': endent`
+export default tester(
+  {
+    'webpack loader import syntax': {
+      files: {
+        'assets/hero.svg': '',
+        'pages/index.vue': endent`
         <template>
           <div />
         </template>
@@ -59,6 +25,48 @@ export default {
         </script>
 
       `,
+      },
     },
   },
-} |> mapValues(runTest)
+  [
+    {
+      transform: test => {
+        test = { match: '', ...test }
+
+        return async () => {
+          await outputFiles({
+            ...test.files,
+            'node_modules/base-config-self/index.js':
+              "module.exports = require('../../../src')",
+            'package.json': JSON.stringify(
+              {
+                baseConfig: 'self',
+              },
+              undefined,
+              2
+            ),
+          })
+          try {
+            await execa.command('base prepare')
+
+            const output = await execa(
+              'eslint',
+              ['--ext', '.js,.json,.vue', '.'],
+              {
+                all: true,
+              }
+            )
+            expect(output.all).toBeFalsy()
+          } catch (error) {
+            if (test.match) {
+              expect(error.all).toMatch(test.match)
+            } else {
+              throw error
+            }
+          }
+        }
+      },
+    },
+    testerPluginTmpDir(),
+  ]
+)
