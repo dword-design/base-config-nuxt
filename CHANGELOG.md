@@ -1,3 +1,10 @@
+## [3.0.6](https://github.com/dword-design/base-config-nuxt/compare/v3.0.5...v3.0.6) (2021-04-27)
+
+
+### Bug Fixes
+
+* await addModule ([#78](https://github.com/dword-design/base-config-nuxt/issues/78)) ([80bd85b](https://github.com/dword-design/base-config-nuxt/commit/80bd85b77a000d6e93d1ae00ad2c43df1ea84ec0))
+
 ## [3.0.5](https://github.com/dword-design/base-config-nuxt/compare/v3.0.4...v3.0.5) (2021-04-26)
 
 
