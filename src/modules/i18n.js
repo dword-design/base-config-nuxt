@@ -8,7 +8,7 @@ export default async function () {
     cwd: P.join(this.options.srcDir, 'i18n'),
   })
   if (localeFiles.length > 0) {
-    this.addModule([
+    await this.addModule([
       packageName`nuxt-i18n`,
       {
         detectBrowserLanguage: {
