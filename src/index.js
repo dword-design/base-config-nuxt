@@ -1,7 +1,7 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
-import outputFiles from 'output-files'
+import { outputFile } from 'fs-extra'
 
 import analyze from './analyze'
 import depcheckSpecial from './depcheck-special'
@@ -13,7 +13,6 @@ import start from './start'
 
 export default {
   allowedMatches: [
-    '.eslintrc.json',
     '.stylelintrc.json',
     'api',
     'assets',
@@ -44,7 +43,8 @@ export default {
     },
     specials: [depcheckSpecial],
   },
-  editorIgnore: ['.eslintrc.json', '.stylelintrc.json', '.nuxt', 'dist'],
+  editorIgnore: ['.stylelintrc.json', '.nuxt', 'dist'],
+  eslintConfig,
   gitignore: ['/.nuxt', '/dist'],
   lint,
   npmPublish: true,
@@ -52,15 +52,15 @@ export default {
     main: 'dist/index.js',
   },
   prepare: () =>
-    outputFiles({
-      '.eslintrc.json': JSON.stringify(eslintConfig, undefined, 2),
-      '.stylelintrc.json': JSON.stringify(
+    outputFile(
+      '.stylelintrc.json',
+      JSON.stringify(
         {
           extends: packageName`@dword-design/stylelint-config`,
         },
         undefined,
         2
-      ),
-    }),
+      )
+    ),
   useJobMatrix: true,
 }
