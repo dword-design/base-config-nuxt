@@ -1,3 +1,11 @@
+## [3.0.7](https://github.com/dword-design/base-config-nuxt/compare/v3.0.6...v3.0.7) (2021-04-28)
+
+
+### Bug Fixes
+
+* remove eslint ([#79](https://github.com/dword-design/base-config-nuxt/issues/79)) ([b3fedce](https://github.com/dword-design/base-config-nuxt/commit/b3fedce321a70fb5618bf4b74ee2c088133a2dda))
+* updated package.json[description] ([#75](https://github.com/dword-design/base-config-nuxt/issues/75)) ([d816530](https://github.com/dword-design/base-config-nuxt/commit/d816530449afdb576a06986993e8e1d8e7c501a5))
+
 ## [3.0.6](https://github.com/dword-design/base-config-nuxt/compare/v3.0.5...v3.0.6) (2021-04-27)
 
 
