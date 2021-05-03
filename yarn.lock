@@ -10052,10 +10052,10 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt-babel-runtime@^2.0.0:
-  version "2.0.14"
-  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-2.0.14.tgz#a2dc309e3c30b85b0ae0ce50e288bbcac1a70873"
-  integrity sha512-Di3qqkctB2cRG0WGqzGKXdhUUkALqJ/+y4VkczQOFJC8oHqpVu01ma5KiR6Mc7VsW4x4X6uifstaafNAsvMJIA==
+nuxt-babel-runtime@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-3.0.0.tgz#ce3782ddabdd4ee8f88c73e9a1fa30eabe1bc9fa"
+  integrity sha512-uHesLlICzr+9x5akGdokp6hfoQY1Mzyt6YqguROwwcOrJx3VnD0qmNmQTZh6Vv63nDciOfI5aU0fNefjlZGbKw==
   dependencies:
     "@babel/core" "^7.10.2"
     "@babel/register" "^7.10.1"
