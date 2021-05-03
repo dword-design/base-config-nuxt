@@ -1,3 +1,10 @@
+## [3.0.8](https://github.com/dword-design/base-config-nuxt/compare/v3.0.7...v3.0.8) (2021-05-03)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/base to v8 ([#81](https://github.com/dword-design/base-config-nuxt/issues/81)) ([a2ff6c6](https://github.com/dword-design/base-config-nuxt/commit/a2ff6c600f0ac7951dc6709c0944611abe7c6455))
+
 ## [3.0.7](https://github.com/dword-design/base-config-nuxt/compare/v3.0.6...v3.0.7) (2021-04-28)
 
 
