@@ -57,7 +57,7 @@
     "@dword-design/tester-plugin-tmp-dir": "^1.0.4",
     "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.21.0",
-    "output-files": "^1.1.10",
+    "output-files": "^2.0.0",
     "port-ready": "^0.1.0",
     "postcss-hexrgba": "^2.0.0",
     "stealthy-require": "^1.1.1",
