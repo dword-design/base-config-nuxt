@@ -54,7 +54,7 @@
     "@dword-design/base": "^8.0.0",
     "@dword-design/puppeteer": "^4.0.0",
     "@dword-design/tester": "^1.2.8",
-    "@dword-design/tester-plugin-tmp-dir": "^1.0.4",
+    "@dword-design/tester-plugin-tmp-dir": "^2.0.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.21.0",
     "output-files": "^2.0.0",
