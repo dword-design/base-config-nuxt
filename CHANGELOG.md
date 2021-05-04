@@ -1,3 +1,17 @@
+## [3.0.11](https://github.com/dword-design/base-config-nuxt/compare/v3.0.10...v3.0.11) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/dotenv-json-extended to v2 ([#84](https://github.com/dword-design/base-config-nuxt/issues/84)) ([285a5ad](https://github.com/dword-design/base-config-nuxt/commit/285a5adffc4269bb3cd59e620b9ea7c6dc9cfe1d))
+* update dependency @dword-design/functions to v4 ([#85](https://github.com/dword-design/base-config-nuxt/issues/85)) ([b5ef13f](https://github.com/dword-design/base-config-nuxt/commit/b5ef13fbf65d87c41cc681401a9eb906c00a9e03))
+* update dependency @dword-design/tester-plugin-tmp-dir to v2 ([#89](https://github.com/dword-design/base-config-nuxt/issues/89)) ([28bb43b](https://github.com/dword-design/base-config-nuxt/commit/28bb43b2e5d256ded8652f3a443f3e2ff741c476))
+* update dependency depcheck-parser-vue to v2 ([#91](https://github.com/dword-design/base-config-nuxt/issues/91)) ([294513b](https://github.com/dword-design/base-config-nuxt/commit/294513bcb5273548c7ed36694ba0a53de37d53f1))
+* update dependency fs-extra to v10 ([#92](https://github.com/dword-design/base-config-nuxt/issues/92)) ([0f67a55](https://github.com/dword-design/base-config-nuxt/commit/0f67a55eae2a7d95fa0fc8f2f19ff7ebe52255d4))
+* update dependency nuxt-babel-runtime to v3 ([#93](https://github.com/dword-design/base-config-nuxt/issues/93)) ([087a291](https://github.com/dword-design/base-config-nuxt/commit/087a291fad80829d27581f597c2b92ca39656d62))
+* update dependency nuxt-push-plugins to v2 ([#94](https://github.com/dword-design/base-config-nuxt/issues/94)) ([1b5103e](https://github.com/dword-design/base-config-nuxt/commit/1b5103ec3684143cce6eb2829abb34780d2bb822))
+* update dependency with-local-tmp-dir to v4 ([#96](https://github.com/dword-design/base-config-nuxt/issues/96)) ([f151970](https://github.com/dword-design/base-config-nuxt/commit/f1519707649e45b0faca81afe0bbf87a956b9663))
+
 ## [3.0.10](https://github.com/dword-design/base-config-nuxt/compare/v3.0.9...v3.0.10) (2021-05-04)
 
 
