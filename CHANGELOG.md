@@ -1,3 +1,14 @@
+## [3.0.12](https://github.com/dword-design/base-config-nuxt/compare/v3.0.11...v3.0.12) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/depcheck-parser-sass to v2 ([#83](https://github.com/dword-design/base-config-nuxt/issues/83)) ([eacc216](https://github.com/dword-design/base-config-nuxt/commit/eacc216759debb0d89a7f85627e75d748205d608))
+* update dependency @dword-design/stylelint-config to v2 ([#87](https://github.com/dword-design/base-config-nuxt/issues/87)) ([20e6db6](https://github.com/dword-design/base-config-nuxt/commit/20e6db6ffc171a30b6b1b81352dcb40b4e1dfc6c))
+* update dependency @dword-design/tester to v2 ([#88](https://github.com/dword-design/base-config-nuxt/issues/88)) ([13b6fc0](https://github.com/dword-design/base-config-nuxt/commit/13b6fc0c0193ad7f668962999ff0e1e91164b736))
+* update dependency depcheck-package-name to v2 ([#90](https://github.com/dword-design/base-config-nuxt/issues/90)) ([e202be0](https://github.com/dword-design/base-config-nuxt/commit/e202be06dbf575e23bb45a6fe6c0e658d7cc328c))
+* update dependency tree-kill-promise to v2 ([#95](https://github.com/dword-design/base-config-nuxt/issues/95)) ([1389813](https://github.com/dword-design/base-config-nuxt/commit/13898137173c1495f580741c4ce5d6eef46a593a))
+
 ## [3.0.11](https://github.com/dword-design/base-config-nuxt/compare/v3.0.10...v3.0.11) (2021-05-04)
 
 
