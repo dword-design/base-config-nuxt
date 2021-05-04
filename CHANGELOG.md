@@ -1,3 +1,10 @@
+## [3.0.9](https://github.com/dword-design/base-config-nuxt/compare/v3.0.8...v3.0.9) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/eslint-config to v2 ([#82](https://github.com/dword-design/base-config-nuxt/issues/82)) ([c890ab9](https://github.com/dword-design/base-config-nuxt/commit/c890ab9ce763db57ddafddb2a8378f4990ed5d10))
+
 ## [3.0.8](https://github.com/dword-design/base-config-nuxt/compare/v3.0.7...v3.0.8) (2021-05-03)
 
 
