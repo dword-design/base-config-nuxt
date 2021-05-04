@@ -1356,12 +1356,12 @@
   dependencies:
     puppeteer "^9.0.0"
 
-"@dword-design/stylelint-config@^1.0.0":
-  version "1.2.16"
-  resolved "https://registry.yarnpkg.com/@dword-design/stylelint-config/-/stylelint-config-1.2.16.tgz#8882fb292a096e0049e1f62f16348150db89f2bf"
-  integrity sha512-u+zBN3dRgXJrP52sAYXCly3tjXEznmpsrwqNQqaI3ZnOOAIjqng7ZvSWLGUV12pSTHRHuIpShvcyarGQdXxI/A==
+"@dword-design/stylelint-config@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@dword-design/stylelint-config/-/stylelint-config-2.0.1.tgz#0976cebbbb70139254f1b2919dbade12d469a24a"
+  integrity sha512-ZWVyEXka1VlmRQXNGpfw9Dc7ZfKX9mdHtXDemN8Yf81WpmXTFkwrSFDUtvqEh2upL9UxX0r7+OcGflhAvvZnYw==
   dependencies:
-    depcheck-package-name "^1.0.0"
+    depcheck-package-name "^2.0.0"
     stylelint-config-hudochenkov "^5.0.0"
     stylelint-config-prettier "^8.0.1"
     stylelint-config-recommended-scss "^4.2.0"
@@ -5046,6 +5046,13 @@ depcheck-package-name@^1.0.0:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/depcheck-package-name/-/depcheck-package-name-1.0.7.tgz#64559afe055d8398551aa9be3f688e25313293fe"
   integrity sha512-Mt280UvjmvaIEmevXTl2AOROJx0RIcyNjfSzDaepYZj6OGzK7VTcsLW4Pi2eJxthi3q5iQYrVrao8pN21jJPvA==
+  dependencies:
+    tagged-template-noop "^2.1.1"
+
+depcheck-package-name@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/depcheck-package-name/-/depcheck-package-name-2.0.0.tgz#f74c20dc6d75622600cdfcd3c0b8a6a715accac4"
+  integrity sha512-VFAmDvkoYWsmD7M7kPNN7vfWVQVr9x3Wk+nxFiNoc57OpEEd9Z1fShkbyPs98iPoZ7w3yljCC75vWabrf2xggg==
   dependencies:
     tagged-template-noop "^2.1.1"
 
