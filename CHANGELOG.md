@@ -1,3 +1,10 @@
+## [3.0.15](https://github.com/dword-design/base-config-nuxt/compare/v3.0.14...v3.0.15) (2021-05-29)
+
+
+### Bug Fixes
+
+* replace node-sass with sass ([#98](https://github.com/dword-design/base-config-nuxt/issues/98)) ([d5b672f](https://github.com/dword-design/base-config-nuxt/commit/d5b672fc82b1f0f26ad374a4875d94a22f82810f))
+
 ## [3.0.14](https://github.com/dword-design/base-config-nuxt/compare/v3.0.13...v3.0.14) (2021-05-28)
 
 
