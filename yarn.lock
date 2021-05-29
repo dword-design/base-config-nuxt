@@ -1145,12 +1145,12 @@
     "@babel/preset-env" "^7.6.3"
     "@babel/preset-typescript" "^7.13.0"
     "@dword-design/functions" "^4.0.0"
-    "@vue/babel-preset-jsx" "github:dword-design/jsx#fork-babel-preset-jsx"
+    "@vue/babel-preset-jsx" dword-design/jsx#fork-babel-preset-jsx
     babel-plugin-add-module-exports "^1.0.2"
     babel-plugin-macros "^3.0.1"
     babel-plugin-module-resolver "^4.0.0"
     babel-plugin-transform-imports "^2.0.0"
-    babel-plugin-wildcard "github:dword-design/babel-plugin-wildcard#fork"
+    babel-plugin-wildcard dword-design/babel-plugin-wildcard#fork
     depcheck-package-name "^2.0.0"
     find-up "^5.0.0"
     param-case "^3.0.3"
@@ -1193,7 +1193,7 @@
     commitizen "^4.0.3"
     constant-case "^3.0.3"
     cz-conventional-changelog "^3.1.0"
-    depcheck "github:dword-design/depcheck#fork"
+    depcheck dword-design/depcheck#fork
     depcheck-detector-execa "^2.0.0"
     depcheck-detector-package-name "^2.0.0"
     depcheck-package-name "^2.0.0"
@@ -1308,7 +1308,7 @@
   integrity sha512-EAYwmcxWWoZ/1a5IHPYvbEviaV08WLorULewJ7kJ2R67Cm9lflXXzOXC8CNA9HRwGBwEGmZEVPV3ZRggYFowpg==
   dependencies:
     delay "^5.0.0"
-    endent "github:dword-design/endent#fork"
+    endent dword-design/endent#fork
     lodash "^4.17.15"
     tinycolor2 "^1.4.1"
 
@@ -1333,7 +1333,7 @@
     stylelint-order "^4.1.0"
     stylelint-prettier "^1.1.2"
     stylelint-scss "^3.17.2"
-    stylelint-use-nesting "github:dword-design/stylelint-use-nesting#fork"
+    stylelint-use-nesting dword-design/stylelint-use-nesting#fork
 
 "@dword-design/tester-plugin-tmp-dir@^2.0.0":
   version "2.0.2"
@@ -2432,9 +2432,8 @@
     "@vue/babel-sugar-v-model" "^1.2.3"
     "@vue/babel-sugar-v-on" "^1.2.3"
 
-"@vue/babel-preset-jsx@github:dword-design/jsx#fork-babel-preset-jsx":
+"@vue/babel-preset-jsx@dword-design/jsx#fork-babel-preset-jsx":
   version "1.1.2"
-  uid a73cb9961541a60a66b1b99a69a32e00bc66d336
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/a73cb9961541a60a66b1b99a69a32e00bc66d336"
   dependencies:
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
@@ -2474,7 +2473,6 @@
 
 "@vue/babel-sugar-inject-h@dword-design/jsx#fork-babel-sugar-inject-h":
   version "1.1.2"
-  uid cc36a2200c059120f37944615fb2ec0e22f8f3cc
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/cc36a2200c059120f37944615fb2ec0e22f8f3cc"
   dependencies:
     "@babel/plugin-syntax-jsx" "^7.2.0"
@@ -3225,9 +3223,8 @@ babel-plugin-transform-imports@^2.0.0:
     "@babel/types" "^7.4"
     is-valid-path "^0.1.1"
 
-"babel-plugin-wildcard@github:dword-design/babel-plugin-wildcard#fork":
+babel-plugin-wildcard@dword-design/babel-plugin-wildcard#fork:
   version "6.0.0"
-  uid "691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   resolved "https://codeload.github.com/dword-design/babel-plugin-wildcard/tar.gz/691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   dependencies:
     rimraf "^2.6.2"
@@ -3835,7 +3832,7 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chokidar@3.5.1, chokidar@^3.4.0, chokidar@^3.4.1, chokidar@^3.5.1:
+chokidar@3.5.1, "chokidar@>=3.0.0 <4.0.0", chokidar@^3.4.0, chokidar@^3.4.1, chokidar@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
   integrity sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw==
@@ -4964,7 +4961,6 @@ decode-uri-component@^0.2.0:
 
 dedent@0.7.0, dedent@dword-design/dedent#fork:
   version "0.7.0"
-  uid c8d46e5017d60504657c2d01b59082c0329a12a7
   resolved "https://codeload.github.com/dword-design/dedent/tar.gz/c8d46e5017d60504657c2d01b59082c0329a12a7"
   dependencies:
     babel-plugin-add-module-exports "^1.0.2"
@@ -5118,9 +5114,8 @@ depcheck-parser-vue@^2.0.0:
     fs-extra "^10.0.0"
     vue-template-compiler "^2.6.11"
 
-"depcheck@github:dword-design/depcheck#fork":
+depcheck@dword-design/depcheck#fork:
   version "0.0.1"
-  uid "8a9eb41006c2c6f9cbd79e4e68bf265e1c1df1dc"
   resolved "https://codeload.github.com/dword-design/depcheck/tar.gz/8a9eb41006c2c6f9cbd79e4e68bf265e1c1df1dc"
   dependencies:
     "@babel/parser" "^7.8.4"
@@ -5454,9 +5449,8 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.1:
   dependencies:
     once "^1.4.0"
 
-"endent@github:dword-design/endent#fork":
+endent@dword-design/endent#fork:
   version "1.4.0"
-  uid be5433db67eaec07c6c9d00ba3bed2ed946dc664
   resolved "https://codeload.github.com/dword-design/endent/tar.gz/be5433db67eaec07c6c9d00ba3bed2ed946dc664"
   dependencies:
     dedent dword-design/dedent#fork
@@ -6030,7 +6024,6 @@ expect@^26.0.0, expect@^26.6.2:
 
 express-mount-files@dword-design/express-mount-files#fork:
   version "0.1.1"
-  uid c9778e91443c9a3824a01298dc5090a3b53db8df
   resolved "https://codeload.github.com/dword-design/express-mount-files/tar.gz/c9778e91443c9a3824a01298dc5090a3b53db8df"
   dependencies:
     fast-glob "^3.0.4"
@@ -9876,28 +9869,6 @@ node-sass-tilde-importer@^1.0.2:
   dependencies:
     find-parent-dir "^0.3.0"
 
-node-sass@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-5.0.0.tgz#4e8f39fbef3bac8d2dc72ebe3b539711883a78d2"
-  integrity sha512-opNgmlu83ZCF792U281Ry7tak9IbVC+AKnXGovcQ8LG8wFaJv6cLnRlc6DIHlmNxWEexB5bZxi9SZ9JyUuOYjw==
-  dependencies:
-    async-foreach "^0.1.3"
-    chalk "^1.1.1"
-    cross-spawn "^7.0.3"
-    gaze "^1.0.0"
-    get-stdin "^4.0.1"
-    glob "^7.0.3"
-    lodash "^4.17.15"
-    meow "^3.7.0"
-    mkdirp "^0.5.1"
-    nan "^2.13.2"
-    node-gyp "^7.1.0"
-    npmlog "^4.0.0"
-    request "^2.88.0"
-    sass-graph "2.2.5"
-    stdout-stream "^1.4.0"
-    "true-case-path" "^1.0.2"
-
 node-sass@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-6.0.0.tgz#f30da3e858ad47bfd138bc0e0c6f924ed2f734af"
@@ -12948,7 +12919,6 @@ safe-regex@^1.1.0:
 
 safe-require@dword-design/node-safe-require#fork:
   version "1.0.3"
-  uid "53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
   resolved "https://codeload.github.com/dword-design/node-safe-require/tar.gz/53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
 
 "safer-buffer@>= 2.1.2 < 3", "safer-buffer@>= 2.1.2 < 3.0.0", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
@@ -12991,6 +12961,13 @@ sass-loader@^10.0.0:
     neo-async "^2.6.2"
     schema-utils "^3.0.0"
     semver "^7.3.2"
+
+sass@^1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.34.0.tgz#e46d5932d8b0ecc4feb846d861f26a578f7f7172"
+  integrity sha512-rHEN0BscqjUYuomUEaqq3BMgsXqQfkcMVR7UhscsAVub0/spUrZGBMxQXFS2kfiDsPLZw5yuU9iJEFNC2x38Qw==
+  dependencies:
+    chokidar ">=3.0.0 <4.0.0"
 
 sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
@@ -13976,9 +13953,8 @@ stylelint-scss@^3.17.2:
     postcss-selector-parser "^6.0.2"
     postcss-value-parser "^4.1.0"
 
-"stylelint-use-nesting@github:dword-design/stylelint-use-nesting#fork":
+stylelint-use-nesting@dword-design/stylelint-use-nesting#fork:
   version "3.0.0"
-  uid "3fa262d8898e33da3831ed526e45dade37c270e7"
   resolved "https://codeload.github.com/dword-design/stylelint-use-nesting/tar.gz/3fa262d8898e33da3831ed526e45dade37c270e7"
 
 stylelint-webpack-plugin@^2.0.0:

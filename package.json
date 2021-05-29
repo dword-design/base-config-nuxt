@@ -37,7 +37,6 @@
     "express-mount-files": "dword-design/express-mount-files#fork",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.1",
-    "node-sass": "^5.0.0",
     "nuxt": "~2.15.0",
     "nuxt-babel-runtime": "^3.0.0",
     "nuxt-i18n": "^6.20.6",
@@ -46,6 +45,7 @@
     "promise-sequential": "^1.1.1",
     "raw-loader": "^4.0.1",
     "safe-require": "dword-design/node-safe-require#fork",
+    "sass": "^1.34.0",
     "sass-loader": "^10.0.0",
     "stylelint": "^13.6.0",
     "vue": "^2.6.11"
@@ -74,7 +74,7 @@
   "baseConfig": {
     "depcheckConfig": {
       "ignoreMatches": [
-        "node-sass",
+        "sass",
         "sass-loader"
       ]
     }
