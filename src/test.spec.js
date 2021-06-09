@@ -1,7 +1,6 @@
 import { endent } from '@dword-design/functions'
 import execa from 'execa'
 import outputFiles from 'output-files'
-import P from 'path'
 import withLocalTmpDir from 'with-local-tmp-dir'
 
 export default {
@@ -180,7 +179,7 @@ export default {
       })
       await execa.command('base prepare')
       await expect(execa.command('base test')).rejects.toThrow(
-        `${P.join('pages', 'index.vue')}: Missing semicolon. (2:3)`
+        'Parsing error: Missing semicolon. (2:3)'
       )
     }),
   valid: () =>
