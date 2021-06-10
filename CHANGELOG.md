@@ -1,3 +1,10 @@
+## [3.0.16](https://github.com/dword-design/base-config-nuxt/compare/v3.0.15...v3.0.16) (2021-06-10)
+
+
+### Bug Fixes
+
+* fix depcheck parsers ([9a7147d](https://github.com/dword-design/base-config-nuxt/commit/9a7147df1da335bb6912947a6e93ddd0b5a8c26d))
+
 ## [3.0.15](https://github.com/dword-design/base-config-nuxt/compare/v3.0.14...v3.0.15) (2021-05-29)
 
 
