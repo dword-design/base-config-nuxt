@@ -6,7 +6,7 @@ import execa from 'execa'
 import { exists } from 'fs-extra'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
-import stealthyRequire from 'stealthy-require'
+import stealthyRequire from 'stealthy-require-no-leak'
 import withLocalTmpDir from 'with-local-tmp-dir'
 import xmlFormatter from 'xml-formatter'
 
