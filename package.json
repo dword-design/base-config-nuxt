@@ -4,7 +4,7 @@
   "repository": "dword-design/base-config-nuxt",
   "funding": "https://www.buymeacoffee.com/dword",
   "license": "MIT",
-  "author": "Sebastian Landwehr <info@dword-design.de>",
+  "author": "Sebastian Landwehr <info@sebastianlandwehr.com>",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -57,10 +57,11 @@
     "@dword-design/tester-plugin-tmp-dir": "^2.0.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.21.0",
+    "depcheck": "^1.4.1",
     "output-files": "^2.0.0",
     "port-ready": "^0.1.0",
     "postcss-hexrgba": "^2.0.0",
-    "stealthy-require": "^1.1.1",
+    "stealthy-require-no-leak": "^1.0.3",
     "tree-kill-promise": "^2.0.0",
     "with-local-tmp-dir": "^4.0.0",
     "xml-formatter": "^2.1.2"

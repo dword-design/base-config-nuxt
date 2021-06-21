@@ -1,7 +1,9 @@
 import { endent, mapValues } from '@dword-design/functions'
-import execa from 'execa'
+import depcheck from 'depcheck'
 import outputFiles from 'output-files'
 import withLocalTmpDir from 'with-local-tmp-dir'
+
+import self from './depcheck-special'
 
 const runTest = config => () =>
   withLocalTmpDir(async () => {
@@ -13,22 +15,18 @@ const runTest = config => () =>
         undefined,
         2
       ),
-      'depcheck.config.js': endent`
-        const special = require('../src/depcheck-special')
-        module.exports = {
-          specials: [
-            special,
-          ],
-        }
-      `,
       ...config.files,
     })
-    try {
-      await execa.command('depcheck --config depcheck.config.js')
-    } catch (error) {
-      expect(error.message).toMatch('Unused dependencies')
-      expect(config.fail).toBeTruthy()
-    }
+
+    const result = await depcheck('.', {
+      package: {
+        dependencies: {
+          foo: '^1.0.0',
+        },
+      },
+      specials: [self],
+    })
+    expect(result.dependencies.length > 0).toEqual(!!config.fail)
   })
 
 export default {
@@ -41,11 +39,6 @@ export default {
           ],
         }
       `,
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
     },
   },
   'babel feature': {
@@ -56,11 +49,6 @@ export default {
           foo: 1 |> x => x * 2,
         }
       `,
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
     },
   },
   buildModules: {
@@ -72,11 +60,6 @@ export default {
           ],
         }
       `,
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
     },
   },
   function: {
@@ -89,11 +72,6 @@ export default {
           ],
         }
       `,
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
     },
   },
   modules: {
@@ -105,21 +83,7 @@ export default {
           ],
         }
       `,
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
     },
   },
-  'unused dependency': {
-    fail: true,
-    files: {
-      'package.json': JSON.stringify({
-        dependencies: {
-          foo: '^1.0.0',
-        },
-      }),
-    },
-  },
+  'unused dependency': { fail: true },
 } |> mapValues(runTest)
