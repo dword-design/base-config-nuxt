@@ -1,3 +1,10 @@
+## [3.0.17](https://github.com/dword-design/base-config-nuxt/compare/v3.0.16...v3.0.17) (2021-06-21)
+
+
+### Bug Fixes
+
+* refactor depcheck ([#105](https://github.com/dword-design/base-config-nuxt/issues/105)) ([05f9b24](https://github.com/dword-design/base-config-nuxt/commit/05f9b24fd72eccf5096b6b4c51d9b0a17c966306))
+
 ## [3.0.16](https://github.com/dword-design/base-config-nuxt/compare/v3.0.15...v3.0.16) (2021-06-10)
 
 
