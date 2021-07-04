@@ -8,6 +8,7 @@ export default async function () {
   const defaultConfig = {
     bodyAttrs: {},
     css: [],
+    head: {},
     headAttrs: {},
     hooks: [],
     htmlAttrs: {},
@@ -36,6 +37,7 @@ export default async function () {
           ...(this.$config.title ? [this.$config.title] : []),
         ].join(': ')
   }
+  this.options.head.link.push(...(projectConfig.head.link || []))
   this.options.head.meta.push(
     { charset: 'utf-8' },
     {

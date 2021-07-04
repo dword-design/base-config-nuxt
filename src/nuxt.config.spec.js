@@ -294,6 +294,38 @@ export default {
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
+    'head link': {
+      files: {
+        'nuxt.config.js': endent`
+          export default {
+            head: {
+              link: [
+                { rel: 'alternate', type: 'application/rss+xml', title: 'Blog', href: '/feed' }
+              ]
+            },
+          }
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+
+        const link = await page.waitForSelector('link[rel=alternate]')
+        expect(
+          await Promise.all([
+            link.evaluate(el => el.getAttribute('rel')),
+            link.evaluate(el => el.getAttribute('type')),
+            link.evaluate(el => el.getAttribute('title')),
+            link.evaluate(el => el.getAttribute('href')),
+          ])
+        ).toEqual(['alternate', 'application/rss+xml', 'Blog', '/feed'])
+      },
+    },
     headAttrs: {
       files: {
         'nuxt.config.js': endent`
