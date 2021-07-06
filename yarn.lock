@@ -950,7 +950,7 @@
     "@babel/helper-validator-option" "^7.14.5"
     "@babel/plugin-transform-typescript" "^7.14.5"
 
-"@babel/register@^7.10.1", "@babel/register@^7.13.8", "@babel/register@^7.6.2":
+"@babel/register@^7.10.1", "@babel/register@^7.6.2":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.14.5.tgz#d0eac615065d9c2f1995842f85d6e56c345f3233"
   integrity sha512-TjJpGz/aDjFGWsItRBQMOFTrmTI9tr79CHOK+KIvLeCkbxuOAk2M5QHjvruIMGoo9OuccMh5euplPzc5FjAKGg==
@@ -1160,12 +1160,12 @@
     "@babel/preset-env" "^7.6.3"
     "@babel/preset-typescript" "^7.13.0"
     "@dword-design/functions" "^4.0.0"
-    "@vue/babel-preset-jsx" "github:dword-design/jsx#fork-babel-preset-jsx"
+    "@vue/babel-preset-jsx" dword-design/jsx#fork-babel-preset-jsx
     babel-plugin-add-module-exports "^1.0.2"
     babel-plugin-macros "^3.0.1"
     babel-plugin-module-resolver "^4.0.0"
     babel-plugin-transform-imports "^2.0.0"
-    babel-plugin-wildcard "github:dword-design/babel-plugin-wildcard#fork"
+    babel-plugin-wildcard dword-design/babel-plugin-wildcard#fork
     depcheck-package-name "^2.0.0"
     find-up "^5.0.0"
     param-case "^3.0.3"
@@ -1324,7 +1324,7 @@
   integrity sha512-gplaDX334DV6zuHg+Ne/OgVPO/xrZeV4HK9vErbVs9eDhfuvaDQnc8N0CtDl42aWf10m1kZdV8REgbFm70g9JQ==
   dependencies:
     delay "^5.0.0"
-    endent "github:dword-design/endent#fork"
+    endent dword-design/endent#fork
     lodash "^4.17.15"
     tinycolor2 "^1.4.1"
 
@@ -1349,16 +1349,16 @@
     stylelint-order "^4.1.0"
     stylelint-prettier "^1.1.2"
     stylelint-scss "^3.17.2"
-    stylelint-use-nesting "github:dword-design/stylelint-use-nesting#fork"
+    stylelint-use-nesting dword-design/stylelint-use-nesting#fork
 
-"@dword-design/tester-plugin-tmp-dir@^2.0.0":
+"@dword-design/tester-plugin-tmp-dir@^2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@dword-design/tester-plugin-tmp-dir/-/tester-plugin-tmp-dir-2.1.2.tgz#171d7bb386679941a55325cf169494c25db96283"
   integrity sha512-enkxx1OPegGaTQQDAHig4dPVk9aQSkvXPlID89OMWScUW03pf9L2gr88MAo/MJR1geUDdv6bOXzimlelQyNYFQ==
   dependencies:
     with-local-tmp-dir "^4.0.0"
 
-"@dword-design/tester@^2.0.0":
+"@dword-design/tester@^2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@dword-design/tester/-/tester-2.0.7.tgz#fde8013ce0d739f07b2c62b5176ff49cfff64036"
   integrity sha512-aWtsoQTGwWeZ0/sTdlA5gVDVNHNvuBDoFhhf4b//IbdUNN3lQ3D9efQ6dWHq2qGaKx0h1E3G7Py/m3NqFgcuEg==
@@ -2508,9 +2508,8 @@
     "@vue/babel-sugar-v-model" "^1.2.3"
     "@vue/babel-sugar-v-on" "^1.2.3"
 
-"@vue/babel-preset-jsx@github:dword-design/jsx#fork-babel-preset-jsx":
+"@vue/babel-preset-jsx@dword-design/jsx#fork-babel-preset-jsx":
   version "1.1.2"
-  uid a73cb9961541a60a66b1b99a69a32e00bc66d336
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/a73cb9961541a60a66b1b99a69a32e00bc66d336"
   dependencies:
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
@@ -2550,7 +2549,6 @@
 
 "@vue/babel-sugar-inject-h@dword-design/jsx#fork-babel-sugar-inject-h":
   version "1.1.2"
-  uid cc36a2200c059120f37944615fb2ec0e22f8f3cc
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/cc36a2200c059120f37944615fb2ec0e22f8f3cc"
   dependencies:
     "@babel/plugin-syntax-jsx" "^7.2.0"
@@ -3365,9 +3363,8 @@ babel-plugin-transform-imports@^2.0.0:
     "@babel/types" "^7.4"
     is-valid-path "^0.1.1"
 
-"babel-plugin-wildcard@github:dword-design/babel-plugin-wildcard#fork":
+babel-plugin-wildcard@dword-design/babel-plugin-wildcard#fork:
   version "6.0.0"
-  uid "691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   resolved "https://codeload.github.com/dword-design/babel-plugin-wildcard/tar.gz/691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   dependencies:
     rimraf "^2.6.2"
@@ -5036,7 +5033,6 @@ decode-uri-component@^0.2.0:
 
 dedent@0.7.0, dedent@dword-design/dedent#fork:
   version "0.7.0"
-  uid c8d46e5017d60504657c2d01b59082c0329a12a7
   resolved "https://codeload.github.com/dword-design/dedent/tar.gz/c8d46e5017d60504657c2d01b59082c0329a12a7"
   dependencies:
     babel-plugin-add-module-exports "^1.0.2"
@@ -5195,7 +5191,7 @@ depcheck-parser-vue@^2.0.0:
     fs-extra "^10.0.0"
     vue-template-compiler "^2.6.11"
 
-depcheck@^1.4.1:
+depcheck@^1.4.1, depcheck@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/depcheck/-/depcheck-1.4.2.tgz#dedeb8729b8fdf990e2bc45a869d99cfb4460097"
   integrity sha512-oYaBLRbF5NMkYxc5rltnqtuPAn25Lx5xPBIJXy5oUVBgrEDDtotCoYUfFH8lvcmSWzgk1Ts9H+f4Rk0oWL51LQ==
@@ -5542,9 +5538,8 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.1:
   dependencies:
     once "^1.4.0"
 
-"endent@github:dword-design/endent#fork":
+endent@dword-design/endent#fork:
   version "1.4.0"
-  uid be5433db67eaec07c6c9d00ba3bed2ed946dc664
   resolved "https://codeload.github.com/dword-design/endent/tar.gz/be5433db67eaec07c6c9d00ba3bed2ed946dc664"
   dependencies:
     dedent dword-design/dedent#fork
@@ -6135,7 +6130,6 @@ expect@^27.0.0, expect@^27.0.6:
 
 express-mount-files@dword-design/express-mount-files#fork:
   version "0.1.1"
-  uid c9778e91443c9a3824a01298dc5090a3b53db8df
   resolved "https://codeload.github.com/dword-design/express-mount-files/tar.gz/c9778e91443c9a3824a01298dc5090a3b53db8df"
   dependencies:
     fast-glob "^3.0.4"
@@ -12939,7 +12933,6 @@ safe-regex@^1.1.0:
 
 safe-require@dword-design/node-safe-require#fork:
   version "1.0.3"
-  uid "53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
   resolved "https://codeload.github.com/dword-design/node-safe-require/tar.gz/53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
 
 "safer-buffer@>= 2.1.2 < 3", "safer-buffer@>= 2.1.2 < 3.0.0", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
@@ -13990,9 +13983,8 @@ stylelint-scss@^3.17.2:
     postcss-selector-parser "^6.0.2"
     postcss-value-parser "^4.1.0"
 
-"stylelint-use-nesting@github:dword-design/stylelint-use-nesting#fork":
+stylelint-use-nesting@dword-design/stylelint-use-nesting#fork:
   version "3.0.0"
-  uid "3fa262d8898e33da3831ed526e45dade37c270e7"
   resolved "https://codeload.github.com/dword-design/stylelint-use-nesting/tar.gz/3fa262d8898e33da3831ed526e45dade37c270e7"
 
 stylelint-webpack-plugin@^2.0.0:
