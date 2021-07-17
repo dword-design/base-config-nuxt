@@ -1,4 +1,4 @@
-import { forEach, join, keys, map, omit } from '@dword-design/functions'
+import { join, keys, map, omit } from '@dword-design/functions'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
@@ -10,7 +10,6 @@ export default async function () {
     css: [],
     head: {},
     headAttrs: {},
-    hooks: [],
     htmlAttrs: {},
     modules: [],
     name: 'Vue app',
@@ -80,7 +79,6 @@ export default async function () {
     ...this.options.router.middleware,
     ...(projectConfig.router.middleware || []),
   ]
-  forEach(projectConfig.hooks, (func, name) => this.nuxt.hook(name, func))
   Object.assign(
     this.options,
     projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys)

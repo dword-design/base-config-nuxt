@@ -3,7 +3,6 @@ import puppeteer from '@dword-design/puppeteer'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
 import execa from 'execa'
-import { exists } from 'fs-extra'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
 import stealthyRequire from 'stealthy-require-no-leak'
@@ -375,20 +374,6 @@ export default {
         )
         expect(backgroundColor).toEqual('rgba(0, 0, 0, 0)')
       },
-    },
-    hooks: {
-      files: {
-        'nuxt.config.js': endent`
-          import { outputFile } from 'fs-extra'
-          
-          export default {
-            hooks: {
-              'build:done': () => outputFile('build-done.txt', '')
-            },
-          }
-        `,
-      },
-      test: async () => expect(await exists('build-done.txt')).toBeTruthy(),
     },
     htmlAttrs: {
       files: {
