@@ -1,3 +1,10 @@
+## [3.0.20](https://github.com/dword-design/base-config-nuxt/compare/v3.0.19...v3.0.20) (2021-07-17)
+
+
+### Bug Fixes
+
+* remove hooks feature ([74662ab](https://github.com/dword-design/base-config-nuxt/commit/74662ab29b895b8fece4788fd4c7a9c0a0991d67))
+
 ## [3.0.19](https://github.com/dword-design/base-config-nuxt/compare/v3.0.18...v3.0.19) (2021-07-06)
 
 
