@@ -1,3 +1,10 @@
+## [3.0.21](https://github.com/dword-design/base-config-nuxt/compare/v3.0.20...v3.0.21) (2021-07-20)
+
+
+### Bug Fixes
+
+* update config files ([10a9c89](https://github.com/dword-design/base-config-nuxt/commit/10a9c89ddc78eda2fca8f5b8e7bd3136927fc035))
+
 ## [3.0.20](https://github.com/dword-design/base-config-nuxt/compare/v3.0.19...v3.0.20) (2021-07-17)
 
 
