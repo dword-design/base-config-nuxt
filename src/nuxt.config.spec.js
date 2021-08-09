@@ -43,8 +43,11 @@ const runTest = config => () =>
   })
 
 export default {
-  after: () => browser.close(),
-  before: async () => {
+  afterEach: async () => {
+    await page.close()
+    await browser.close()
+  },
+  beforeEach: async () => {
     browser = await puppeteer.launch()
     page = await browser.newPage()
   },
@@ -421,6 +424,29 @@ export default {
         )
       },
     },
+    'i18n: browser language changed': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+        expect(await page.url()).toEqual('http://localhost:3000/en')
+        await page.setExtraHTTPHeaders({
+          'Accept-Language': 'de',
+        })
+        await page.goto('http://localhost:3000')
+        expect(await page.url()).toEqual('http://localhost:3000/de')
+      },
+    },
     'i18n: middleware': {
       files: {
         i18n: {
@@ -455,6 +481,84 @@ export default {
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
+      },
+    },
+    'i18n: root with prefix': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'pages/foo.vue': endent`
+          <template>
+            <div />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000/de')
+        expect(await page.url()).toEqual('http://localhost:3000/de')
+      },
+    },
+    'i18n: root without prefix': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.setExtraHTTPHeaders({
+          'Accept-Language': 'de',
+        })
+        await page.goto('http://localhost:3000')
+        expect(await page.url()).toEqual('http://localhost:3000/de')
+      },
+    },
+    'i18n: route with prefix': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'pages/foo.vue': endent`
+          <template>
+            <div />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000/de/foo')
+        expect(await page.url()).toEqual('http://localhost:3000/de/foo')
+      },
+    },
+    'i18n: route without prefix': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'pages/foo.vue': endent`
+          <template>
+            <div />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.setExtraHTTPHeaders({
+          'Accept-Language': 'de',
+        })
+        await page.goto('http://localhost:3000/foo')
+        expect(await page.url()).toEqual('http://localhost:3000/de/foo')
       },
     },
     'locale link': {
