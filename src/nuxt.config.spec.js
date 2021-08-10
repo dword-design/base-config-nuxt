@@ -399,31 +399,6 @@ export default {
         expect(await page.$eval('html', el => el.className)).toEqual('foo bar')
       },
     },
-    i18n: {
-      files: {
-        'i18n/en.json': JSON.stringify(
-          {
-            foo: 'Hello world',
-          },
-          undefined,
-          2
-        ),
-        'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ $t('foo') }}</div>
-          </template>
-
-        `,
-      },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-
-        const handle = await page.waitForSelector('.foo')
-        expect(await handle.evaluate(div => div.textContent)).toEqual(
-          'Hello world'
-        )
-      },
-    },
     'i18n: browser language changed': {
       files: {
         i18n: {
@@ -489,7 +464,7 @@ export default {
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
-        'pages/foo.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div />
           </template>
@@ -498,6 +473,7 @@ export default {
       },
       test: async () => {
         await page.goto('http://localhost:3000/de')
+        console.log(await page.content())
         expect(await page.url()).toEqual('http://localhost:3000/de')
       },
     },
@@ -561,9 +537,38 @@ export default {
         expect(await page.url()).toEqual('http://localhost:3000/de/foo')
       },
     },
+    'i18n: works': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
+          'en.json': JSON.stringify({ foo: 'Hello world' }),
+        },
+        'pages/index.vue': endent`
+          <template>
+            <div class="foo">{{ $t('foo') }}</div>
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await page.goto('http://localhost:3000')
+
+        const handle = await page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
+          'Hello world'
+        )
+        await page.waitForSelector('html[lang=en]')
+        await page.waitForSelector(
+          'link[rel=alternate][href="/de"][hreflang=de]'
+        )
+        await page.waitForSelector(
+          'link[rel=alternate][href="/en"][hreflang=en]'
+        )
+      },
+    },
     'locale link': {
       files: {
-        'i18n/en.json': JSON.stringify({}, undefined, 2),
+        'i18n/en.json': JSON.stringify({}),
         pages: {
           'foo.vue': endent`
             <template>
