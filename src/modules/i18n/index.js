@@ -33,6 +33,6 @@ export default async function () {
         ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
       },
     ])
+    nuxtPushPlugins(this, require.resolve('./plugin'))
   }
-  nuxtPushPlugins(this, require.resolve('./plugin'))
 }

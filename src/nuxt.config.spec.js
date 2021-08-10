@@ -1,84 +1,45 @@
-import { endent, endsWith, mapValues, property } from '@dword-design/functions'
-import puppeteer from '@dword-design/puppeteer'
+import { endent, endsWith, property } from '@dword-design/functions'
+import tester from '@dword-design/tester'
+import testerPluginEnv from '@dword-design/tester-plugin-env'
+import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
 import execa from 'execa'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
 import stealthyRequire from 'stealthy-require-no-leak'
-import withLocalTmpDir from 'with-local-tmp-dir'
 import xmlFormatter from 'xml-formatter'
 
-let browser
-let page
-
-const runTest = config => () =>
-  withLocalTmpDir(async () => {
-    const oldEnv = process.env
-    await outputFiles({
-      'node_modules/base-config-self/index.js':
-        "module.exports = require('../../../src')",
-      'package.json': JSON.stringify(
-        {
-          baseConfig: 'self',
-        },
-        undefined,
-        2
-      ),
-      ...config.files,
-    })
-    await execa.command('base prepare')
-
-    const self = stealthyRequire(require.cache, () => require('./nuxt.config'))
-
-    const nuxt = new Nuxt({ ...self, dev: !!config.dev })
-    await new Builder(nuxt).build()
-    await nuxt.listen()
-    try {
-      await config.test()
-    } finally {
-      await nuxt.close()
-      process.env = oldEnv
-    }
-  })
-
-export default {
-  afterEach: async () => {
-    await page.close()
-    await browser.close()
-  },
-  beforeEach: async () => {
-    browser = await puppeteer.launch()
-    page = await browser.newPage()
-  },
-  ...({
+export default tester(
+  {
     aliases: {
       files: {
         'model/foo.js': endent`
-          export default 'Hello world'
+        export default 'Hello world'
 
-        `,
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
+        <template>
+          <div class="foo">{{ foo }}</div>
+        </template>
 
-          <script>
-          import foo from '@/model/foo'
+        <script>
+        import foo from '@/model/foo'
 
-          export default {
-            computed: {
-              foo: () => foo,
-            },
-          }
-          </script>
+        export default {
+          computed: {
+            foo: () => foo,
+          },
+        }
+        </script>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
@@ -87,9 +48,9 @@ export default {
     api: {
       files: {
         'api/foo.get.js': endent`
-          export default (req, res) => res.json({ foo: 'bar' })
+        export default (req, res) => res.json({ foo: 'bar' })
 
-        `,
+      `,
       },
       test: async () => {
         const result =
@@ -103,87 +64,89 @@ export default {
       files: {
         'modules/foo': {
           'index.js': endent`
-            import { delay } from '@dword-design/functions'
-            
-            export default async function () {
-              await delay(100)
-              this.addPlugin(require.resolve('./plugin'))
-            }
-          `,
+          import { delay } from '@dword-design/functions'
+          
+          export default async function () {
+            await delay(100)
+            this.addPlugin(require.resolve('./plugin'))
+          }
+        `,
           'plugin.js':
             "export default (context, inject) => inject('foo', 'Hello world')",
         },
         'nuxt.config.js': endent`
-          export default {
-            modules: [
-              '~/modules/foo',
-            ]
-          }
-        `,
+        export default {
+          modules: [
+            '~/modules/foo',
+          ]
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
+        <template>
+          <div class="foo">{{ foo }}</div>
+        </template>
 
-          <script>
-          export default {
-            asyncData: context => ({
-              foo: context.$foo,
-            }),
-          }
-          </script>
+        <script>
+        export default {
+          asyncData: context => ({
+            foo: context.$foo,
+          }),
+        }
+        </script>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const foo = await page.waitForSelector('.foo')
+        const foo = await this.page.waitForSelector('.foo')
         expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world')
       },
     },
     bodyAttrs: {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            bodyAttrs: {
-              class: 'foo bar',
-            },
-          }
-        `,
+        export default {
+          bodyAttrs: {
+            class: 'foo bar',
+          },
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
+        <template>
+          <div>Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.$eval('body', el => el.className)).toEqual('foo bar')
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.$eval('body', el => el.className)).toEqual(
+          'foo bar'
+        )
       },
     },
     'css class casing': {
       files: {
         'pages/index.vue': endent`
-          <template>
-            <div :class="['foo', $style.fooBar]">
-              Hello world
-            </div>
-          </template>
+        <template>
+          <div :class="['foo', $style.fooBar]">
+            Hello world
+          </div>
+        </template>
 
-          <style lang="scss" module>
-          .foo-bar {
-            background: red;
-          }
-          </style>
+        <style lang="scss" module>
+        .foo-bar {
+          background: red;
+        }
+        </style>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -196,20 +159,20 @@ export default {
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         '.test.env.json': { foo: 'Bar' } |> JSON.stringify,
         'nuxt.config.js': endent`
-          export default {
-            name: process.env.FOO,
-          }
-        `,
+        export default {
+          name: process.env.FOO,
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
+        <template>
+          <div>Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.title()).toEqual('Bar')
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.title()).toEqual('Bar')
       },
     },
     'dotenv: module': {
@@ -217,48 +180,48 @@ export default {
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         '.test.env.json': { foo: 'bar' } |> JSON.stringify,
         'modules/foo.js': endent`
-          export default function () {
-            this.options.head.titleTemplate = process.env.FOO
-          }
-        `,
+        export default function () {
+          this.options.head.titleTemplate = process.env.FOO
+        }
+      `,
         'nuxt.config.js': endent`
-          export default {
-            modules: [
-              'modules/foo',
-            ],
-          }
-        `,
+        export default {
+          modules: [
+            'modules/foo',
+          ],
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
+        <template>
+          <div>Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.title()).toEqual('bar')
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.title()).toEqual('bar')
       },
     },
     'global components': {
       files: {
         'components/foo.vue': endent`
-          <template>
-            <div class="foo">Hello world</div>
-          </template>
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
 
-        `,
+      `,
         'pages/index.vue': endent`
-          <template>
-            <foo />
-          </template>
+        <template>
+          <foo />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
@@ -267,28 +230,28 @@ export default {
     'global styles': {
       files: {
         'assets/style.scss': endent`
-          .foo {
-            background: red;
-          }
-        `,
+        .foo {
+          background: red;
+        }
+      `,
         'nuxt.config.js': endent`
-          export default {
-            css: [
-              '~/assets/style.scss',
-            ],
-          }
-        `,
+        export default {
+          css: [
+            '~/assets/style.scss',
+          ],
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">Hello world</div>
-          </template>
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -299,25 +262,25 @@ export default {
     'head link': {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            head: {
-              link: [
-                { rel: 'alternate', type: 'application/rss+xml', title: 'Blog', href: '/feed' }
-              ]
-            },
-          }
-        `,
+        export default {
+          head: {
+            link: [
+              { rel: 'alternate', type: 'application/rss+xml', title: 'Blog', href: '/feed' }
+            ]
+          },
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const link = await page.waitForSelector('link[rel=alternate]')
+        const link = await this.page.waitForSelector('link[rel=alternate]')
         expect(
           await Promise.all([
             link.evaluate(el => el.getAttribute('rel')),
@@ -331,47 +294,49 @@ export default {
     headAttrs: {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            headAttrs: {
-              class: 'foo bar',
-            },
-          }
-        `,
+        export default {
+          headAttrs: {
+            class: 'foo bar',
+          },
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
+        <template>
+          <div>Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.$eval('head', el => el.className)).toEqual('foo bar')
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.$eval('head', el => el.className)).toEqual(
+          'foo bar'
+        )
       },
     },
     hexrgba: {
       files: {
         'assets/style.css': endent`
-          body {
-            background: rgba(#fff, .5);
-          }
-        `,
+        body {
+          background: rgba(#fff, .5);
+        }
+      `,
         'nuxt.config.js': endent`
-          export default {
-            css: ['assets/style.css'],
-          }
-        `,
+        export default {
+          css: ['assets/style.css'],
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const backgroundColor = await page.$eval(
+        const backgroundColor = await this.page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
         )
@@ -381,22 +346,24 @@ export default {
     htmlAttrs: {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            htmlAttrs: {
-              class: 'foo bar',
-            },
-          }
-        `,
+        export default {
+          htmlAttrs: {
+            class: 'foo bar',
+          },
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
+        <template>
+          <div>Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.$eval('html', el => el.className)).toEqual('foo bar')
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.$eval('html', el => el.className)).toEqual(
+          'foo bar'
+        )
       },
     },
     'i18n: browser language changed': {
@@ -406,20 +373,20 @@ export default {
           'en.json': JSON.stringify({}, undefined, 2),
         },
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.url()).toEqual('http://localhost:3000/en')
-        await page.setExtraHTTPHeaders({
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.url()).toEqual('http://localhost:3000/en')
+        await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'de',
         })
-        await page.goto('http://localhost:3000')
-        expect(await page.url()).toEqual('http://localhost:3000/de')
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.url()).toEqual('http://localhost:3000/de')
       },
     },
     'i18n: middleware': {
@@ -429,30 +396,30 @@ export default {
           'en.json': JSON.stringify({}, undefined, 2),
         },
         'middleware/foo.js': endent`
-          export default () => {}
+        export default () => {}
 
-        `,
+      `,
         'nuxt.config.js': endent`
-          export default {
-            router: {
-              middleware: ['foo']
-            }
+        export default {
+          router: {
+            middleware: ['foo']
           }
+        }
 
-        `,
+      `,
         pages: {
           'index.vue': endent`
-            <template>
-              <div class="foo">Hello world</div>
-            </template>
+          <template>
+            <div class="foo">Hello world</div>
+          </template>
 
-          `,
+        `,
         },
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
@@ -465,16 +432,15 @@ export default {
           'en.json': JSON.stringify({}, undefined, 2),
         },
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000/de')
-        console.log(await page.content())
-        expect(await page.url()).toEqual('http://localhost:3000/de')
+      async test() {
+        await this.page.goto('http://localhost:3000/de')
+        expect(await this.page.url()).toEqual('http://localhost:3000/de')
       },
     },
     'i18n: root without prefix': {
@@ -484,18 +450,18 @@ export default {
           'en.json': JSON.stringify({}, undefined, 2),
         },
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.setExtraHTTPHeaders({
+      async test() {
+        await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'de',
         })
-        await page.goto('http://localhost:3000')
-        expect(await page.url()).toEqual('http://localhost:3000/de')
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.url()).toEqual('http://localhost:3000/de')
       },
     },
     'i18n: route with prefix': {
@@ -505,15 +471,15 @@ export default {
           'en.json': JSON.stringify({}, undefined, 2),
         },
         'pages/foo.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000/de/foo')
-        expect(await page.url()).toEqual('http://localhost:3000/de/foo')
+      async test() {
+        await this.page.goto('http://localhost:3000/de/foo')
+        expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
       },
     },
     'i18n: route without prefix': {
@@ -523,18 +489,18 @@ export default {
           'en.json': JSON.stringify({}, undefined, 2),
         },
         'pages/foo.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.setExtraHTTPHeaders({
+      async test() {
+        await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'de',
         })
-        await page.goto('http://localhost:3000/foo')
-        expect(await page.url()).toEqual('http://localhost:3000/de/foo')
+        await this.page.goto('http://localhost:3000/foo')
+        expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
       },
     },
     'i18n: works': {
@@ -547,24 +513,24 @@ export default {
           'en.json': JSON.stringify({ foo: 'Hello world' }),
         },
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ $t('foo') }}</div>
-          </template>
+        <template>
+          <div class="foo">{{ $t('foo') }}</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
-        await page.waitForSelector('html[lang=en]')
-        await page.waitForSelector(
+        await this.page.waitForSelector('html[lang=en]')
+        await this.page.waitForSelector(
           'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]'
         )
-        await page.waitForSelector(
+        await this.page.waitForSelector(
           'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]'
         )
       },
@@ -574,24 +540,24 @@ export default {
         'i18n/en.json': JSON.stringify({}),
         pages: {
           'foo.vue': endent`
-            <template>
-              <div />
-            </template>
+          <template>
+            <div />
+          </template>
 
-          `,
+        `,
           'index.vue': endent`
-            <template>
-              <nuxt-locale-link :to="{ name: 'foo' }">
-                foo
-              </nuxt-locale-link>
-            </template>
+          <template>
+            <nuxt-locale-link :to="{ name: 'foo' }">
+              foo
+            </nuxt-locale-link>
+          </template>
 
-          `,
+        `,
         },
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.$eval('a', a => a.getAttribute('href'))).toEqual(
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.$eval('a', a => a.getAttribute('href'))).toEqual(
           '/en/foo'
         )
       },
@@ -599,40 +565,40 @@ export default {
     name: {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            name: 'Test-App',
-          }
-        `,
+        export default {
+          name: 'Test-App',
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
+        <template>
+          <div>Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.title()).toEqual('Test-App')
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.title()).toEqual('Test-App')
       },
     },
     'name and title': {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            name: 'Test-App',
-            title: 'This is the ultimate app!',
-          }
-        `,
+        export default {
+          name: 'Test-App',
+          title: 'This is the ultimate app!',
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
+        <template>
+          <div>Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
-        expect(await page.title()).toEqual(
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.title()).toEqual(
           'Test-App: This is the ultimate app!'
         )
       },
@@ -640,29 +606,29 @@ export default {
     'page with title': {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            name: 'Test-App',
-            title: 'This is the ultimate app!',
-          }
-        `,
+        export default {
+          name: 'Test-App',
+          title: 'This is the ultimate app!',
+        }
+      `,
         'pages/foo.vue': endent`
-          <template>
-            <div>Hello worldy</div>
-          </template>
+        <template>
+          <div>Hello worldy</div>
+        </template>
 
-          <script>
-          export default {
-            head: {
-              title: 'Foo page',
-            },
-          }
-          </script>
+        <script>
+        export default {
+          head: {
+            title: 'Foo page',
+          },
+        }
+        </script>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000/foo')
-        expect(await page.title()).toEqual('Foo page | Test-App')
+      async test() {
+        await this.page.goto('http://localhost:3000/foo')
+        expect(await this.page.title()).toEqual('Foo page | Test-App')
       },
     },
     port: {
@@ -670,16 +636,16 @@ export default {
         '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
         '.test.env.json': { port: 3005 } |> JSON.stringify,
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">Hello world</div>
-          </template>
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3005')
+      async test() {
+        await this.page.goto('http://localhost:3005')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
@@ -689,29 +655,29 @@ export default {
     'postcss plugin': {
       files: {
         'assets/style.css': endent`
-          body {
-            background: rgba(#fff, .5);
-          }
-        `,
+        body {
+          background: rgba(#fff, .5);
+        }
+      `,
         'nuxt.config.js': endent`
-          export default {
-            css: ['assets/style.css'],
-            postcssPlugins: {
-              '${packageName`postcss-hexrgba`}': {},
-            },
-          }
-        `,
+        export default {
+          css: ['assets/style.css'],
+          postcssPlugins: {
+            '${packageName`postcss-hexrgba`}': {},
+          },
+        }
+      `,
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
+        <template>
+          <div />
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const backgroundColor = await page.$eval(
+        const backgroundColor = await this.page.$eval(
           'body',
           el => getComputedStyle(el).backgroundColor
         )
@@ -722,26 +688,26 @@ export default {
       files: {
         'assets/foo.txt': 'Hello world',
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
+        <template>
+          <div class="foo">{{ foo }}</div>
+        </template>
 
-          <script>
-          import foo from '@/assets/foo.txt'
+        <script>
+        import foo from '@/assets/foo.txt'
 
-          export default {
-            computed: {
-              foo: () => foo,
-            },
-          }
-          </script>
+        export default {
+          computed: {
+            foo: () => foo,
+          },
+        }
+        </script>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
@@ -750,65 +716,65 @@ export default {
     'request body': {
       files: {
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
+        <template>
+          <div class="foo">{{ foo }}</div>
+        </template>
 
-          <script>
-          export default {
-            asyncData: context => ({ foo: context.req.body.foo }),
-          }
-          </script>
+        <script>
+        export default {
+          asyncData: context => ({ foo: context.req.body.foo }),
+        }
+        </script>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.setRequestInterception(true)
-        page.once('request', request => {
+      async test() {
+        await this.page.setRequestInterception(true)
+        this.page.once('request', request => {
           request.continue({
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             postData: JSON.stringify({ foo: 'bar' }),
           })
 
-          return page.setRequestInterception(false)
+          return this.page.setRequestInterception(false)
         })
-        await page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual('bar')
       },
     },
     'router config': {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            router: {
-              linkActiveClass: 'is-active',
-            },
-          }
-        `,
+        export default {
+          router: {
+            linkActiveClass: 'is-active',
+          },
+        }
+      `,
         pages: {
           'index.vue': endent`
-            <template>
-              <div class="foo">
-                <nuxt-link :to="{ name: 'index' }" class="home">
-                  Home
-                </nuxt-link>
-                <nuxt-link :to="{ name: 'inner.info' }" class="info">
-                  Info
-                </nuxt-link>
-              </div>
-            </template>
+          <template>
+            <div class="foo">
+              <nuxt-link :to="{ name: 'index' }" class="home">
+                Home
+              </nuxt-link>
+              <nuxt-link :to="{ name: 'inner.info' }" class="info">
+                Info
+              </nuxt-link>
+            </div>
+          </template>
 
-          `,
+        `,
           'inner/info.vue': '',
         },
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
         expect(
-          await page.$eval('.home.is-active', el => el.textContent)
+          await this.page.$eval('.home.is-active', el => el.textContent)
         ).toMatch('Home')
       },
     },
@@ -816,35 +782,35 @@ export default {
       files: {
         'node_modules/sass-foo': {
           'index.scss': endent`
-            $color: red;
-          `,
+          $color: red;
+        `,
           'package.json': endent`
-            {
-              "main": "index.scss"
-            }
-          `,
+          {
+            "main": "index.scss"
+          }
+        `,
         },
         'pages/index.vue': endent`
-          <template>
-            <div :class="['foo', $style.foo]">
-              Hello world
-            </div>
-          </template>
+        <template>
+          <div :class="['foo', $style.foo]">
+            Hello world
+          </div>
+        </template>
 
-          <style lang="scss" module>
-          @import '~sass-foo';
+        <style lang="scss" module>
+        @import '~sass-foo';
 
-          .foo {
-            background: red;
-          }
-          </style>
+        .foo {
+          background: red;
+        }
+        </style>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -859,24 +825,26 @@ export default {
           'en.json': JSON.stringify({}, undefined, 2),
         },
         'nuxt.config.js': endent`
-          export default {
-            modules: [
-              '${packageName`@nuxtjs/sitemap`}',
-            ]
-          }
+        export default {
+          modules: [
+            '${packageName`@nuxtjs/sitemap`}',
+          ]
+        }
 
-        `,
+      `,
         pages: {
           'index.vue': endent`
-            <template>
-              <div class="foo">Hello world</div>
-            </template>
+          <template>
+            <div class="foo">Hello world</div>
+          </template>
 
-          `,
+        `,
         },
       },
-      test: async () => {
-        const response = await page.goto('http://localhost:3000/sitemap.xml')
+      async test() {
+        const response = await this.page.goto(
+          'http://localhost:3000/sitemap.xml'
+        )
         expect(
           xmlFormatter(response.text() |> await, {
             collapseContent: true,
@@ -884,39 +852,41 @@ export default {
             lineSeparator: '\n',
           })
         ).toEqual(endent`
-          <?xml version="1.0" encoding="UTF-8"?>
-          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-            <url>
-              <loc>http://localhost:3000/de</loc>
-            </url>
-            <url>
-              <loc>http://localhost:3000/en</loc>
-            </url>
-          </urlset>
-        `)
+        <?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+          <url>
+            <loc>http://localhost:3000/de</loc>
+          </url>
+          <url>
+            <loc>http://localhost:3000/en</loc>
+          </url>
+        </urlset>
+      `)
       },
     },
     style: {
       files: {
         'pages/index.vue': endent`
-          <template>
-            <div :class="$style.foo">
-              Hello world
-            </div>
-          </template>
+        <template>
+          <div :class="$style.foo">
+            Hello world
+          </div>
+        </template>
 
-          <style lang="scss" module>
-          .foo {
-            background: red;
-          }
-          </style>
+        <style lang="scss" module>
+        .foo {
+          background: red;
+        }
+        </style>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('._76xd7v-o5SCrB2-x8wCOe')
+        const handle = await this.page.waitForSelector(
+          '._76xd7v-o5SCrB2-x8wCOe'
+        )
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -928,24 +898,24 @@ export default {
       dev: true,
       files: {
         'pages/index.vue': endent`
-          <template>
-            <div :class="$style.foo">
-              Hello world
-            </div>
-          </template>
+        <template>
+          <div :class="$style.foo">
+            Hello world
+          </div>
+        </template>
 
-          <style lang="scss" module>
-          .foo {
-            background: red;
-          }
-          </style>
+        <style lang="scss" module>
+        .foo {
+          background: red;
+        }
+        </style>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.index__foo')
+        const handle = await this.page.waitForSelector('.index__foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -957,50 +927,50 @@ export default {
       files: {
         'assets/foo.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
         'pages/index.vue': endent`
-          <template>
-            <Foo class="svg" />
-          </template>
+        <template>
+          <Foo class="svg" />
+        </template>
 
-          <script>
-          import Foo from '@/assets/foo.svg'
+        <script>
+        import Foo from '@/assets/foo.svg'
 
-          export default {
-            components: {
-              Foo,
-            },
-          }
-          </script>
+        export default {
+          components: {
+            Foo,
+          },
+        }
+        </script>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.svg')
+        const handle = await this.page.waitForSelector('.svg')
         expect(await handle.evaluate(foo => foo.tagName)).toEqual('svg')
       },
     },
     userScalable: {
       files: {
         'nuxt.config.js': endent`
-          export default {
-            userScalable: false,
-          }
+        export default {
+          userScalable: false,
+        }
 
-        `,
+      `,
         pages: {
           'index.vue': endent`
-            <template>
-              <div />
-            </template>
+          <template>
+            <div />
+          </template>
 
-          `,
+        `,
         },
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('meta[name=viewport]')
+        const handle = await this.page.waitForSelector('meta[name=viewport]')
         expect(
           (await handle.evaluate(meta => meta.content))
             |> endsWith('user-scalable=0')
@@ -1010,20 +980,56 @@ export default {
     valid: {
       files: {
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">Hello world</div>
-          </template>
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
 
-        `,
+      `,
       },
-      test: async () => {
-        await page.goto('http://localhost:3000')
+      async test() {
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
       },
     },
-  } |> mapValues(runTest)),
-}
+  },
+  [
+    testerPluginEnv(),
+    testerPluginPuppeteer(),
+    {
+      transform: test =>
+        async function () {
+          await outputFiles({
+            'node_modules/base-config-self/index.js':
+              "module.exports = require('../../../src')",
+            'package.json': JSON.stringify(
+              {
+                baseConfig: 'self',
+              },
+              undefined,
+              2
+            ),
+            ...test.files,
+          })
+          await execa.command('base prepare')
+
+          const self = stealthyRequire(require.cache, () =>
+            require('./nuxt.config')
+          )
+
+          const nuxt = new Nuxt({ ...self, dev: !!test.dev })
+          await new Builder(nuxt).build()
+          await nuxt.listen()
+          try {
+            await test.test.call(this)
+          } finally {
+            await nuxt.close()
+          }
+        },
+    },
+    testerPluginTmpDir(),
+  ]
+)
