@@ -539,6 +539,9 @@ export default {
     },
     'i18n: works': {
       files: {
+        '.env.schema.json': { baseUrl: { type: 'string' } } |> JSON.stringify,
+        '.test.env.json':
+          { baseUrl: 'http://localhost:3000' } |> JSON.stringify,
         i18n: {
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
           'en.json': JSON.stringify({ foo: 'Hello world' }),
@@ -559,10 +562,10 @@ export default {
         )
         await page.waitForSelector('html[lang=en]')
         await page.waitForSelector(
-          'link[rel=alternate][href="/de"][hreflang=de]'
+          'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]'
         )
         await page.waitForSelector(
-          'link[rel=alternate][href="/en"][hreflang=en]'
+          'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]'
         )
       },
     },
