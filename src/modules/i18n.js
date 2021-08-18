@@ -9,11 +9,11 @@ export default async function () {
   })
   if (localeFiles.length > 0) {
     await this.addModule([
-      packageName`nuxt-i18n`,
+      packageName`@nuxtjs/i18n`,
       {
         detectBrowserLanguage: {
           fallbackLocale: 'en',
-          onlyOnNoPrefix: true,
+          redirectOn: 'no prefix',
           useCookie: false,
         },
         langDir: 'i18n/',
