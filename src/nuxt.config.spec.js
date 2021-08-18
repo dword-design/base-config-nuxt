@@ -520,6 +520,14 @@ export default tester(
       `,
       },
       async test() {
+        // The meta tags were there but `this.$nuxtI18nHead was undefined client-side, which lead to follow-up problems.
+        // Make sure that there are no client-side script errors related to @nuxtjs/i18n.
+        let error
+        this.page.on('console', message => {
+          if (message.type() === 'error') {
+            error = message.text()
+          }
+        })
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
@@ -533,6 +541,7 @@ export default tester(
         await this.page.waitForSelector(
           'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]'
         )
+        expect(error).toBeUndefined()
       },
     },
     'locale link': {
