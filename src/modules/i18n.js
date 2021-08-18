@@ -1,7 +1,6 @@
 import { map } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import globby from 'globby'
-import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 
 export default async function () {
@@ -10,11 +9,11 @@ export default async function () {
   })
   if (localeFiles.length > 0) {
     await this.addModule([
-      packageName`@nuxtjs/i18n`,
+      packageName`nuxt-i18n`,
       {
         detectBrowserLanguage: {
           fallbackLocale: 'en',
-          redirectOn: 'no prefix',
+          onlyOnNoPrefix: true,
           useCookie: false,
         },
         langDir: 'i18n/',
@@ -26,6 +25,7 @@ export default async function () {
 
             return { code, file: filename, iso: code }
           }),
+        seo: true,
         strategy: 'prefix',
         vueI18n: {
           fallbackLocale: 'en',
@@ -33,6 +33,5 @@ export default async function () {
         ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
       },
     ])
-    nuxtPushPlugins(this, require.resolve('./plugin'))
   }
 }
