@@ -17,14 +17,6 @@ const head = function () {
   }
 
   return {
-    titleTemplate: function (title) {
-      return title
-        ? `${title} | ${this.$config.name}`
-        : [
-            this.$config.name,
-            ...(this.$config.title ? [this.$config.title] : []),
-          ].join(': ')
-    },
     bodyAttrs: projectConfig.bodyAttrs,
     headAttrs: projectConfig.headAttrs,
     htmlAttrs: {
@@ -66,6 +58,14 @@ const head = function () {
         : []),
       ...(i18nHead.meta || []),
     ],
+    titleTemplate(title) {
+      return title
+        ? `${title} | ${this.$config.name}`
+        : [
+            this.$config.name,
+            ...(this.$config.title ? [this.$config.title] : []),
+          ].join(': ')
+    },
   }
 }
 

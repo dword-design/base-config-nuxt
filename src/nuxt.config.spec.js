@@ -1023,6 +1023,7 @@ export default tester(
     {
       transform: test => {
         test = { test: () => {}, ...test }
+
         return async function () {
           await outputFiles({
             'node_modules/base-config-self/index.js':
@@ -1051,7 +1052,7 @@ export default tester(
             await nuxt.close()
           }
         }
-      }
+      },
     },
     testerPluginTmpDir(),
   ]
