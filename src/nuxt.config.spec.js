@@ -159,16 +159,17 @@ export default tester(
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         '.test.env.json': { foo: 'Bar' } |> JSON.stringify,
         'nuxt.config.js': endent`
-        export default {
-          name: process.env.FOO,
-        }
-      `,
-        'pages/index.vue': endent`
-        <template>
-          <div>Hello world</div>
-        </template>
+          export default {
+            name: process.env.FOO,
+          }
 
-      `,
+        `,
+        'pages/index.vue': endent`
+          <template>
+            <div>Hello world</div>
+          </template>
+
+        `,
       },
       async test() {
         await this.page.goto('http://localhost:3000')
@@ -180,27 +181,23 @@ export default tester(
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         '.test.env.json': { foo: 'bar' } |> JSON.stringify,
         'modules/foo.js': endent`
-        export default function () {
-          this.options.head.titleTemplate = process.env.FOO
-        }
-      `,
+          export default function () {
+            expect(process.env.FOO).toEqual('bar')
+          }
+        `,
         'nuxt.config.js': endent`
-        export default {
-          modules: [
-            'modules/foo',
-          ],
-        }
-      `,
+          export default {
+            modules: [
+              '~/modules/foo',
+            ],
+          }
+        `,
         'pages/index.vue': endent`
-        <template>
-          <div>Hello world</div>
-        </template>
+          <template>
+            <div>Hello world</div>
+          </template>
 
-      `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.title()).toEqual('bar')
+        `,
       },
     },
     'global components': {
@@ -512,12 +509,20 @@ export default tester(
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
           'en.json': JSON.stringify({ foo: 'Hello world' }),
         },
+        'nuxt.config.js': endent`
+          export default {
+            htmlAttrs: { style: 'background: red' },
+            head: {
+              link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+            },
+          }
+        `,
         'pages/index.vue': endent`
-        <template>
-          <div class="foo">{{ $t('foo') }}</div>
-        </template>
+          <template>
+            <div class="foo">{{ $t('foo') }}</div>
+          </template>
 
-      `,
+        `,
       },
       async test() {
         // The meta tags were there but `this.$nuxtI18nHead was undefined client-side, which lead to follow-up problems.
@@ -534,12 +539,19 @@ export default tester(
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world'
         )
-        await this.page.waitForSelector('html[lang=en]')
+
+        const html = await this.page.waitForSelector('html[lang=en]')
         await this.page.waitForSelector(
           'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]'
         )
         await this.page.waitForSelector(
           'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]'
+        )
+        expect(await html.evaluate(el => el.getAttribute('style'))).toEqual(
+          'background: red'
+        )
+        await this.page.waitForSelector(
+          'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]'
         )
         expect(error).toBeUndefined()
       },
@@ -1009,8 +1021,10 @@ export default tester(
     testerPluginEnv(),
     testerPluginPuppeteer(),
     {
-      transform: test =>
-        async function () {
+      transform: test => {
+        test = { test: () => {}, ...test }
+
+        return async function () {
           await outputFiles({
             'node_modules/base-config-self/index.js':
               "module.exports = require('../../../src')",
@@ -1037,7 +1051,8 @@ export default tester(
           } finally {
             await nuxt.close()
           }
-        },
+        }
+      },
     },
     testerPluginTmpDir(),
   ]
