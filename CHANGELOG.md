@@ -1,3 +1,10 @@
+## [3.0.23](https://github.com/dword-design/base-config-nuxt/compare/v3.0.22...v3.0.23) (2021-08-18)
+
+
+### Bug Fixes
+
+* revert i18n replacement ([cca79f6](https://github.com/dword-design/base-config-nuxt/commit/cca79f6fdfbf0fd143eaeaf8d567827394c1708c))
+
 ## [3.0.22](https://github.com/dword-design/base-config-nuxt/compare/v3.0.21...v3.0.22) (2021-08-10)
 
 
