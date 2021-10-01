@@ -57,7 +57,7 @@
     "@dword-design/tester-plugin-puppeteer": "^2.1.19",
     "@dword-design/tester-plugin-tmp-dir": "^2.1.2",
     "@nuxtjs/sitemap": "^2.4.0",
-    "axios": "^0.21.0",
+    "axios": "^0.22.0",
     "depcheck": "^1.4.2",
     "output-files": "^2.0.0",
     "port-ready": "^0.1.0",
