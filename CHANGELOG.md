@@ -1,3 +1,10 @@
+## [3.0.25](https://github.com/dword-design/base-config-nuxt/compare/v3.0.24...v3.0.25) (2021-10-05)
+
+
+### Bug Fixes
+
+* update dependency axios to ^0.22.0 ([#123](https://github.com/dword-design/base-config-nuxt/issues/123)) ([70a960d](https://github.com/dword-design/base-config-nuxt/commit/70a960d59f54887faa4b6061b5e453c204b785b4))
+
 ## [3.0.24](https://github.com/dword-design/base-config-nuxt/compare/v3.0.23...v3.0.24) (2021-09-01)
 
 
