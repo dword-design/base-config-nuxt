@@ -906,7 +906,7 @@ export default tester(
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector(
-          '._76xd7v-o5SCrB2-x8wCOe'
+          '.jmyCSOgL5WbaBeZ-RxMaBw\\=\\='
         )
 
         const backgroundColor = await handle.evaluate(
