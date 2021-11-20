@@ -11,6 +11,8 @@ import outputFiles from 'output-files'
 import stealthyRequire from 'stealthy-require-no-leak'
 import xmlFormatter from 'xml-formatter'
 
+import MissingNuxtI18nHeadError from './modules/i18n/missing-nuxt-i18n-head-error'
+
 export default tester(
   {
     aliases: {
@@ -256,6 +258,24 @@ export default tester(
         expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
+    'head in module': {
+      files: {
+        'modules/mod.js': endent`
+          export default function () {
+            this.options.head.script.push('foo')
+          }
+
+        `,
+        'nuxt.config.js': endent`
+          export default {
+            modules: [
+              '~/modules/mod',
+            ]
+          }
+
+        `,
+      },
+    },
     'head link': {
       files: {
         'nuxt.config.js': endent`
@@ -369,6 +389,20 @@ export default tester(
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'pages/index.vue': endent`
         <template>
           <div />
@@ -392,6 +426,20 @@ export default tester(
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'middleware/foo.js': endent`
         export default () => {}
 
@@ -404,14 +452,12 @@ export default tester(
         }
 
       `,
-        pages: {
-          'index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
 
         `,
-        },
       },
       async test() {
         await this.page.goto('http://localhost:3000')
@@ -422,12 +468,50 @@ export default tester(
         )
       },
     },
+    'i18n: no $nuxtI18nHead': {
+      error: new MissingNuxtI18nHeadError(),
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
+          'en.json': JSON.stringify({ foo: 'Hello world' }),
+        },
+        'layouts/default.vue': endent`
+        <script>
+          export default {}
+        </script>
+        
+      `,
+      },
+    },
+    'i18n: no layout': {
+      error: new MissingNuxtI18nHeadError(),
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
+          'en.json': JSON.stringify({ foo: 'Hello world' }),
+        },
+      },
+    },
     'i18n: root with prefix': {
       files: {
         i18n: {
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'pages/index.vue': endent`
         <template>
           <div />
@@ -446,6 +530,20 @@ export default tester(
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'pages/index.vue': endent`
         <template>
           <div />
@@ -467,6 +565,20 @@ export default tester(
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'pages/foo.vue': endent`
         <template>
           <div />
@@ -485,6 +597,20 @@ export default tester(
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'pages/foo.vue': endent`
         <template>
           <div />
@@ -509,6 +635,20 @@ export default tester(
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
           'en.json': JSON.stringify({ foo: 'Hello world' }),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'nuxt.config.js': endent`
           export default {
             htmlAttrs: { style: 'background: red' },
@@ -559,6 +699,20 @@ export default tester(
     'locale link': {
       files: {
         'i18n/en.json': JSON.stringify({}),
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         pages: {
           'foo.vue': endent`
           <template>
@@ -845,6 +999,20 @@ export default tester(
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
         'nuxt.config.js': endent`
         export default {
           modules: [
@@ -853,14 +1021,12 @@ export default tester(
         }
 
       `,
-        pages: {
-          'index.vue': endent`
+        'page/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
 
         `,
-        },
       },
       async test() {
         const response = await this.page.goto(
@@ -873,16 +1039,16 @@ export default tester(
             lineSeparator: '\n',
           })
         ).toEqual(endent`
-        <?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-          <url>
-            <loc>http://localhost:3000/de</loc>
-          </url>
-          <url>
-            <loc>http://localhost:3000/en</loc>
-          </url>
-        </urlset>
-      `)
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+            <url>
+              <loc>http://localhost:3000/de</loc>
+            </url>
+            <url>
+              <loc>http://localhost:3000/en</loc>
+            </url>
+          </urlset>
+        `)
       },
     },
     style: {
@@ -1044,12 +1210,16 @@ export default tester(
           )
 
           const nuxt = new Nuxt({ ...self, dev: !!test.dev })
-          await new Builder(nuxt).build()
-          await nuxt.listen()
-          try {
-            await test.test.call(this)
-          } finally {
-            await nuxt.close()
+          if (test.error) {
+            await expect(new Builder(nuxt).build()).rejects.toThrow(test.error)
+          } else {
+            await new Builder(nuxt).build()
+            await nuxt.listen()
+            try {
+              await test.test.call(this)
+            } finally {
+              await nuxt.close()
+            }
           }
         }
       },

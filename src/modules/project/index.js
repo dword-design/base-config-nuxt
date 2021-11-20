@@ -1,73 +1,8 @@
-import { keys, map, omit } from '@dword-design/functions'
+import { join, keys, map, omit } from '@dword-design/functions'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
 import safeRequire from 'safe-require'
-
-/* istanbul ignore next */
-const head = function () {
-  const _require = require
-
-  const projectConfig = _require('./project/project-config').default
-
-  const i18nHead = this.$nuxtI18nHead?.({ addSeoAttributes: true }) || {
-    htmlAttrs: {},
-    link: [],
-    meta: [],
-  }
-
-  return {
-    bodyAttrs: projectConfig.bodyAttrs,
-    headAttrs: projectConfig.headAttrs,
-    htmlAttrs: {
-      ...projectConfig.htmlAttrs,
-      ...i18nHead.htmlAttrs,
-    },
-    link: [...(projectConfig.head.link || []), ...(i18nHead.link || [])],
-    meta: [
-      { charset: 'utf-8' },
-      {
-        content: [
-          'width=device-width',
-          'initial-scale=1',
-          ...(projectConfig.userScalable ? [] : ['user-scalable=0']),
-        ].join(', '),
-        name: 'viewport',
-      },
-      {
-        content: projectConfig.name,
-        hid: 'description',
-        name: 'description',
-      },
-      ...(projectConfig.ogImage
-        ? [
-            {
-              content: projectConfig.ogImage,
-              hid: 'og:image',
-              name: 'og:image',
-            },
-          ]
-        : []),
-      ...(projectConfig.webApp
-        ? [
-            {
-              content: 'yes',
-              name: 'apple-mobile-web-app-capable',
-            },
-          ]
-        : []),
-      ...(i18nHead.meta || []),
-    ],
-    titleTemplate(title) {
-      return title
-        ? `${title} | ${this.$config.name}`
-        : [
-            this.$config.name,
-            ...(this.$config.title ? [this.$config.title] : []),
-          ].join(': ')
-    },
-  }
-}
 
 export default async function () {
   const defaultConfig = {
@@ -92,7 +27,45 @@ export default async function () {
   this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
   this.options.publicRuntimeConfig.name = projectConfig.name
   this.options.publicRuntimeConfig.title = projectConfig.title
-  this.options.head = head
+  /* istanbul ignore next */
+  this.options.head.titleTemplate = function (title) {
+    return title
+      ? `${title} | ${this.$config.name}`
+      : [
+          this.$config.name,
+          ...(this.$config.title ? [this.$config.title] : []),
+        ].join(': ')
+  }
+  this.options.head.link.push(...(projectConfig.head.link || []))
+  this.options.head.meta.push(
+    { charset: 'utf-8' },
+    {
+      content:
+        [
+          'width=device-width',
+          'initial-scale=1',
+          ...(projectConfig.userScalable ? [] : ['user-scalable=0']),
+        ] |> join(', '),
+      name: 'viewport',
+    },
+    { content: projectConfig.name, hid: 'description', name: 'description' }
+  )
+  if (projectConfig.ogImage) {
+    this.options.head.meta.push({
+      content: projectConfig.ogImage,
+      hid: 'og:image',
+      name: 'og:image',
+    })
+  }
+  if (projectConfig.webApp) {
+    this.options.head.meta.push({
+      content: 'yes',
+      name: 'apple-mobile-web-app-capable',
+    })
+  }
+  this.options.head.htmlAttrs = projectConfig.htmlAttrs
+  this.options.head.headAttrs = projectConfig.headAttrs
+  this.options.head.bodyAttrs = projectConfig.bodyAttrs
   this.options.css.push(...projectConfig.css)
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
   this.options.build.postcss.plugins = projectConfig.postcssPlugins
