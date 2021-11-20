@@ -1,3 +1,10 @@
+## [3.0.26](https://github.com/dword-design/base-config-nuxt/compare/v3.0.25...v3.0.26) (2021-11-20)
+
+
+### Bug Fixes
+
+* convert head function back to object and require implementation of head() in layout file ([d422d3c](https://github.com/dword-design/base-config-nuxt/commit/d422d3ceb7187ef2ce4519a02440bc3f9ebf8a5d))
+
 ## [3.0.25](https://github.com/dword-design/base-config-nuxt/compare/v3.0.24...v3.0.25) (2021-10-05)
 
 
