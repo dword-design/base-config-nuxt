@@ -1,3 +1,10 @@
+## [3.0.27](https://github.com/dword-design/base-config-nuxt/compare/v3.0.26...v3.0.27) (2021-11-21)
+
+
+### Bug Fixes
+
+* require nuxti18nhead in non-default layouts ([bcc4eb3](https://github.com/dword-design/base-config-nuxt/commit/bcc4eb36a9ed82ad26960e221665066fddeef78b))
+
 ## [3.0.26](https://github.com/dword-design/base-config-nuxt/compare/v3.0.25...v3.0.26) (2021-11-20)
 
 
