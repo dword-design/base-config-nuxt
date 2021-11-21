@@ -8,10 +8,9 @@ import packageName from 'depcheck-package-name'
 import execa from 'execa'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
+import P from 'path'
 import stealthyRequire from 'stealthy-require-no-leak'
 import xmlFormatter from 'xml-formatter'
-
-import MissingNuxtI18nHeadError from './modules/i18n/missing-nuxt-i18n-head-error'
 
 export default tester(
   {
@@ -468,8 +467,21 @@ export default tester(
         )
       },
     },
-    'i18n: no $nuxtI18nHead': {
-      error: new MissingNuxtI18nHeadError(),
+    'i18n: no $nuxtI18nHead in default layout': {
+      error: endent`
+        You have to implement $nuxtI18nHead in ${P.join(
+          'layouts',
+          'default.vue'
+        )} like this to make sure that i18n metadata are generated:
+        
+        <script>
+        export default {
+          head () {
+            return this.$nuxtI18nHead({ addSeoAttributes: true })
+          }
+        }
+        </script>
+      `,
       files: {
         i18n: {
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
@@ -483,8 +495,65 @@ export default tester(
       `,
       },
     },
+    'i18n: no $nuxtI18nHead in non-default layout': {
+      error: endent`
+        You have to implement $nuxtI18nHead in ${P.join(
+          'layouts',
+          'foo.vue'
+        )} like this to make sure that i18n metadata are generated:
+        
+        <script>
+        export default {
+          head () {
+            return this.$nuxtI18nHead({ addSeoAttributes: true })
+          }
+        }
+        </script>
+      `,
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
+          'en.json': JSON.stringify({ foo: 'Hello world' }),
+        },
+        layouts: {
+          'default.vue': endent`
+            <template>
+              <nuxt />
+            </template>
+
+            <script>
+            export default {
+              head () {
+                return this.$nuxtI18nHead({ addSeoAttributes: true })
+              }
+            }
+            </script>
+
+          `,
+          'foo.vue': endent`
+            <script>
+              export default {}
+            </script>
+            
+          `,
+        },
+      },
+    },
     'i18n: no layout': {
-      error: new MissingNuxtI18nHeadError(),
+      error: endent`
+        You have to implement $nuxtI18nHead in ${P.join(
+          'layouts',
+          'default.vue'
+        )} like this to make sure that i18n metadata are generated:
+        
+        <script>
+        export default {
+          head () {
+            return this.$nuxtI18nHead({ addSeoAttributes: true })
+          }
+        }
+        </script>
+      `,
       files: {
         i18n: {
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),

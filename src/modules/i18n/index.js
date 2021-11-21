@@ -1,6 +1,6 @@
 import * as babel from '@babel/core'
 import traverse from '@babel/traverse'
-import { map, some } from '@dword-design/functions'
+import { map, some, uniq } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import { exists, readFile } from 'fs-extra'
 import globby from 'globby'
@@ -9,12 +9,17 @@ import P from 'path'
 import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error'
 
 const checkNuxtI18nHead = async () => {
-  if (await exists(P.join('layouts', 'default.vue'))) {
+  const layoutFiles =
+    ['default.vue', ...(await globby('*', { cwd: 'layouts' }))] |> await |> uniq
+
+  const checkLayoutFile = async layoutFile => {
     const vueTemplateCompiler = require('vue-template-compiler')
 
-    const layout = vueTemplateCompiler.parseComponent(
-      await readFile(P.join('layouts', 'default.vue'), 'utf8')
-    )
+    const layout = (await exists(P.join('layouts', layoutFile)))
+      ? vueTemplateCompiler.parseComponent(
+          await readFile(P.join('layouts', layoutFile), 'utf8')
+        )
+      : {}
     if (layout.script?.content) {
       const ast = await babel.parse(layout.script?.content)
       let valid = false
@@ -54,8 +59,10 @@ const checkNuxtI18nHead = async () => {
         return
       }
     }
+    throw new MissingNuxtI18nHeadError(layoutFile)
   }
-  throw new MissingNuxtI18nHeadError()
+
+  return Promise.all(layoutFiles |> map(checkLayoutFile))
 }
 
 export default async function () {

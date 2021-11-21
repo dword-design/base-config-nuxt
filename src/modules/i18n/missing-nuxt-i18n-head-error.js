@@ -1,7 +1,23 @@
+import { endent } from '@dword-design/functions'
+import P from 'path'
+
 export default class extends Error {
-  constructor() {
+  constructor(layoutFile) {
     super(
-      'You have to implement $nuxtI18nHead in layouts/default.vue to make sure that i18n metadata are generated.'
+      endent`
+        You have to implement $nuxtI18nHead in ${P.join(
+          'layouts',
+          layoutFile
+        )} like this to make sure that i18n metadata are generated:
+        
+        <script>
+        export default {
+          head () {
+            return this.$nuxtI18nHead({ addSeoAttributes: true })
+          }
+        }
+        </script>
+      `
     )
   }
 }
