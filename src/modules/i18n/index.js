@@ -21,7 +21,9 @@ const checkNuxtI18nHead = async () => {
         )
       : {}
     if (layout.script?.content) {
-      const ast = await babel.parse(layout.script?.content)
+      const ast = await babel.parse(layout.script?.content, {
+        filename: 'index.js',
+      })
       let valid = false
       traverse(ast, {
         ExportDefaultDeclaration: path => {

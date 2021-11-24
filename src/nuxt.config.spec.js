@@ -765,6 +765,25 @@ export default tester(
         expect(error).toBeUndefined()
       },
     },
+    'jsx in layout': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'layouts/default.vue': endent`
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            },
+            render: () => <nuxt />,
+          }
+          </script>
+  
+        `,
+      },
+    },
     'locale link': {
       files: {
         'i18n/en.json': JSON.stringify({}),
