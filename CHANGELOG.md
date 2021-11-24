@@ -1,3 +1,10 @@
+## [3.0.29](https://github.com/dword-design/base-config-nuxt/compare/v3.0.28...v3.0.29) (2021-11-24)
+
+
+### Bug Fixes
+
+* ignore -layouts ([d147e75](https://github.com/dword-design/base-config-nuxt/commit/d147e753ab0aef71e74c625610f5866171bc071f))
+
 ## [3.0.28](https://github.com/dword-design/base-config-nuxt/compare/v3.0.27...v3.0.28) (2021-11-24)
 
 
