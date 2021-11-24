@@ -1,3 +1,10 @@
+## [3.0.28](https://github.com/dword-design/base-config-nuxt/compare/v3.0.27...v3.0.28) (2021-11-24)
+
+
+### Bug Fixes
+
+* fix bspecial syntax in layout files ([9fbd6de](https://github.com/dword-design/base-config-nuxt/commit/9fbd6de2012b809eaf8d455778611b1edadb6576))
+
 ## [3.0.27](https://github.com/dword-design/base-config-nuxt/compare/v3.0.26...v3.0.27) (2021-11-21)
 
 
