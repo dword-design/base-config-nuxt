@@ -10,7 +10,9 @@ import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error'
 
 const checkNuxtI18nHead = async () => {
   const layoutFiles =
-    ['default.vue', ...(await globby('*', { cwd: 'layouts' }))] |> await |> uniq
+    ['default.vue', ...(await globby('*', { cwd: 'layouts', ignore: '-*' }))]
+    |> await
+    |> uniq
 
   const checkLayoutFile = async layoutFile => {
     const vueTemplateCompiler = require('vue-template-compiler')

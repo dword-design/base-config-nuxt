@@ -419,6 +419,25 @@ export default tester(
         expect(await this.page.url()).toEqual('http://localhost:3000/de')
       },
     },
+    'i18n: jsx in layout': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({}, undefined, 2),
+          'en.json': JSON.stringify({}, undefined, 2),
+        },
+        'layouts/default.vue': endent`
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            },
+            render: () => <nuxt />,
+          }
+          </script>
+  
+        `,
+      },
+    },
     'i18n: middleware': {
       files: {
         i18n: {
@@ -558,6 +577,31 @@ export default tester(
         i18n: {
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
           'en.json': JSON.stringify({ foo: 'Hello world' }),
+        },
+      },
+    },
+    'i18n: non-layout file in layouts': {
+      files: {
+        i18n: {
+          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
+          'en.json': JSON.stringify({ foo: 'Hello world' }),
+        },
+        layouts: {
+          '-foo.vue': '',
+          'default.vue': endent`
+            <template>
+              <nuxt />
+            </template>
+
+            <script>
+            export default {
+              head () {
+                return this.$nuxtI18nHead({ addSeoAttributes: true })
+              }
+            }
+            </script>
+
+          `,
         },
       },
     },
@@ -763,25 +807,6 @@ export default tester(
           'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]'
         )
         expect(error).toBeUndefined()
-      },
-    },
-    'jsx in layout': {
-      files: {
-        i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
-        },
-        'layouts/default.vue': endent`
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            },
-            render: () => <nuxt />,
-          }
-          </script>
-  
-        `,
       },
     },
     'locale link': {
