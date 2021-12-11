@@ -1,19 +1,20 @@
 import { endent } from '@dword-design/functions'
+import tester from '@dword-design/tester'
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
 import { outputFile } from 'fs-extra'
 import outputFiles from 'output-files'
-import withLocalTmpDir from 'with-local-tmp-dir'
 
-import lint from './lint'
+import self from './lint'
 
-export default {
-  'css error': () =>
-    withLocalTmpDir(async () => {
+export default tester(
+  {
+    'css error': async () => {
       await outputFiles({
         'assets/style.scss': endent`
-          foo bar
+        foo bar
 
-        `,
+      `,
         'node_modules/base-config-self/index.js':
           "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
@@ -25,10 +26,9 @@ export default {
         ),
       })
       await execa.command('base prepare')
-      await expect(lint()).rejects.toThrow('CssSyntaxError')
-    }),
-  ignored: () =>
-    withLocalTmpDir(async () => {
+      await expect(self()).rejects.toThrow('CssSyntaxError')
+    },
+    ignored: async () => {
       await outputFiles({
         'node_modules/base-config-self/index.js':
           "module.exports = require('../../../src')",
@@ -44,10 +44,12 @@ export default {
       await outputFile(
         'coverage/foo.scss',
         endent`
-        foo bar
+      foo bar
 
-      `
+    `
       )
-      await lint()
-    }),
-}
+      await self()
+    },
+  },
+  [testerPluginTmpDir()]
+)

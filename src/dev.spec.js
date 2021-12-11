@@ -1,22 +1,15 @@
 import { endent } from '@dword-design/functions'
-import puppeteer from '@dword-design/puppeteer'
+import tester from '@dword-design/tester'
+import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
 import outputFiles from 'output-files'
 import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
-import withLocalTmpDir from 'with-local-tmp-dir'
 
-let browser
-let page
-
-export default {
-  after: () => browser.close(),
-  before: async () => {
-    browser = await puppeteer.launch()
-    page = await browser.newPage()
-  },
-  valid: () =>
-    withLocalTmpDir(async () => {
+export default tester(
+  {
+    async valid() {
       await outputFiles({
         'node_modules/base-config-self/index.js':
           "module.exports = require('../../../src')",
@@ -28,25 +21,27 @@ export default {
           2
         ),
         'pages/index.vue': endent`
-          <template>
-            <div class="foo">Hello world</div>
-          </template>
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
 
-        `,
+      `,
       })
       await execa.command('base prepare')
 
-      const childProcess = execa.command('base dev', { stdio: 'inherit' })
+      const childProcess = execa.command('base dev')
       try {
         await portReady(3000)
-        await page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000')
 
-        const handle = await page.waitForSelector('.foo')
+        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world'
         )
       } finally {
         await kill(childProcess.pid)
       }
-    }),
-}
+    },
+  },
+  [testerPluginPuppeteer(), testerPluginTmpDir()]
+)
