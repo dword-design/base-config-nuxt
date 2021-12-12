@@ -1,22 +1,23 @@
 import { endent } from '@dword-design/functions'
+import tester from '@dword-design/tester'
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
 import { chmod, readFile } from 'fs-extra'
 import outputFiles from 'output-files'
 import P from 'path'
-import withLocalTmpDir from 'with-local-tmp-dir'
 
-export default {
-  cli: () =>
-    withLocalTmpDir(async () => {
+export default tester(
+  {
+    cli: async () => {
       await outputFiles({
         model: {
           'cli.js': endent`
-            #!/usr/bin/env node
+          #!/usr/bin/env node
 
-            import foo from './foo'
+          import foo from './foo'
 
-            console.log(foo)
-          `,
+          console.log(foo)
+        `,
           'foo.js': "export default 'foo'",
         },
         'node_modules/base-config-self/index.js':
@@ -35,9 +36,8 @@ export default {
 
       const output = await execa.command('./dist/cli.js', { all: true })
       expect(output.all).toEqual('foo')
-    }),
-  'fixable linting error': () =>
-    withLocalTmpDir(async () => {
+    },
+    'fixable linting error': async () => {
       await outputFiles({
         'node_modules/base-config-self/index.js':
           "module.exports = require('../../../src')",
@@ -49,37 +49,36 @@ export default {
           2
         ),
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
-          <script>
-          export default {};
-          </script>
+        <template>
+          <div />
+        </template>
+        <script>
+        export default {};
+        </script>
 
-        `,
+      `,
       })
       await execa.command('base prepare')
       await execa.command('base prepublishOnly')
       expect(await readFile(P.join('pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
-          <template>
-            <div />
-          </template>
-          <script>
-          export default {}
-          </script>
+        <template>
+          <div />
+        </template>
+        <script>
+        export default {}
+        </script>
 
-        `)
-    }),
-  'linting error in cli': () =>
-    withLocalTmpDir(async () => {
+      `)
+    },
+    'linting error in cli': async () => {
       await outputFiles({
         'model/cli.js': endent`
-          #!/usr/bin/env node
+        #!/usr/bin/env node
 
-          const foo = 'bar'
+        const foo = 'bar'
 
-        `,
+      `,
         'node_modules/base-config-self/index.js':
           "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
@@ -98,5 +97,7 @@ export default {
         all = error.all
       }
       expect(all).toMatch("foo' is assigned a value but never used")
-    }),
-}
+    },
+  },
+  [testerPluginTmpDir()]
+)
