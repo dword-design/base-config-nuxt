@@ -38,7 +38,7 @@
     "express": "^4.17.1",
     "express-mount-files": "dword-design/express-mount-files#fork",
     "fs-extra": "^10.0.0",
-    "globby": "^11.0.1",
+    "globby": "^12.0.0",
     "nuxt": "~2.15.0",
     "nuxt-babel-runtime": "^3.0.0",
     "nuxt-push-plugins": "^2.0.0",
