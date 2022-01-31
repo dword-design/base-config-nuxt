@@ -739,6 +739,63 @@ export default tester(
         expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
       },
     },
+    'i18n: single language': {
+      files: {
+        'i18n/de.json': JSON.stringify({ foo: 'bar' }),
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
+        pages: {
+          'bar.vue': endent`
+            <template>
+              <div class="bar" />
+            </template>
+          `,
+          'index.vue': endent`
+            <template>
+              <nuxt-link to="bar" class="foo">{{ $t('foo') }}</nuxt-link>
+            </template>
+          `,
+        },
+      },
+      async test() {
+        this.page
+          .on('console', message =>
+            console.log(
+              `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
+            )
+          )
+          .on('pageerror', context => console.log(context.message))
+          .on('response', response =>
+            console.log(`${response.status()} ${response.url()}`)
+          )
+          .on('requestfailed', request =>
+            console.log(`${request.failure().errorText} ${request.url()}`)
+          )
+        await this.page.setExtraHTTPHeaders({
+          'Accept-Language': 'en',
+        })
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.url()).toEqual('http://localhost:3000/')
+
+        const link = await this.page.waitForSelector('.foo')
+        expect(await link.evaluate(el => el.textContent)).toEqual('bar')
+        await link.click()
+        expect(await this.page.url()).toEqual('http://localhost:3000/bar')
+        await this.page.waitForSelector('.bar')
+      },
+    },
     'i18n: works': {
       files: {
         '.env.schema.json': { baseUrl: { type: 'string' } } |> JSON.stringify,
