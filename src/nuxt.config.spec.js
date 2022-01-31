@@ -739,7 +739,7 @@ export default tester(
         expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
       },
     },
-    'i18n: single language': {
+    'i18n: single locale': {
       files: {
         'i18n/de.json': JSON.stringify({ foo: 'bar' }),
         'layouts/default.vue': endent`
@@ -764,7 +764,7 @@ export default tester(
           `,
           'index.vue': endent`
             <template>
-              <nuxt-link to="bar" class="foo">{{ $t('foo') }}</nuxt-link>
+              <a :href="$router.resolve('bar').href" class="foo">{{ $t('foo') }}</a>
             </template>
           `,
         },
@@ -779,6 +779,7 @@ export default tester(
         const link = await this.page.waitForSelector('.foo')
         expect(await link.evaluate(el => el.textContent)).toEqual('bar')
         await link.click()
+        await this.page.waitForNavigation()
         expect(await this.page.url()).toEqual('http://localhost:3000/bar')
         await this.page.waitForSelector('.bar')
       },
