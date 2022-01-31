@@ -770,19 +770,6 @@ export default tester(
         },
       },
       async test() {
-        this.page
-          .on('console', message =>
-            console.log(
-              `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
-            )
-          )
-          .on('pageerror', context => console.log(context.message))
-          .on('response', response =>
-            console.log(`${response.status()} ${response.url()}`)
-          )
-          .on('requestfailed', request =>
-            console.log(`${request.failure().errorText} ${request.url()}`)
-          )
         await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'en',
         })
@@ -868,7 +855,10 @@ export default tester(
     },
     'locale link': {
       files: {
-        'i18n/en.json': JSON.stringify({}),
+        i18n: {
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
+        },
         'layouts/default.vue': endent`
           <template>
             <nuxt />
