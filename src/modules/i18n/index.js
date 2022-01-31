@@ -78,11 +78,14 @@ export default async function () {
     await this.addModule([
       packageName`@nuxtjs/i18n`,
       {
-        detectBrowserLanguage: {
-          fallbackLocale: 'en',
-          redirectOn: 'no prefix',
-          useCookie: false,
-        },
+        detectBrowserLanguage:
+          localeFiles.length === 1
+            ? false
+            : {
+                fallbackLocale: 'en',
+                redirectOn: 'no prefix',
+                useCookie: false,
+              },
         langDir: 'i18n/',
         lazy: true,
         locales:
@@ -92,11 +95,11 @@ export default async function () {
 
             return { code, file: filename, iso: code }
           }),
-        seo: true,
-        strategy: 'prefix',
-        vueI18n: {
-          fallbackLocale: 'en',
-        },
+        seo: localeFiles.length > 1,
+        strategy: localeFiles.length === 1 ? 'no_prefix' : 'prefix',
+        ...(localeFiles.length === 1 && {
+          defaultLocale: P.basename(localeFiles[0], '.json'),
+        }),
         ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
       },
     ])

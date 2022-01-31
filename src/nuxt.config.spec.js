@@ -739,6 +739,51 @@ export default tester(
         expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
       },
     },
+    'i18n: single locale': {
+      files: {
+        'i18n/de.json': JSON.stringify({ foo: 'bar' }),
+        'layouts/default.vue': endent`
+          <template>
+            <nuxt />
+          </template>
+
+          <script>
+          export default {
+            head () {
+              return this.$nuxtI18nHead({ addSeoAttributes: true })
+            }
+          }
+          </script>
+
+        `,
+        pages: {
+          'bar.vue': endent`
+            <template>
+              <div class="bar" />
+            </template>
+          `,
+          'index.vue': endent`
+            <template>
+              <a :href="$router.resolve('bar').href" class="foo">{{ $t('foo') }}</a>
+            </template>
+          `,
+        },
+      },
+      async test() {
+        await this.page.setExtraHTTPHeaders({
+          'Accept-Language': 'en',
+        })
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.url()).toEqual('http://localhost:3000/')
+
+        const link = await this.page.waitForSelector('.foo')
+        expect(await link.evaluate(el => el.textContent)).toEqual('bar')
+        await link.click()
+        await this.page.waitForNavigation()
+        expect(await this.page.url()).toEqual('http://localhost:3000/bar')
+        await this.page.waitForSelector('.bar')
+      },
+    },
     'i18n: works': {
       files: {
         '.env.schema.json': { baseUrl: { type: 'string' } } |> JSON.stringify,
@@ -811,7 +856,10 @@ export default tester(
     },
     'locale link': {
       files: {
-        'i18n/en.json': JSON.stringify({}),
+        i18n: {
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
+        },
         'layouts/default.vue': endent`
           <template>
             <nuxt />
