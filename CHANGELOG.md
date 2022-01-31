@@ -1,3 +1,10 @@
+## [3.0.31](https://github.com/dword-design/base-config-nuxt/compare/v3.0.30...v3.0.31) (2022-01-31)
+
+
+### Bug Fixes
+
+* single locale ([#145](https://github.com/dword-design/base-config-nuxt/issues/145)) ([5eed031](https://github.com/dword-design/base-config-nuxt/commit/5eed031c94f013492ceaa67e4166953af47b1b80))
+
 ## [3.0.30](https://github.com/dword-design/base-config-nuxt/compare/v3.0.29...v3.0.30) (2021-12-12)
 
 
