@@ -1053,32 +1053,25 @@ export default tester(
       files: {
         'pages/index.vue': endent`
         <template>
-          <div class="foo">{{ foo }}</div>
+          <form method="POST" class="{ sent }">
+            <button name="submit" type="submit" @submit="send">Send</button>
+          </form>
         </template>
 
         <script>
         export default {
-          asyncData: context => ({ foo: context.req.body.foo }),
+          asyncData: context => ({ sent: context.req.body.submit !== undefined }),
         }
         </script>
 
       `,
       },
       async test() {
-        await this.page.setRequestInterception(true)
-        this.page.once('request', request => {
-          request.continue({
-            headers: { 'Content-Type': 'application/json' },
-            method: 'POST',
-            postData: JSON.stringify({ foo: 'bar' }),
-          })
-
-          return this.page.setRequestInterception(false)
-        })
         await this.page.goto('http://localhost:3000')
 
-        const handle = await this.page.waitForSelector('.foo')
-        expect(await handle.evaluate(div => div.textContent)).toEqual('bar')
+        const button = await this.page.waitForSelector('button')
+        await button.click()
+        await this.page.waitForSelector('form.sent')
       },
     },
     'router config': {
