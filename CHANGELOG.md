@@ -1,3 +1,10 @@
+## [3.0.32](https://github.com/dword-design/base-config-nuxt/compare/v3.0.31...v3.0.32) (2022-02-14)
+
+
+### Bug Fixes
+
+* simplify body parser ([ad9a128](https://github.com/dword-design/base-config-nuxt/commit/ad9a128372333f248a4359c95e7c7827a2a6fd2c))
+
 ## [3.0.31](https://github.com/dword-design/base-config-nuxt/compare/v3.0.30...v3.0.31) (2022-01-31)
 
 
