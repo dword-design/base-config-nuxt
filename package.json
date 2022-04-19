@@ -41,6 +41,7 @@
     "globby": "^11.0.1",
     "nuxt": "~2.15.0",
     "nuxt-babel-runtime": "^3.0.0",
+    "nuxt-basic-auth-module": "^1.4.1",
     "nuxt-push-plugins": "^2.0.0",
     "nuxt-svg-loader": "^1.2.0",
     "promise-sequential": "^1.1.1",
