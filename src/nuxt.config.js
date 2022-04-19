@@ -23,6 +23,14 @@ export default {
     require.resolve('./modules/axios-dynamic-baseurl'),
     packageName`nuxt-svg-loader`,
     require.resolve('./modules/locale-link'),
+    [
+      packageName`nuxt-basic-auth-module`,
+      {
+        enabled: process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD,
+        name: process.env.BASIC_AUTH_USER,
+        pass: process.env.BASIC_AUTH_PASSWORD,
+      },
+    ],
     require.resolve('./modules/project'),
   ],
   server: {

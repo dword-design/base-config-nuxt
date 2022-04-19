@@ -104,6 +104,35 @@ export default tester(
         expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world')
       },
     },
+    'basic auth': {
+      files: {
+        '.env.schema.json':
+          {
+            basicAuthPassword: { type: 'string' },
+            basicAuthUser: { type: 'string' },
+          } |> JSON.stringify,
+        '.test.env.json':
+          { basicAuthPassword: 'bar', basicAuthUser: 'foo' } |> JSON.stringify,
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+
+        `,
+      },
+      test: async () => {
+        await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
+          'response.status',
+          401
+        )
+        await axios.get('http://localhost:3000', {
+          auth: {
+            password: 'bar',
+            username: 'foo',
+          },
+        })
+      },
+    },
     bodyAttrs: {
       files: {
         'nuxt.config.js': endent`
