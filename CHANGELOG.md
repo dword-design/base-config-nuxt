@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/dword-design/base-config-nuxt/compare/v3.0.32...v3.1.0) (2022-04-19)
+
+
+### Features
+
+* add nuxt-basic-auth-module ([3c05d58](https://github.com/dword-design/base-config-nuxt/commit/3c05d587dd1585d948a97a744d00936197796d29))
+
 ## [3.0.32](https://github.com/dword-design/base-config-nuxt/compare/v3.0.31...v3.0.32) (2022-02-14)
 
 
