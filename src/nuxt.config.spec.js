@@ -230,6 +230,30 @@ export default tester(
         `,
       },
     },
+    'error page': {
+      files: {
+        'layouts/default.vue': endent`
+          <template>
+            <div>
+              <nuxt />
+              <div>Footer</div>
+            </div>
+          </template>
+
+        `,
+        'pages/index.vue': endent`
+        <template>
+          <div />
+        </template>
+
+      `,
+      },
+      async test() {
+        await this.page.goto('http://localhost:3000/foo')
+        await this.page.waitForSelector('.__nuxt-error-page')
+        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+      },
+    },
     'global components': {
       files: {
         'components/foo.vue': endent`

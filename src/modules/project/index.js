@@ -7,7 +7,7 @@ import safeRequire from 'safe-require'
 export default async function () {
   const defaultConfig = {
     bodyAttrs: {},
-    css: [],
+    css: [require.resolve('./style.css')],
     head: {},
     headAttrs: {},
     htmlAttrs: {},
@@ -20,9 +20,13 @@ export default async function () {
     userScalable: true,
   }
 
+  const localConfig =
+    safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')) || {}
+
   const projectConfig = {
     ...defaultConfig,
-    ...safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')),
+    ...localConfig,
+    css: [...defaultConfig.css, ...(localConfig.css || [])],
   }
   this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
   this.options.publicRuntimeConfig.name = projectConfig.name
