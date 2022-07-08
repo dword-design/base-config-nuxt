@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/dword-design/base-config-nuxt/compare/v3.1.0...v3.1.1) (2022-07-08)
+
+
+### Bug Fixes
+
+* make nuxt error page not position absolute ([#170](https://github.com/dword-design/base-config-nuxt/issues/170)) ([b32ebf4](https://github.com/dword-design/base-config-nuxt/commit/b32ebf40780728217f688c650548283626ca0ea3))
+
 # [3.1.0](https://github.com/dword-design/base-config-nuxt/compare/v3.0.32...v3.1.0) (2022-04-19)
 
 
