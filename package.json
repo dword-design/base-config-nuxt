@@ -75,13 +75,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "baseConfig": {
-    "depcheckConfig": {
-      "ignoreMatches": [
-        "sass",
-        "sass-loader"
-      ]
-    }
   }
 }
