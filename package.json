@@ -16,7 +16,8 @@
     "lint": "base lint",
     "prepare": "base prepare",
     "prepublishOnly": "base prepublishOnly",
-    "test": "base test"
+    "test": "base test",
+    "test:raw": "base test:raw"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -75,13 +76,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "baseConfig": {
-    "depcheckConfig": {
-      "ignoreMatches": [
-        "sass",
-        "sass-loader"
-      ]
-    }
   }
 }
