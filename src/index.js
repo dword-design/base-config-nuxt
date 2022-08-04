@@ -44,9 +44,9 @@ export default {
     },
     specials: [depcheckSpecial],
   },
-  editorIgnore: ['.stylelintrc.json', '.nuxt', 'dist'],
+  editorIgnore: ['.eslintcache', '.stylelintrc.json', '.nuxt', 'dist'],
   eslintConfig,
-  gitignore: ['/.nuxt', '/dist'],
+  gitignore: ['/.eslintcache', '/.nuxt', '/dist'],
   lint,
   npmPublish: true,
   packageConfig: {
