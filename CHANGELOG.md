@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/dword-design/base-config-nuxt/compare/v3.1.1...v3.1.2) (2022-08-04)
+
+
+### Bug Fixes
+
+* add eslintcache to gitignore ([470b0f5](https://github.com/dword-design/base-config-nuxt/commit/470b0f57468af74b7766e5f4768b24a7379e111d))
+
 ## [3.1.1](https://github.com/dword-design/base-config-nuxt/compare/v3.1.0...v3.1.1) (2022-07-08)
 
 
