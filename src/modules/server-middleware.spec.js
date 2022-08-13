@@ -7,7 +7,7 @@ import outputFiles from 'output-files'
 
 export default tester(
   {
-    'parameter after': {
+    'parameter in filename': {
       config: {
         modules: [require.resolve('./server-middleware')],
       },
@@ -25,7 +25,25 @@ export default tester(
         expect(result).toEqual({ foo: 'abc' })
       },
     },
-    'parameter before': {
+    'parameter casing': {
+      config: {
+        modules: [require.resolve('./server-middleware')],
+      },
+      files: {
+        'api/foo/_paramFoo.get.js': endent`
+        export default (req, res) => res.json({ foo: req.params.paramFoo })
+
+      `,
+      },
+      test: async () => {
+        const result =
+          axios.get('http://localhost:3000/api/foo/abc')
+          |> await
+          |> property('data')
+        expect(result).toEqual({ foo: 'abc' })
+      },
+    },
+    'parameter in folder name': {
       config: {
         modules: [require.resolve('./server-middleware')],
       },
@@ -42,6 +60,18 @@ export default tester(
           |> property('data')
         expect(result).toEqual({ foo: 'abc' })
       },
+    },
+    index: {
+      config: {
+        modules: [require.resolve('./server-middleware')],
+      },
+      files: {
+        'api/_param/index.get.js': endent`
+        export default (req, res) => res.json({ foo: req.params.param })
+
+      `,
+      },
+      test: () => expect(axios.get('http://localhost:3000/api/abc')).rejects.toThrow('Request failed with status code 404'),
     },
     valid: {
       config: {
