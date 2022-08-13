@@ -7,13 +7,28 @@ import outputFiles from 'output-files'
 
 export default tester(
   {
-    'parameter in filename': {
+    index: {
       config: {
         modules: [require.resolve('./server-middleware')],
       },
       files: {
-        'api/foo/_param.get.js': endent`
+        'api/_param/index.get.js': endent`
         export default (req, res) => res.json({ foo: req.params.param })
+
+      `,
+      },
+      test: () =>
+        expect(axios.get('http://localhost:3000/api/abc')).rejects.toThrow(
+          'Request failed with status code 404'
+        ),
+    },
+    'parameter casing': {
+      config: {
+        modules: [require.resolve('./server-middleware')],
+      },
+      files: {
+        'api/foo/_paramFoo.get.js': endent`
+        export default (req, res) => res.json({ foo: req.params.paramFoo })
 
       `,
       },
@@ -25,13 +40,13 @@ export default tester(
         expect(result).toEqual({ foo: 'abc' })
       },
     },
-    'parameter casing': {
+    'parameter in filename': {
       config: {
         modules: [require.resolve('./server-middleware')],
       },
       files: {
-        'api/foo/_paramFoo.get.js': endent`
-        export default (req, res) => res.json({ foo: req.params.paramFoo })
+        'api/foo/_param.get.js': endent`
+        export default (req, res) => res.json({ foo: req.params.param })
 
       `,
       },
@@ -60,18 +75,6 @@ export default tester(
           |> property('data')
         expect(result).toEqual({ foo: 'abc' })
       },
-    },
-    index: {
-      config: {
-        modules: [require.resolve('./server-middleware')],
-      },
-      files: {
-        'api/_param/index.get.js': endent`
-        export default (req, res) => res.json({ foo: req.params.param })
-
-      `,
-      },
-      test: () => expect(axios.get('http://localhost:3000/api/abc')).rejects.toThrow('Request failed with status code 404'),
     },
     valid: {
       config: {
