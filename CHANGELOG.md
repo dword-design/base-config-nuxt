@@ -1,3 +1,10 @@
+## [3.1.3](https://github.com/dword-design/base-config-nuxt/compare/v3.1.2...v3.1.3) (2022-08-21)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#167](https://github.com/dword-design/base-config-nuxt/issues/167)) ([5b8782f](https://github.com/dword-design/base-config-nuxt/commit/5b8782fef77a3a0acddafedd25d0b74b432b4ccf))
+
 ## [3.1.2](https://github.com/dword-design/base-config-nuxt/compare/v3.1.1...v3.1.2) (2022-08-04)
 
 
