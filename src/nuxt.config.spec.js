@@ -1041,38 +1041,6 @@ export default tester(
         delete process.env.PORT
       },
     },
-    'postcss plugin': {
-      files: {
-        'assets/style.css': endent`
-        body {
-          background: rgba(#fff, .5);
-        }
-      `,
-        'nuxt.config.js': endent`
-        export default {
-          css: ['assets/style.css'],
-          postcssPlugins: {
-            '${packageName`postcss-hexrgba`}': {},
-          },
-        }
-      `,
-        'pages/index.vue': endent`
-        <template>
-          <div />
-        </template>
-
-      `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-
-        const backgroundColor = await this.page.$eval(
-          'body',
-          el => getComputedStyle(el).backgroundColor
-        )
-        expect(backgroundColor).toEqual('rgba(255, 255, 255, 0.5)')
-      },
-    },
     'raw file': {
       files: {
         'assets/foo.txt': 'Hello world',

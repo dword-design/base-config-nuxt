@@ -14,7 +14,6 @@ export default async function () {
     modules: [],
     name: 'Vue app',
     plugins: [],
-    postcssPlugins: {},
     router: {},
     serverMiddleware: [],
     userScalable: true,
@@ -72,7 +71,6 @@ export default async function () {
   this.options.head.bodyAttrs = projectConfig.bodyAttrs
   this.options.css.push(...projectConfig.css)
   this.options.serverMiddleware.push(...projectConfig.serverMiddleware)
-  this.options.build.postcss.plugins = projectConfig.postcssPlugins
   this.options.components = true
   Object.assign(this.options.router, {
     linkActiveClass: 'active',
