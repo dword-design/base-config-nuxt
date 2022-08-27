@@ -61,6 +61,21 @@ export default tester(
         expect(result).toEqual({ foo: 'bar' })
       },
     },
+    'api body': {
+      files: {
+        'api/foo.post.js': endent`
+        export default (req, res) => res.json(req.body)
+
+      `,
+      },
+      test: async () => {
+        const result =
+          axios.post('http://localhost:3000/api/foo', { foo: 'bar' })
+          |> await
+          |> property('data')
+        expect(result).toEqual({ foo: 'bar' })
+      },
+    },
     'async modules': {
       files: {
         'modules/foo': {
