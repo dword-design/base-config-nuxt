@@ -5,5 +5,7 @@
       "sass-loader"
     ]
   },
-  "testInContainer": true
+  "testInContainer": true,
+  "nodeVersion": 14,
+  "supportedNodeVersions": [14, 16]
 }
