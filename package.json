@@ -70,7 +70,7 @@
     "xml-formatter": "^2.1.2"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "publishConfig": {
     "access": "public"
