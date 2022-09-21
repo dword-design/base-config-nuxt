@@ -1,3 +1,10 @@
+## [3.1.7](https://github.com/dword-design/base-config-nuxt/compare/v3.1.6...v3.1.7) (2022-09-21)
+
+
+### Bug Fixes
+
+* bump nodejs version ([3efbb7e](https://github.com/dword-design/base-config-nuxt/commit/3efbb7ed81740ae114de4fae78ade32521579a2e))
+
 ## [3.1.6](https://github.com/dword-design/base-config-nuxt/compare/v3.1.5...v3.1.6) (2022-08-27)
 
 
