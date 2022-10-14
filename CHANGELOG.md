@@ -1,3 +1,10 @@
+## [3.1.8](https://github.com/dword-design/base-config-nuxt/compare/v3.1.7...v3.1.8) (2022-10-14)
+
+
+### Bug Fixes
+
+* fix basic auth ([#178](https://github.com/dword-design/base-config-nuxt/issues/178)) ([b4eabbc](https://github.com/dword-design/base-config-nuxt/commit/b4eabbc59661e4e5085a015d960b5b403baf8bfd))
+
 ## [3.1.7](https://github.com/dword-design/base-config-nuxt/compare/v3.1.6...v3.1.7) (2022-09-21)
 
 
