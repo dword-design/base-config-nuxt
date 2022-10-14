@@ -128,6 +128,10 @@ export default tester(
           } |> JSON.stringify,
         '.test.env.json':
           { basicAuthPassword: 'bar', basicAuthUser: 'foo' } |> JSON.stringify,
+        'api/foo.get.js': endent`
+          export default (req, res) => res.send('foo')
+          
+        `,
         'pages/index.vue': endent`
           <template>
             <div />
@@ -140,12 +144,23 @@ export default tester(
           'response.status',
           401
         )
-        await axios.get('http://localhost:3000', {
-          auth: {
-            password: 'bar',
-            username: 'foo',
-          },
-        })
+        await expect(
+          axios.get('http://localhost:3000/api/foo')
+        ).rejects.toHaveProperty('response.status', 401)
+        await Promise.all([
+          axios.get('http://localhost:3000', {
+            auth: {
+              password: 'bar',
+              username: 'foo',
+            },
+          }),
+          axios.get('http://localhost:3000/api/foo', {
+            auth: {
+              password: 'bar',
+              username: 'foo',
+            },
+          }),
+        ])
       },
     },
     bodyAttrs: {
