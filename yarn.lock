@@ -1275,12 +1275,12 @@
     "@babel/preset-env" "^7.6.3"
     "@babel/preset-typescript" "^7.13.0"
     "@dword-design/functions" "^4.0.0"
-    "@vue/babel-preset-jsx" dword-design/jsx#fork-babel-preset-jsx
+    "@vue/babel-preset-jsx" "github:dword-design/jsx#fork-babel-preset-jsx"
     babel-plugin-add-module-exports "^1.0.2"
     babel-plugin-macros "^3.0.1"
     babel-plugin-module-resolver "^4.0.0"
     babel-plugin-transform-imports "^2.0.0"
-    babel-plugin-wildcard dword-design/babel-plugin-wildcard#fork
+    babel-plugin-wildcard "github:dword-design/babel-plugin-wildcard#fork"
     depcheck-package-name "^2.0.0"
     find-up "^5.0.0"
     param-case "^3.0.3"
@@ -1491,7 +1491,7 @@
     stylelint-order "^4.1.0"
     stylelint-prettier "^1.1.2"
     stylelint-scss "^3.17.2"
-    stylelint-use-nesting dword-design/stylelint-use-nesting#fork
+    stylelint-use-nesting "github:dword-design/stylelint-use-nesting#fork"
 
 "@dword-design/tester-plugin-env@^2.0.8":
   version "2.0.10"
@@ -1504,7 +1504,7 @@
   integrity sha512-plDPzE17m+VrcVy7Bc7odznEi+aI2tcbVq8Lrm5DMDdaPyBUMMga6j+qEq/SIUcp6QkmsThjg5jWOjYom63dzw==
   dependencies:
     is-docker "^2.2.1"
-    puppeteer-to-istanbul dword-design/puppeteer-to-istanbul#fork
+    puppeteer-to-istanbul "github:dword-design/puppeteer-to-istanbul#fork"
     xvfb "^0.4.0"
 
 "@dword-design/tester-plugin-tmp-dir@^2.1.3":
@@ -2965,6 +2965,7 @@
 
 "@vue/babel-preset-jsx@github:dword-design/jsx#fork-babel-preset-jsx":
   version "1.1.2"
+  uid a73cb9961541a60a66b1b99a69a32e00bc66d336
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/a73cb9961541a60a66b1b99a69a32e00bc66d336"
   dependencies:
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
@@ -3004,6 +3005,7 @@
 
 "@vue/babel-sugar-inject-h@dword-design/jsx#fork-babel-sugar-inject-h":
   version "1.1.2"
+  uid cc36a2200c059120f37944615fb2ec0e22f8f3cc
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/cc36a2200c059120f37944615fb2ec0e22f8f3cc"
   dependencies:
     "@babel/plugin-syntax-jsx" "^7.2.0"
@@ -3893,6 +3895,7 @@ babel-plugin-transform-imports@^2.0.0:
 
 "babel-plugin-wildcard@github:dword-design/babel-plugin-wildcard#fork":
   version "6.0.0"
+  uid "691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   resolved "https://codeload.github.com/dword-design/babel-plugin-wildcard/tar.gz/691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   dependencies:
     rimraf "^2.6.2"
@@ -4469,9 +4472,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001228, caniuse-lite@^1.0.30001400:
-  version "1.0.30001419"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001419.tgz#3542722d57d567c8210d5e4d0f9f17336b776457"
-  integrity sha512-aFO1r+g6R7TW+PNQxKzjITwLOyDhVRLjW0LcwS/HCZGUUKTGNp9+IwLC4xyDSZBygVL/mxaFR3HIV6wEKQuSzw==
+  version "1.0.30001420"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001420.tgz#f62f35f051e0b6d25532cf376776d41e45b47ef6"
+  integrity sha512-OnyeJ9ascFA9roEj72ok2Ikp7PHJTKubtEJIQ/VK3fdsS50q4KWy+Z5X0A1/GswEItKX0ctAp8n4SYDE7wTu6A==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -6851,6 +6854,7 @@ expect@^27.0.0, expect@^27.5.1:
 
 express-mount-files@dword-design/express-mount-files#fork:
   version "0.1.1"
+  uid c9778e91443c9a3824a01298dc5090a3b53db8df
   resolved "https://codeload.github.com/dword-design/express-mount-files/tar.gz/c9778e91443c9a3824a01298dc5090a3b53db8df"
   dependencies:
     fast-glob "^3.0.4"
@@ -11287,76 +11291,76 @@ npm@^7.0.0:
   resolved "https://registry.yarnpkg.com/npm/-/npm-7.24.2.tgz#861117af8241bea592289f22407230e5300e59ca"
   integrity sha512-120p116CE8VMMZ+hk8IAb1inCPk4Dj3VZw29/n2g6UI77urJKVYb7FZUDW8hY+EBnfsjI/2yrobBgFyzo7YpVQ==
   dependencies:
-    "@isaacs/string-locale-compare" "^1.1.0"
-    "@npmcli/arborist" "^2.9.0"
-    "@npmcli/ci-detect" "^1.2.0"
-    "@npmcli/config" "^2.3.0"
-    "@npmcli/map-workspaces" "^1.0.4"
-    "@npmcli/package-json" "^1.0.1"
-    "@npmcli/run-script" "^1.8.6"
-    abbrev "~1.1.1"
-    ansicolors "~0.3.2"
-    ansistyles "~0.1.3"
-    archy "~1.0.0"
-    cacache "^15.3.0"
-    chalk "^4.1.2"
-    chownr "^2.0.0"
-    cli-columns "^3.1.2"
-    cli-table3 "^0.6.0"
-    columnify "~1.5.4"
-    fastest-levenshtein "^1.0.12"
-    glob "^7.2.0"
-    graceful-fs "^4.2.8"
-    hosted-git-info "^4.0.2"
-    ini "^2.0.0"
-    init-package-json "^2.0.5"
-    is-cidr "^4.0.2"
-    json-parse-even-better-errors "^2.3.1"
-    libnpmaccess "^4.0.2"
-    libnpmdiff "^2.0.4"
-    libnpmexec "^2.0.1"
-    libnpmfund "^1.1.0"
-    libnpmhook "^6.0.2"
-    libnpmorg "^2.0.2"
-    libnpmpack "^2.0.1"
-    libnpmpublish "^4.0.1"
-    libnpmsearch "^3.1.1"
-    libnpmteam "^2.0.3"
-    libnpmversion "^1.2.1"
-    make-fetch-happen "^9.1.0"
-    minipass "^3.1.3"
-    minipass-pipeline "^1.2.4"
-    mkdirp "^1.0.4"
-    mkdirp-infer-owner "^2.0.0"
-    ms "^2.1.2"
-    node-gyp "^7.1.2"
-    nopt "^5.0.0"
-    npm-audit-report "^2.1.5"
-    npm-install-checks "^4.0.0"
-    npm-package-arg "^8.1.5"
-    npm-pick-manifest "^6.1.1"
-    npm-profile "^5.0.3"
-    npm-registry-fetch "^11.0.0"
-    npm-user-validate "^1.0.1"
-    npmlog "^5.0.1"
-    opener "^1.5.2"
-    pacote "^11.3.5"
-    parse-conflict-json "^1.1.1"
-    qrcode-terminal "^0.12.0"
-    read "~1.0.7"
-    read-package-json "^4.1.1"
-    read-package-json-fast "^2.0.3"
-    readdir-scoped-modules "^1.1.0"
-    rimraf "^3.0.2"
-    semver "^7.3.5"
-    ssri "^8.0.1"
-    tar "^6.1.11"
-    text-table "~0.2.0"
-    tiny-relative-date "^1.3.0"
-    treeverse "^1.0.4"
-    validate-npm-package-name "~3.0.0"
-    which "^2.0.2"
-    write-file-atomic "^3.0.3"
+    "@isaacs/string-locale-compare" "*"
+    "@npmcli/arborist" "*"
+    "@npmcli/ci-detect" "*"
+    "@npmcli/config" "*"
+    "@npmcli/map-workspaces" "*"
+    "@npmcli/package-json" "*"
+    "@npmcli/run-script" "*"
+    abbrev "*"
+    ansicolors "*"
+    ansistyles "*"
+    archy "*"
+    cacache "*"
+    chalk "*"
+    chownr "*"
+    cli-columns "*"
+    cli-table3 "*"
+    columnify "*"
+    fastest-levenshtein "*"
+    glob "*"
+    graceful-fs "*"
+    hosted-git-info "*"
+    ini "*"
+    init-package-json "*"
+    is-cidr "*"
+    json-parse-even-better-errors "*"
+    libnpmaccess "*"
+    libnpmdiff "*"
+    libnpmexec "*"
+    libnpmfund "*"
+    libnpmhook "*"
+    libnpmorg "*"
+    libnpmpack "*"
+    libnpmpublish "*"
+    libnpmsearch "*"
+    libnpmteam "*"
+    libnpmversion "*"
+    make-fetch-happen "*"
+    minipass "*"
+    minipass-pipeline "*"
+    mkdirp "*"
+    mkdirp-infer-owner "*"
+    ms "*"
+    node-gyp "*"
+    nopt "*"
+    npm-audit-report "*"
+    npm-install-checks "*"
+    npm-package-arg "*"
+    npm-pick-manifest "*"
+    npm-profile "*"
+    npm-registry-fetch "*"
+    npm-user-validate "*"
+    npmlog "*"
+    opener "*"
+    pacote "*"
+    parse-conflict-json "*"
+    qrcode-terminal "*"
+    read "*"
+    read-package-json "*"
+    read-package-json-fast "*"
+    readdir-scoped-modules "*"
+    rimraf "*"
+    semver "*"
+    ssri "*"
+    tar "*"
+    text-table "*"
+    tiny-relative-date "*"
+    treeverse "*"
+    validate-npm-package-name "*"
+    which "*"
+    write-file-atomic "*"
 
 npmlog@*:
   version "7.0.0"
@@ -13262,6 +13266,7 @@ punycode@^2.1.0, punycode@^2.1.1:
 
 "puppeteer-to-istanbul@github:dword-design/puppeteer-to-istanbul#fork":
   version "1.4.0"
+  uid bf9e82538230872bffe68b28c40ec70731afd89a
   resolved "https://codeload.github.com/dword-design/puppeteer-to-istanbul/tar.gz/bf9e82538230872bffe68b28c40ec70731afd89a"
   dependencies:
     clone "^2.1.2"
@@ -13969,6 +13974,7 @@ safe-regex@^1.1.0:
 
 safe-require@dword-design/node-safe-require#fork:
   version "1.0.3"
+  uid "53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
   resolved "https://codeload.github.com/dword-design/node-safe-require/tar.gz/53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
 
 "safer-buffer@>= 2.1.2 < 3", "safer-buffer@>= 2.1.2 < 3.0.0", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
@@ -14999,6 +15005,7 @@ stylelint-scss@^3.17.2:
 
 "stylelint-use-nesting@github:dword-design/stylelint-use-nesting#fork":
   version "3.0.0"
+  uid "3fa262d8898e33da3831ed526e45dade37c270e7"
   resolved "https://codeload.github.com/dword-design/stylelint-use-nesting/tar.gz/3fa262d8898e33da3831ed526e45dade37c270e7"
 
 stylelint-webpack-plugin@^2.3.1:
@@ -15649,9 +15656,9 @@ typescript@^4.4.3, typescript@^4.6.4:
   integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
 
 ua-parser-js@^0.7.28:
-  version "0.7.31"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.31.tgz#649a656b191dffab4f21d5e053e27ca17cbff5c6"
-  integrity sha512-qLK/Xe9E2uzmYI3qLeOmI0tEOt+TBBQyUIAh4aAgU05FVYzeZrKUdkAZfBNVGRaHVgV0TDkdEngJSw/SyQchkQ==
+  version "0.7.32"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.32.tgz#cd8c639cdca949e30fa68c44b7813ef13e36d211"
+  integrity sha512-f9BESNVhzlhEFf2CHMSj40NWOjYPl1YKYbrvIr/hFTDEmLq7SRbWvm7FcdcpCYT95zrOhC7gZSxjdnnTpBcwVw==
 
 ufo@^0.7.4:
   version "0.7.11"
@@ -15659,9 +15666,9 @@ ufo@^0.7.4:
   integrity sha512-IT3q0lPvtkqQ8toHQN/BkOi4VIqoqheqM1FnkNWT9y0G8B3xJhwnoKBu5OHx8zHDOvveQzfKuFowJ0VSARiIDg==
 
 ufo@^0.8.5:
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/ufo/-/ufo-0.8.5.tgz#e367b4205ece9d9723f2fa54f887d43ed1bce5d0"
-  integrity sha512-e4+UtA5IRO+ha6hYklwj6r7BjiGMxS0O+UaSg9HbaTefg4kMkzj4tXzEBajRR+wkxf+golgAWKzLbytCUDMJAA==
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/ufo/-/ufo-0.8.6.tgz#c0ec89bc0e0c9fa59a683680feb0f28b55ec323b"
+  integrity sha512-fk6CmUgwKCfX79EzcDQQpSCMxrHstvbLswFChHS0Vump+kFkw7nJBfTZoC1j0bOGoY9I7R3n2DGek5ajbcYnOw==
 
 uglify-js@^3.1.4, uglify-js@^3.5.1:
   version "3.17.3"
