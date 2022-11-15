@@ -1,4 +1,5 @@
 import { join, keys, map, omit } from '@dword-design/functions'
+import packageName from 'depcheck-package-name'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
@@ -86,7 +87,34 @@ export default async function () {
     projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys)
   )
   await sequential(
-    projectConfig.modules |> map(module => () => this.addModule(module))
+    [
+      [
+        packageName`nuxt-basic-auth-module`,
+        {
+          enabled:
+            process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD,
+          name: process.env.BASIC_AUTH_USER,
+          pass: process.env.BASIC_AUTH_PASSWORD,
+        },
+      ],
+      require.resolve('./modules/babel'),
+      require.resolve('./modules/dotenv'),
+      [packageName`@nuxtjs/eslint-module`, { failOnWarning: true, fix: true }],
+      [
+        packageName`@nuxtjs/stylelint-module`,
+        { allowEmptyInput: true, failOnWarning: true, fix: true },
+      ],
+      require.resolve('./modules/css-modules'),
+      require.resolve('./modules/raw'),
+      require.resolve('./modules/i18n'),
+      require.resolve('./modules/body-parser'),
+      [require.resolve('./modules/server-middleware'), { expressInstance: projectConfig.expressInstance }],
+      packageName`@nuxtjs/axios`,
+      require.resolve('./modules/axios-dynamic-baseurl'),
+      packageName`nuxt-svg-loader`,
+      require.resolve('./modules/locale-link'),
+      ...projectConfig.modules,
+    ] |> map(module => () => this.addModule(module))
   )
   this.addTemplate({
     fileName: P.join('project', 'project-config.js'),
