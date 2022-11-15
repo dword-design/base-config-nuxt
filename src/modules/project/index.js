@@ -108,7 +108,10 @@ export default async function () {
       require.resolve('./modules/raw'),
       require.resolve('./modules/i18n'),
       require.resolve('./modules/body-parser'),
-      [require.resolve('./modules/server-middleware'), { expressInstance: projectConfig.expressInstance }],
+      [
+        require.resolve('./modules/server-middleware'),
+        { expressInstance: projectConfig.expressInstance },
+      ],
       packageName`@nuxtjs/axios`,
       require.resolve('./modules/axios-dynamic-baseurl'),
       packageName`nuxt-svg-loader`,
