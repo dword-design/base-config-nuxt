@@ -284,6 +284,29 @@ export default tester(
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
+    expressInstance: {
+      files: {
+        'api/foo.get.js': endent`
+        export default (req, res) => res.json({ foo: 'bar' })
+
+      `,
+        'nuxt.config.js': endent`
+          import express from 'express'
+
+          export default {
+            expressInstance: express().use((req, res, next) => { req.foo = 'bar'; next() }),
+          }
+
+        `,
+      },
+      test: async () => {
+        const result =
+          axios.get('http://localhost:3000/api/foo')
+          |> await
+          |> property('data')
+        expect(result).toEqual({ foo: 'bar' })
+      },
+    },
     'global components': {
       files: {
         'components/foo.vue': endent`
