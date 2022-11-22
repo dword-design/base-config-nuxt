@@ -8,6 +8,7 @@ import { Base } from '@dword-design/base'
 import config from './index.js'
 import self from './dev.js'
 import fs from 'fs-extra'
+import P from 'path'
 
 export default tester(
   {

@@ -5,6 +5,7 @@ import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
 import globby from 'globby'
 import P from 'path'
+import vueTemplateCompiler from 'vue-template-compiler'
 
 import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error.js'
 
@@ -15,8 +16,6 @@ const checkNuxtI18nHead = async () => {
     |> uniq
 
   const checkLayoutFile = async layoutFile => {
-    const vueTemplateCompiler = require('vue-template-compiler')
-
     const layout = (await fs.exists(P.join('layouts', layoutFile)))
       ? vueTemplateCompiler.parseComponent(
           await fs.readFile(P.join('layouts', layoutFile), 'utf8')
@@ -27,7 +26,7 @@ const checkNuxtI18nHead = async () => {
         filename: 'index.js',
       })
       let valid = false
-      traverse(ast, {
+      traverse.default(ast, {
         ExportDefaultDeclaration: path => {
           if (
             path.node.declaration.properties

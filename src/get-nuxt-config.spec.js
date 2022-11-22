@@ -1,3 +1,4 @@
+import { Base } from '@dword-design/base'
 import { endent, endsWith, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginEnv from '@dword-design/tester-plugin-env'
@@ -5,12 +6,12 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
-import execa from 'execa'
-import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
+import { Builder, Nuxt } from 'nuxt'
 import P from 'path'
-import stealthyRequire from 'stealthy-require-no-leak'
 import xmlFormatter from 'xml-formatter'
+import self from './get-nuxt-config.js'
+import config from './index.js'
 
 export default tester(
   {
@@ -1419,25 +1420,10 @@ export default tester(
         test = { test: () => {}, ...test }
 
         return async function () {
-          await outputFiles({
-            'node_modules/base-config-self/index.js':
-              "module.exports = require('../../../src')",
-            'package.json': JSON.stringify(
-              {
-                baseConfig: 'self',
-              },
-              undefined,
-              2
-            ),
-            ...test.files,
-          })
-          await execa.command('base prepare')
+          await outputFiles(test.files)
+          await new Base(config).prepare()
 
-          const self = stealthyRequire(require.cache, () =>
-            require('./nuxt.config')
-          )
-
-          const nuxt = new Nuxt({ ...self, dev: !!test.dev })
+          const nuxt = new Nuxt({ ...self(), dev: !!test.dev })
           if (test.error) {
             await expect(new Builder(nuxt).build()).rejects.toThrow(test.error)
           } else {

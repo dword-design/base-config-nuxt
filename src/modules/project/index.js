@@ -3,7 +3,6 @@ import packageName from 'depcheck-package-name'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
-import safeRequire from 'safe-require'
 import babelModule from './modules/babel.js'
 import dotenvModule from './modules/dotenv.js'
 import cssModulesModule from './modules/css-modules.js'
@@ -14,6 +13,7 @@ import serverMiddlewareModule from './modules/server-middleware/index.js'
 import axiosDynamicBaseurlModule from './modules/axios-dynamic-baseurl/index.js'
 import localeLinkModule from './modules/locale-link/index.js'
 import { createRequire } from 'module'
+import { fileURLToPath } from 'url'
 
 const _require = createRequire(import.meta.url)
 
@@ -32,8 +32,15 @@ export default async function () {
     userScalable: true,
   }
 
-  const localConfig =
-    safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')) || {}
+  let localConfig
+  const configPath = P.join(this.options.rootDir, 'nuxt.config.js')
+  try {
+    localConfig = (await import(configPath)).default
+  } catch (error) {
+    if (error.message === `Cannot find module '${configPath}' imported from ${fileURLToPath(import.meta.url)}`) {
+      localConfig = {}
+    }
+  }
 
   const projectConfig = {
     ...defaultConfig,
