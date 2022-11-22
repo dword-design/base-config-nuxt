@@ -2,7 +2,7 @@ import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
-import { outputFile } from 'fs-extra'
+import fs from 'fs-extra'
 import outputFiles from 'output-files'
 
 import self from './lint'
@@ -41,7 +41,7 @@ export default tester(
         ),
       })
       await execa.command('base prepare')
-      await outputFile(
+      await fs.outputFile(
         'coverage/foo.scss',
         endent`
       foo bar

@@ -1,9 +1,8 @@
 import dotenv from '@dword-design/dotenv-json-extended'
-import esm from 'esm'
+import projectModule from './modules/project/index.js'
 
 dotenv.config()
 
 export default {
-  createRequire: () => esm(module),
-  modules: [require.resolve('./modules/project')],
+  modules: [projectModule],
 }

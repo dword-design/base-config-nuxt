@@ -4,11 +4,23 @@ import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
 import safeRequire from 'safe-require'
+import babelModule from './modules/babel.js'
+import dotenvModule from './modules/dotenv.js'
+import cssModulesModule from './modules/css-modules.js'
+import rawModule from './modules/raw.js'
+import i18nModule from './modules/i18n/index.js'
+import bodyParserModule from './modules/body-parser.js'
+import serverMiddlewareModule from './modules/server-middleware/index.js'
+import axiosDynamicBaseurlModule from './modules/axios-dynamic-baseurl/index.js'
+import localeLinkModule from './modules/locale-link/index.js'
+import { createRequire } from 'module'
+
+const _require = createRequire(import.meta.url)
 
 export default async function () {
   const defaultConfig = {
     bodyAttrs: {},
-    css: [require.resolve('./style.css')],
+    css: [_require.resolve('./style.css')],
     head: {},
     headAttrs: {},
     htmlAttrs: {},
@@ -97,32 +109,32 @@ export default async function () {
           pass: process.env.BASIC_AUTH_PASSWORD,
         },
       ],
-      require.resolve('./modules/babel'),
-      require.resolve('./modules/dotenv'),
+      babelModule,
+      dotenvModule,
       [packageName`@nuxtjs/eslint-module`, { failOnWarning: true, fix: true }],
       [
         packageName`@nuxtjs/stylelint-module`,
         { allowEmptyInput: true, failOnWarning: true, fix: true },
       ],
-      require.resolve('./modules/css-modules'),
-      require.resolve('./modules/raw'),
-      require.resolve('./modules/i18n'),
-      require.resolve('./modules/body-parser'),
+      cssModulesModule,
+      rawModule,
+      i18nModule,
+      bodyParserModule,
       [
-        require.resolve('./modules/server-middleware'),
+        serverMiddlewareModule,
         { expressInstance: projectConfig.expressInstance },
       ],
       packageName`@nuxtjs/axios`,
-      require.resolve('./modules/axios-dynamic-baseurl'),
+      axiosDynamicBaseurlModule,
       packageName`nuxt-svg-loader`,
-      require.resolve('./modules/locale-link'),
+      localeLinkModule,
       ...projectConfig.modules,
     ] |> map(module => () => this.addModule(module))
   )
   this.addTemplate({
     fileName: P.join('project', 'project-config.js'),
     options: projectConfig,
-    src: require.resolve('./project-config.js.template'),
+    src: _require.resolve('./project-config.js.template'),
   })
   nuxtPushPlugins(this, ...projectConfig.plugins)
 }

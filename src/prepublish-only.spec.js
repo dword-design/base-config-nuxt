@@ -1,10 +1,13 @@
+import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
-import { chmod, readFile } from 'fs-extra'
+import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import P from 'path'
+import config from './index.js'
+import self from './prepublish-only.js'
 
 export default tester(
   {
@@ -14,40 +17,24 @@ export default tester(
           'cli.js': endent`
           #!/usr/bin/env node
 
-          import foo from './foo'
+          import foo from './foo.js'
 
           console.log(foo)
         `,
           'foo.js': "export default 'foo'",
         },
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({}),
       })
-      await execa.command('base prepare')
-      await execa.command('base prepublishOnly')
-      await chmod(P.join('dist', 'cli.js'), '755')
+      await new Base(config).prepare()
+      await self()
+      await fs.chmod(P.join('dist', 'cli.js'), '755')
 
       const output = await execa.command('./dist/cli.js', { all: true })
-      expect(output.all).toEqual('foo')
+      expect(output.all).toMatch(/^foo$/m)
     },
     'fixable linting error': async () => {
       await outputFiles({
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({}),
         'pages/index.vue': endent`
         <template>
           <div />
@@ -58,9 +45,9 @@ export default tester(
 
       `,
       })
-      await execa.command('base prepare')
-      await execa.command('base prepublishOnly')
-      expect(await readFile(P.join('pages', 'index.vue'), 'utf8'))
+      await new Base(config).prepare()
+      await self()
+      expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
         <template>
           <div />
@@ -79,24 +66,16 @@ export default tester(
         const foo = 'bar'
 
       `,
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({}),
       })
-      await execa.command('base prepare')
-      let all
+      await new Base(config).prepare()
+      let output
       try {
-        await execa.command('base prepublishOnly', { all: true })
+        await self()
       } catch (error) {
-        all = error.all
+        output = error.message
       }
-      expect(all).toMatch("foo' is assigned a value but never used")
+      expect(output).toMatch("'foo' is assigned a value but never used")
     },
   },
   [testerPluginTmpDir()]

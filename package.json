@@ -5,6 +5,8 @@
   "funding": "https://github.com/sponsors/dword-design",
   "license": "MIT",
   "author": "Sebastian Landwehr <info@sebastianlandwehr.com>",
+  "type": "module",
+  "exports": "./dist/index.js",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -22,9 +24,9 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/traverse": "^7.16.3",
-    "@dword-design/depcheck-parser-sass": "^2.0.0",
+    "@dword-design/depcheck-parser-sass": "^3.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
-    "@dword-design/eslint-config": "^2.0.0",
+    "@dword-design/eslint-config": "^3.0.1",
     "@dword-design/functions": "^4.0.0",
     "@dword-design/stylelint-config": "^2.0.0",
     "@nuxtjs/axios": "^5.10.3",

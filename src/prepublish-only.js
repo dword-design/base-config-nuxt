@@ -1,22 +1,16 @@
 import execa from 'execa'
-import { exists, remove } from 'fs-extra'
+import fs from 'fs-extra'
+import { Builder, Nuxt } from 'nuxt'
 
-import lint from './lint'
+import lint from './lint.js'
+import config from './nuxt.config.js'
 
 export default async (options = {}) => {
   await lint()
-  await execa(
-    'nuxt-babel',
-    [
-      'build',
-      ...(options.rootDir ? [options.rootDir] : []),
-      '--config-file',
-      require.resolve('./nuxt.config'),
-    ],
-    { stdio: options.log === false ? 'ignore' : 'inherit' }
-  )
-  if (await exists('model')) {
-    await remove('dist')
+  const nuxt = new Nuxt({ dev: false, rootDir: options.rootDir, ...config })
+  await new Builder(nuxt).build()
+  if (await fs.exists('model')) {
+    await fs.remove('dist')
     await execa(
       'babel',
       [

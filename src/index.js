@@ -1,15 +1,15 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
-import { outputFile } from 'fs-extra'
+import fs from 'fs-extra'
 
-import analyze from './analyze'
-import depcheckSpecial from './depcheck-special'
-import dev from './dev'
-import eslintConfig from './eslint.config'
-import lint from './lint'
-import prepublishOnly from './prepublish-only'
-import start from './start'
+import analyze from './analyze.js'
+import depcheckSpecial from './depcheck-special.js'
+import dev from './dev.js'
+import eslintConfig from './eslint.config.js'
+import lint from './lint.js'
+import prepublishOnly from './prepublish-only.js'
+import start from './start.js'
 
 export default {
   allowedMatches: [
@@ -53,7 +53,7 @@ export default {
     main: 'dist/index.js',
   },
   prepare: () =>
-    outputFile(
+    fs.outputFile(
       '.stylelintrc.json',
       JSON.stringify(
         {
