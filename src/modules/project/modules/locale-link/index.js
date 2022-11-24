@@ -1,6 +1,6 @@
+import { createRequire } from 'module'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
-import { createRequire } from 'module'
 
 const _require = createRequire(import.meta.url)
 

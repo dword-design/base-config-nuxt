@@ -5,7 +5,7 @@ import execa from 'execa'
 import fs from 'fs-extra'
 import outputFiles from 'output-files'
 
-import self from './lint'
+import self from './lint.js'
 
 export default tester(
   {

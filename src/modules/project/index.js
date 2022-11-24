@@ -1,19 +1,20 @@
 import { join, keys, map, omit } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
+import { createRequire } from 'module'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
-import babelModule from './modules/babel.js'
-import dotenvModule from './modules/dotenv.js'
-import cssModulesModule from './modules/css-modules.js'
-import rawModule from './modules/raw.js'
-import i18nModule from './modules/i18n/index.js'
-import bodyParserModule from './modules/body-parser.js'
-import serverMiddlewareModule from './modules/server-middleware/index.js'
-import axiosDynamicBaseurlModule from './modules/axios-dynamic-baseurl/index.js'
-import localeLinkModule from './modules/locale-link/index.js'
-import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
+
+import axiosDynamicBaseurlModule from './modules/axios-dynamic-baseurl/index.js'
+import babelModule from './modules/babel.js'
+import bodyParserModule from './modules/body-parser.js'
+import cssModulesModule from './modules/css-modules.js'
+import dotenvModule from './modules/dotenv.js'
+import i18nModule from './modules/i18n/index.js'
+import localeLinkModule from './modules/locale-link/index.js'
+import rawModule from './modules/raw.js'
+import serverMiddlewareModule from './modules/server-middleware/index.js'
 
 const _require = createRequire(import.meta.url)
 
@@ -31,13 +32,18 @@ export default async function () {
     serverMiddleware: [],
     userScalable: true,
   }
-
   let localConfig
+
   const configPath = P.join(this.options.rootDir, 'nuxt.config.js')
   try {
     localConfig = (await import(configPath)).default
   } catch (error) {
-    if (error.message === `Cannot find module '${configPath}' imported from ${fileURLToPath(import.meta.url)}`) {
+    if (
+      error.message ===
+      `Cannot find module '${configPath}' imported from ${fileURLToPath(
+        import.meta.url
+      )}`
+    ) {
       localConfig = {}
     }
   }

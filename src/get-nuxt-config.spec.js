@@ -6,10 +6,11 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
-import outputFiles from 'output-files'
 import { Builder, Nuxt } from 'nuxt'
+import outputFiles from 'output-files'
 import P from 'path'
 import xmlFormatter from 'xml-formatter'
+
 import self from './get-nuxt-config.js'
 import config from './index.js'
 

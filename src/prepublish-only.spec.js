@@ -6,6 +6,7 @@ import execa from 'execa'
 import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import P from 'path'
+
 import config from './index.js'
 import self from './prepublish-only.js'
 

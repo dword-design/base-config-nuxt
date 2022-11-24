@@ -5,6 +5,7 @@ import axios from 'axios'
 import express from 'express'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
+
 import self from './index.js'
 
 export default tester(

@@ -1,5 +1,5 @@
-import nuxtPushPlugins from 'nuxt-push-plugins'
 import { createRequire } from 'module'
+import nuxtPushPlugins from 'nuxt-push-plugins'
 
 const _require = createRequire(import.meta.url)
 

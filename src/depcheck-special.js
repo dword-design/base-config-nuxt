@@ -6,7 +6,10 @@ export default async path => {
     if (P.basename(path) === 'nuxt.config.js') {
       const config = (await import(path)).default
 
-      const modules = [...(config.modules || []), ...(config.buildModules || [])]
+      const modules = [
+        ...(config.modules || []),
+        ...(config.buildModules || []),
+      ]
 
       return (
         modules

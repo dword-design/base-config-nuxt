@@ -1,13 +1,15 @@
-import execa from 'execa'
+import { Nuxt } from 'nuxt'
 
-export default (options = {}) =>
-  execa(
-    'nuxt-babel',
-    [
-      'start',
-      ...(options.rootDir ? [options.rootDir] : []),
-      '--config-file',
-      require.resolve('./nuxt.config'),
-    ],
-    { stdio: options.log === false ? 'ignore' : 'inherit' }
-  )
+import getNuxtConfig from './get-nuxt-config.js'
+
+export default async (options = { log: false }) => {
+  const nuxt = new Nuxt({
+    ...getNuxtConfig(),
+    build: { quiet: !options.log },
+    dev: false,
+    rootDir: options.rootDir,
+  })
+  await nuxt.listen()
+
+  return nuxt
+}
