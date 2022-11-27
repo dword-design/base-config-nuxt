@@ -36,7 +36,7 @@ export default tester(
           await new Base(config).prepare()
           await prepublishOnly()
 
-          const nuxt = self({ log: false })
+          const nuxt = await self({ log: false })
           await portReady(3000)
           await this.page.goto('http://localhost:3000')
           await test.test.call(this)

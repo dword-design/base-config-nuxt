@@ -1,10 +1,11 @@
+import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import execa from 'execa'
 import fs from 'fs-extra'
 import outputFiles from 'output-files'
 
+import config from './index.js'
 import self from './lint.js'
 
 export default tester(
@@ -25,7 +26,7 @@ export default tester(
           2
         ),
       })
-      await execa.command('base prepare')
+      await new Base(config).prepare()
       await expect(self()).rejects.toThrow('CssSyntaxError')
     },
     ignored: async () => {
@@ -40,7 +41,7 @@ export default tester(
           2
         ),
       })
-      await execa.command('base prepare')
+      await new Base(config).prepare()
       await fs.outputFile(
         'coverage/foo.scss',
         endent`

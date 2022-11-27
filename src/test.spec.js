@@ -1,23 +1,16 @@
+import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import execa from 'execa'
 import outputFiles from 'output-files'
+
+import config from './index.js'
 
 export default tester(
   {
     aliases: async () => {
       await outputFiles({
         'model/foo.js': "export default 'bar'",
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
         <template>
           <div />
@@ -35,16 +28,14 @@ export default tester(
 
       `,
       })
-      await execa.command('base prepare')
-      await execa.command('base test')
+
+      const base = new Base(config)
+      await base.prepare()
+      await base.test()
     },
     'dependency inside vue file': async () => {
       await outputFiles({
-        node_modules: {
-          'base-config-self/index.js':
-            "module.exports = require('../../../src')",
-          'foo/index.js': '',
-        },
+        'node_modules/foo/index.js': '',
         'package.json': JSON.stringify(
           {
             baseConfig: 'self',
@@ -73,13 +64,13 @@ export default tester(
 
       `,
       })
-      await execa.command('base prepare')
-      await execa.command('base test')
+
+      const base = new Base(config)
+      await base.prepare()
+      await base.test()
     },
     'external modules': async () => {
       await outputFiles({
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'nuxt.config.js': endent`
         export default {
           modules: [
@@ -90,22 +81,22 @@ export default tester(
       `,
         'package.json': JSON.stringify(
           {
-            baseConfig: 'self',
             dependencies: {
               foo: '^1.0.0',
             },
+            type: 'module',
           },
           undefined,
           2
         ),
       })
-      await execa.command('base prepare')
-      await execa.command('base test')
+
+      const base = new Base(config)
+      await base.prepare()
+      await base.test()
     },
     jsx: async () => {
       await outputFiles({
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
             baseConfig: 'self',
@@ -122,14 +113,14 @@ export default tester(
 
       `,
       })
-      await execa.command('base prepare')
-      await execa.command('base test')
+
+      const base = new Base(config)
+      await base.prepare()
+      await base.test()
     },
     'linting error in js file': async () => {
       await outputFiles({
         'model/foo.js': 'const foo = 1',
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
             baseConfig: 'self',
@@ -150,8 +141,10 @@ export default tester(
 
       `,
       })
-      await execa.command('base prepare')
-      await expect(execa.command('base test')).rejects.toThrow(
+
+      const base = new Base(config)
+      await base.prepare()
+      await expect(base.test()).rejects.toThrow(
         "'foo' is assigned a value but never used"
       )
     },
@@ -173,15 +166,15 @@ export default tester(
 
       `,
       })
-      await execa.command('base prepare')
-      await expect(execa.command('base test')).rejects.toThrow(
+
+      const base = new Base(config)
+      await base.prepare()
+      await expect(base.test()).rejects.toThrow(
         'Parsing error: Missing semicolon. (2:3)'
       )
     },
     valid: async () => {
       await outputFiles({
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
             baseConfig: 'self',
@@ -196,8 +189,10 @@ export default tester(
 
       `,
       })
-      await execa.command('base prepare')
-      await execa.command('base test')
+
+      const base = new Base(config)
+      await base.prepare()
+      await base.test()
     },
   },
   [testerPluginTmpDir()]

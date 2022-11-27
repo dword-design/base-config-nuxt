@@ -1,8 +1,11 @@
+import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
 import outputFiles from 'output-files'
+
+import config from './index.js'
 
 export default tester(
   {
@@ -34,29 +37,10 @@ export default tester(
         test = { match: '', ...test }
 
         return async () => {
-          await outputFiles({
-            ...test.files,
-            'node_modules/base-config-self/index.js':
-              "module.exports = require('../../../src')",
-            'package.json': JSON.stringify(
-              {
-                baseConfig: 'self',
-              },
-              undefined,
-              2
-            ),
-          })
+          await outputFiles(test.files)
           try {
-            await execa.command('base prepare')
-
-            const output = await execa(
-              'eslint',
-              ['--ext', '.js,.json,.vue', '.'],
-              {
-                all: true,
-              }
-            )
-            expect(output.all).toBeFalsy()
+            await new Base(config).prepare()
+            await execa('eslint', ['--ext', '.js,.json,.vue', '.'])
           } catch (error) {
             if (test.match) {
               expect(error.all).toMatch(test.match)
