@@ -1421,7 +1421,10 @@ export default tester(
         test = { test: () => {}, ...test }
 
         return async function () {
-          await outputFiles(test.files)
+          await outputFiles({
+            'package.json': JSON.stringify({ type: 'module' }),
+            ...test.files,
+          })
           await new Base(config).prepare()
 
           const nuxt = new Nuxt({ ...self(), dev: !!test.dev })
