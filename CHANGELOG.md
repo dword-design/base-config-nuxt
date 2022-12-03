@@ -1,3 +1,15 @@
+# [3.2.0](https://github.com/dword-design/base-config-nuxt/compare/v3.1.8...v3.2.0) (2022-12-03)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#182](https://github.com/dword-design/base-config-nuxt/issues/182)) ([850c2fe](https://github.com/dword-design/base-config-nuxt/commit/850c2fe957037f0898680079a7f8ff6a3585900b))
+
+
+### Features
+
+* make express instance configurable ([#183](https://github.com/dword-design/base-config-nuxt/issues/183)) ([263e59e](https://github.com/dword-design/base-config-nuxt/commit/263e59ecea75fc18c1968abf33604da37ff9d802))
+
 ## [3.1.8](https://github.com/dword-design/base-config-nuxt/compare/v3.1.7...v3.1.8) (2022-10-14)
 
 
