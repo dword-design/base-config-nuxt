@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/dword-design/base-config-nuxt/compare/v3.2.0...v3.2.1) (2022-12-03)
+
+
+### Bug Fixes
+
+* throw error ([#189](https://github.com/dword-design/base-config-nuxt/issues/189)) ([3502bf9](https://github.com/dword-design/base-config-nuxt/commit/3502bf962add2f02160df5f8f196ffd5ac547856))
+
 # [3.2.0](https://github.com/dword-design/base-config-nuxt/compare/v3.1.8...v3.2.0) (2022-12-03)
 
 
