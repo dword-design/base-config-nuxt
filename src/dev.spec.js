@@ -26,7 +26,7 @@ export default tester(
       const base = new Base(config)
       await base.prepare()
 
-      const nuxt = await self()
+      const nuxt = await self({ build: { babel: { cacheDirectory: false } } })
       try {
         await portReady(3000)
         await this.page.goto('http://localhost:3000')

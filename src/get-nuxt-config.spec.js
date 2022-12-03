@@ -333,7 +333,7 @@ export default tester(
         )
       },
     },
-    'global styles': {
+    'global foo': {
       files: {
         'assets/style.scss': endent`
         .foo {
@@ -1282,15 +1282,16 @@ export default tester(
       },
     },
     style: {
+      dev: true,
       files: {
         'pages/index.vue': endent`
         <template>
-          <div :class="$style.foo">
+          <div class="foo">
             Hello world
           </div>
         </template>
 
-        <style lang="scss" module>
+        <style lang="scss">
         .foo {
           background: red;
         }
@@ -1301,9 +1302,7 @@ export default tester(
       async test() {
         await this.page.goto('http://localhost:3000')
 
-        const handle = await this.page.waitForSelector(
-          '.jmyCSOgL5WbaBeZ-RxMaBw\\=\\='
-        )
+        const handle = await this.page.waitForSelector('.foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -1316,12 +1315,12 @@ export default tester(
       files: {
         'pages/index.vue': endent`
         <template>
-          <div :class="$style.foo">
+          <div class="foo">
             Hello world
           </div>
         </template>
 
-        <style lang="scss" module>
+        <style lang="scss">
         .foo {
           background: red;
         }
@@ -1332,7 +1331,7 @@ export default tester(
       async test() {
         await this.page.goto('http://localhost:3000')
 
-        const handle = await this.page.waitForSelector('.index__foo')
+        const handle = await this.page.waitForSelector('.foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -1427,7 +1426,11 @@ export default tester(
           })
           await new Base(config).prepare()
 
-          const nuxt = new Nuxt({ ...self(), dev: !!test.dev })
+          const nuxt = new Nuxt({
+            ...self(),
+            dev: !!test.dev,
+            ...(test.dev && { build: { babel: { cacheDirectory: false } } }),
+          })
           if (test.error) {
             await expect(new Builder(nuxt).build()).rejects.toThrow(test.error)
           } else {
