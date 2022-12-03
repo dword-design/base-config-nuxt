@@ -1,3 +1,4 @@
+import { Base } from '@dword-design/base'
 import { endent, endsWith, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginEnv from '@dword-design/tester-plugin-env'
@@ -5,12 +6,13 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
-import execa from 'execa'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
 import P from 'path'
-import stealthyRequire from 'stealthy-require-no-leak'
 import xmlFormatter from 'xml-formatter'
+
+import self from './get-nuxt-config.js'
+import config from './index.js'
 
 export default tester(
   {
@@ -331,7 +333,7 @@ export default tester(
         )
       },
     },
-    'global styles': {
+    'global foo': {
       files: {
         'assets/style.scss': endent`
         .foo {
@@ -1280,15 +1282,16 @@ export default tester(
       },
     },
     style: {
+      dev: true,
       files: {
         'pages/index.vue': endent`
         <template>
-          <div :class="$style.foo">
+          <div class="foo">
             Hello world
           </div>
         </template>
 
-        <style lang="scss" module>
+        <style lang="scss">
         .foo {
           background: red;
         }
@@ -1299,9 +1302,7 @@ export default tester(
       async test() {
         await this.page.goto('http://localhost:3000')
 
-        const handle = await this.page.waitForSelector(
-          '.jmyCSOgL5WbaBeZ-RxMaBw\\=\\='
-        )
+        const handle = await this.page.waitForSelector('.foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -1314,12 +1315,12 @@ export default tester(
       files: {
         'pages/index.vue': endent`
         <template>
-          <div :class="$style.foo">
+          <div class="foo">
             Hello world
           </div>
         </template>
 
-        <style lang="scss" module>
+        <style lang="scss">
         .foo {
           background: red;
         }
@@ -1330,7 +1331,7 @@ export default tester(
       async test() {
         await this.page.goto('http://localhost:3000')
 
-        const handle = await this.page.waitForSelector('.index__foo')
+        const handle = await this.page.waitForSelector('.foo')
 
         const backgroundColor = await handle.evaluate(
           el => getComputedStyle(el).backgroundColor
@@ -1420,24 +1421,16 @@ export default tester(
 
         return async function () {
           await outputFiles({
-            'node_modules/base-config-self/index.js':
-              "module.exports = require('../../../src')",
-            'package.json': JSON.stringify(
-              {
-                baseConfig: 'self',
-              },
-              undefined,
-              2
-            ),
+            'package.json': JSON.stringify({ type: 'module' }),
             ...test.files,
           })
-          await execa.command('base prepare')
+          await new Base(config).prepare()
 
-          const self = stealthyRequire(require.cache, () =>
-            require('./nuxt.config')
-          )
-
-          const nuxt = new Nuxt({ ...self, dev: !!test.dev })
+          const nuxt = new Nuxt({
+            ...self(),
+            dev: !!test.dev,
+            ...(test.dev && { build: { babel: { cacheDirectory: false } } }),
+          })
           if (test.error) {
             await expect(new Builder(nuxt).build()).rejects.toThrow(test.error)
           } else {

@@ -2,11 +2,12 @@ import * as babel from '@babel/core'
 import traverse from '@babel/traverse'
 import { map, some, uniq } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
-import { exists, readFile } from 'fs-extra'
+import fs from 'fs-extra'
 import globby from 'globby'
 import P from 'path'
+import vueTemplateCompiler from 'vue-template-compiler'
 
-import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error'
+import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error.js'
 
 const checkNuxtI18nHead = async () => {
   const layoutFiles =
@@ -15,11 +16,9 @@ const checkNuxtI18nHead = async () => {
     |> uniq
 
   const checkLayoutFile = async layoutFile => {
-    const vueTemplateCompiler = require('vue-template-compiler')
-
-    const layout = (await exists(P.join('layouts', layoutFile)))
+    const layout = (await fs.exists(P.join('layouts', layoutFile)))
       ? vueTemplateCompiler.parseComponent(
-          await readFile(P.join('layouts', layoutFile), 'utf8')
+          await fs.readFile(P.join('layouts', layoutFile), 'utf8')
         )
       : {}
     if (layout.script?.content) {
@@ -27,7 +26,7 @@ const checkNuxtI18nHead = async () => {
         filename: 'index.js',
       })
       let valid = false
-      traverse(ast, {
+      traverse.default(ast, {
         ExportDefaultDeclaration: path => {
           if (
             path.node.declaration.properties

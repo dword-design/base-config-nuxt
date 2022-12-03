@@ -2,9 +2,11 @@ import express from 'express'
 import mountFiles from 'express-mount-files'
 import P from 'path'
 
-export default function (options) {
+export default async function (options) {
   const app = options.expressInstance || express()
-  app.use(mountFiles(P.join(this.options.srcDir, 'api'), { paramChar: '_' }))
+  app.use(
+    await mountFiles(P.join(this.options.srcDir, 'api'), { paramChar: '_' })
+  )
   this.addServerMiddleware({ handler: app, path: '/api' })
   this.options.watch.push(P.join(this.options.srcDir, 'api'))
 }

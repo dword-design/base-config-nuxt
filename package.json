@@ -5,6 +5,8 @@
   "funding": "https://github.com/sponsors/dword-design",
   "license": "MIT",
   "author": "Sebastian Landwehr <info@sebastianlandwehr.com>",
+  "type": "module",
+  "exports": "./dist/index.js",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -22,9 +24,9 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/traverse": "^7.16.3",
-    "@dword-design/depcheck-parser-sass": "^2.0.0",
+    "@dword-design/depcheck-parser-sass": "^3.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
-    "@dword-design/eslint-config": "^2.0.0",
+    "@dword-design/eslint-config": "^3.0.1",
     "@dword-design/functions": "^4.0.0",
     "@dword-design/stylelint-config": "^2.0.0",
     "@nuxtjs/axios": "^5.10.3",
@@ -33,10 +35,9 @@
     "@nuxtjs/stylelint-module": "^4.0.0",
     "depcheck-package-name": "^2.0.0",
     "depcheck-parser-vue": "^2.0.0",
-    "esm": "^3.2.25",
     "execa": "^5.0.0",
     "express": "^4.17.1",
-    "express-mount-files": "dword-design/express-mount-files#fork",
+    "express-mount-files": "npm:@dword-design/express-mount-files",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.1",
     "nuxt": "~2.15.0",
@@ -46,7 +47,6 @@
     "nuxt-svg-loader": "^1.2.0",
     "promise-sequential": "^1.1.1",
     "raw-loader": "^4.0.1",
-    "safe-require": "dword-design/node-safe-require#fork",
     "sass": "^1.34.0",
     "sass-loader": "^10.0.0",
     "stylelint": "^13.6.0",
@@ -54,7 +54,7 @@
     "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
-    "@dword-design/base": "^8.0.0",
+    "@dword-design/base": "^9.0.0",
     "@dword-design/puppeteer": "^5.0.5",
     "@dword-design/tester": "^2.0.9",
     "@dword-design/tester-plugin-env": "^2.0.8",
@@ -65,8 +65,6 @@
     "depcheck": "^1.4.2",
     "output-files": "^2.0.0",
     "port-ready": "^0.1.0",
-    "stealthy-require-no-leak": "^1.0.3",
-    "tree-kill-promise": "^2.0.0",
     "xml-formatter": "^2.1.2"
   },
   "engines": {

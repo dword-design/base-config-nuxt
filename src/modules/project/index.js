@@ -1,14 +1,27 @@
 import { join, keys, map, omit } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
+import { createRequire } from 'module'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
-import safeRequire from 'safe-require'
+import { fileURLToPath } from 'url'
+
+import axiosDynamicBaseurlModule from './modules/axios-dynamic-baseurl/index.js'
+import babelModule from './modules/babel.js'
+import bodyParserModule from './modules/body-parser.js'
+import cssModulesModule from './modules/css-modules.js'
+import dotenvModule from './modules/dotenv.js'
+import i18nModule from './modules/i18n/index.js'
+import localeLinkModule from './modules/locale-link/index.js'
+import rawModule from './modules/raw.js'
+import serverMiddlewareModule from './modules/server-middleware/index.js'
+
+const _require = createRequire(import.meta.url)
 
 export default async function () {
   const defaultConfig = {
     bodyAttrs: {},
-    css: [require.resolve('./style.css')],
+    css: [_require.resolve('./style.css')],
     head: {},
     headAttrs: {},
     htmlAttrs: {},
@@ -19,9 +32,21 @@ export default async function () {
     serverMiddleware: [],
     userScalable: true,
   }
+  let localConfig
 
-  const localConfig =
-    safeRequire(P.join(this.options.rootDir, 'nuxt.config.js')) || {}
+  const configPath = P.join(this.options.rootDir, 'nuxt.config.js')
+  try {
+    localConfig = (await import(configPath)).default
+  } catch (error) {
+    if (
+      error.message ===
+      `Cannot find module '${configPath}' imported from ${fileURLToPath(
+        import.meta.url
+      )}`
+    ) {
+      localConfig = {}
+    }
+  }
 
   const projectConfig = {
     ...defaultConfig,
@@ -97,32 +122,32 @@ export default async function () {
           pass: process.env.BASIC_AUTH_PASSWORD,
         },
       ],
-      require.resolve('./modules/babel'),
-      require.resolve('./modules/dotenv'),
+      babelModule,
+      dotenvModule,
       [packageName`@nuxtjs/eslint-module`, { failOnWarning: true, fix: true }],
       [
         packageName`@nuxtjs/stylelint-module`,
         { allowEmptyInput: true, failOnWarning: true, fix: true },
       ],
-      require.resolve('./modules/css-modules'),
-      require.resolve('./modules/raw'),
-      require.resolve('./modules/i18n'),
-      require.resolve('./modules/body-parser'),
+      cssModulesModule,
+      rawModule,
+      i18nModule,
+      bodyParserModule,
       [
-        require.resolve('./modules/server-middleware'),
+        serverMiddlewareModule,
         { expressInstance: projectConfig.expressInstance },
       ],
       packageName`@nuxtjs/axios`,
-      require.resolve('./modules/axios-dynamic-baseurl'),
+      axiosDynamicBaseurlModule,
       packageName`nuxt-svg-loader`,
-      require.resolve('./modules/locale-link'),
+      localeLinkModule,
       ...projectConfig.modules,
     ] |> map(module => () => this.addModule(module))
   )
   this.addTemplate({
     fileName: P.join('project', 'project-config.js'),
     options: projectConfig,
-    src: require.resolve('./project-config.js.template'),
+    src: _require.resolve('./project-config.js.template'),
   })
   nuxtPushPlugins(this, ...projectConfig.plugins)
 }

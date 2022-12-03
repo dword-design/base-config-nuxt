@@ -1,6 +1,11 @@
-import execa from 'execa'
+import { Builder, Nuxt } from 'nuxt'
 
-export default () =>
-  execa('nuxt-babel', ['--config-file', require.resolve('./nuxt.config')], {
-    stdio: 'inherit',
-  })
+import getNuxtConfig from './get-nuxt-config.js'
+
+export default async nuxtConfig => {
+  const nuxt = new Nuxt({ ...getNuxtConfig(), dev: true, ...nuxtConfig })
+  await new Builder(nuxt).build()
+  await nuxt.listen()
+
+  return nuxt
+}

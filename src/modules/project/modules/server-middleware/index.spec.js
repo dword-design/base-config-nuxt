@@ -6,13 +6,15 @@ import express from 'express'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
 
+import self from './index.js'
+
 export default tester(
   {
     expressInstance: {
       config: {
         modules: [
           [
-            require.resolve('.'),
+            self,
             {
               expressInstance: express().use((req, res, next) => {
                 req.foo = 'bar'
@@ -38,7 +40,7 @@ export default tester(
     },
     index: {
       config: {
-        modules: [require.resolve('.')],
+        modules: [self],
       },
       files: {
         'api/_param/index.get.js': endent`
@@ -53,7 +55,7 @@ export default tester(
     },
     'parameter casing': {
       config: {
-        modules: [require.resolve('.')],
+        modules: [self],
       },
       files: {
         'api/foo/_paramFoo.get.js': endent`
@@ -71,7 +73,7 @@ export default tester(
     },
     'parameter in filename': {
       config: {
-        modules: [require.resolve('.')],
+        modules: [self],
       },
       files: {
         'api/foo/_param.get.js': endent`
@@ -89,7 +91,7 @@ export default tester(
     },
     'parameter in folder name': {
       config: {
-        modules: [require.resolve('.')],
+        modules: [self],
       },
       files: {
         'api/_param/foo.get.js': endent`
@@ -107,7 +109,7 @@ export default tester(
     },
     valid: {
       config: {
-        modules: [require.resolve('.')],
+        modules: [self],
       },
       files: {
         'api/foo.get.js': endent`

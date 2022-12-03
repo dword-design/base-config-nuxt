@@ -4,7 +4,7 @@ import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import depcheck from 'depcheck'
 import outputFiles from 'output-files'
 
-import self from './depcheck-special'
+import self from './depcheck-special.js'
 
 export default tester(
   {
