@@ -1,10 +1,20 @@
+import babelConfig from '@dword-design/babel-config'
 import { filter, first, map } from '@dword-design/functions'
+import jiti from 'jiti'
 import P from 'path'
 
-export default async path => {
+export default path => {
   try {
     if (P.basename(path) === 'nuxt.config.js') {
-      const config = (await import(path)).default
+      const jitiInstance = jiti(process.cwd(), {
+        esmResolve: true,
+        interopDefault: true,
+        transformOptions: {
+          babel: babelConfig,
+        },
+      })
+
+      const config = jitiInstance(`./nuxt.config.js`)
 
       const modules = [
         ...(config.modules || []),
