@@ -1,3 +1,10 @@
+## [3.2.4](https://github.com/dword-design/base-config-nuxt/compare/v3.2.3...v3.2.4) (2022-12-04)
+
+
+### Bug Fixes
+
+* telemetry ([#192](https://github.com/dword-design/base-config-nuxt/issues/192)) ([f5c2345](https://github.com/dword-design/base-config-nuxt/commit/f5c2345d8245d2eb72319a6310430d1829dfbf27))
+
 ## [3.2.3](https://github.com/dword-design/base-config-nuxt/compare/v3.2.2...v3.2.3) (2022-12-04)
 
 
