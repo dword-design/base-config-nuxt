@@ -41,7 +41,7 @@
     "express-mount-files": "npm:@dword-design/express-mount-files",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.1",
-    "jiti": "^1.16.0",
+    "jiti": "npm:@dword-design/jiti",
     "nuxt": "~2.15.0",
     "nuxt-babel-runtime": "^3.0.0",
     "nuxt-basic-auth-module": "^1.4.1",
