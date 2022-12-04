@@ -1,10 +1,11 @@
+import babelConfig from '@dword-design/babel-config'
 import { join, keys, map, omit } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
+import jiti from 'jiti'
 import { createRequire } from 'module'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
-import { fileURLToPath } from 'url'
 
 import axiosDynamicBaseurlModule from './modules/axios-dynamic-baseurl/index.js'
 import babelModule from './modules/babel.js'
@@ -33,17 +34,17 @@ export default async function () {
     userScalable: true,
   }
   let localConfig
-
-  const configPath = P.join(this.options.rootDir, 'nuxt.config.js')
   try {
-    localConfig = (await import(configPath)).default
+    const jitiInstance = jiti(this.options.rootDir, {
+      esmResolve: true,
+      interopDefault: true,
+      transformOptions: {
+        babel: babelConfig,
+      },
+    })
+    localConfig = jitiInstance('./nuxt.config.js')
   } catch (error) {
-    if (
-      error.message ===
-      `Cannot find module '${configPath}' imported from ${fileURLToPath(
-        import.meta.url
-      )}`
-    ) {
+    if (error.message.startsWith("Cannot find module './nuxt.config.js'\n")) {
       localConfig = {}
     } else {
       throw error
