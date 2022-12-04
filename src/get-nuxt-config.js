@@ -7,5 +7,6 @@ export default () => {
 
   return {
     modules: [projectModule],
+    telemetry: true,
   }
 }
