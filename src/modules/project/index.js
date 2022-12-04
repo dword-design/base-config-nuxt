@@ -6,7 +6,6 @@ import { createRequire } from 'module'
 import nuxtPushPlugins from 'nuxt-push-plugins'
 import P from 'path'
 import sequential from 'promise-sequential'
-import { fileURLToPath } from 'url'
 
 import axiosDynamicBaseurlModule from './modules/axios-dynamic-baseurl/index.js'
 import babelModule from './modules/babel.js'
