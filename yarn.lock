@@ -9970,6 +9970,11 @@ jiti@^1.16.0, jiti@^1.9.2:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.16.0.tgz#f72065954446ad1866fa8d6bcc3bed3cc1cebdaa"
   integrity sha512-L3BJStEf5NAqNuzrpfbN71dp43mYIcBUlCRea/vdyv5dW/AYa1d4bpelko4SHdY3I6eN9Wzyasxirj1/vv5kmg==
 
+"jiti@npm:@dword-design/jiti":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@dword-design/jiti/-/jiti-0.0.1.tgz#c67c1342a451d3a51bab26bc79d72a1f188d71ed"
+  integrity sha512-+e7pjoR7qQl4JMVjk5IJZuELHfm2QhKrnr+cNCHX697I8CZcKcYP7NjzFZj+582Uj8gMj4JoueylykQ8u5cA8g==
+
 joycon@^2.1.2:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/joycon/-/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
