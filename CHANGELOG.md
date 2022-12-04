@@ -1,3 +1,10 @@
+## [3.2.6](https://github.com/dword-design/base-config-nuxt/compare/v3.2.5...v3.2.6) (2022-12-04)
+
+
+### Bug Fixes
+
+* jiti fork ([#194](https://github.com/dword-design/base-config-nuxt/issues/194)) ([4213100](https://github.com/dword-design/base-config-nuxt/commit/42131008c5573fffab67fa01ec658c2a49c1e5fa))
+
 ## [3.2.5](https://github.com/dword-design/base-config-nuxt/compare/v3.2.4...v3.2.5) (2022-12-04)
 
 
