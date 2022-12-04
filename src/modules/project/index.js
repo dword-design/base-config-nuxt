@@ -35,7 +35,6 @@ export default async function () {
     userScalable: true,
   }
   let localConfig
-
   try {
     const jitiInstance = jiti(this.options.rootDir, {
       esmResolve: true,
@@ -46,12 +45,7 @@ export default async function () {
     })
     localConfig = jitiInstance('./nuxt.config.js')
   } catch (error) {
-    if (
-      error.message ===
-      `Cannot find module './nuxt.config.js' imported from ${fileURLToPath(
-        import.meta.url
-      )}`
-    ) {
+    if (error.message.startsWith("Cannot find module './nuxt.config.js'\n")) {
       localConfig = {}
     } else {
       throw error
