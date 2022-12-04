@@ -1,3 +1,10 @@
+## [3.2.5](https://github.com/dword-design/base-config-nuxt/compare/v3.2.4...v3.2.5) (2022-12-04)
+
+
+### Bug Fixes
+
+* depcheck special jiti ([#193](https://github.com/dword-design/base-config-nuxt/issues/193)) ([3756126](https://github.com/dword-design/base-config-nuxt/commit/3756126fb8696ded2420921222584694a264c278))
+
 ## [3.2.4](https://github.com/dword-design/base-config-nuxt/compare/v3.2.3...v3.2.4) (2022-12-04)
 
 
