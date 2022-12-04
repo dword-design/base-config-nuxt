@@ -24,6 +24,7 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/traverse": "^7.16.3",
+    "@dword-design/babel-config": "^2.1.1",
     "@dword-design/depcheck-parser-sass": "^3.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
     "@dword-design/eslint-config": "^3.0.1",
