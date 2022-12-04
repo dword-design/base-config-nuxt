@@ -1,11 +1,21 @@
+import babelConfig from '@dword-design/babel-config'
 import express from 'express'
 import mountFiles from 'express-mount-files'
 import P from 'path'
 
-export default async function (options) {
+export default function (options) {
   const app = options.expressInstance || express()
   app.use(
-    await mountFiles(P.join(this.options.srcDir, 'api'), { paramChar: '_' })
+    mountFiles(P.join(this.options.srcDir, 'api'), {
+      jitiOptions: {
+        esmResolve: true,
+        interopDefault: true,
+        transformOptions: {
+          babel: babelConfig,
+        },
+      },
+      paramChar: '_',
+    })
   )
   this.addServerMiddleware({ handler: app, path: '/api' })
   this.options.watch.push(P.join(this.options.srcDir, 'api'))
