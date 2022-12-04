@@ -40,7 +40,7 @@
     "express": "^4.17.1",
     "express-mount-files": "npm:@dword-design/express-mount-files",
     "fs-extra": "^10.0.0",
-    "globby": "^11.0.1",
+    "globby": "^13.0.0",
     "jiti": "npm:@dword-design/jiti",
     "nuxt": "~2.15.0",
     "nuxt-babel-runtime": "^3.0.0",
