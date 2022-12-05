@@ -4,31 +4,27 @@ import jiti from 'jiti'
 import P from 'path'
 
 export default path => {
-  try {
-    if (P.basename(path) === 'nuxt.config.js') {
-      const jitiInstance = jiti(process.cwd(), {
-        esmResolve: true,
-        interopDefault: true,
-        transformOptions: {
-          babel: babelConfig,
-        },
-      })
+  if (P.basename(path) === 'nuxt.config.js') {
+    const jitiInstance = jiti(process.cwd(), {
+      esmResolve: true,
+      interopDefault: true,
+      transformOptions: {
+        babel: babelConfig,
+      },
+    })
 
-      const config = jitiInstance(`./nuxt.config.js`)
+    const config = jitiInstance(`./nuxt.config.js`)
 
-      const modules = [
-        ...(config.modules || []),
-        ...(config.buildModules || []),
-      ]
+    const modules = [
+      ...(config.modules || []),
+      ...(config.buildModules || []),
+    ]
 
-      return (
-        modules
-        |> map(mod => [].concat(mod) |> first)
-        |> filter(name => typeof name === 'string')
-      )
-    }
-  } catch (error) {
-    console.log(error)
+    return (
+      modules
+      |> map(mod => [].concat(mod) |> first)
+      |> filter(name => typeof name === 'string')
+    )
   }
 
   return []
