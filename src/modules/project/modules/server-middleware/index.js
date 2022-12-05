@@ -4,7 +4,7 @@ import mountFiles from 'express-mount-files'
 import P from 'path'
 
 export default async function (options) {
-  const app = (await options.getExpressInstance?.()) || express()
+  const app = (await options.getExpress?.()) || express()
   app.use(
     mountFiles(P.join(this.options.srcDir, 'api'), {
       jitiOptions: {

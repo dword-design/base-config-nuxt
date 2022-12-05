@@ -138,7 +138,7 @@ export default async function () {
       bodyParserModule,
       [
         serverMiddlewareModule,
-        { getExpressInstance: projectConfig.getExpressInstance },
+        { getExpress: projectConfig.getExpress },
       ],
       packageName`@nuxtjs/axios`,
       axiosDynamicBaseurlModule,

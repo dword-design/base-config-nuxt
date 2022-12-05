@@ -10,13 +10,13 @@ import self from './index.js'
 
 export default tester(
   {
-    getExpressInstance: {
+    getExpress: {
       config: {
         modules: [
           [
             self,
             {
-              getExpressInstance: () => express().use((req, res, next) => {
+              getExpress: () => express().use((req, res, next) => {
                 req.foo = 'bar'
                 next()
               }),
