@@ -1,3 +1,10 @@
+## [3.2.8](https://github.com/dword-design/base-config-nuxt/compare/v3.2.7...v3.2.8) (2022-12-05)
+
+
+### Bug Fixes
+
+* remove error from depcheck-special ([6f0c6e7](https://github.com/dword-design/base-config-nuxt/commit/6f0c6e7d0d4a6da1bd2999ace00c4ba480096acf))
+
 ## [3.2.7](https://github.com/dword-design/base-config-nuxt/compare/v3.2.6...v3.2.7) (2022-12-05)
 
 
