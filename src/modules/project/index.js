@@ -136,10 +136,7 @@ export default async function () {
       rawModule,
       i18nModule,
       bodyParserModule,
-      [
-        serverMiddlewareModule,
-        { getExpress: projectConfig.getExpress },
-      ],
+      [serverMiddlewareModule, { getExpress: projectConfig.getExpress }],
       packageName`@nuxtjs/axios`,
       axiosDynamicBaseurlModule,
       packageName`nuxt-svg-loader`,

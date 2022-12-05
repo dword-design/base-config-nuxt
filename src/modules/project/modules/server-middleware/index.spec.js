@@ -16,10 +16,11 @@ export default tester(
           [
             self,
             {
-              getExpress: () => express().use((req, res, next) => {
-                req.foo = 'bar'
-                next()
-              }),
+              getExpress: () =>
+                express().use((req, res, next) => {
+                  req.foo = 'bar'
+                  next()
+                }),
             },
           ],
         ],
