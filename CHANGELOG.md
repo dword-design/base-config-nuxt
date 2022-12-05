@@ -1,3 +1,10 @@
+## [3.2.7](https://github.com/dword-design/base-config-nuxt/compare/v3.2.6...v3.2.7) (2022-12-05)
+
+
+### Bug Fixes
+
+* getExpressInstance ([#196](https://github.com/dword-design/base-config-nuxt/issues/196)) ([1ca437f](https://github.com/dword-design/base-config-nuxt/commit/1ca437f4ac9f66643fca8232bc86dcade8e24074))
+
 ## [3.2.6](https://github.com/dword-design/base-config-nuxt/compare/v3.2.5...v3.2.6) (2022-12-04)
 
 
