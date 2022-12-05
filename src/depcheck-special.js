@@ -15,10 +15,7 @@ export default path => {
 
     const config = jitiInstance(`./nuxt.config.js`)
 
-    const modules = [
-      ...(config.modules || []),
-      ...(config.buildModules || []),
-    ]
+    const modules = [...(config.modules || []), ...(config.buildModules || [])]
 
     return (
       modules
