@@ -286,7 +286,7 @@ export default tester(
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
-    expressInstance: {
+    getExpress: {
       files: {
         'api/foo.get.js': endent`
         export default (req, res) => res.json({ foo: 'bar' })
@@ -296,7 +296,7 @@ export default tester(
           import express from 'express'
 
           export default {
-            expressInstance: express().use((req, res, next) => { req.foo = 'bar'; next() }),
+            getExpress: () => express().use((req, res, next) => { req.foo = 'bar'; next() }),
           }
 
         `,

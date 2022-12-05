@@ -10,16 +10,17 @@ import self from './index.js'
 
 export default tester(
   {
-    expressInstance: {
+    getExpress: {
       config: {
         modules: [
           [
             self,
             {
-              expressInstance: express().use((req, res, next) => {
-                req.foo = 'bar'
-                next()
-              }),
+              getExpress: () =>
+                express().use((req, res, next) => {
+                  req.foo = 'bar'
+                  next()
+                }),
             },
           ],
         ],
