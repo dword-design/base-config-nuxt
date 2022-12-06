@@ -4,19 +4,24 @@ import mountFiles from 'express-mount-files'
 import P from 'path'
 
 export default async function (options) {
-  const app = (await options.getExpress?.()) || express()
-  app.use(
-    mountFiles(P.join(this.options.srcDir, 'api'), {
-      jitiOptions: {
-        esmResolve: true,
-        interopDefault: true,
-        transformOptions: {
-          babel: babelConfig,
+  // Make sure that we do not register the server middleware
+  // on build because processes like express-mysql-session do
+  // not get closed
+  if (this.options._start || this.options.dev) {
+    const app = (await options.getExpress?.()) || express()
+    app.use(
+      mountFiles(P.join(this.options.srcDir, 'api'), {
+        jitiOptions: {
+          esmResolve: true,
+          interopDefault: true,
+          transformOptions: {
+            babel: babelConfig,
+          },
         },
-      },
-      paramChar: '_',
-    })
-  )
-  this.addServerMiddleware({ handler: app, path: '/api' })
-  this.options.watch.push(P.join(this.options.srcDir, 'api'))
+        paramChar: '_',
+      })
+    )
+    this.addServerMiddleware({ handler: app, path: '/api' })
+    this.options.watch.push(P.join(this.options.srcDir, 'api'))
+  }
 }

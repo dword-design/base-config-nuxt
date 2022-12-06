@@ -7,6 +7,7 @@ export default async (options = { log: false }) => {
     ...getNuxtConfig(),
     build: { quiet: !options.log },
     dev: false,
+    _start: true,
     rootDir: options.rootDir,
   })
   await nuxt.listen()
