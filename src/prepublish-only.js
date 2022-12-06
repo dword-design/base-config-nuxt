@@ -10,8 +10,10 @@ export default async (options = {}) => {
 
   const nuxt = new Nuxt({
     ...getNuxtConfig(),
+    _build: true,
     dev: false,
     rootDir: options.rootDir,
+    server: false,
   })
   await new Builder(nuxt).build()
   if (await fs.exists('model')) {
