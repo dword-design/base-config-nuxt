@@ -1,3 +1,10 @@
+## [3.2.9](https://github.com/dword-design/base-config-nuxt/compare/v3.2.8...v3.2.9) (2022-12-06)
+
+
+### Bug Fixes
+
+* server middleware start ([#197](https://github.com/dword-design/base-config-nuxt/issues/197)) ([acfdf71](https://github.com/dword-design/base-config-nuxt/commit/acfdf71a4bc625f89954e4db7d6776cd58c092f8))
+
 ## [3.2.8](https://github.com/dword-design/base-config-nuxt/compare/v3.2.7...v3.2.8) (2022-12-05)
 
 
