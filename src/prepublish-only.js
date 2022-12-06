@@ -11,6 +11,8 @@ export default async (options = {}) => {
   const nuxt = new Nuxt({
     ...getNuxtConfig(),
     dev: false,
+    server: false,
+    _build: true,
     rootDir: options.rootDir,
   })
   await new Builder(nuxt).build()
