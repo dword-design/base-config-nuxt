@@ -7,7 +7,8 @@ export default async function (options) {
   // Make sure that we do not register the server middleware
   // on build because processes like express-mysql-session do
   // not get closed
-  if (this.options._start || this.options.dev) {
+  // https://github.com/nuxt/nuxt.js/blob/2ec62617ced873fef97c73a6d7aa1271911ccfd5/packages/core/src/nuxt.js#L56
+  if (this.options.server !== false) {
     const app = (await options.getExpress?.()) || express()
     app.use(
       mountFiles(P.join(this.options.srcDir, 'api'), {
