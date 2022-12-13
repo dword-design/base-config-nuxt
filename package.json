@@ -67,7 +67,7 @@
     "depcheck": "^1.4.2",
     "output-files": "^2.0.0",
     "port-ready": "^0.1.0",
-    "xml-formatter": "^2.1.2"
+    "xml-formatter": "^3.0.0"
   },
   "engines": {
     "node": ">=14"
