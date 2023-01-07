@@ -36,7 +36,7 @@
     "@nuxtjs/stylelint-module": "^4.0.0",
     "depcheck-package-name": "^2.0.0",
     "depcheck-parser-vue": "^2.0.0",
-    "execa": "^5.0.0",
+    "execa": "^6.0.0",
     "express": "^4.17.1",
     "express-mount-files": "npm:@dword-design/express-mount-files",
     "fs-extra": "^10.0.0",
