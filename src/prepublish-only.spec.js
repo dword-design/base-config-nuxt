@@ -2,7 +2,7 @@ import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import P from 'path'
@@ -30,7 +30,7 @@ export default tester(
       await self()
       await fs.chmod(P.join('dist', 'cli.js'), '755')
 
-      const output = await execa.command('./dist/cli.js', { all: true })
+      const output = await execaCommand('./dist/cli.js', { all: true })
       expect(output.all).toMatch(/^foo$/m)
     },
     'fixable linting error': async () => {
