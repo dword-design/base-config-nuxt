@@ -1,12 +1,12 @@
-import execa from 'execa'
+import { execaCommand } from 'execa'
 
 export default async () => {
   try {
-    await execa.command(
+    await execaCommand(
       'eslint --fix --ignore-path .gitignore --ext .js,.json,.vue .',
       { all: true }
     )
-    await execa.command(
+    await execaCommand(
       'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
       { all: true }
     )

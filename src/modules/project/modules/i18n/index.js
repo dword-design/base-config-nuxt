@@ -3,7 +3,7 @@ import traverse from '@babel/traverse'
 import { map, some, uniq } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
-import globby from 'globby'
+import { globby } from 'globby'
 import P from 'path'
 import vueTemplateCompiler from 'vue-template-compiler'
 
