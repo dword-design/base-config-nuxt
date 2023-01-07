@@ -24,7 +24,7 @@ export default tester(
         `,
           'foo.js': "export default 'foo'",
         },
-        'package.json': JSON.stringify({}),
+        'package.json': JSON.stringify({ type: 'module' }),
       })
       await new Base(config).prepare()
       await self()
