@@ -1,3 +1,10 @@
+## [3.2.10](https://github.com/dword-design/base-config-nuxt/compare/v3.2.9...v3.2.10) (2023-01-07)
+
+
+### Bug Fixes
+
+* foo ([#200](https://github.com/dword-design/base-config-nuxt/issues/200)) ([7dcd76d](https://github.com/dword-design/base-config-nuxt/commit/7dcd76d8b6d856a229eeee927ee9dde49b753ba5))
+
 ## [3.2.9](https://github.com/dword-design/base-config-nuxt/compare/v3.2.8...v3.2.9) (2022-12-06)
 
 
