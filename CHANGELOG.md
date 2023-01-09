@@ -1,3 +1,10 @@
+## [3.2.11](https://github.com/dword-design/base-config-nuxt/compare/v3.2.10...v3.2.11) (2023-01-09)
+
+
+### Bug Fixes
+
+* update dependency @nuxtjs/i18n to v7.3.1 ([0b5b879](https://github.com/dword-design/base-config-nuxt/commit/0b5b879b935067c661fe0555737cd4d71c0cb850))
+
 ## [3.2.10](https://github.com/dword-design/base-config-nuxt/compare/v3.2.9...v3.2.10) (2023-01-07)
 
 
