@@ -1,3 +1,10 @@
+## [3.2.13](https://github.com/dword-design/base-config-nuxt/compare/v3.2.12...v3.2.13) (2023-01-22)
+
+
+### Bug Fixes
+
+* fix vue-template-compiler ([#205](https://github.com/dword-design/base-config-nuxt/issues/205)) ([d5d046f](https://github.com/dword-design/base-config-nuxt/commit/d5d046f5d72e0f7b692ff0e6157adb326b554aae))
+
 ## [3.2.12](https://github.com/dword-design/base-config-nuxt/compare/v3.2.11...v3.2.12) (2023-01-10)
 
 
