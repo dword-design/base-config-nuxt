@@ -2,6 +2,7 @@ import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
+import fs from 'fs-extra'
 import outputFiles from 'output-files'
 
 import config from './index.js'
@@ -17,7 +18,7 @@ export default tester(
         </template>
 
         <script>
-        import foo from '@/model/foo'
+        import foo from '@/model/foo.js'
 
         export default {
           computed: {
@@ -36,16 +37,12 @@ export default tester(
     'dependency inside vue file': async () => {
       await outputFiles({
         'node_modules/foo/index.js': '',
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-            dependencies: {
-              foo: '^1.0.0',
-            },
+        'package.json': JSON.stringify({
+          dependencies: {
+            foo: '^1.0.0',
           },
-          undefined,
-          2
-        ),
+          type: 'module',
+        }),
         'pages/index.vue': endent`
         <template>
           <div />
@@ -79,16 +76,12 @@ export default tester(
         }
 
       `,
-        'package.json': JSON.stringify(
-          {
-            dependencies: {
-              foo: '^1.0.0',
-            },
-            type: 'module',
+        'package.json': JSON.stringify({
+          dependencies: {
+            foo: '^1.0.0',
           },
-          undefined,
-          2
-        ),
+          type: 'module',
+        }),
       })
 
       const base = new Base(config)
@@ -96,23 +89,16 @@ export default tester(
       await base.test()
     },
     jsx: async () => {
-      await outputFiles({
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
-        'pages/index.vue': endent`
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
         <script>
         export default {
           render: () => <div />,
         }
         </script>
-
-      `,
-      })
+      `
+      )
 
       const base = new Base(config)
       await base.prepare()
@@ -121,13 +107,6 @@ export default tester(
     'linting error in js file': async () => {
       await outputFiles({
         'model/foo.js': 'const foo = 1',
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
         'pages/index.vue': endent`
         <script>
         import foo from '@/model/foo'
@@ -149,23 +128,14 @@ export default tester(
       )
     },
     'linting error in vue file': async () => {
-      await outputFiles({
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
-        'pages/index.vue': endent`
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
         <script>
         foo bar
         </script>
-
-      `,
-      })
+      `
+      )
 
       const base = new Base(config)
       await base.prepare()
@@ -174,26 +144,25 @@ export default tester(
       )
     },
     valid: async () => {
-      await outputFiles({
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
-        'pages/index.vue': endent`
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
         <template>
           <div>Hello world</div>
         </template>
-
-      `,
-      })
+      `
+      )
 
       const base = new Base(config)
       await base.prepare()
       await base.test()
     },
   },
-  [testerPluginTmpDir()]
+  [
+    testerPluginTmpDir(),
+    {
+      beforeEach: () =>
+        fs.outputFile('package.json', JSON.stringify({ type: 'module' })),
+    },
+  ]
 )
