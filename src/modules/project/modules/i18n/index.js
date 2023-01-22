@@ -5,7 +5,7 @@ import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
 import { globby } from 'globby'
 import P from 'path'
-import vueTemplateCompiler from 'vue-template-compiler'
+import * as vueTemplateCompiler from 'vue-template-compiler'
 
 import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error.js'
 
