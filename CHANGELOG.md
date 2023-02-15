@@ -1,3 +1,10 @@
+## [3.2.14](https://github.com/dword-design/base-config-nuxt/compare/v3.2.13...v3.2.14) (2023-02-15)
+
+
+### Bug Fixes
+
+* remove coverageFileExtensions ([76b0660](https://github.com/dword-design/base-config-nuxt/commit/76b066089aea38882e3fb91ad9bd76b5cc45319b))
+
 ## [3.2.13](https://github.com/dword-design/base-config-nuxt/compare/v3.2.12...v3.2.13) (2023-01-22)
 
 
