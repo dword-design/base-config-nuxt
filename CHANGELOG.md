@@ -1,3 +1,10 @@
+## [3.2.15](https://github.com/dword-design/base-config-nuxt/compare/v3.2.14...v3.2.15) (2023-02-28)
+
+
+### Bug Fixes
+
+* update dependency nuxt to ~2.16.0 ([81b3127](https://github.com/dword-design/base-config-nuxt/commit/81b3127374e19a773ff33272ce7656393453d653))
+
 ## [3.2.14](https://github.com/dword-design/base-config-nuxt/compare/v3.2.13...v3.2.14) (2023-02-15)
 
 
