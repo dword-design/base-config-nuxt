@@ -1,15 +1,11 @@
-import { Builder, Nuxt } from 'nuxt'
+import { loadNuxt } from '@nuxt/kit'
+import { build } from 'nuxt'
 
 import getNuxtConfig from './get-nuxt-config.js'
 
 export default async nuxtConfig => {
-  const nuxt = new Nuxt({
-    ...getNuxtConfig(),
-    _build: true,
-    dev: true,
-    ...nuxtConfig,
-  })
-  await new Builder(nuxt).build()
+  const nuxt = await loadNuxt({ dev: true, config: { ...getNuxtConfig(), ...nuxtConfig } })
+  await build(nuxt)
   await nuxt.listen()
 
   return nuxt

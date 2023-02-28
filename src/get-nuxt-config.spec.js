@@ -6,13 +6,16 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
-import { Builder, Nuxt } from 'nuxt'
+import { loadNuxt } from '@nuxt/kit'
+import { build } from 'nuxt'
 import outputFiles from 'output-files'
 import P from 'path'
 import xmlFormatter from 'xml-formatter'
+import { pEvent } from 'p-event'
 
 import self from './get-nuxt-config.js'
 import config from './index.js'
+import kill from 'child-process-promise'
 
 export default tester(
   {
@@ -1282,7 +1285,6 @@ export default tester(
       },
     },
     style: {
-      dev: true,
       files: {
         'pages/index.vue': endent`
         <template>
@@ -1423,20 +1425,22 @@ export default tester(
           await outputFiles(test.files)
           await new Base(config).prepare()
 
-          const nuxt = new Nuxt({
-            ...self(),
-            dev: !!test.dev,
-            ...(test.dev && { build: { babel: { cacheDirectory: false } } }),
-          })
+          const nuxt = await loadNuxt({ dev: !!test.dev, config: { ...self(), telemetry: false } })
           if (test.error) {
-            await expect(new Builder(nuxt).build()).rejects.toThrow(test.error)
+            await expect(build(nuxt)).rejects.toThrow(test.error)
           } else {
-            await new Builder(nuxt).build()
-            await nuxt.listen()
+            await build(nuxt)
+
+            const childProcess = execaCommand('nuxt start', { all: true })
+            await pEvent(
+              childProcess.all,
+              'data',
+              data => data.toString() === 'Listening http://[::]:3000\n'
+            )
             try {
               await test.test.call(this)
             } finally {
-              await nuxt.close()
+              await kill(childProcess.pid)
             }
           }
         }

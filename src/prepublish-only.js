@@ -1,6 +1,7 @@
 import { execa } from 'execa'
 import fs from 'fs-extra'
-import { Builder, Nuxt } from 'nuxt'
+import { loadNuxt } from '@nuxt/kit'
+import { build } from 'nuxt'
 
 import getNuxtConfig from './get-nuxt-config.js'
 import lint from './lint.js'
@@ -8,14 +9,13 @@ import lint from './lint.js'
 export default async (options = {}) => {
   await lint()
 
-  const nuxt = new Nuxt({
-    ...getNuxtConfig(),
-    _build: true,
-    dev: false,
-    rootDir: options.rootDir,
-    server: false,
+  const nuxt = await loadNuxt({
+    config: {
+      ...getNuxtConfig(),
+      rootDir: options.rootDir,
+    },
   })
-  await new Builder(nuxt).build()
+  await build(nuxt)
   if (await fs.exists('model')) {
     await fs.remove('dist')
     await execa(
