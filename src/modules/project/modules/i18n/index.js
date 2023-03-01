@@ -20,8 +20,8 @@ const checkNuxtI18nHead = async () => {
     const layout = (await fs.exists(P.join('layouts', layoutFile)))
       ? parse(await fs.readFile(P.join('layouts', layoutFile), 'utf8'))
       : {}
-    if (parsed.errors.length > 0) {
-      throw new Error(parsed.errors[0])
+    if (layout.errors.length > 0) {
+      throw new Error(layout.errors[0])
     }
     if (layout.descriptor.script?.content) {
       const ast = await babel.parse(layout.descriptor.script?.content, {
