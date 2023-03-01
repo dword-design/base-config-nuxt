@@ -9,11 +9,12 @@ export default async (options = { log: false }) => {
     config: {
       ...getNuxtConfig(),
       build: { quiet: !options.log },
-      ...!options.log && { vite: { logLevel: 'error' } },
+      ...(!options.log && { vite: { logLevel: 'error' } }),
       rootDir: options.rootDir,
     },
   })
   await build(nuxt)
+
   const childProcess = execaCommand('nuxt start', { all: true })
   await pEvent(
     childProcess.all,

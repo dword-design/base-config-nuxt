@@ -1,10 +1,10 @@
 import babelConfig from '@dword-design/babel-config'
 import { join, keys, omit } from '@dword-design/functions'
+import { addPlugin, addTemplate, installModule } from '@nuxt/kit'
 import packageName from 'depcheck-package-name'
 import jiti from 'jiti'
 import { createRequire } from 'module'
 import P from 'path'
-import { addPlugin, installModule, addTemplate } from '@nuxt/kit'
 
 import dotenvModule from './modules/dotenv.js'
 import i18nModule from './modules/i18n/index.js'
@@ -49,7 +49,7 @@ export default async function (moduleOptions, nuxt) {
     ...localConfig,
     css: [...defaultConfig.css, ...(localConfig.css || [])],
   }
-  //this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
+  // this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
   nuxt.options.runtimeConfig.public.name = projectConfig.name
   nuxt.options.runtimeConfig.public.title = projectConfig.title
   nuxt.options.app.head.link.push(...(projectConfig.head.link || []))
@@ -91,23 +91,23 @@ export default async function (moduleOptions, nuxt) {
     nuxt.options,
     projectConfig |> omit({ ...defaultConfig, ...nuxt.options } |> keys)
   )
+
   const modules = [
     [
       packageName`nuxt-basic-auth`,
       {
-        enabled:
-          process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD,
-        username: process.env.BASIC_AUTH_USER,
+        enabled: process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD,
         password: process.env.BASIC_AUTH_PASSWORD,
+        username: process.env.BASIC_AUTH_USER,
       },
     ],
     dotenvModule,
-    /*[
+    /* [
       packageName`@nuxtjs/stylelint-module`,
       { allowEmptyInput: true, failOnWarning: true, fix: true },
-    ],*/
+    ], */
     i18nModule,
-    //[serverMiddlewareModule, { getExpress: projectConfig.getExpress }],
+    // [serverMiddlewareModule, { getExpress: projectConfig.getExpress }],
     svgModule,
     ...projectConfig.modules,
   ]

@@ -1,8 +1,8 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
+import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
 import outputFiles from 'output-files'
-import { endent } from '@dword-design/functions'
 
 import analyze from './analyze.js'
 import depcheckSpecial from './depcheck-special.js'
@@ -47,7 +47,13 @@ export default {
     },
     specials: [depcheckSpecial],
   },
-  editorIgnore: ['.eslintcache', '.stylelintrc.json', '.nuxt', 'app.vue', 'dist'],
+  editorIgnore: [
+    '.eslintcache',
+    '.stylelintrc.json',
+    '.nuxt',
+    'app.vue',
+    'dist',
+  ],
   eslintConfig,
   gitignore: ['/.eslintcache', '/.nuxt', '/app.vue', '/dist'],
   lint,
@@ -65,6 +71,12 @@ export default {
         2
       ),
       'app.vue': endent`
+        <template>
+          <NuxtLayout>
+            <NuxtPage />
+          </NuxtLayout>
+        </template>
+
         <script setup>
         const config = useRuntimeConfig()
 

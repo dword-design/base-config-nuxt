@@ -1,12 +1,12 @@
 import * as babel from '@babel/core'
 import traverse from '@babel/traverse'
 import { map, some, uniq } from '@dword-design/functions'
+import { installModule } from '@nuxt/kit'
+import { parse } from '@vue/compiler-sfc'
 import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
 import { globby } from 'globby'
 import P from 'path'
-import { parse } from '@vue/compiler-sfc'
-import { installModule } from '@nuxt/kit'
 
 import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error.js'
 

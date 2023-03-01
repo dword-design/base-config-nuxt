@@ -4,16 +4,16 @@ import tester from '@dword-design/tester'
 import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
+import { loadNuxt } from '@nuxt/kit'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
-import { loadNuxt } from '@nuxt/kit'
+import { execaCommand } from 'execa'
 import { build } from 'nuxt'
 import outputFiles from 'output-files'
-import P from 'path'
-import xmlFormatter from 'xml-formatter'
 import { pEvent } from 'p-event'
-import { execaCommand } from 'execa'
+import P from 'path'
 import kill from 'tree-kill-promise'
+import xmlFormatter from 'xml-formatter'
 
 import self from './get-nuxt-config.js'
 import config from './index.js'
@@ -1422,7 +1422,14 @@ export default tester(
           await outputFiles(test.files)
           await new Base(config).prepare()
 
-          const nuxt = await loadNuxt({ dev: !!test.dev, config: { ...self(), telemetry: false } })
+          const nuxt = await loadNuxt({
+            config: {
+              ...self(),
+              telemetry: false,
+              vite: { logLevel: 'error' },
+            },
+            dev: !!test.dev,
+          })
           if (test.error) {
             await expect(build(nuxt)).rejects.toThrow(test.error)
           } else {
