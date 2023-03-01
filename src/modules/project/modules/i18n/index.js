@@ -5,7 +5,8 @@ import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
 import { globby } from 'globby'
 import P from 'path'
-import * as vueTemplateCompiler from 'vue-template-compiler'
+import { parse } from '@vue/compiler-sfc'
+import { installModule } from '@nuxt/kit'
 
 import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error.js'
 
@@ -17,12 +18,13 @@ const checkNuxtI18nHead = async () => {
 
   const checkLayoutFile = async layoutFile => {
     const layout = (await fs.exists(P.join('layouts', layoutFile)))
-      ? vueTemplateCompiler.parseComponent(
-          await fs.readFile(P.join('layouts', layoutFile), 'utf8')
-        )
+      ? parse(await fs.readFile(P.join('layouts', layoutFile), 'utf8'))
       : {}
-    if (layout.script?.content) {
-      const ast = await babel.parse(layout.script?.content, {
+    if (parsed.errors.length > 0) {
+      throw new Error(parsed.errors[0])
+    }
+    if (layout.descriptor.script?.content) {
+      const ast = await babel.parse(layout.descriptor.script?.content, {
         filename: 'index.js',
       })
       let valid = false
@@ -68,13 +70,13 @@ const checkNuxtI18nHead = async () => {
   return Promise.all(layoutFiles |> map(checkLayoutFile))
 }
 
-export default async function () {
+export default async function (moduleOptions, nuxt) {
   const localeFiles = await globby('*.json', {
-    cwd: P.join(this.options.srcDir, 'i18n'),
+    cwd: P.join(nuxt.options.srcDir, 'i18n'),
   })
   if (localeFiles.length > 0) {
     await checkNuxtI18nHead()
-    await this.addModule([
+    await installModule([
       packageName`@nuxtjs/i18n`,
       {
         detectBrowserLanguage:

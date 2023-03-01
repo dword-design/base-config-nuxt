@@ -12,10 +12,11 @@ import outputFiles from 'output-files'
 import P from 'path'
 import xmlFormatter from 'xml-formatter'
 import { pEvent } from 'p-event'
+import { execaCommand } from 'execa'
+import kill from 'tree-kill-promise'
 
 import self from './get-nuxt-config.js'
 import config from './index.js'
-import kill from 'child-process-promise'
 
 export default tester(
   {
@@ -1060,15 +1061,11 @@ export default tester(
       `,
         'pages/foo.vue': endent`
         <template>
-          <div>Hello worldy</div>
+          <div>Hello world</div>
         </template>
 
-        <script>
-        export default {
-          head: {
-            title: 'Foo page',
-          },
-        }
+        <script setup>
+        useHead({ title: 'Foo page' })
         </script>
 
       `,

@@ -1,7 +1,8 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
-import fs from 'fs-extra'
+import outputFiles from 'output-files'
+import { endent } from '@dword-design/functions'
 
 import analyze from './analyze.js'
 import depcheckSpecial from './depcheck-special.js'
@@ -46,24 +47,37 @@ export default {
     },
     specials: [depcheckSpecial],
   },
-  editorIgnore: ['.eslintcache', '.stylelintrc.json', '.nuxt', 'dist'],
+  editorIgnore: ['.eslintcache', '.stylelintrc.json', '.nuxt', 'app.vue', 'dist'],
   eslintConfig,
-  gitignore: ['/.eslintcache', '/.nuxt', '/dist'],
+  gitignore: ['/.eslintcache', '/.nuxt', '/app.vue', '/dist'],
   lint,
   npmPublish: true,
   packageConfig: {
     main: 'dist/index.js',
   },
   prepare: () =>
-    fs.outputFile(
-      '.stylelintrc.json',
-      JSON.stringify(
+    outputFiles({
+      '.stylelintrc.json': JSON.stringify(
         {
           extends: packageName`@dword-design/stylelint-config`,
         },
         undefined,
         2
-      )
-    ),
+      ),
+      'app.vue': endent`
+        <script setup>
+        const config = useRuntimeConfig()
+
+        useHead({
+          titleTemplate: title => title
+            ? \`\${title} | \${config.name}\`
+            : [
+                config.name,
+                ...(config.title ? [config.title] : []),
+              ].join(': '),
+        })
+        </script>
+      `,
+    }),
   useJobMatrix: true,
 }
