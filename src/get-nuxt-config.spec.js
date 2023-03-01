@@ -905,20 +905,6 @@ export default tester(
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
           'en.json': JSON.stringify({ foo: 'Hello world' }),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         'nuxt.config.js': endent`
           export default {
             htmlAttrs: { style: 'background: red' },
@@ -931,7 +917,6 @@ export default tester(
           <template>
             <div class="foo">{{ $t('foo') }}</div>
           </template>
-
         `,
       },
       async test() {

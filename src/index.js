@@ -78,16 +78,17 @@ export default {
         </template>
 
         <script setup>
-        const config = useRuntimeConfig()
+        if (typeof useLocaleHead !== 'undefined') {
+          const i18nHead = useLocaleHead({ addSeoAttributes: true })
 
-        useHead({
-          titleTemplate: title => title
-            ? \`\${title} | \${config.name}\`
-            : [
-                config.name,
-                ...(config.title ? [config.title] : []),
-              ].join(': '),
-        })
+          useHead({
+            htmlAttrs: {
+              lang: i18nHead.value.htmlAttrs.lang,
+            },
+            link: i18nHead.value.link,
+            meta: i18nHead.value.meta,
+          })
+        }
         </script>
       `,
     }),

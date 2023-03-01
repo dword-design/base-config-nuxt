@@ -2,9 +2,8 @@ image:
   file: .gitpod.Dockerfile
 tasks:
   - before: >-
-      echo "export
-      PUPPETEER_CACHE_DIR=/workspace/base-config-nuxt/node_modules/.cache/puppeteer"
-      >> /home/gitpod/.bashrc
+      echo "export PUPPETEER_CACHE_DIR=/app/node_modules/.cache/puppeteer" >>
+      /home/gitpod/.bashrc
 
       echo "eval $(gitpod-env-per-project)" >> /home/gitpod/.bashrc && source /home/gitpod/.bashrc
     init: |-
