@@ -1129,7 +1129,7 @@ export default tester(
       files: {
         'pages/index.vue': endent`
         <template>
-          <form method="POST" class="{ sent }">
+          <form method="POST" :class="{ sent }">
             <button name="submit" type="submit" @submit="send">Send</button>
           </form>
         </template>
