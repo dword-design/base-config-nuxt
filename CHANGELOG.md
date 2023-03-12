@@ -1,3 +1,11 @@
+## [3.2.16](https://github.com/dword-design/base-config-nuxt/compare/v3.2.15...v3.2.16) (2023-03-12)
+
+
+### Bug Fixes
+
+* fix body parser ([6abf784](https://github.com/dword-design/base-config-nuxt/commit/6abf784e09b1b87d8cab39764a4cc73334d9a121))
+* foo ([0632121](https://github.com/dword-design/base-config-nuxt/commit/0632121f8c225c54adf423f7483cdfd8395eada7))
+
 ## [3.2.15](https://github.com/dword-design/base-config-nuxt/compare/v3.2.14...v3.2.15) (2023-02-28)
 
 
