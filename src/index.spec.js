@@ -420,19 +420,6 @@ export default tester(
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-        `,
         'pages/index.vue': endent`
           <template>
             <div />
@@ -884,20 +871,6 @@ export default tester(
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         'page/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
