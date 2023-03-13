@@ -85,10 +85,11 @@ export default tester(
         'modules/foo': {
           'index.js': endent`
           import { delay } from '@dword-design/functions'
+          import { addPlugin } from '@nuxt/kit'
           
           export default async function () {
             await delay(100)
-            this.addPlugin(require.resolve('./plugin'))
+            addPlugin(require.resolve('./plugin'), { append: true })
           }
         `,
           'plugin.js':
@@ -97,7 +98,7 @@ export default tester(
         'config.js': endent`
         export default {
           modules: [
-            '~/modules/foo',
+            './modules/foo',
           ]
         }
       `,
@@ -190,34 +191,6 @@ export default tester(
         )
       },
     },
-    'css class casing': {
-      files: {
-        'pages/index.vue': endent`
-        <template>
-          <div :class="['foo', $style.fooBar]">
-            Hello world
-          </div>
-        </template>
-
-        <style lang="scss" module>
-        .foo-bar {
-          background: red;
-        }
-        </style>
-
-      `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-
-        const handle = await this.page.waitForSelector('.foo')
-
-        const backgroundColor = await handle.evaluate(
-          el => getComputedStyle(el).backgroundColor
-        )
-        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
-      },
-    },
     'dotenv: config': {
       files: {
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
@@ -252,7 +225,7 @@ export default tester(
         'config.js': endent`
           export default {
             modules: [
-              '~/modules/foo',
+              './modules/foo',
             ],
           }
         `,
@@ -288,15 +261,13 @@ export default tester(
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
-    getExpress: {
+    'setup-express.js': {
       files: {
         'api/foo.get.js': endent`
           export default (req, res) => res.json({ foo: 'bar' })
         `,
-        'express.js': endent`
-          import express from 'express'
-
-          export default express().use((req, res, next) => { req.foo = 'bar'; next() })
+        'setup-express.js': endent`
+          export default app => app.use((req, res, next) => { req.foo = 'bar'; next() })
         `,
       },
       test: async () => {
@@ -331,7 +302,7 @@ export default tester(
         )
       },
     },
-    'global foo': {
+    css: {
       files: {
         'assets/style.scss': endent`
         .foo {
@@ -341,7 +312,7 @@ export default tester(
         'config.js': endent`
         export default {
           css: [
-            '~/assets/style.scss',
+            './assets/style.scss',
           ],
         }
       `,
@@ -374,7 +345,7 @@ export default tester(
         'config.js': endent`
           export default {
             modules: [
-              '~/modules/mod',
+              './modules/mod',
             ]
           }
 
@@ -1162,51 +1133,11 @@ export default tester(
         ).toMatch('Home')
       },
     },
-    'sass import': {
-      files: {
-        'node_modules/sass-foo': {
-          'index.scss': endent`
-          $color: red;
-        `,
-          'package.json': endent`
-          {
-            "main": "index.scss"
-          }
-        `,
-        },
-        'pages/index.vue': endent`
-        <template>
-          <div :class="['foo', $style.foo]">
-            Hello world
-          </div>
-        </template>
-
-        <style lang="scss" module>
-        @import '~sass-foo';
-
-        .foo {
-          background: red;
-        }
-        </style>
-
-      `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-
-        const handle = await this.page.waitForSelector('.foo')
-
-        const backgroundColor = await handle.evaluate(
-          el => getComputedStyle(el).backgroundColor
-        )
-        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
-      },
-    },
     sitemap: {
       files: {
         i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
         },
         'layouts/default.vue': endent`
           <template>
@@ -1258,63 +1189,6 @@ export default tester(
             </url>
           </urlset>
         `)
-      },
-    },
-    style: {
-      files: {
-        'pages/index.vue': endent`
-        <template>
-          <div class="foo">
-            Hello world
-          </div>
-        </template>
-
-        <style lang="scss">
-        .foo {
-          background: red;
-        }
-        </style>
-
-      `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-
-        const handle = await this.page.waitForSelector('.foo')
-
-        const backgroundColor = await handle.evaluate(
-          el => getComputedStyle(el).backgroundColor
-        )
-        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
-      },
-    },
-    'style in dev': {
-      dev: true,
-      files: {
-        'pages/index.vue': endent`
-        <template>
-          <div class="foo">
-            Hello world
-          </div>
-        </template>
-
-        <style lang="scss">
-        .foo {
-          background: red;
-        }
-        </style>
-
-      `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-
-        const handle = await this.page.waitForSelector('.foo')
-
-        const backgroundColor = await handle.evaluate(
-          el => getComputedStyle(el).backgroundColor
-        )
-        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
       },
     },
     svg: {
@@ -1403,15 +1277,13 @@ export default tester(
 
           const nuxt = await loadNuxt({
             config: {
-              telemetry: false,
               vite: { logLevel: 'error' },
             },
           })
           if (test.error) {
-            await expect(build(nuxt)).rejects.toThrow(test.error)
+            await expect(buildNuxt(nuxt)).rejects.toThrow(test.error)
           } else {
             await buildNuxt(nuxt)
-
             const childProcess = execaCommand('nuxt start')
             await waitPort({ port: 3000, output: 'silent' })
             try {
@@ -1423,6 +1295,10 @@ export default tester(
         }
       },
     },
+    testerPluginEnv(),
     testerPluginTmpDir(),
+    {
+      beforeEach: () => process.env.NUXT_TELEMETRY_DISABLED = 1
+    }
   ]
 )

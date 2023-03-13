@@ -16,13 +16,12 @@ const jitiOptions = {
 }
 
 const jitiInstance = jiti(options.srcDir, jitiOptions)
-let app
+let app = express().use(express.json()).use(express.urlencoded({ extended: false }))
 try {
-  app = jitiInstance('./express')
+  const setupExpress = jitiInstance('./setup-express')
+  app = setupExpress(app)
 } catch (error) {
-  if (error.message.startsWith("Cannot find module './express'")) {
-    app = express()
-  } else {
+  if (!error.message.startsWith("Cannot find module './express'")) {
     throw error
   }
 }

@@ -13,20 +13,15 @@ export default tester(
   {
     'error in express.js': {
       files: {
-        'express.js': "throw new Error('foo')",
+        'setup-express.js': "throw new Error('foo')",
       },
       runtimeError: 'Error: foo',
     },
-    'express.js': {
+    'setup-express.js': {
       files: {
         'api/foo.get.js':
           'export default (req, res) => res.send({ foo: req.foo })',
-        'express.js': endent`
-          import express from 'express'
-
-          export default express()
-            .use((req, res, next) => { req.foo = 'bar'; next() })
-        `,
+        'setup-express.js': "export default app => app.use((req, res, next) => { req.foo = 'bar'; next() })",
       },
       test: async () => {
         const result =
