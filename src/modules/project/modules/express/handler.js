@@ -23,7 +23,7 @@ try {
   const setupExpress = jitiInstance('./setup-express')
   app = setupExpress(app)
 } catch (error) {
-  if (!error.message.startsWith("Cannot find module './express'")) {
+  if (!error.message.startsWith("Cannot find module './setup-express'")) {
     throw error
   }
 }
