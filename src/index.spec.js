@@ -12,6 +12,7 @@ import P from 'path'
 import kill from 'tree-kill-promise'
 import waitPort from 'wait-port'
 import xmlFormatter from 'xml-formatter'
+import testerPluginEnv from '@dword-design/tester-plugin-env'
 
 import config from './index.js'
 
@@ -91,27 +92,25 @@ export default tester(
         'modules/foo': {
           'index.js': endent`
             import { delay } from '@dword-design/functions'
-            import { addPlugin } from '@nuxt/kit'
+            import { addPlugin, createResolver } from '@nuxt/kit'
+
+            const resolver = createResolver(import.meta.url)
 
             export default async function () {
               await delay(100)
-              addPlugin(require.resolve('./plugin'), { append: true })
+              addPlugin(resolver.resolve('./plugin'), { append: true })
             }
           `,
           'plugin.js':
-            "export default (context, inject) => inject('foo', 'Hello world')",
+            "export default defineNuxtPlugin(() => ({ provide: { foo: 'Hello world' } }))",
         },
         'pages/index.vue': endent`
           <template>
-            <div class="foo">{{ foo }}</div>
+            <div class="foo">{{ $foo }}</div>
           </template>
 
-          <script>
-          export default {
-            asyncData: context => ({
-              foo: context.$foo,
-            }),
-          }
+          <script setup>
+          const { $foo } = useNuxtApp()
           </script>
 
         `,
