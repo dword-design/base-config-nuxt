@@ -113,7 +113,7 @@ export default {
         import dotenv from '@dword-design/dotenv-json-extended'
 
         dotenv.config()
-        
+
         let options
         try {
           const jitiInstance = jiti(process.cwd(), {

@@ -1,6 +1,7 @@
 import { Base } from '@dword-design/base'
 import { endent, endsWith, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
+import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import { buildNuxt, loadNuxt } from '@nuxt/kit'
@@ -12,7 +13,6 @@ import P from 'path'
 import kill from 'tree-kill-promise'
 import waitPort from 'wait-port'
 import xmlFormatter from 'xml-formatter'
-import testerPluginEnv from '@dword-design/tester-plugin-env'
 
 import config from './index.js'
 
@@ -52,10 +52,8 @@ export default tester(
     },
     api: {
       files: {
-        'api/foo.get.js': endent`
-          export default (req, res) => res.json({ foo: 'bar' })
-
-        `,
+        'api/foo.get.js':
+          "export default (req, res) => res.json({ foo: 'bar' })",
       },
       test: async () => {
         const result =
@@ -67,10 +65,7 @@ export default tester(
     },
     'api body': {
       files: {
-        'api/foo.post.js': endent`
-          export default (req, res) => res.json(req.body)
-
-        `,
+        'api/foo.post.js': 'export default (req, res) => res.json(req.body)',
       },
       test: async () => {
         const result =
@@ -124,22 +119,19 @@ export default tester(
     },
     'basic auth': {
       files: {
-        '.env.schema.json':
-          {
-            basicAuthPassword: { type: 'string' },
-            basicAuthUser: { type: 'string' },
-          } |> JSON.stringify,
-        '.test.env.json':
-          { basicAuthPassword: 'bar', basicAuthUser: 'foo' } |> JSON.stringify,
-        'api/foo.get.js': endent`
-          export default (req, res) => res.send('foo')
-
-        `,
+        '.env.schema.json': JSON.stringify({
+          basicAuthPassword: { type: 'string' },
+          basicAuthUser: { type: 'string' },
+        }),
+        '.test.env.json': JSON.stringify({
+          basicAuthPassword: 'bar',
+          basicAuthUser: 'foo',
+        }),
+        'api/foo.get.js': "export default (req, res) => res.send('foo')",
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
-
         `,
       },
       test: async () => {
@@ -229,13 +221,11 @@ export default tester(
           export default {
             name: process.env.FOO,
           }
-
         `,
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
           </template>
-
         `,
       },
       async test() {
@@ -276,13 +266,11 @@ export default tester(
               <div>Footer</div>
             </div>
           </template>
-
         `,
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
-
         `,
       },
       async test() {
@@ -297,13 +285,11 @@ export default tester(
           <template>
             <div class="foo">Hello world</div>
           </template>
-
         `,
         'pages/index.vue': endent`
           <template>
             <foo />
           </template>
-
         `,
       },
       async test() {
@@ -319,18 +305,10 @@ export default tester(
       files: {
         'config.js': endent`
           export default {
-            modules: [
-              './modules/mod',
-            ]
+            modules: ['./modules/mod',]
           }
-
         `,
-        'modules/mod.js': endent`
-          export default function () {
-            this.options.head.script.push('foo')
-          }
-
-        `,
+        'modules/mod.js': "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')"
       },
     },
     'head link': {
@@ -348,7 +326,6 @@ export default tester(
           <template>
             <div />
           </template>
-
         `,
       },
       async test() {
@@ -378,7 +355,6 @@ export default tester(
           <template>
             <div>Hello world</div>
           </template>
-
         `,
       },
       async test() {
@@ -397,14 +373,13 @@ export default tester(
         `,
         'config.js': endent`
           export default {
-            css: ['assets/style.css'],
+            css: ['@/assets/style.css'],
           }
         `,
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
-
         `,
       },
       async test() {
@@ -430,7 +405,6 @@ export default tester(
           <template>
             <div>Hello world</div>
           </template>
-
         `,
       },
       async test() {
@@ -443,8 +417,8 @@ export default tester(
     'i18n: browser language changed': {
       files: {
         i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
         },
         'layouts/default.vue': endent`
           <template>
@@ -458,13 +432,11 @@ export default tester(
             }
           }
           </script>
-
         `,
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
-
         `,
       },
       async test() {
@@ -475,25 +447,6 @@ export default tester(
         })
         await this.page.goto('http://localhost:3000')
         expect(await this.page.url()).toEqual('http://localhost:3000/de')
-      },
-    },
-    'i18n: jsx in layout': {
-      files: {
-        i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
-        },
-        'layouts/default.vue': endent`
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            },
-            render: () => <nuxt />,
-          }
-          </script>
-  
-        `,
       },
     },
     'i18n: middleware': {
@@ -510,29 +463,11 @@ export default tester(
           'de.json': JSON.stringify({}, undefined, 2),
           'en.json': JSON.stringify({}, undefined, 2),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
-        'middleware/foo.js': endent`
-          export default () => {}
-
-        `,
+        'middleware/foo.js': 'export default () => {}',
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
-
         `,
       },
       async test() {
@@ -544,150 +479,16 @@ export default tester(
         )
       },
     },
-    'i18n: no $nuxtI18nHead in default layout': {
-      error: endent`
-        You have to implement $nuxtI18nHead in ${P.join(
-          'layouts',
-          'default.vue',
-        )} like this to make sure that i18n metadata are generated:
-
-        <script>
-        export default {
-          head () {
-            return this.$nuxtI18nHead({ addSeoAttributes: true })
-          }
-        }
-        </script>
-      `,
-      files: {
-        i18n: {
-          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
-          'en.json': JSON.stringify({ foo: 'Hello world' }),
-        },
-        'layouts/default.vue': endent`
-          <script>
-            export default {}
-          </script>
-
-        `,
-      },
-    },
-    'i18n: no $nuxtI18nHead in non-default layout': {
-      error: endent`
-        You have to implement $nuxtI18nHead in ${P.join(
-          'layouts',
-          'foo.vue',
-        )} like this to make sure that i18n metadata are generated:
-
-        <script>
-        export default {
-          head () {
-            return this.$nuxtI18nHead({ addSeoAttributes: true })
-          }
-        }
-        </script>
-      `,
-      files: {
-        i18n: {
-          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
-          'en.json': JSON.stringify({ foo: 'Hello world' }),
-        },
-        layouts: {
-          'default.vue': endent`
-            <template>
-              <nuxt />
-            </template>
-
-            <script>
-            export default {
-              head () {
-                return this.$nuxtI18nHead({ addSeoAttributes: true })
-              }
-            }
-            </script>
-
-          `,
-          'foo.vue': endent`
-            <script>
-              export default {}
-            </script>
-
-          `,
-        },
-      },
-    },
-    'i18n: no layout': {
-      error: endent`
-        You have to implement $nuxtI18nHead in ${P.join(
-          'layouts',
-          'default.vue',
-        )} like this to make sure that i18n metadata are generated:
-
-        <script>
-        export default {
-          head () {
-            return this.$nuxtI18nHead({ addSeoAttributes: true })
-          }
-        }
-        </script>
-      `,
-      files: {
-        i18n: {
-          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
-          'en.json': JSON.stringify({ foo: 'Hello world' }),
-        },
-      },
-    },
-    'i18n: non-layout file in layouts': {
-      files: {
-        i18n: {
-          'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
-          'en.json': JSON.stringify({ foo: 'Hello world' }),
-        },
-        layouts: {
-          '-foo.vue': '',
-          'default.vue': endent`
-            <template>
-              <nuxt />
-            </template>
-
-            <script>
-            export default {
-              head () {
-                return this.$nuxtI18nHead({ addSeoAttributes: true })
-              }
-            }
-            </script>
-
-          `,
-        },
-      },
-    },
     'i18n: root with prefix': {
       files: {
         i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
-
         `,
       },
       async test() {
@@ -698,28 +499,13 @@ export default tester(
     'i18n: root without prefix': {
       files: {
         i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
-
         `,
       },
       async test() {
@@ -733,23 +519,9 @@ export default tester(
     'i18n: route with prefix': {
       files: {
         i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         'pages/foo.vue': endent`
           <template>
             <div />
@@ -765,28 +537,13 @@ export default tester(
     'i18n: route without prefix': {
       files: {
         i18n: {
-          'de.json': JSON.stringify({}, undefined, 2),
-          'en.json': JSON.stringify({}, undefined, 2),
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         'pages/foo.vue': endent`
           <template>
             <div />
           </template>
-
         `,
       },
       async test() {
@@ -800,20 +557,6 @@ export default tester(
     'i18n: single locale': {
       files: {
         'i18n/de.json': JSON.stringify({ foo: 'bar' }),
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         pages: {
           'bar.vue': endent`
             <template>
@@ -866,14 +609,6 @@ export default tester(
         `,
       },
       async test() {
-        // The meta tags were there but `this.$nuxtI18nHead was undefined client-side, which lead to follow-up problems.
-        // Make sure that there are no client-side script errors related to @nuxtjs/i18n.
-        let error
-        this.page.on('console', message => {
-          if (message.type() === 'error') {
-            error = message.text()
-          }
-        })
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
@@ -894,7 +629,6 @@ export default tester(
         await this.page.waitForSelector(
           'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]',
         )
-        expect(error).toBeUndefined()
       },
     },
     'locale link': {
@@ -903,26 +637,11 @@ export default tester(
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
         },
-        'layouts/default.vue': endent`
-          <template>
-            <nuxt />
-          </template>
-
-          <script>
-          export default {
-            head () {
-              return this.$nuxtI18nHead({ addSeoAttributes: true })
-            }
-          }
-          </script>
-
-        `,
         pages: {
           'foo.vue': endent`
             <template>
               <div />
             </template>
-
           `,
           'index.vue': endent`
             <template>
@@ -930,7 +649,6 @@ export default tester(
                 foo
               </nuxt-locale-link>
             </template>
-
           `,
         },
       },
@@ -981,6 +699,27 @@ export default tester(
           'Test-App: This is the ultimate app!',
         )
       },
+    },
+    'nitro and express api': {
+      files: {
+        'api/bar.get.js':
+          "export default (req, res) => res.json({ express: 'bar' })",
+        'server/api/foo.get.js':
+          "export default defineEventHandler(() => ({ nitro: 'foo' }))",
+      },
+      test: async () =>
+        expect(
+          await Promise.all([
+            (async () =>
+              axios.get('http://localhost:3000/api/foo')
+              |> await
+              |> property('data'))(),
+            (async () =>
+              axios.get('http://localhost:3000/api/bar')
+              |> await
+              |> property('data'))(),
+          ]),
+        ).toEqual([{ nitro: 'foo' }, { express: 'bar' }]),
     },
     'page with title': {
       files: {
@@ -1275,8 +1014,8 @@ export default tester(
 
           const nuxt = await loadNuxt({
             config: {
-              vite: { logLevel: 'error' },
               telemetry: false,
+              vite: { logLevel: 'error' },
             },
           })
           if (test.error) {

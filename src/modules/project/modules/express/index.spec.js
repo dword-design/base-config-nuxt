@@ -11,6 +11,19 @@ import waitPort from 'wait-port'
 
 export default tester(
   {
+    'basic auth': {
+      files: {
+        'api/foo.get.js': "export default (req, res) => res.send('foo')",
+      },
+      init: () => {
+        process.env.BASIC_AUTH_USER = 'foo'
+        process.env.BASIC_AUTH_PASSWORD = 'bar'
+      },
+      test: () =>
+        expect(
+          axios.get('http://localhost:3000/api/foo'),
+        ).rejects.toHaveProperty('response.status', 401),
+    },
     'error in express.js': {
       files: {
         'setup-express.js': "throw new Error('foo')",
@@ -87,9 +100,10 @@ export default tester(
   },
   [
     testerPluginTmpDir(),
+    testerPluginEnv(),
     {
       transform: config => {
-        config = { output: '', test: () => {}, ...config }
+        config = { init: () => {}, output: '', test: () => {}, ...config }
 
         return async () => {
           await outputFiles({
@@ -100,6 +114,7 @@ export default tester(
             `,
             ...config.files,
           })
+          await config.init()
 
           const nuxt = await loadNuxt({
             overrides: { telemetry: false, vite: { logLevel: 'error' } },
