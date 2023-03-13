@@ -256,28 +256,6 @@ export default tester(
         `,
       },
     },
-    'error page': {
-      files: {
-        'layouts/default.vue': endent`
-          <template>
-            <div>
-              <nuxt />
-              <div>Footer</div>
-            </div>
-          </template>
-        `,
-        'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
-        `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000/foo')
-        await this.page.waitForSelector('.__nuxt-error-page')
-        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
-      },
-    },
     'global components': {
       files: {
         'components/foo.vue': endent`
@@ -307,7 +285,8 @@ export default tester(
             modules: ['./modules/mod',]
           }
         `,
-        'modules/mod.js': "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')"
+        'modules/mod.js':
+          "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
       },
     },
     'head link': {
@@ -339,28 +318,6 @@ export default tester(
             link.evaluate(el => el.getAttribute('href')),
           ]),
         ).toEqual(['alternate', 'application/rss+xml', 'Blog', '/feed'])
-      },
-    },
-    headAttrs: {
-      files: {
-        'config.js': endent`
-          export default {
-            headAttrs: {
-              class: 'foo bar',
-            },
-          }
-        `,
-        'pages/index.vue': endent`
-          <template>
-            <div>Hello world</div>
-          </template>
-        `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.$eval('head', el => el.className)).toEqual(
-          'foo bar',
-        )
       },
     },
     hexrgba: {
@@ -900,31 +857,59 @@ export default tester(
         `)
       },
     },
-    svg: {
+    'svg inline': {
       files: {
-        'assets/foo.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
+        'assets/icon.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
         'pages/index.vue': endent`
           <template>
-            <Foo class="svg" />
+            <icon class="icon" />
           </template>
 
           <script>
-          import Foo from '@/assets/foo.svg'
+          import Icon from '@/assets/icon.svg'
 
           export default {
             components: {
-              Foo,
+              Icon,
             },
           }
           </script>
-
         `,
       },
       async test() {
         await this.page.goto('http://localhost:3000')
 
-        const handle = await this.page.waitForSelector('.svg')
-        expect(await handle.evaluate(foo => foo.tagName)).toEqual('svg')
+        const icon = await this.page.waitForSelector('.icon')
+        expect(await icon.evaluate(el => el.tagName)).toEqual('svg')
+      },
+    },
+    'svg url': {
+      files: {
+        'assets/image.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
+        'pages/index.vue': endent`
+          <template>
+            <img class="image" :src="imageUrl" />
+          </template>
+
+          <script>
+          import imageUrl from '@/assets/image.svg?url'
+
+          export default {
+            computed: {
+              imageUrl: () => imageUrl,
+            },
+          }
+          </script>
+        `,
+      },
+      async test() {
+        await this.page.goto('http://localhost:3000')
+
+        const image = await this.page.waitForSelector('.image')
+        expect(await image.evaluate(el => el.tagName)).toEqual('IMG')
+        expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
+          '/_nuxt/image.f5ec4d95.svg',
+        )
       },
     },
     userScalable: {
@@ -986,8 +971,8 @@ export default tester(
 
           const nuxt = await loadNuxt({
             config: {
-              telemetry: false,
               vite: { logLevel: 'error' },
+              telemetry: false,
             },
           })
           if (test.error) {

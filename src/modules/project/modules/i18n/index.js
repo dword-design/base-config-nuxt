@@ -5,7 +5,7 @@ import P from 'path'
 
 const defaultLocale = 'en'
 
-export default async (moduleOptions, nuxt) => {
+export default async (options, nuxt) => {
   const localeFiles = await globby('*.json', {
     cwd: P.join(nuxt.options.srcDir, 'i18n'),
   })

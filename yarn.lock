@@ -1642,7 +1642,7 @@
     fast-json-parse "^1.0.3"
     objectorarray "^1.0.3"
 
-"@dword-design/eslint-config@^3.0.1", "@dword-design/eslint-config@^3.0.6":
+"@dword-design/eslint-config@^3.0.6":
   version "3.0.13"
   resolved "https://registry.yarnpkg.com/@dword-design/eslint-config/-/eslint-config-3.0.13.tgz#06826d8591f7f65f2670ea7a32e5d239f84821c8"
   integrity sha512-tJmoh0vd1YO1CnKDgNOoQ7gXoOehFOTBSVhCVdYkiZtIkKOulyhIOwe+4Zunw5zTP9/QdnuefsFQytF1D9RohQ==
