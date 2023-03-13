@@ -82,10 +82,10 @@ export default async (options, nuxt) => {
       },
     ],
     dotenvModule,
-    /* [
+    [
       packageName`@nuxtjs/stylelint-module`,
       { allowEmptyInput: true, failOnWarning: true, fix: true },
-    ], */
+    ],
     i18nModule,
     expressModule,
     svgModule,

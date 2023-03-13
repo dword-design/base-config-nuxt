@@ -31,6 +31,7 @@
     "@dword-design/stylelint-config": "^2.0.0",
     "@nuxt/kit": "^3.2.3",
     "@nuxtjs/i18n": "^8.0.0-beta.10",
+    "@nuxtjs/stylelint-module": "^5.0.1",
     "depcheck-package-name": "^3.0.0",
     "depcheck-parser-vue": "^3.0.1",
     "execa": "^6.1.0",
