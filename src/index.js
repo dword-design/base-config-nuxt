@@ -110,7 +110,10 @@ export default {
         import projectModule from '${projectModulePath}'
         import jiti from 'jiti'
         import babelConfig from '@dword-design/babel-config'
+        import dotenv from '@dword-design/dotenv-json-extended'
 
+        dotenv.config()
+        
         let options
         try {
           const jitiInstance = jiti(process.cwd(), {
