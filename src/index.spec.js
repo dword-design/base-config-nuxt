@@ -214,8 +214,8 @@ export default tester(
     },
     'dotenv: config': {
       files: {
-        '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
-        '.test.env.json': { foo: 'Bar' } |> JSON.stringify,
+        '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+        '.test.env.json': JSON.stringify({ foo: 'Bar' }),
         'config.js': endent`
           export default {
             name: process.env.FOO,

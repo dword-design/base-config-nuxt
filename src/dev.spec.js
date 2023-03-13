@@ -16,7 +16,7 @@ export default tester(
   {
     async valid() {
       await outputFiles({
-        'package.json': JSON.stringify({}),
+        'package.json': JSON.stringify({ type: 'module' }),
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
@@ -27,7 +27,7 @@ export default tester(
       const base = new Base(config)
       await base.prepare()
 
-      const nuxt = await self()
+      const nuxt = self()
       try {
         await portReady(3000)
         await this.page.goto('http://localhost:3000')

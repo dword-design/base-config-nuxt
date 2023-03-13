@@ -93,17 +93,19 @@ export default {
         </template>
 
         <script setup>
-        if (typeof useLocaleHead !== 'undefined') {
-          const i18nHead = useLocaleHead({ addSeoAttributes: true })
+        const i18nHead = typeof useLocaleHead === 'function' ? useLocaleHead({ addSeoAttributes: true }) : undefined
+        const runtimeConfig = useRuntimeConfig()
 
-          useHead({
+        useHead({
+          ...i18nHead !== undefined && {
             htmlAttrs: {
               lang: i18nHead.value.htmlAttrs.lang,
             },
             link: i18nHead.value.link,
             meta: i18nHead.value.meta,
-          })
-        }
+          },
+          titleTemplate: title => title ? \`\${title} | \$\{runtimeConfig.name}\` : \`\${runtimeConfig.name}: \${runtimeConfig.title}\`,
+        })
         </script>
       `,
       'nuxt.config.js': endent`
