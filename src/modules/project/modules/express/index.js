@@ -12,13 +12,13 @@ export default (options, nuxt) => {
       `export default ${JSON.stringify(
         { srcDir: nuxt.options.srcDir },
         undefined,
-        2
+        2,
       )}`,
     write: true,
   })
   nuxt.options.alias[`#${moduleName}`] = P.resolve(
     nuxt.options.buildDir,
-    moduleName
+    moduleName,
   )
   addServerHandler({ handler: resolver.resolve('./handler') })
 }

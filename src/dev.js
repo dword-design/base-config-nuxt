@@ -1,3 +1,3 @@
 import { execaCommand } from 'execa'
 
-export default async () => execaCommand('nuxt dev')
+export default () => execaCommand('nuxt dev')

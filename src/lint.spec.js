@@ -13,9 +13,9 @@ export default tester(
     'css error': async () => {
       await outputFiles({
         'assets/style.scss': endent`
-        foo bar
+          foo bar
 
-      `,
+        `,
         'node_modules/base-config-self/index.js':
           "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
@@ -23,7 +23,7 @@ export default tester(
             baseConfig: 'self',
           },
           undefined,
-          2
+          2,
         ),
       })
       await new Base(config).prepare()
@@ -38,19 +38,19 @@ export default tester(
             baseConfig: 'self',
           },
           undefined,
-          2
+          2,
         ),
       })
       await new Base(config).prepare()
       await fs.outputFile(
         'coverage/foo.scss',
         endent`
-      foo bar
+          foo bar
 
-    `
+        `,
       )
       await self()
     },
   },
-  [testerPluginTmpDir()]
+  [testerPluginTmpDir()],
 )

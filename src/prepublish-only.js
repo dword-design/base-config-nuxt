@@ -7,7 +7,11 @@ import lint from './lint.js'
 export default async (options = {}) => {
   await lint()
 
-  const nuxt = await loadNuxt({ ...options.log === false ? { overrides: { vite: { logLevel: 'error' } } } : {} })
+  const nuxt = await loadNuxt({
+    ...(options.log === false
+      ? { overrides: { vite: { logLevel: 'error' } } }
+      : {}),
+  })
   await buildNuxt(nuxt)
   if (await fs.exists('model')) {
     await fs.remove('dist')
@@ -22,7 +26,7 @@ export default async (options = {}) => {
         '**/*.spec.js',
         'model',
       ],
-      { stdio: options.log === false ? 'ignore' : 'inherit' }
+      { stdio: options.log === false ? 'ignore' : 'inherit' },
     )
   }
 }

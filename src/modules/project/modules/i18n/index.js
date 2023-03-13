@@ -22,13 +22,11 @@ export default async (moduleOptions, nuxt) => {
             },
       langDir: 'i18n',
       lazy: true,
-      locales:
-        localeFiles
-        .map(filename => {
-          const code = P.basename(filename, '.json')
+      locales: localeFiles.map(filename => {
+        const code = P.basename(filename, '.json')
 
-          return { code, file: filename, iso: code }
-        }),
+        return { code, file: filename, iso: code }
+      }),
       strategy: localeFiles.length === 1 ? 'no_prefix' : 'prefix',
       ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
     })

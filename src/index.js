@@ -2,8 +2,8 @@ import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
-import outputFiles from 'output-files'
 import { createRequire } from 'module'
+import outputFiles from 'output-files'
 import P from 'path'
 
 import analyze from './analyze.js'
@@ -57,22 +57,55 @@ export default {
     'nuxt.config.js',
   ],
   eslintConfig,
-  gitignore: ['/.eslintcache', '/.nuxt', '/app.vue', '/dist', '/nuxt.config.js'],
+  gitignore: [
+    '/.eslintcache',
+    '/.nuxt',
+    '/app.vue',
+    '/dist',
+    '/nuxt.config.js',
+  ],
   lint,
   npmPublish: true,
   packageConfig: {
     main: 'dist/index.js',
   },
   prepare: () => {
-    const projectModulePath = `./${P.relative(process.cwd(), _require.resolve('./modules/project/index.js')).split(P.sep).join('/')}`
+    const projectModulePath = `./${P.relative(
+      process.cwd(),
+      _require.resolve('./modules/project/index.js'),
+    )
+      .split(P.sep)
+      .join('/')}`
+
     return outputFiles({
       '.stylelintrc.json': JSON.stringify(
         {
           extends: packageName`@dword-design/stylelint-config`,
         },
         undefined,
-        2
+        2,
       ),
+      'app.vue': endent`
+        <template>
+          <NuxtLayout>
+            <NuxtPage />
+          </NuxtLayout>
+        </template>
+
+        <script setup>
+        if (typeof useLocaleHead !== 'undefined') {
+          const i18nHead = useLocaleHead({ addSeoAttributes: true })
+
+          useHead({
+            htmlAttrs: {
+              lang: i18nHead.value.htmlAttrs.lang,
+            },
+            link: i18nHead.value.link,
+            meta: i18nHead.value.meta,
+          })
+        }
+        </script>
+      `,
       'nuxt.config.js': endent`
         import projectModule from '${projectModulePath}'
         import jiti from 'jiti'
@@ -101,27 +134,6 @@ export default {
             [projectModule, options],
           ],
         }
-      `,
-      'app.vue': endent`
-        <template>
-          <NuxtLayout>
-            <NuxtPage />
-          </NuxtLayout>
-        </template>
-
-        <script setup>
-        if (typeof useLocaleHead !== 'undefined') {
-          const i18nHead = useLocaleHead({ addSeoAttributes: true })
-
-          useHead({
-            htmlAttrs: {
-              lang: i18nHead.value.htmlAttrs.lang,
-            },
-            link: i18nHead.value.link,
-            meta: i18nHead.value.meta,
-          })
-        }
-        </script>
       `,
     })
   },

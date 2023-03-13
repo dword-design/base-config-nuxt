@@ -37,15 +37,14 @@ export default async (options, nuxt) => {
   nuxt.options.app.head.meta.push(
     { charset: 'utf-8' },
     {
-      content:
-        [
-          'width=device-width',
-          'initial-scale=1',
-          ...(projectConfig.userScalable ? [] : ['user-scalable=0']),
-        ].join(', '),
+      content: [
+        'width=device-width',
+        'initial-scale=1',
+        ...(projectConfig.userScalable ? [] : ['user-scalable=0']),
+      ].join(', '),
       name: 'viewport',
     },
-    { content: projectConfig.name, hid: 'description', name: 'description' }
+    { content: projectConfig.name, hid: 'description', name: 'description' },
   )
   if (projectConfig.ogImage) {
     nuxt.options.app.head.meta.push({
@@ -70,7 +69,7 @@ export default async (options, nuxt) => {
   })
   Object.assign(
     nuxt.options,
-    omit(Object.keys({ ...defaultConfig, ...nuxt.options }))(projectConfig)
+    omit(Object.keys({ ...defaultConfig, ...nuxt.options }))(projectConfig),
   )
 
   const modules = [
@@ -90,7 +89,7 @@ export default async (options, nuxt) => {
     i18nModule,
     expressModule,
     svgModule,
-    ...projectConfig.modules || [],
+    ...(projectConfig.modules || []),
   ]
   for (let module of modules) {
     module = [].concat(module)

@@ -16,7 +16,9 @@ const jitiOptions = {
 }
 
 const jitiInstance = jiti(options.srcDir, jitiOptions)
-let app = express().use(express.json()).use(express.urlencoded({ extended: false }))
+let app = express()
+  .use(express.json())
+  .use(express.urlencoded({ extended: false }))
 try {
   const setupExpress = jitiInstance('./setup-express')
   app = setupExpress(app)
@@ -30,7 +32,7 @@ app.use(
   mountFiles(P.resolve(options.srcDir, 'api'), {
     jitiOptions,
     paramChar: '_',
-  })
+  }),
 )
 
 export default fromNodeMiddleware(app)
