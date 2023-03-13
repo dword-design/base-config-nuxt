@@ -199,7 +199,7 @@ export default tester(
         'config.js': endent`
           export default {
             css: [
-              './assets/style.scss',
+              '@/assets/style.scss',
             ],
           }
         `,
