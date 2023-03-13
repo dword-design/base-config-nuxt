@@ -1,19 +1,17 @@
-import babelConfig from '@dword-design/babel-config'
-import { join, keys, omit } from '@dword-design/functions'
+import { omit } from '@dword-design/functions'
 import { addPlugin, addTemplate, installModule } from '@nuxt/kit'
 import packageName from 'depcheck-package-name'
-import jiti from 'jiti'
 import { createRequire } from 'module'
 import P from 'path'
 
 import dotenvModule from './modules/dotenv.js'
+import expressModule from './modules/express/index.js'
 import i18nModule from './modules/i18n/index.js'
-import serverMiddlewareModule from './modules/server-middleware/index.js'
 import svgModule from './modules/svg.js'
 
 const _require = createRequire(import.meta.url)
 
-export default async function (moduleOptions, nuxt) {
+export default async (options, nuxt) => {
   const defaultConfig = {
     bodyAttrs: {},
     css: [_require.resolve('./style.css')],
@@ -26,28 +24,11 @@ export default async function (moduleOptions, nuxt) {
     router: {},
     userScalable: true,
   }
-  let localConfig
-  try {
-    const jitiInstance = jiti(nuxt.options.rootDir, {
-      esmResolve: true,
-      interopDefault: true,
-      transformOptions: {
-        babel: babelConfig,
-      },
-    })
-    localConfig = jitiInstance('./nuxt.config.js')
-  } catch (error) {
-    if (error.message.startsWith("Cannot find module './nuxt.config.js'\n")) {
-      localConfig = {}
-    } else {
-      throw error
-    }
-  }
 
   const projectConfig = {
     ...defaultConfig,
-    ...localConfig,
-    css: [...defaultConfig.css, ...(localConfig.css || [])],
+    ...options,
+    css: [...defaultConfig.css, ...(options.css || [])],
   }
   // this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
   nuxt.options.runtimeConfig.public.name = projectConfig.name
@@ -61,7 +42,7 @@ export default async function (moduleOptions, nuxt) {
           'width=device-width',
           'initial-scale=1',
           ...(projectConfig.userScalable ? [] : ['user-scalable=0']),
-        ] |> join(', '),
+        ].join(', '),
       name: 'viewport',
     },
     { content: projectConfig.name, hid: 'description', name: 'description' }
@@ -89,7 +70,7 @@ export default async function (moduleOptions, nuxt) {
   })
   Object.assign(
     nuxt.options,
-    projectConfig |> omit({ ...defaultConfig, ...nuxt.options } |> keys)
+    omit(Object.keys({ ...defaultConfig, ...nuxt.options }))(projectConfig)
   )
 
   const modules = [
@@ -107,9 +88,9 @@ export default async function (moduleOptions, nuxt) {
       { allowEmptyInput: true, failOnWarning: true, fix: true },
     ], */
     i18nModule,
-    // [serverMiddlewareModule, { getExpress: projectConfig.getExpress }],
+    expressModule,
     svgModule,
-    ...projectConfig.modules,
+    ...projectConfig.modules || [],
   ]
   for (let module of modules) {
     module = [].concat(module)

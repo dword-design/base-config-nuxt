@@ -3,17 +3,18 @@ import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
 import outputFiles from 'output-files'
+import { createRequire } from 'module'
+import P from 'path'
 
 import analyze from './analyze.js'
 import depcheckSpecial from './depcheck-special.js'
 import dev from './dev.js'
 import eslintConfig from './eslint.config.js'
-import getNuxtConfig from './get-nuxt-config.js'
 import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
 import start from './start.js'
 
-export { getNuxtConfig }
+const _require = createRequire(import.meta.url)
 
 export default {
   allowedMatches: [
@@ -27,7 +28,7 @@ export default {
     'middleware',
     'model',
     'modules',
-    'nuxt.config.js',
+    'config.js',
     'pages',
     'plugins',
     'static',
@@ -53,16 +54,18 @@ export default {
     '.nuxt',
     'app.vue',
     'dist',
+    'nuxt.config.js',
   ],
   eslintConfig,
-  gitignore: ['/.eslintcache', '/.nuxt', '/app.vue', '/dist'],
+  gitignore: ['/.eslintcache', '/.nuxt', '/app.vue', '/dist', '/nuxt.config.js'],
   lint,
   npmPublish: true,
   packageConfig: {
     main: 'dist/index.js',
   },
-  prepare: () =>
-    outputFiles({
+  prepare: () => {
+    const projectModulePath = `./${P.relative(process.cwd(), _require.resolve('./modules/project/index.js')).split(P.sep).join('/')}`
+    return outputFiles({
       '.stylelintrc.json': JSON.stringify(
         {
           extends: packageName`@dword-design/stylelint-config`,
@@ -70,6 +73,35 @@ export default {
         undefined,
         2
       ),
+      'nuxt.config.js': endent`
+        import projectModule from '${projectModulePath}'
+        import jiti from 'jiti'
+        import babelConfig from '@dword-design/babel-config'
+
+        let options
+        try {
+          const jitiInstance = jiti(process.cwd(), {
+            esmResolve: true,
+            interopDefault: true,
+            transformOptions: {
+              babel: babelConfig,
+            },
+          })
+          options = jitiInstance('./config.js')
+        } catch (error) {
+          if (error.message.startsWith("Cannot find module './config.js'\\n")) {
+            options = {}
+          } else {
+            throw error
+          }
+        }
+
+        export default {
+          modules: [
+            [projectModule, options],
+          ],
+        }
+      `,
       'app.vue': endent`
         <template>
           <NuxtLayout>
@@ -91,6 +123,7 @@ export default {
         }
         </script>
       `,
-    }),
+    })
+  },
   useJobMatrix: true,
 }

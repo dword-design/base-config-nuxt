@@ -4,18 +4,16 @@ import tester from '@dword-design/tester'
 import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import { loadNuxt } from '@nuxt/kit'
+import { loadNuxt, buildNuxt } from '@nuxt/kit'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
 import { execaCommand } from 'execa'
-import { build } from 'nuxt'
 import outputFiles from 'output-files'
-import { pEvent } from 'p-event'
+import waitPort from 'wait-port'
 import P from 'path'
 import kill from 'tree-kill-promise'
 import xmlFormatter from 'xml-formatter'
 
-import self from './get-nuxt-config.js'
 import config from './index.js'
 
 export default tester(
@@ -96,7 +94,7 @@ export default tester(
           'plugin.js':
             "export default (context, inject) => inject('foo', 'Hello world')",
         },
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           modules: [
             '~/modules/foo',
@@ -171,7 +169,7 @@ export default tester(
     },
     bodyAttrs: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           bodyAttrs: {
             class: 'foo bar',
@@ -224,7 +222,7 @@ export default tester(
       files: {
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
         '.test.env.json': { foo: 'Bar' } |> JSON.stringify,
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             name: process.env.FOO,
           }
@@ -251,7 +249,7 @@ export default tester(
             expect(process.env.FOO).toEqual('bar')
           }
         `,
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             modules: [
               '~/modules/foo',
@@ -293,16 +291,12 @@ export default tester(
     getExpress: {
       files: {
         'api/foo.get.js': endent`
-        export default (req, res) => res.json({ foo: 'bar' })
-
-      `,
-        'nuxt.config.js': endent`
+          export default (req, res) => res.json({ foo: 'bar' })
+        `,
+        'express.js': endent`
           import express from 'express'
 
-          export default {
-            getExpress: () => express().use((req, res, next) => { req.foo = 'bar'; next() }),
-          }
-
+          export default express().use((req, res, next) => { req.foo = 'bar'; next() })
         `,
       },
       test: async () => {
@@ -344,7 +338,7 @@ export default tester(
           background: red;
         }
       `,
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           css: [
             '~/assets/style.scss',
@@ -377,7 +371,7 @@ export default tester(
           }
 
         `,
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             modules: [
               '~/modules/mod',
@@ -389,7 +383,7 @@ export default tester(
     },
     'head link': {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           head: {
             link: [
@@ -421,7 +415,7 @@ export default tester(
     },
     headAttrs: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           headAttrs: {
             class: 'foo bar',
@@ -449,7 +443,7 @@ export default tester(
           background: rgba(#fff, .5);
         }
       `,
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           css: ['assets/style.css'],
         }
@@ -473,7 +467,7 @@ export default tester(
     },
     htmlAttrs: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           htmlAttrs: {
             class: 'foo bar',
@@ -574,7 +568,7 @@ export default tester(
         export default () => {}
 
       `,
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           router: {
             middleware: ['foo']
@@ -905,7 +899,7 @@ export default tester(
           'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
           'en.json': JSON.stringify({ foo: 'Hello world' }),
         },
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             htmlAttrs: { style: 'background: red' },
             head: {
@@ -997,7 +991,7 @@ export default tester(
     },
     name: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           name: 'Test-App',
         }
@@ -1016,7 +1010,7 @@ export default tester(
     },
     'name and title': {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           name: 'Test-App',
           title: 'This is the ultimate app!',
@@ -1038,7 +1032,7 @@ export default tester(
     },
     'page with title': {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           name: 'Test-App',
           title: 'This is the ultimate app!',
@@ -1137,7 +1131,7 @@ export default tester(
     },
     'router config': {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           router: {
             linkActiveClass: 'is-active',
@@ -1228,7 +1222,7 @@ export default tester(
           </script>
 
         `,
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           modules: [
             '${packageName`@nuxtjs/sitemap`}',
@@ -1352,7 +1346,7 @@ export default tester(
     },
     userScalable: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
         export default {
           userScalable: false,
         }
@@ -1409,23 +1403,17 @@ export default tester(
 
           const nuxt = await loadNuxt({
             config: {
-              ...self(),
               telemetry: false,
               vite: { logLevel: 'error' },
             },
-            dev: !!test.dev,
           })
           if (test.error) {
             await expect(build(nuxt)).rejects.toThrow(test.error)
           } else {
-            await build(nuxt)
+            await buildNuxt(nuxt)
 
-            const childProcess = execaCommand('nuxt start', { all: true })
-            await pEvent(
-              childProcess.all,
-              'data',
-              data => data.toString() === 'Listening http://[::]:3000\n'
-            )
+            const childProcess = execaCommand('nuxt start')
+            await waitPort({ port: 3000, output: 'silent' })
             try {
               await test.test.call(this)
             } finally {

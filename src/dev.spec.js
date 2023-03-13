@@ -7,6 +7,7 @@ import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import P from 'path'
 import portReady from 'port-ready'
+import kill from 'tree-kill-promise'
 
 import self from './dev.js'
 import config from './index.js'
@@ -26,7 +27,7 @@ export default tester(
       const base = new Base(config)
       await base.prepare()
 
-      const nuxt = await self({ build: { babel: { cacheDirectory: false } } })
+      const nuxt = await self()
       try {
         await portReady(3000)
         await this.page.goto('http://localhost:3000')
@@ -47,7 +48,7 @@ export default tester(
           'Hello world'
         )
       } finally {
-        await nuxt.close()
+        await kill(nuxt.pid)
       }
     },
   },

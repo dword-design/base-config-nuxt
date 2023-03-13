@@ -1,15 +1,3 @@
-import { loadNuxt } from '@nuxt/kit'
-import { build } from 'nuxt'
+import { execaCommand } from 'execa'
 
-import getNuxtConfig from './get-nuxt-config.js'
-
-export default async nuxtConfig => {
-  const nuxt = await loadNuxt({
-    config: { ...getNuxtConfig(), ...nuxtConfig },
-    dev: true,
-  })
-  await build(nuxt)
-  await nuxt.listen()
-
-  return nuxt
-}
+export default async () => execaCommand('nuxt dev')

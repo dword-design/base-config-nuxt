@@ -1,21 +1,14 @@
-import { loadNuxt } from '@nuxt/kit'
+import { buildNuxt, loadNuxt } from '@nuxt/kit'
 import { execa } from 'execa'
 import fs from 'fs-extra'
-import { build } from 'nuxt'
 
-import getNuxtConfig from './get-nuxt-config.js'
 import lint from './lint.js'
 
 export default async (options = {}) => {
   await lint()
 
-  const nuxt = await loadNuxt({
-    config: {
-      ...getNuxtConfig(),
-      rootDir: options.rootDir,
-    },
-  })
-  await build(nuxt)
+  const nuxt = await loadNuxt({ ...options.log === false ? { overrides: { vite: { logLevel: 'error' } } } : {} })
+  await buildNuxt(nuxt)
   if (await fs.exists('model')) {
     await fs.remove('dist')
     await execa(

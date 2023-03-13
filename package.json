@@ -23,8 +23,6 @@
     "test:raw": "base test:raw"
   },
   "dependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/traverse": "^7.16.3",
     "@dword-design/babel-config": "^2.1.1",
     "@dword-design/depcheck-parser-sass": "^3.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
@@ -32,11 +30,7 @@
     "@dword-design/functions": "^4.0.0",
     "@dword-design/stylelint-config": "^2.0.0",
     "@nuxt/kit": "^3.2.3",
-    "@nuxtjs/axios": "^5.10.3",
-    "@nuxtjs/eslint-module": "^3.0.0",
     "@nuxtjs/i18n": "^8.0.0-beta.10",
-    "@nuxtjs/stylelint-module": "^4.0.0",
-    "@vue/compiler-sfc": "^3.2.47",
     "depcheck-package-name": "^3.0.0",
     "depcheck-parser-vue": "^3.0.1",
     "execa": "^6.1.0",
@@ -48,13 +42,8 @@
     "nuxt": "^3.2.3",
     "nuxt-babel-runtime": "^3.0.0",
     "nuxt-basic-auth": "^1.0.2",
-    "nuxt-basic-auth-module": "^1.4.1",
-    "nuxt-push-plugins": "^2.0.0",
-    "nuxt-svg-loader": "^1.2.0",
     "output-files": "^2.0.0",
     "p-event": "^5.0.1",
-    "promise-sequential": "^1.1.1",
-    "raw-loader": "^4.0.1",
     "sass": "^1.34.0",
     "sass-loader": "^10.0.0",
     "stylelint": "^13.6.0",
@@ -64,17 +53,19 @@
     "@dword-design/base": "^9.0.0",
     "@dword-design/puppeteer": "^6.0.0",
     "@dword-design/tester": "^2.0.9",
-    "@dword-design/tester-plugin-env": "^2.0.8",
-    "@dword-design/tester-plugin-nuxt-config": "^1.1.11",
+    "@dword-design/tester-plugin-env": "^2.0.11",
     "@dword-design/tester-plugin-puppeteer": "^2.1.19",
     "@dword-design/tester-plugin-tmp-dir": "^2.1.3",
     "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.22.0",
-    "child-process-promise": "^2.2.1",
     "depcheck": "^1.4.2",
     "port-ready": "^0.1.0",
     "tree-kill-promise": "^3.0.1",
+    "wait-port": "^1.0.4",
     "xml-formatter": "^3.2.0"
+  },
+  "peerDependencies": {
+    "h3": "*"
   },
   "engines": {
     "node": ">=14"
