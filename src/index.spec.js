@@ -1,7 +1,6 @@
 import { Base } from '@dword-design/base'
 import { endent, endsWith, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
-import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import { buildNuxt, loadNuxt } from '@nuxt/kit'
