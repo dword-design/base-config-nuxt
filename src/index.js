@@ -102,7 +102,7 @@ export default {
             link: i18nHead.value.link,
             meta: i18nHead.value.meta,
           },
-          titleTemplate: title => title ? \`\${title} | \$\{runtimeConfig.name}\` : \`\${runtimeConfig.name}: \${runtimeConfig.title}\`,
+          titleTemplate: title => title ? \`\${title} | \$\{runtimeConfig.name}\` : \`\${runtimeConfig.name}\${runtimeConfig.title ? \`: \${runtimeConfig.title}\` : ''}\`,
         })
         </script>
       `,

@@ -971,8 +971,8 @@ export default tester(
 
           const nuxt = await loadNuxt({
             config: {
-              vite: { logLevel: 'error' },
               telemetry: false,
+              vite: { logLevel: 'error' },
             },
           })
           if (test.error) {
