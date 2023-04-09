@@ -20,7 +20,7 @@ export default async function (options) {
           },
         },
         paramChar: '_',
-      })
+      }),
     )
     this.addServerMiddleware({ handler: app, path: '/api' })
     this.options.watch.push(P.join(this.options.srcDir, 'api'))

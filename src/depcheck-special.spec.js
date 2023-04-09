@@ -11,56 +11,56 @@ export default tester(
     'array syntax': {
       files: {
         'nuxt.config.js': endent`
-        export default {
-          modules: [
-            ['foo', { bar: 'baz' }],
-          ],
-        }
-      `,
+          export default {
+            modules: [
+              ['foo', { bar: 'baz' }],
+            ],
+          }
+        `,
       },
     },
     'babel feature': {
       files: {
         'nuxt.config.js': endent`
-        export default {
-          modules: ['foo'],
-          foo: 1 |> x => x * 2,
-        }
-      `,
+          export default {
+            modules: ['foo'],
+            foo: 1 |> x => x * 2,
+          }
+        `,
       },
     },
     buildModules: {
       files: {
         'nuxt.config.js': endent`
-        export default {
-          buildModules: [
-            'foo',
-          ],
-        }
-      `,
+          export default {
+            buildModules: [
+              'foo',
+            ],
+          }
+        `,
       },
     },
     function: {
       files: {
         'nuxt.config.js': endent`
-        export default {
-          modules: [
-            'foo',
-            () => {},
-          ],
-        }
-      `,
+          export default {
+            modules: [
+              'foo',
+              () => {},
+            ],
+          }
+        `,
       },
     },
     modules: {
       files: {
         'nuxt.config.js': endent`
-        export default {
-          modules: [
-            'foo',
-          ],
-        }
-      `,
+          export default {
+            modules: [
+              'foo',
+            ],
+          }
+        `,
       },
     },
     'unused dependency': { fail: true },
@@ -74,7 +74,7 @@ export default tester(
               extends: '@dword-design/babel-config',
             },
             undefined,
-            2
+            2,
           ),
           ...config.files,
         })
@@ -91,5 +91,5 @@ export default tester(
       },
     },
     testerPluginTmpDir(),
-  ]
+  ],
 )

@@ -17,10 +17,10 @@ export default tester(
       await outputFiles({
         'package.json': JSON.stringify({}),
         'pages/index.vue': endent`
-        <template>
-          <div class="foo">Hello world</div>
-        </template>
-      `,
+          <template>
+            <div class="foo">Hello world</div>
+          </template>
+        `,
       })
 
       const base = new Base(config)
@@ -32,24 +32,24 @@ export default tester(
         await this.page.goto('http://localhost:3000')
         let handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(el => el.textContent)).toEqual(
-          'Hello world'
+          'Hello world',
         )
         await fs.outputFile(
           P.join('pages', 'index.vue'),
           endent`
-          <template>
-            <div class="bar">Hello world</div>
-          </template>
-        `
+            <template>
+              <div class="bar">Hello world</div>
+            </template>
+          `,
         )
         handle = await this.page.waitForSelector('.bar')
         expect(await handle.evaluate(el => el.textContent)).toEqual(
-          'Hello world'
+          'Hello world',
         )
       } finally {
         await nuxt.close()
       }
     },
   },
-  [testerPluginPuppeteer(), testerPluginTmpDir()]
+  [testerPluginPuppeteer(), testerPluginTmpDir()],
 )

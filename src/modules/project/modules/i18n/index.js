@@ -18,7 +18,7 @@ const checkNuxtI18nHead = async () => {
   const checkLayoutFile = async layoutFile => {
     const layout = (await fs.exists(P.join('layouts', layoutFile)))
       ? vueTemplateCompiler.parseComponent(
-          await fs.readFile(P.join('layouts', layoutFile), 'utf8')
+          await fs.readFile(P.join('layouts', layoutFile), 'utf8'),
         )
       : {}
     if (layout.script?.content) {
@@ -51,7 +51,7 @@ const checkNuxtI18nHead = async () => {
                 property.body.body[0].argument.arguments[0].properties[0].key
                   ?.name === 'addSeoAttributes' &&
                 property.body.body[0].argument.arguments[0].properties[0].value
-                  ?.value === true
+                  ?.value === true,
             )
           ) {
             valid = true

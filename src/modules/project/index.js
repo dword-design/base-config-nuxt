@@ -80,7 +80,7 @@ export default async function () {
         ] |> join(', '),
       name: 'viewport',
     },
-    { content: projectConfig.name, hid: 'description', name: 'description' }
+    { content: projectConfig.name, hid: 'description', name: 'description' },
   )
   if (projectConfig.ogImage) {
     this.options.head.meta.push({
@@ -112,7 +112,7 @@ export default async function () {
   ]
   Object.assign(
     this.options,
-    projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys)
+    projectConfig |> omit({ ...defaultConfig, ...this.options } |> keys),
   )
   await sequential(
     [
@@ -142,7 +142,7 @@ export default async function () {
       packageName`nuxt-svg-loader`,
       localeLinkModule,
       ...projectConfig.modules,
-    ] |> map(module => () => this.addModule(module))
+    ] |> map(module => () => this.addModule(module)),
   )
   this.addTemplate({
     fileName: P.join('project', 'project-config.js'),
