@@ -4,7 +4,6 @@ import tester from '@dword-design/tester'
 import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import { buildNuxt, loadNuxt } from '@nuxt/kit'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
 import { execaCommand } from 'execa'
@@ -19,10 +18,7 @@ export default tester(
   {
     aliases: {
       files: {
-        'model/foo.js': endent`
-          export default 'Hello world'
-
-        `,
+        'model/foo.js': "export default 'Hello world'",
         'pages/index.vue': endent`
           <template>
             <div class="foo">{{ foo }}</div>
@@ -786,7 +782,7 @@ export default tester(
             </template>
 
           `,
-          'inner/info.vue': '',
+          'inner/info.vue': '<template />',
         },
       },
       async test() {
@@ -941,6 +937,7 @@ export default tester(
     },
     valid: {
       files: {
+        'package.json': JSON.stringify({ type: 'module' }),
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
@@ -966,19 +963,21 @@ export default tester(
         test = { test: () => {}, ...test }
 
         return async function () {
-          await outputFiles(test.files)
-          await new Base(config).prepare()
-
-          const nuxt = await loadNuxt({
-            config: {
-              telemetry: false,
-              vite: { logLevel: 'error' },
-            },
+          await outputFiles({
+            'package.json': JSON.stringify({ type: 'module' }),
+            ...test.files,
           })
+          await new Base(config).prepare()
           if (test.error) {
-            await expect(buildNuxt(nuxt)).rejects.toThrow(test.error)
+            await expect(
+              execaCommand('nuxt build', {
+                env: { NUXT_TELEMETRY_DISABLED: 1 },
+              }),
+            ).rejects.toThrow(test.error)
           } else {
-            await buildNuxt(nuxt)
+            await execaCommand('nuxt build', {
+              env: { NUXT_TELEMETRY_DISABLED: 1 },
+            })
 
             const childProcess = execaCommand('nuxt start')
             await waitPort({ output: 'silent', port: 3000 })

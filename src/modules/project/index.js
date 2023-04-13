@@ -14,6 +14,7 @@ const _require = createRequire(import.meta.url)
 export default async (options, nuxt) => {
   const defaultConfig = {
     bodyAttrs: {},
+    css: [],
     head: {},
     headAttrs: {},
     htmlAttrs: {},
@@ -27,8 +28,9 @@ export default async (options, nuxt) => {
   const projectConfig = {
     ...defaultConfig,
     ...options,
+    css: [...defaultConfig.css, ...(options.css || [])],
   }
-  // this.options.watch.push(P.join(this.options.rootDir, 'nuxt.config.js'))
+  nuxt.options.watch.push('config.js')
   nuxt.options.runtimeConfig.public.name = projectConfig.name
   nuxt.options.runtimeConfig.public.title = projectConfig.title
   nuxt.options.app.head.link.push(...(projectConfig.head.link || []))
@@ -59,6 +61,7 @@ export default async (options, nuxt) => {
   }
   nuxt.options.app.head.htmlAttrs = projectConfig.htmlAttrs
   nuxt.options.app.head.bodyAttrs = projectConfig.bodyAttrs
+  nuxt.options.css.push(...projectConfig.css)
   Object.assign(nuxt.options.router, {
     linkActiveClass: 'active',
     routeNameSplitter: '.',

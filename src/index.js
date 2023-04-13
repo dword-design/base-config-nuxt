@@ -109,8 +109,8 @@ export default {
       'nuxt.config.js': endent`
         import projectModule from '${projectModulePath}'
         import jiti from 'jiti'
-        import babelConfig from '@dword-design/babel-config'
         import dotenv from '@dword-design/dotenv-json-extended'
+        import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 
         dotenv.config()
 
@@ -119,9 +119,7 @@ export default {
           const jitiInstance = jiti(process.cwd(), {
             esmResolve: true,
             interopDefault: true,
-            transformOptions: {
-              babel: babelConfig,
-            },
+            transform: jitiBabelTransform,
           })
           options = jitiInstance('./config.js')
         } catch (error) {

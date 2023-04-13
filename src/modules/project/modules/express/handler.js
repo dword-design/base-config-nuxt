@@ -1,4 +1,4 @@
-import babelConfig from '@dword-design/babel-config'
+import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 import express from 'express'
 import basicAuth from 'express-basic-auth'
 import mountFiles from 'express-mount-files'
@@ -11,9 +11,7 @@ import options from '#express/options.js'
 const jitiOptions = {
   esmResolve: true,
   interopDefault: true,
-  transformOptions: {
-    babel: babelConfig,
-  },
+  transform: jitiBabelTransform,
 }
 
 const jitiInstance = jiti(options.srcDir, jitiOptions)
