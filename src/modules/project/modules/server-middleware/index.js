@@ -1,4 +1,4 @@
-import babelConfig from '@dword-design/babel-config'
+import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 import express from 'express'
 import mountFiles from 'express-mount-files'
 import P from 'path'
@@ -15,9 +15,7 @@ export default async function (options) {
         jitiOptions: {
           esmResolve: true,
           interopDefault: true,
-          transformOptions: {
-            babel: babelConfig,
-          },
+          transform: jitiBabelTransform,
         },
         paramChar: '_',
       }),
