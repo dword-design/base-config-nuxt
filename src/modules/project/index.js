@@ -1,5 +1,5 @@
-import babelConfig from '@dword-design/babel-config'
 import { join, keys, map, omit } from '@dword-design/functions'
+import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 import packageName from 'depcheck-package-name'
 import jiti from 'jiti'
 import { createRequire } from 'module'
@@ -38,9 +38,7 @@ export default async function () {
     const jitiInstance = jiti(this.options.rootDir, {
       esmResolve: true,
       interopDefault: true,
-      transformOptions: {
-        babel: babelConfig,
-      },
+      transform: jitiBabelTransform,
     })
     localConfig = jitiInstance('./nuxt.config.js')
   } catch (error) {

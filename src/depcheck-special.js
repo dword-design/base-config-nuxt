@@ -1,5 +1,5 @@
-import babelConfig from '@dword-design/babel-config'
 import { filter, first, map } from '@dword-design/functions'
+import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 import jiti from 'jiti'
 import P from 'path'
 
@@ -8,12 +8,10 @@ export default path => {
     const jitiInstance = jiti(process.cwd(), {
       esmResolve: true,
       interopDefault: true,
-      transformOptions: {
-        babel: babelConfig,
-      },
+      transform: jitiBabelTransform,
     })
 
-    const config = jitiInstance(`./nuxt.config.js`)
+    const config = jitiInstance('./nuxt.config.js')
 
     const modules = [...(config.modules || []), ...(config.buildModules || [])]
 
