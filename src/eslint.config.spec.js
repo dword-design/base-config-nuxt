@@ -13,21 +13,21 @@ export default tester(
       files: {
         'assets/hero.svg': '',
         'pages/index.vue': endent`
-        <template>
-          <div />
-        </template>
+          <template>
+            <div />
+          </template>
 
-        <script>
-        import imageUrl from '!url-loader!@/assets/hero.svg'
+          <script>
+          import imageUrl from '!url-loader!@/assets/hero.svg'
 
-        export default {
-          computed: {
-            imageUrl: () => imageUrl,
-          },
-        }
-        </script>
+          export default {
+            computed: {
+              imageUrl: () => imageUrl,
+            },
+          }
+          </script>
 
-      `,
+        `,
       },
     },
   },
@@ -52,5 +52,5 @@ export default tester(
       },
     },
     testerPluginTmpDir(),
-  ]
+  ],
 )

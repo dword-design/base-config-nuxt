@@ -13,21 +13,21 @@ export default tester(
       await outputFiles({
         'model/foo.js': "export default 'bar'",
         'pages/index.vue': endent`
-        <template>
-          <div />
-        </template>
+          <template>
+            <div />
+          </template>
 
-        <script>
-        import foo from '@/model/foo.js'
+          <script>
+          import foo from '@/model/foo.js'
 
-        export default {
-          computed: {
-            foo: () => foo,
-          },
-        }
-        </script>
+          export default {
+            computed: {
+              foo: () => foo,
+            },
+          }
+          </script>
 
-      `,
+        `,
       })
 
       const base = new Base(config)
@@ -44,22 +44,22 @@ export default tester(
           type: 'module',
         }),
         'pages/index.vue': endent`
-        <template>
-          <div />
-        </template>
+          <template>
+            <div />
+          </template>
 
-        <script>
-        import foo from 'foo'
+          <script>
+          import foo from 'foo'
 
-        export default {
-          computed: {
-            foo: () => foo,
-            bar: () => 1 |> (x => x * 2),
-          },
-        }
-        </script>
+          export default {
+            computed: {
+              foo: () => foo,
+              bar: () => 1 |> (x => x * 2),
+            },
+          }
+          </script>
 
-      `,
+        `,
       })
 
       const base = new Base(config)
@@ -69,13 +69,13 @@ export default tester(
     'external modules': async () => {
       await outputFiles({
         'nuxt.config.js': endent`
-        export default {
-          modules: [
-            'foo',
-          ],
-        }
+          export default {
+            modules: [
+              'foo',
+            ],
+          }
 
-      `,
+        `,
         'package.json': JSON.stringify({
           dependencies: {
             foo: '^1.0.0',
@@ -92,12 +92,12 @@ export default tester(
       await fs.outputFile(
         'pages/index.vue',
         endent`
-        <script>
-        export default {
-          render: () => <div />,
-        }
-        </script>
-      `
+          <script>
+          export default {
+            render: () => <div />,
+          }
+          </script>
+        `,
       )
 
       const base = new Base(config)
@@ -108,49 +108,49 @@ export default tester(
       await outputFiles({
         'model/foo.js': 'const foo = 1',
         'pages/index.vue': endent`
-        <script>
-        import foo from '@/model/foo'
+          <script>
+          import foo from '@/model/foo'
 
-        export default {
-          computed: {
-            foo: () => foo,
-          },
-        }
-        </script>
+          export default {
+            computed: {
+              foo: () => foo,
+            },
+          }
+          </script>
 
-      `,
+        `,
       })
 
       const base = new Base(config)
       await base.prepare()
       await expect(base.test()).rejects.toThrow(
-        "'foo' is assigned a value but never used"
+        "'foo' is assigned a value but never used",
       )
     },
     'linting error in vue file': async () => {
       await fs.outputFile(
         'pages/index.vue',
         endent`
-        <script>
-        foo bar
-        </script>
-      `
+          <script>
+          foo bar
+          </script>
+        `,
       )
 
       const base = new Base(config)
       await base.prepare()
       await expect(base.test()).rejects.toThrow(
-        'Parsing error: Missing semicolon. (2:3)'
+        'Parsing error: Missing semicolon. (2:3)',
       )
     },
     valid: async () => {
       await fs.outputFile(
         'pages/index.vue',
         endent`
-        <template>
-          <div>Hello world</div>
-        </template>
-      `
+          <template>
+            <div>Hello world</div>
+          </template>
+        `,
       )
 
       const base = new Base(config)
@@ -164,5 +164,5 @@ export default tester(
       beforeEach: () =>
         fs.outputFile('package.json', JSON.stringify({ type: 'module' })),
     },
-  ]
+  ],
 )

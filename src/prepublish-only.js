@@ -29,7 +29,7 @@ export default async (options = {}) => {
         '**/*.spec.js',
         'model',
       ],
-      { stdio: options.log === false ? 'ignore' : 'inherit' }
+      { stdio: options.log === false ? 'ignore' : 'inherit' },
     )
   }
 }

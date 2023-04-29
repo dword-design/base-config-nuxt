@@ -15,15 +15,15 @@ export default tester(
     valid: {
       files: {
         'pages/index.vue': endent`
-        <template>
-          <div>Hello world</div>
-        </template>
+          <template>
+            <div>Hello world</div>
+          </template>
 
-      `,
+        `,
       },
       async test() {
         expect(await this.page.$eval('div', div => div.textContent)).toEqual(
-          'Hello world'
+          'Hello world',
         )
       },
     },
@@ -45,5 +45,5 @@ export default tester(
     },
     testerPluginPuppeteer(),
     testerPluginTmpDir(),
-  ]
+  ],
 )

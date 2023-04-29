@@ -7,9 +7,9 @@ export default class extends Error {
       endent`
         You have to implement $nuxtI18nHead in ${P.join(
           'layouts',
-          layoutFile
+          layoutFile,
         )} like this to make sure that i18n metadata are generated:
-        
+
         <script>
         export default {
           head () {
@@ -17,7 +17,7 @@ export default class extends Error {
           }
         }
         </script>
-      `
+      `,
     )
   }
 }

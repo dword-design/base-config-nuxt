@@ -16,12 +16,12 @@ export default tester(
       await outputFiles({
         model: {
           'cli.js': endent`
-          #!/usr/bin/env node
+            #!/usr/bin/env node
 
-          import foo from './foo.js'
+            import foo from './foo.js'
 
-          console.log(foo)
-        `,
+            console.log(foo)
+          `,
           'foo.js': "export default 'foo'",
         },
         'package.json': JSON.stringify({ type: 'module' }),
@@ -37,36 +37,36 @@ export default tester(
       await outputFiles({
         'package.json': JSON.stringify({}),
         'pages/index.vue': endent`
-        <template>
-          <div />
-        </template>
-        <script>
-        export default {};
-        </script>
+          <template>
+            <div />
+          </template>
+          <script>
+          export default {};
+          </script>
 
-      `,
+        `,
       })
       await new Base(config).prepare()
       await self()
       expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
-        <template>
-          <div />
-        </template>
-        <script>
-        export default {}
-        </script>
+          <template>
+            <div />
+          </template>
+          <script>
+          export default {}
+          </script>
 
-      `)
+        `)
     },
     'linting error in cli': async () => {
       await outputFiles({
         'model/cli.js': endent`
-        #!/usr/bin/env node
+          #!/usr/bin/env node
 
-        const foo = 'bar'
+          const foo = 'bar'
 
-      `,
+        `,
         'package.json': JSON.stringify({}),
       })
       await new Base(config).prepare()
@@ -79,5 +79,5 @@ export default tester(
       expect(output).toMatch("'foo' is assigned a value but never used")
     },
   },
-  [testerPluginTmpDir()]
+  [testerPluginTmpDir()],
 )

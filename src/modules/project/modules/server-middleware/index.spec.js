@@ -27,9 +27,9 @@ export default tester(
       },
       files: {
         'api/foo.get.js': endent`
-        export default (req, res) => res.json({ foo: req.foo })
+          export default (req, res) => res.json({ foo: req.foo })
 
-      `,
+        `,
       },
       test: async () => {
         const result =
@@ -45,13 +45,13 @@ export default tester(
       },
       files: {
         'api/_param/index.get.js': endent`
-        export default (req, res) => res.json({ foo: req.params.param })
+          export default (req, res) => res.json({ foo: req.params.param })
 
-      `,
+        `,
       },
       test: () =>
         expect(axios.get('http://localhost:3000/api/abc')).rejects.toThrow(
-          'Request failed with status code 404'
+          'Request failed with status code 404',
         ),
     },
     'parameter casing': {
@@ -60,9 +60,9 @@ export default tester(
       },
       files: {
         'api/foo/_paramFoo.get.js': endent`
-        export default (req, res) => res.json({ foo: req.params.paramFoo })
+          export default (req, res) => res.json({ foo: req.params.paramFoo })
 
-      `,
+        `,
       },
       test: async () => {
         const result =
@@ -78,9 +78,9 @@ export default tester(
       },
       files: {
         'api/foo/_param.get.js': endent`
-        export default (req, res) => res.json({ foo: req.params.param })
+          export default (req, res) => res.json({ foo: req.params.param })
 
-      `,
+        `,
       },
       test: async () => {
         const result =
@@ -96,9 +96,9 @@ export default tester(
       },
       files: {
         'api/_param/foo.get.js': endent`
-        export default (req, res) => res.json({ foo: req.params.param })
+          export default (req, res) => res.json({ foo: req.params.param })
 
-      `,
+        `,
       },
       test: async () => {
         const result =
@@ -114,9 +114,9 @@ export default tester(
       },
       files: {
         'api/foo.get.js': endent`
-        export default (req, res) => res.json({ foo: 'bar' })
+          export default (req, res) => res.json({ foo: 'bar' })
 
-      `,
+        `,
       },
       test: async () => {
         const result =
@@ -143,5 +143,5 @@ export default tester(
       },
     },
     testerPluginTmpDir(),
-  ]
+  ],
 )

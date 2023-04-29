@@ -62,8 +62,8 @@ export default {
           extends: packageName`@dword-design/stylelint-config`,
         },
         undefined,
-        2
-      )
+        2,
+      ),
     ),
   useJobMatrix: true,
 }
