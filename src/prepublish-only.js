@@ -1,18 +1,17 @@
-import { buildNuxt, loadNuxt } from '@nuxt/kit'
-import { execa } from 'execa'
+import { execa, execaCommand } from 'execa'
 import fs from 'fs-extra'
 
 import lint from './lint.js'
 
 export default async (options = {}) => {
+  options = { log: process.env.NODE_ENV !== 'test', ...options }
   await lint()
-
-  const nuxt = await loadNuxt({
-    ...(options.log === false
-      ? { overrides: { vite: { logLevel: 'error' } } }
+  await execaCommand('nuxt build', {
+    ...(options.log ? { stdio: 'inherit' } : {}),
+    ...(process.env.NODE_ENV === 'test'
+      ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
       : {}),
   })
-  await buildNuxt(nuxt)
   if (await fs.exists('model')) {
     await fs.remove('dist')
     await execa(
@@ -26,7 +25,7 @@ export default async (options = {}) => {
         '**/*.spec.js',
         'model',
       ],
-      { stdio: options.log === false ? 'ignore' : 'inherit' },
+      ...(options.log ? [{ stdio: 'inherit' }] : []),
     )
   }
 }

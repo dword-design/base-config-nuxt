@@ -7,7 +7,6 @@ import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import P from 'path'
 import portReady from 'port-ready'
-import { puppeteerPrettyConsole } from 'puppeteer-pretty-console'
 import kill from 'tree-kill-promise'
 
 import self from './dev.js'
@@ -31,7 +30,6 @@ export default tester(
       const nuxt = self()
       try {
         await portReady(3000)
-        puppeteerPrettyConsole(this.page)
         await this.page.goto('http://localhost:3000')
         let handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(el => el.textContent)).toEqual(

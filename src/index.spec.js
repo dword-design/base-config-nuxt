@@ -6,7 +6,6 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
-import { execaCommand } from 'execa'
 import outputFiles from 'output-files'
 import kill from 'tree-kill-promise'
 import waitPort from 'wait-port'
@@ -967,19 +966,13 @@ export default tester(
             'package.json': JSON.stringify({ type: 'module' }),
             ...test.files,
           })
-          await new Base(config).prepare()
-          if (test.error) {
-            await expect(
-              execaCommand('nuxt build', {
-                env: { NUXT_TELEMETRY_DISABLED: 1 },
-              }),
-            ).rejects.toThrow(test.error)
-          } else {
-            await execaCommand('nuxt build', {
-              env: { NUXT_TELEMETRY_DISABLED: 1 },
-            })
 
-            const childProcess = execaCommand('nuxt start')
+          const base = new Base(config)
+          await base.prepare()
+          if (test.error) {
+            await expect(base.run('dev')).rejects.toThrow(test.error)
+          } else {
+            const childProcess = base.run('dev')
             await waitPort({ output: 'silent', port: 3000 })
             try {
               await test.test.call(this)
