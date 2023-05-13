@@ -1,6 +1,6 @@
 {
   "name": "@dword-design/base-config-nuxt",
-  "version": "3.2.16",
+  "version": "3.2.17",
   "repository": "dword-design/base-config-nuxt",
   "funding": "https://github.com/sponsors/dword-design",
   "license": "MIT",
@@ -26,7 +26,7 @@
     "@dword-design/depcheck-parser-sass": "^3.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
     "@dword-design/functions": "^4.0.0",
-    "@dword-design/jiti-babel-transform": "^1.0.4",
+    "@dword-design/jiti-babel-transform": "^1.0.11",
     "@dword-design/stylelint-config": "^2.0.0",
     "@nuxt/kit": "^3.2.3",
     "@nuxtjs/i18n": "npm:@dword-design/nuxt-i18n",

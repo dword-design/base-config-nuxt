@@ -11,7 +11,7 @@ export default path => {
       transform: jitiBabelTransform,
     })
 
-    const config = jitiInstance(`./nuxt.config.js`)
+    const config = jitiInstance('./nuxt.config.js')
 
     const modules = [...(config.modules || []), ...(config.buildModules || [])]
 
