@@ -6,8 +6,8 @@ import { buildNuxt, loadNuxt } from '@nuxt/kit'
 import axios from 'axios'
 import { execaCommand } from 'execa'
 import outputFiles from 'output-files'
+import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
-import waitPort from 'wait-port'
 
 export default tester(
   {
@@ -127,7 +127,7 @@ export default tester(
           } else {
             const childProcess = execaCommand('nuxt start')
             try {
-              await waitPort({ output: 'silent', port: 3000 })
+              await portReady(3000)
               await config.test()
             } finally {
               await kill(childProcess.pid)

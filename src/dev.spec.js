@@ -1,5 +1,5 @@
 import { Base } from '@dword-design/base'
-import { endent, delay } from '@dword-design/functions'
+import { delay, endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'

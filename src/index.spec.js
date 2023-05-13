@@ -6,9 +6,11 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
+import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
+import pAll from 'p-all'
+import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
-import waitPort from 'wait-port'
 import xmlFormatter from 'xml-formatter'
 
 import config from './index.js'
@@ -129,6 +131,7 @@ export default tester(
         `,
       },
       test: async () => {
+        await nuxtDevReady()
         await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
           'response.status',
           401,
@@ -647,15 +650,15 @@ export default tester(
       },
       test: async () =>
         expect(
-          await Promise.all([
-            (async () =>
+          await pAll([
+            async () =>
               axios.get('http://localhost:3000/api/foo')
               |> await
-              |> property('data'))(),
-            (async () =>
+              |> property('data'),
+            async () =>
               axios.get('http://localhost:3000/api/bar')
               |> await
-              |> property('data'))(),
+              |> property('data'),
           ]),
         ).toEqual([{ nitro: 'foo' }, { express: 'bar' }]),
     },
@@ -973,7 +976,7 @@ export default tester(
             await expect(base.run('dev')).rejects.toThrow(test.error)
           } else {
             const childProcess = base.run('dev')
-            await waitPort({ output: 'silent', port: 3000 })
+            await portReady(3000)
             try {
               await test.test.call(this)
             } finally {

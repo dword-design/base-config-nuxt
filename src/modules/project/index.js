@@ -83,7 +83,12 @@ export default async (options, nuxt) => {
     dotenvModule,
     [
       packageName`@nuxtjs/stylelint-module`,
-      { allowEmptyInput: true, failOnWarning: true, fix: true, lintOnStart: false },
+      {
+        allowEmptyInput: true,
+        failOnWarning: true,
+        fix: true,
+        lintOnStart: false,
+      },
     ],
     i18nModule,
     expressModule,
