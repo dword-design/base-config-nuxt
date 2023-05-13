@@ -1,5 +1,5 @@
 import { Base } from '@dword-design/base'
-import { endent } from '@dword-design/functions'
+import { endent, delay } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
@@ -35,6 +35,7 @@ export default tester(
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world',
         )
+        await delay(200) // for some reason Puppeteer does not detect the change without the delay
         await fs.outputFile(
           P.join('pages', 'index.vue'),
           endent`
