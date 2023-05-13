@@ -4,7 +4,6 @@ import packageName from 'depcheck-package-name'
 import { createRequire } from 'module'
 import P from 'path'
 
-import dotenvModule from './modules/dotenv.js'
 import expressModule from './modules/express/index.js'
 import i18nModule from './modules/i18n/index.js'
 import svgModule from './modules/svg.js'
@@ -80,7 +79,6 @@ export default async (options, nuxt) => {
         username: process.env.BASIC_AUTH_USER,
       },
     ],
-    dotenvModule,
     [
       packageName`@nuxtjs/stylelint-module`,
       {

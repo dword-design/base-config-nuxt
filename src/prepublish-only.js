@@ -1,12 +1,17 @@
-import { execa, execaCommand } from 'execa'
+import { execa } from 'execa'
 import fs from 'fs-extra'
+import { createRequire } from 'module'
 
 import lint from './lint.js'
+
+const _require = createRequire(import.meta.url)
+
+const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
 
 export default async (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options }
   await lint()
-  await execaCommand('nuxt build', {
+  await execa(nuxtWrapper, ['build'], {
     ...(options.log ? { stdio: 'inherit' } : {}),
     ...(process.env.NODE_ENV === 'test'
       ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }

@@ -1,9 +1,14 @@
-import { execaCommand } from 'execa'
+import { execa } from 'execa'
+import { createRequire } from 'module'
+
+const _require = createRequire(import.meta.url)
+
+const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
 
 export default (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options }
 
-  return execaCommand('nuxt dev', {
+  return execa(nuxtWrapper, ['dev'], {
     ...(options.log ? { stdio: 'inherit' } : {}),
     ...(process.env.NODE_ENV === 'test'
       ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
