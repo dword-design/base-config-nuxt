@@ -33,7 +33,6 @@ export default tester(
             },
           }
           </script>
-
         `,
       },
       async test() {
@@ -230,25 +229,17 @@ export default tester(
     },
     'dotenv: module': {
       files: {
-        '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
-        '.test.env.json': { foo: 'bar' } |> JSON.stringify,
-        'config.js': endent`
-          export default {
-            modules: [
-              './modules/foo',
-            ],
-          }
-        `,
+        '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+        '.test.env.json': JSON.stringify({ foo: 'bar' }),
         'modules/foo.js': endent`
-          export default function () {
-            expect(process.env.FOO).toEqual('bar')
-          }
+          import { expect } from 'expect'
+
+          export default () => expect(process.env.FOO).toEqual('bar')
         `,
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
           </template>
-
         `,
       },
     },
@@ -526,9 +517,8 @@ export default tester(
     },
     'i18n: works': {
       files: {
-        '.env.schema.json': { baseUrl: { type: 'string' } } |> JSON.stringify,
-        '.test.env.json':
-          { baseUrl: 'http://localhost:3000' } |> JSON.stringify,
+        '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
+        '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
         'config.js': endent`
           export default {
             htmlAttrs: { style: 'background: red' },
@@ -549,6 +539,7 @@ export default tester(
       },
       async test() {
         await this.page.goto('http://localhost:3000')
+        expect(await this.page.url()).toEqual('http://localhost:3000/en')
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
