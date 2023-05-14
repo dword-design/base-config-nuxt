@@ -7,8 +7,6 @@
     ]
   },
   "testInContainer": true,
-  "nodeVersion": 14,
-  "supportedNodeVersions": [14, 16],
   "eslintConfig": {
     "extends": "@dword-design/eslint-config",
     "rules": {

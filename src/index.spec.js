@@ -9,7 +9,6 @@ import packageName from 'depcheck-package-name'
 import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
 import pAll from 'p-all'
-import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 import xmlFormatter from 'xml-formatter'
 
@@ -131,7 +130,6 @@ export default tester(
         `,
       },
       test: async () => {
-        await nuxtDevReady()
         await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
           'response.status',
           401,
@@ -972,16 +970,12 @@ export default tester(
 
           const base = new Base(config)
           await base.prepare()
-          if (test.error) {
-            await expect(base.run('dev')).rejects.toThrow(test.error)
-          } else {
-            const childProcess = base.run('dev')
-            await portReady(3000)
-            try {
-              await test.test.call(this)
-            } finally {
-              await kill(childProcess.pid)
-            }
+          const childProcess = base.run('dev')
+          await nuxtDevReady()
+          try {
+            await test.test.call(this)
+          } finally {
+            await kill(childProcess.pid)
           }
         }
       },
