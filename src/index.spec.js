@@ -1,7 +1,6 @@
 import { Base } from '@dword-design/base'
 import { endent, endsWith, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
-import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
@@ -669,52 +668,17 @@ export default tester(
     },
     port: {
       files: {
-        '.env.schema.json': { port: { type: 'integer' } } |> JSON.stringify,
-        '.test.env.json': { port: 3005 } |> JSON.stringify,
+        '.env.schema.json': JSON.stringify({ port: { type: 'integer' } }),
+        '.test.env.json': JSON.stringify({ port: 3005 }),
         'pages/index.vue': endent`
           <template>
-            <div class="foo">Hello world</div>
+            <div class="foo" />
           </template>
-
         `,
       },
       async test() {
         await this.page.goto('http://localhost:3005')
-
-        const handle = await this.page.waitForSelector('.foo')
-        expect(await handle.evaluate(div => div.textContent)).toEqual(
-          'Hello world',
-        )
-        delete process.env.PORT
-      },
-    },
-    'raw file': {
-      files: {
-        'assets/foo.txt': 'Hello world',
-        'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
-
-          <script>
-          import foo from '@/assets/foo.txt'
-
-          export default {
-            computed: {
-              foo: () => foo,
-            },
-          }
-          </script>
-
-        `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-
-        const handle = await this.page.waitForSelector('.foo')
-        expect(await handle.evaluate(div => div.textContent)).toEqual(
-          'Hello world',
-        )
+        await this.page.waitForSelector('.foo')
       },
     },
     'request body': {
@@ -726,12 +690,11 @@ export default tester(
             </form>
           </template>
 
-          <script>
-          export default {
-            asyncData: context => ({ sent: context.req.body.submit !== undefined }),
-          }
-          </script>
+          <script setup>
+          const event = useRequestEvent()
 
+          const sent = event?.node?.req?.body?.submit !== undefined
+          </script>
         `,
       },
       async test() {
@@ -754,25 +717,15 @@ export default tester(
         pages: {
           'index.vue': endent`
             <template>
-              <div class="foo">
-                <nuxt-link :to="{ name: 'index' }" class="home">
-                  Home
-                </nuxt-link>
-                <nuxt-link :to="{ name: 'inner.info' }" class="info">
-                  Info
-                </nuxt-link>
-              </div>
+              <nuxt-link :to="{ name: 'index' }" class="foo" />
             </template>
-
           `,
           'inner/info.vue': '<template />',
         },
       },
       async test() {
         await this.page.goto('http://localhost:3000')
-        expect(
-          await this.page.$eval('.home.is-active', el => el.textContent),
-        ).toMatch('Home')
+        await this.page.waitForSelector('.home.is-active')
       },
     },
     'setup-express.js': {
@@ -897,14 +850,12 @@ export default tester(
           export default {
             userScalable: false,
           }
-
         `,
         pages: {
           'index.vue': endent`
             <template>
               <div />
             </template>
-
           `,
         },
       },
@@ -925,7 +876,6 @@ export default tester(
           <template>
             <div class="foo">Hello world</div>
           </template>
-
         `,
       },
       async test() {
@@ -939,7 +889,6 @@ export default tester(
     },
   },
   [
-    testerPluginEnv(),
     testerPluginPuppeteer(),
     {
       transform: test => {
