@@ -370,13 +370,8 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/en')
-        await this.page.setExtraHTTPHeaders({
-          'Accept-Language': 'de',
-        })
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de')
+        expect(axios.get('http://localhost:3000') |> await |> property('request.res.responseUrl')).toEqual('http://localhost:3000/en')
+        expect(axios.get('http://localhost:3000', { headers: { 'Accept-Language': 'de' } }) |> await |> property('request.res.responseUrl')).toEqual('http://localhost:3000/de')
       },
     },
     'i18n: middleware': {
@@ -961,6 +956,7 @@ export default tester(
 
           const base = new Base(config)
           await base.prepare()
+          
           const childProcess = base.run('dev')
           await nuxtDevReady()
           try {
