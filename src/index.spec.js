@@ -725,7 +725,7 @@ export default tester(
       },
       async test() {
         await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('.home.is-active')
+        await this.page.waitForSelector('.foo.is-active')
       },
     },
     'setup-express.js': {
