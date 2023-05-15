@@ -750,7 +750,7 @@ export default tester(
         'config.js': endent`
           export default {
             modules: [
-              '${packageName`@nuxtjs/sitemap`}',
+              '${packageName`@funken-studio/sitemap-nuxt-3`}',
             ]
           }
 
@@ -759,7 +759,7 @@ export default tester(
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
         },
-        'page/index.vue': endent`
+        'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
@@ -767,11 +767,9 @@ export default tester(
         `,
       },
       async test() {
-        const response = await this.page.goto(
-          'http://localhost:3000/sitemap.xml',
-        )
+        const sitemap = await axios.get('http://localhost:3000/sitemap.xml') |> await |> property('data')
         expect(
-          xmlFormatter(response.text() |> await, {
+          xmlFormatter(sitemap, {
             collapseContent: true,
             indentation: '  ',
             lineSeparator: '\n',

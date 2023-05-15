@@ -22,7 +22,7 @@ export default async (options, nuxt) => {
       langDir: 'i18n',
       lazy: true,
       locales: locales.map(locale => ({ code: locale, file: `${locale}.json`, iso: locale })),
-      strategy: `${localeFiles.length === 1 ? 'no_' : ''}prefix`,
+      strategy: `${locales.length === 1 ? 'no_' : ''}prefix`,
       ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
     })
   }
