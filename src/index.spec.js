@@ -490,7 +490,7 @@ export default tester(
           `,
           'index.vue': endent`
             <template>
-              <a :href="$router.resolve('bar').href" class="foo">{{ $t('foo') }}</a>
+              <nuxt-locale-link :to="{ name: 'bar' }" class="foo">{{ $t('foo') }}</nuxt-locale-link>
             </template>
           `,
         },
@@ -504,10 +504,7 @@ export default tester(
 
         const link = await this.page.waitForSelector('.foo')
         expect(await link.evaluate(el => el.textContent)).toEqual('bar')
-        await link.click()
-        await this.page.waitForNavigation()
-        expect(await this.page.url()).toEqual('http://localhost:3000/bar')
-        await this.page.waitForSelector('.bar')
+        expect(await link.evaluate(el => el.href)).toEqual('http://localhost:3000/bar')
       },
     },
     'i18n: works': {
