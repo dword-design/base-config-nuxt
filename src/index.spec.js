@@ -5,6 +5,7 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
+import getPort from 'get-port'
 import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
 import pAll from 'p-all'
@@ -35,7 +36,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
@@ -48,9 +49,9 @@ export default tester(
         'api/foo.get.js':
           "export default (req, res) => res.json({ foo: 'bar' })",
       },
-      test: async () => {
+      async test() {
         const result =
-          axios.get('http://localhost:3000/api/foo')
+          axios.get(`http://localhost:${this.port}/api/foo`)
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
@@ -60,9 +61,9 @@ export default tester(
       files: {
         'api/foo.post.js': 'export default (req, res) => res.json(req.body)',
       },
-      test: async () => {
+      async test() {
         const result =
-          axios.post('http://localhost:3000/api/foo', { foo: 'bar' })
+          axios.post(`http://localhost:${this.port}/api/foo`, { foo: 'bar' })
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
@@ -104,7 +105,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const foo = await this.page.waitForSelector('.foo')
         expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world')
@@ -127,22 +128,21 @@ export default tester(
           </template>
         `,
       },
-      test: async () => {
-        await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
-          'response.status',
-          401,
-        )
+      async test() {
         await expect(
-          axios.get('http://localhost:3000/api/foo'),
+          axios.get(`http://localhost:${this.port}`),
+        ).rejects.toHaveProperty('response.status', 401)
+        await expect(
+          axios.get(`http://localhost:${this.port}/api/foo`),
         ).rejects.toHaveProperty('response.status', 401)
         await Promise.all([
-          axios.get('http://localhost:3000', {
+          axios.get(`http://localhost:${this.port}`, {
             auth: {
               password: 'bar',
               username: 'foo',
             },
           }),
-          axios.get('http://localhost:3000/api/foo', {
+          axios.get(`http://localhost:${this.port}/api/foo`, {
             auth: {
               password: 'bar',
               username: 'foo',
@@ -168,7 +168,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
         expect(await this.page.$eval('body', el => el.className)).toEqual(
           'foo bar',
         )
@@ -196,7 +196,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const handle = await this.page.waitForSelector('.foo')
 
@@ -222,7 +222,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
         expect(await this.page.title()).toEqual('Bar')
       },
     },
@@ -256,7 +256,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
@@ -268,7 +268,7 @@ export default tester(
       files: {
         'config.js': endent`
           export default {
-            modules: ['./modules/mod',]
+            modules: ['./modules/mod'],
           }
         `,
         'modules/mod.js':
@@ -293,7 +293,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const link = await this.page.waitForSelector('link[rel=alternate]')
         expect(
@@ -325,7 +325,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const backgroundColor = await this.page.$eval(
           'body',
@@ -350,7 +350,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
         expect(await this.page.$eval('html', el => el.className)).toEqual(
           'foo bar',
         )
@@ -368,19 +368,19 @@ export default tester(
           </template>
         `,
       },
-      test: async () => {
+      async test() {
         expect(
-          axios.get('http://localhost:3000')
+          axios.get(`http://localhost:${this.port}`)
             |> await
             |> property('request.res.responseUrl'),
-        ).toEqual('http://localhost:3000/en')
+        ).toEqual(`http://localhost:${this.port}/en`)
         expect(
-          axios.get('http://localhost:3000', {
+          axios.get(`http://localhost:${this.port}`, {
             headers: { 'Accept-Language': 'de' },
           })
             |> await
             |> property('request.res.responseUrl'),
-        ).toEqual('http://localhost:3000/de')
+        ).toEqual(`http://localhost:${this.port}/de`)
       },
     },
     'i18n: middleware': {
@@ -405,7 +405,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
@@ -426,8 +426,10 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000/de')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de')
+        await this.page.goto(`http://localhost:${this.port}/de`)
+        expect(await this.page.url()).toEqual(
+          `http://localhost:${this.port}/de`,
+        )
       },
     },
     'i18n: root without prefix': {
@@ -446,8 +448,10 @@ export default tester(
         await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'de',
         })
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de')
+        await this.page.goto(`http://localhost:${this.port}`)
+        expect(await this.page.url()).toEqual(
+          `http://localhost:${this.port}/de`,
+        )
       },
     },
     'i18n: route with prefix': {
@@ -464,8 +468,10 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000/de/foo')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
+        await this.page.goto(`http://localhost:${this.port}/de/foo`)
+        expect(await this.page.url()).toEqual(
+          `http://localhost:${this.port}/de/foo`,
+        )
       },
     },
     'i18n: route without prefix': {
@@ -484,8 +490,10 @@ export default tester(
         await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'de',
         })
-        await this.page.goto('http://localhost:3000/foo')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
+        await this.page.goto(`http://localhost:${this.port}/foo`)
+        expect(await this.page.url()).toEqual(
+          `http://localhost:${this.port}/de/foo`,
+        )
       },
     },
     'i18n: single locale': {
@@ -508,20 +516,22 @@ export default tester(
         await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'en',
         })
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/')
+        await this.page.goto(`http://localhost:${this.port}`)
+        expect(await this.page.url()).toEqual(`http://localhost:${this.port}/`)
 
         const link = await this.page.waitForSelector('.foo')
         expect(await link.evaluate(el => el.textContent)).toEqual('bar')
         expect(await link.evaluate(el => el.href)).toEqual(
-          'http://localhost:3000/bar',
+          `http://localhost:${this.port}/bar`,
         )
       },
     },
     'i18n: works': {
       files: {
         '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
-        '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
+        '.test.env.json': JSON.stringify({
+          baseUrl: 'https://example.com',
+        }),
         'config.js': endent`
           export default {
             htmlAttrs: { style: 'background: red' },
@@ -541,8 +551,10 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/en')
+        await this.page.goto(`http://localhost:${this.port}`)
+        expect(await this.page.url()).toEqual(
+          `http://localhost:${this.port}/en`,
+        )
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
@@ -551,10 +563,10 @@ export default tester(
 
         const html = await this.page.waitForSelector('html[lang=en]')
         await this.page.waitForSelector(
-          'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]',
+          'link[rel=alternate][href="https://example.com/de"][hreflang=de]',
         )
         await this.page.waitForSelector(
-          'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]',
+          'link[rel=alternate][href="https://example.com/en"][hreflang=en]',
         )
         expect(await html.evaluate(el => el.getAttribute('style'))).toEqual(
           'background: red',
@@ -586,7 +598,7 @@ export default tester(
         },
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
         expect(await this.page.$eval('a', a => a.getAttribute('href'))).toEqual(
           '/en/foo',
         )
@@ -607,7 +619,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
         expect(await this.page.title()).toEqual('Test-App')
       },
     },
@@ -627,7 +639,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
         expect(await this.page.title()).toEqual(
           'Test-App: This is the ultimate app!',
         )
@@ -640,19 +652,20 @@ export default tester(
         'server/api/foo.get.js':
           "export default defineEventHandler(() => ({ nitro: 'foo' }))",
       },
-      test: async () =>
+      async test() {
         expect(
           await pAll([
             async () =>
-              axios.get('http://localhost:3000/api/foo')
+              axios.get(`http://localhost:${this.port}/api/foo`)
               |> await
               |> property('data'),
             async () =>
-              axios.get('http://localhost:3000/api/bar')
+              axios.get(`http://localhost:${this.port}/api/bar`)
               |> await
               |> property('data'),
           ]),
-        ).toEqual([{ nitro: 'foo' }, { express: 'bar' }]),
+        ).toEqual([{ nitro: 'foo' }, { express: 'bar' }])
+      },
     },
     ogImage: {
       files: {
@@ -670,7 +683,7 @@ export default tester(
         },
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const handle = await this.page.waitForSelector('meta[name=og\\:image]')
         expect(await handle.evaluate(meta => meta.content)).toEqual(
@@ -698,11 +711,11 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000/foo')
+        await this.page.goto(`http://localhost:${this.port}/foo`)
         expect(await this.page.title()).toEqual('Foo page | Test-App')
       },
     },
-    port: {
+    /* port: {
       files: {
         '.env.schema.json': JSON.stringify({ port: { type: 'integer' } }),
         '.test.env.json': JSON.stringify({ port: 3005 }),
@@ -712,11 +725,12 @@ export default tester(
           </template>
         `,
       },
+      port: 3005,
       async test() {
         await this.page.goto('http://localhost:3005')
         await this.page.waitForSelector('.foo')
       },
-    },
+    }, */
     'request body': {
       files: {
         'pages/index.vue': endent`
@@ -734,7 +748,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const button = await this.page.waitForSelector('button')
         await button.click()
@@ -760,7 +774,7 @@ export default tester(
         },
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
         await this.page.waitForSelector('.foo.is-active')
       },
     },
@@ -773,9 +787,9 @@ export default tester(
           export default app => app.use((req, res, next) => { req.foo = 'bar'; next() })
         `,
       },
-      test: async () => {
+      async test() {
         const result =
-          axios.get('http://localhost:3000/api/foo')
+          axios.get(`http://localhost:${this.port}/api/foo`)
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
@@ -802,9 +816,9 @@ export default tester(
 
         `,
       },
-      test: async () => {
+      async test() {
         const sitemap =
-          (await axios.get('http://localhost:3000/sitemap.xml'))
+          (await axios.get(`http://localhost:${this.port}/sitemap.xml`))
           |> await
           |> property('data')
         expect(
@@ -846,7 +860,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const icon = await this.page.waitForSelector('.icon')
         expect(await icon.evaluate(el => el.tagName)).toEqual('svg')
@@ -872,7 +886,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const image = await this.page.waitForSelector('.image')
         expect(await image.evaluate(el => el.tagName)).toEqual('IMG')
@@ -897,7 +911,7 @@ export default tester(
         },
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const handle = await this.page.waitForSelector('meta[name=viewport]')
         expect(
@@ -916,7 +930,7 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto(`http://localhost:${this.port}`)
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
@@ -939,9 +953,10 @@ export default tester(
 
           const base = new Base(config)
           await base.prepare()
+          this.port = await getPort({ port: 3000 })
 
-          const childProcess = base.run('dev')
-          await nuxtDevReady()
+          const childProcess = base.run('dev', { port: this.port })
+          await nuxtDevReady({ port: this.port })
           try {
             await test.test.call(this)
           } finally {

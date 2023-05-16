@@ -10,8 +10,11 @@ export default (options = {}) => {
 
   return execa(nuxtWrapper, ['dev'], {
     [options.log ? 'stdio' : 'stderr']: 'inherit',
-    ...(process.env.NODE_ENV === 'test'
-      ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
-      : {}),
+    env: {
+      ...(process.env.NODE_ENV === 'test'
+        ? { NUXT_TELEMETRY_DISABLED: 1 }
+        : {}),
+      PORT: options.port,
+    },
   })
 }
