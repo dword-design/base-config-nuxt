@@ -1,11 +1,10 @@
 import { Base } from '@dword-design/base'
-import { endent, endsWith, property } from '@dword-design/functions'
+import { delay, endent, endsWith, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
-import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
 import pAll from 'p-all'
 import kill from 'tree-kill-promise'
@@ -941,7 +940,7 @@ export default tester(
           await base.prepare()
 
           const childProcess = base.run('dev')
-          await nuxtDevReady()
+          await delay(10000)
           try {
             await test.test.call(this)
           } finally {
