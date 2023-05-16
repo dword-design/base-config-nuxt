@@ -58,6 +58,7 @@
     "@funken-studio/sitemap-nuxt-3": "^4.0.4",
     "axios": "^0.22.0",
     "depcheck": "^1.4.2",
+    "get-port": "^6.1.2",
     "nuxt-dev-ready": "^1.0.0",
     "p-all": "^5.0.0",
     "port-ready": "^0.1.0",
