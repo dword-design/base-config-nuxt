@@ -877,7 +877,7 @@ export default tester(
         const image = await this.page.waitForSelector('.image')
         expect(await image.evaluate(el => el.tagName)).toEqual('IMG')
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
-          '/_nuxt/image.f5ec4d95.svg',
+          '/_nuxt/image.svg',
         )
       },
     },
