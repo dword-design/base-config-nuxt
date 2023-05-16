@@ -654,6 +654,30 @@ export default tester(
           ]),
         ).toEqual([{ nitro: 'foo' }, { express: 'bar' }]),
     },
+    ogImage: {
+      files: {
+        'config.js': endent`
+          export default {
+            ogImage: 'https://example.com/og-image',
+          }
+        `,
+        pages: {
+          'index.vue': endent`
+            <template>
+              <div />
+            </template>
+          `,
+        },
+      },
+      async test() {
+        await this.page.goto('http://localhost:3000')
+
+        const handle = await this.page.waitForSelector('meta[name=og\\:image]')
+        expect(await handle.evaluate(meta => meta.content)).toEqual(
+          'https://example.com/og-image',
+        )
+      },
+    },
     'page with title': {
       files: {
         'config.js': endent`
@@ -915,7 +939,7 @@ export default tester(
 
           const base = new Base(config)
           await base.prepare()
-          
+
           const childProcess = base.run('dev')
           await nuxtDevReady()
           try {

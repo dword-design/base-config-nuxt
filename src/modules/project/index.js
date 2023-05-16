@@ -34,18 +34,17 @@ export default async (options, nuxt) => {
   nuxt.options.runtimeConfig.public.name = projectConfig.name
   nuxt.options.runtimeConfig.public.title = projectConfig.title
   nuxt.options.app.head.link.push(...(projectConfig.head.link || []))
-  nuxt.options.app.head.meta.push(
-    { charset: 'utf-8' },
-    {
-      content: [
-        'width=device-width',
-        'initial-scale=1',
-        ...(projectConfig.userScalable ? [] : ['user-scalable=0']),
-      ].join(', '),
-      name: 'viewport',
-    },
-    { content: projectConfig.name, hid: 'description', name: 'description' },
-  )
+  nuxt.options.app.head.meta.push({
+    content: projectConfig.name,
+    hid: 'description',
+    name: 'description',
+  })
+  if (!projectConfig.userScalable) {
+    const viewportMeta = nuxt.options.app.head.meta.find(
+      meta => meta.name === 'viewport',
+    )
+    viewportMeta.content += ', user-scalable=0'
+  }
   if (projectConfig.ogImage) {
     nuxt.options.app.head.meta.push({
       content: projectConfig.ogImage,
