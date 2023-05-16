@@ -368,9 +368,19 @@ export default tester(
           </template>
         `,
       },
-      async test() {
-        expect(axios.get('http://localhost:3000') |> await |> property('request.res.responseUrl')).toEqual('http://localhost:3000/en')
-        expect(axios.get('http://localhost:3000', { headers: { 'Accept-Language': 'de' } }) |> await |> property('request.res.responseUrl')).toEqual('http://localhost:3000/de')
+      test: async () => {
+        expect(
+          axios.get('http://localhost:3000')
+            |> await
+            |> property('request.res.responseUrl'),
+        ).toEqual('http://localhost:3000/en')
+        expect(
+          axios.get('http://localhost:3000', {
+            headers: { 'Accept-Language': 'de' },
+          })
+            |> await
+            |> property('request.res.responseUrl'),
+        ).toEqual('http://localhost:3000/de')
       },
     },
     'i18n: middleware': {
@@ -503,7 +513,9 @@ export default tester(
 
         const link = await this.page.waitForSelector('.foo')
         expect(await link.evaluate(el => el.textContent)).toEqual('bar')
-        expect(await link.evaluate(el => el.href)).toEqual('http://localhost:3000/bar')
+        expect(await link.evaluate(el => el.href)).toEqual(
+          'http://localhost:3000/bar',
+        )
       },
     },
     'i18n: works': {
@@ -766,8 +778,11 @@ export default tester(
 
         `,
       },
-      async test() {
-        const sitemap = await axios.get('http://localhost:3000/sitemap.xml') |> await |> property('data')
+      test: async () => {
+        const sitemap =
+          (await axios.get('http://localhost:3000/sitemap.xml'))
+          |> await
+          |> property('data')
         expect(
           xmlFormatter(sitemap, {
             collapseContent: true,

@@ -5,7 +5,8 @@
       "error",
       {
         "ignore": [
-          "#express"
+          "#express",
+          "#app"
         ]
       }
     ]

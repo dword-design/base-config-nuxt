@@ -6,8 +6,8 @@ import P from 'path'
 
 import expressModule from './modules/express/index.js'
 import i18nModule from './modules/i18n/index.js'
-import svgModule from './modules/svg.js'
 import localeLinkModule from './modules/locale-link/index.js'
+import svgModule from './modules/svg.js'
 
 const _require = createRequire(import.meta.url)
 
