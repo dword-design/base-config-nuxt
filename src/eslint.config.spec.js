@@ -9,6 +9,18 @@ import config from './index.js'
 
 export default tester(
   {
+    '#app import': {
+      filename: 'plugins/foo.js',
+      files: {
+        'assets/hero.svg': '',
+        'plugins/foo.js': endent`
+          import { defineNuxtPlugin } from '#app'
+
+          export default defineNuxtPlugin(() => {})
+
+        `,
+      },
+    },
     'loader import syntax': {
       files: {
         'assets/hero.svg': '',
@@ -34,13 +46,13 @@ export default tester(
   [
     {
       transform: test => {
-        test = { match: '', ...test }
+        test = { filename: 'pages/index.js', match: '', ...test }
 
         return async () => {
           await outputFiles(test.files)
           try {
             await new Base(config).prepare()
-            await execaCommand('eslint pages/index.vue')
+            await execaCommand(`eslint ${test.filename}`)
           } catch (error) {
             if (test.match) {
               expect(error.all).toMatch(test.match)

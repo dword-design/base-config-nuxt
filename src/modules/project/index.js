@@ -85,7 +85,10 @@ export default async (options, nuxt) => {
         enabled: nuxt.options.runtimeConfig.basicAuth !== undefined,
       },
     ],
-    [packageName`@nuxtjs/eslint-module`, { failOnWarning: true, fix: true, lintOnStart: false, cache: false }],
+    [
+      packageName`@nuxtjs/eslint-module`,
+      { cache: false, failOnWarning: true, fix: true, lintOnStart: false },
+    ],
     [
       packageName`@nuxtjs/stylelint-module`,
       {

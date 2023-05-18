@@ -14,6 +14,41 @@ import config from './index.js'
 
 export default tester(
   {
+    async 'fixable linting error'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo" />
+          </template>
+
+          <script>
+          export default {};
+          </script>
+        `,
+      )
+      await new Base(config).prepare()
+
+      const nuxt = self()
+      try {
+        await portReady(3000)
+        await this.page.goto('http://localhost:3000')
+        await this.page.waitForSelector('.foo')
+        expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
+          .toEqual(endent`
+            <template>
+              <div class="foo" />
+            </template>
+
+            <script>
+            export default {}
+            </script>
+
+          `)
+      } finally {
+        await kill(nuxt.pid)
+      }
+    },
     async valid() {
       await outputFiles({
         'pages/index.vue': endent`
@@ -47,40 +82,6 @@ export default tester(
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world',
         )
-      } finally {
-        await kill(nuxt.pid)
-      }
-    },
-    async 'fixable linting error'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
-          <template>
-            <div class="foo" />
-          </template>
-
-          <script>
-          export default {};
-          </script>
-        `,
-      )
-      await new Base(config).prepare()
-      const nuxt = self()
-      try {
-        await portReady(3000)
-        await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('.foo')
-        expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
-          .toEqual(endent`
-            <template>
-              <div class="foo" />
-            </template>
-
-            <script>
-            export default {}
-            </script>
-
-          `)
       } finally {
         await kill(nuxt.pid)
       }
