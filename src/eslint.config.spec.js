@@ -46,7 +46,7 @@ export default tester(
   [
     {
       transform: test => {
-        test = { filename: 'pages/index.js', match: '', ...test }
+        test = { filename: 'pages/index.vue', match: '', ...test }
 
         return async () => {
           await outputFiles(test.files)

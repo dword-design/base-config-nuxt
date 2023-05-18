@@ -68,12 +68,7 @@ export default tester(
   [
     {
       transform: config => async () => {
-        await outputFiles({
-          '.babelrc.json': JSON.stringify({
-            extends: '@dword-design/babel-config',
-          }),
-          ...config.files,
-        })
+        await outputFiles(config.files)
 
         const result = await depcheck('.', {
           package: {
