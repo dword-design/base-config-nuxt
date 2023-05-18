@@ -42,8 +42,6 @@
     "nuxt": "^3.2.3",
     "nuxt-basic-authentication-module": "^0.2.1",
     "output-files": "^2.0.0",
-    "sass": "^1.34.0",
-    "sass-loader": "^10.0.0",
     "stylelint": "^13.6.0",
     "vite-svg-loader": "^4.0.0"
   },

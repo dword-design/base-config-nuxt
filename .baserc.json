@@ -1,11 +1,5 @@
 {
   "name": "@dword-design/node",
-  "depcheckConfig": {
-    "ignoreMatches": [
-      "sass",
-      "sass-loader"
-    ]
-  },
   "eslintConfig": {
     "extends": "@dword-design/eslint-config",
     "rules": {
