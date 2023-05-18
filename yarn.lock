@@ -2283,9 +2283,9 @@
     vite-plugin-eslint "^1.8.1"
 
 "@nuxtjs/i18n@npm:@dword-design/nuxt-i18n":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@dword-design/nuxt-i18n/-/nuxt-i18n-0.0.3.tgz#dc489aa560b2d0e8ec88f2dfaadcf9c4a5c055cf"
-  integrity sha512-zHFE8KQ3YmGje8o5cn2nxVGiTwfFtjTqimHuFlFrV3cpvU3PUgNi8IusTdLRU5GomSQ84l+fCjqhZnuwPYD0Sw==
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@dword-design/nuxt-i18n/-/nuxt-i18n-0.0.5.tgz#b4d7a4bb815b0447d7b0e9195f3bed8870f9c4eb"
+  integrity sha512-s2otKnoaYUecBx2uoTKMJwILTloakicGaRPx5eI9W1NBVXDhTGkJO8HKBiPPoM9w0qVQgekEQ5fyn08akGszoQ==
   dependencies:
     "@intlify/bundle-utils" "^4.0.0"
     "@intlify/shared" "9.3.0-beta.16"
