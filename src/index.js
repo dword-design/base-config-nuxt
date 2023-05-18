@@ -9,6 +9,7 @@ import P from 'path'
 import analyze from './analyze.js'
 import depcheckSpecial from './depcheck-special.js'
 import dev from './dev.js'
+import eslintConfig from './eslint.config.js'
 import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
 import start from './start.js'
@@ -55,6 +56,7 @@ export default {
     'dist',
     'nuxt.config.js',
   ],
+  eslintConfig,
   gitignore: [
     '/.eslintcache',
     '/.nuxt',

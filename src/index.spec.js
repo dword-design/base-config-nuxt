@@ -69,13 +69,6 @@ export default tester(
     },
     'async modules': {
       files: {
-        'config.js': endent`
-          export default {
-            modules: [
-              './modules/foo',
-            ]
-          }
-        `,
         'modules/foo': {
           'index.js': endent`
             import { delay } from '@dword-design/functions'
@@ -125,6 +118,8 @@ export default tester(
             <div />
           </template>
         `,
+        'server/api/bar.get.js':
+          "export default defineEventHandler(() => ('bar'))",
       },
       test: async () => {
         await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
@@ -134,6 +129,9 @@ export default tester(
         await expect(
           axios.get('http://localhost:3000/api/foo'),
         ).rejects.toHaveProperty('response.status', 401)
+        await expect(
+          axios.get('http://localhost:3000/api/bar'),
+        ).rejects.toHaveProperty('response.status', 401)
         await Promise.all([
           axios.get('http://localhost:3000', {
             auth: {
@@ -142,6 +140,12 @@ export default tester(
             },
           }),
           axios.get('http://localhost:3000/api/foo', {
+            auth: {
+              password: 'bar',
+              username: 'foo',
+            },
+          }),
+          axios.get('http://localhost:3000/api/bar', {
             auth: {
               password: 'bar',
               username: 'foo',
@@ -265,11 +269,6 @@ export default tester(
     },
     'head in module': {
       files: {
-        'config.js': endent`
-          export default {
-            modules: ['./modules/mod',]
-          }
-        `,
         'modules/mod.js':
           "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
       },
@@ -876,7 +875,7 @@ export default tester(
         const image = await this.page.waitForSelector('.image')
         expect(await image.evaluate(el => el.tagName)).toEqual('IMG')
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
-          '/_nuxt/image.svg',
+          '/_nuxt/assets/image.svg',
         )
       },
     },
@@ -907,7 +906,6 @@ export default tester(
     },
     valid: {
       files: {
-        'package.json': JSON.stringify({ type: 'module' }),
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
@@ -931,10 +929,7 @@ export default tester(
         test = { test: () => {}, ...test }
 
         return async function () {
-          await outputFiles({
-            'package.json': JSON.stringify({ type: 'module' }),
-            ...test.files,
-          })
+          await outputFiles(test.files)
 
           const base = new Base(config)
           await base.prepare()

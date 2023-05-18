@@ -16,31 +16,11 @@ export default tester(
           foo bar
 
         `,
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2,
-        ),
       })
       await new Base(config).prepare()
       await expect(self()).rejects.toThrow('CssSyntaxError')
     },
     ignored: async () => {
-      await outputFiles({
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2,
-        ),
-      })
       await new Base(config).prepare()
       await fs.outputFile(
         'coverage/foo.scss',

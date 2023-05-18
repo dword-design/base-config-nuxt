@@ -10,7 +10,7 @@ export default tester(
   {
     'array syntax': {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             modules: [
               ['foo', { bar: 'baz' }],
@@ -21,7 +21,7 @@ export default tester(
     },
     'babel feature': {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             modules: ['foo'],
             foo: 1 |> x => x * 2,
@@ -31,7 +31,7 @@ export default tester(
     },
     buildModules: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             buildModules: [
               'foo',
@@ -42,7 +42,7 @@ export default tester(
     },
     function: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             modules: [
               'foo',
@@ -54,7 +54,7 @@ export default tester(
     },
     modules: {
       files: {
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             modules: [
               'foo',

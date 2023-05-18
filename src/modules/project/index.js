@@ -33,6 +33,13 @@ export default async (options, nuxt) => {
   nuxt.options.watch.push('config.js')
   nuxt.options.runtimeConfig.public.name = projectConfig.name
   nuxt.options.runtimeConfig.public.title = projectConfig.title
+  if (process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD) {
+    nuxt.options.runtimeConfig.basicAuth = {
+      pairs: {
+        [process.env.BASIC_AUTH_USER]: process.env.BASIC_AUTH_PASSWORD,
+      },
+    }
+  }
   nuxt.options.app.head.link.push(...(projectConfig.head.link || []))
   nuxt.options.app.head.meta.push({
     content: projectConfig.name,
@@ -73,13 +80,12 @@ export default async (options, nuxt) => {
 
   const modules = [
     [
-      packageName`nuxt-basic-auth`,
+      packageName`nuxt-basic-authentication-module`,
       {
-        enabled: process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD,
-        password: process.env.BASIC_AUTH_PASSWORD,
-        username: process.env.BASIC_AUTH_USER,
+        enabled: nuxt.options.runtimeConfig.basicAuth !== undefined,
       },
     ],
+    [packageName`@nuxtjs/eslint-module`, { failOnWarning: true, fix: true, lintOnStart: false, cache: false }],
     [
       packageName`@nuxtjs/stylelint-module`,
       {

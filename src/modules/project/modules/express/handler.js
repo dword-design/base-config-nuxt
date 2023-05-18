@@ -1,6 +1,5 @@
 import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 import express from 'express'
-import basicAuth from 'express-basic-auth'
 import mountFiles from 'express-mount-files'
 import { fromNodeMiddleware } from 'h3'
 import jiti from 'jiti'
@@ -18,13 +17,6 @@ const jitiInstance = jiti(options.srcDir, jitiOptions)
 let app = express()
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
-if (process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD) {
-  app.use(
-    basicAuth({
-      users: { [process.env.BASIC_AUTH_USER]: process.env.BASIC_AUTH_PASSWORD },
-    }),
-  )
-}
 try {
   const setupExpress = jitiInstance('./setup-express')
   app = setupExpress(app)

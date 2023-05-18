@@ -4,14 +4,14 @@ import jiti from 'jiti'
 import P from 'path'
 
 export default path => {
-  if (P.basename(path) === 'nuxt.config.js') {
+  if (P.basename(path) === 'config.js') {
     const jitiInstance = jiti(process.cwd(), {
       esmResolve: true,
       interopDefault: true,
       transform: jitiBabelTransform,
     })
 
-    const config = jitiInstance('./nuxt.config.js')
+    const config = jitiInstance('./config.js')
 
     const modules = [...(config.modules || []), ...(config.buildModules || [])]
 

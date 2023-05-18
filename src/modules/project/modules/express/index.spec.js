@@ -2,7 +2,6 @@ import { endent, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import { buildNuxt, loadNuxt } from '@nuxt/kit'
 import axios from 'axios'
 import { execaCommand } from 'execa'
 import outputFiles from 'output-files'
@@ -11,19 +10,6 @@ import kill from 'tree-kill-promise'
 
 export default tester(
   {
-    'basic auth': {
-      files: {
-        'api/foo.get.js': "export default (req, res) => res.send('foo')",
-      },
-      init: () => {
-        process.env.BASIC_AUTH_USER = 'foo'
-        process.env.BASIC_AUTH_PASSWORD = 'bar'
-      },
-      test: () =>
-        expect(
-          axios.get('http://localhost:3000/api/foo'),
-        ).rejects.toHaveProperty('response.status', 401),
-    },
     'error in express.js': {
       files: {
         'setup-express.js': "throw new Error('foo')",
@@ -102,8 +88,8 @@ export default tester(
     testerPluginTmpDir(),
     testerPluginEnv(),
     {
-      transform: config => {
-        config = { init: () => {}, output: '', test: () => {}, ...config }
+      transform: test => {
+        test = { output: '', test: () => {}, ...test }
 
         return async () => {
           await outputFiles({
@@ -112,23 +98,20 @@ export default tester(
                 modules: ['../src/modules/project/modules/express/index.js'],
               }
             `,
-            ...config.files,
+            ...test.files,
           })
-          await config.init()
-
-          const nuxt = await loadNuxt({
-            overrides: { telemetry: false, vite: { logLevel: 'error' } },
+          await execaCommand('nuxt build', {
+            env: { NUXT_TELEMETRY_DISABLED: 1 },
           })
-          await buildNuxt(nuxt)
-          if (config.runtimeError) {
+          if (test.runtimeError) {
             await expect(execaCommand('nuxt start')).rejects.toThrow(
-              config.runtimeError,
+              test.runtimeError,
             )
           } else {
             const childProcess = execaCommand('nuxt start')
             try {
               await portReady(3000)
-              await config.test()
+              await test.test()
             } finally {
               await kill(childProcess.pid)
             }

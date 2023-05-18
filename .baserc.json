@@ -6,7 +6,6 @@
       "sass-loader"
     ]
   },
-  "testInContainer": true,
   "eslintConfig": {
     "extends": "@dword-design/eslint-config",
     "rules": {
