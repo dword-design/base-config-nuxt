@@ -1,106 +1,36 @@
-import * as babel from '@babel/core'
-import traverse from '@babel/traverse'
-import { map, some, uniq } from '@dword-design/functions'
+import { installModule } from '@nuxt/kit'
 import packageName from 'depcheck-package-name'
-import fs from 'fs-extra'
 import { globby } from 'globby'
 import P from 'path'
-import * as vueTemplateCompiler from 'vue-template-compiler'
 
-import MissingNuxtI18nHeadError from './missing-nuxt-i18n-head-error.js'
+export default async (options, nuxt) => {
+  const locales = (
+    await globby('*.json', {
+      cwd: P.join(nuxt.options.srcDir, 'i18n'),
+    })
+  ).map(filename => P.basename(filename, '.json'))
 
-const checkNuxtI18nHead = async () => {
-  const layoutFiles =
-    ['default.vue', ...(await globby('*', { cwd: 'layouts', ignore: '-*' }))]
-    |> await
-    |> uniq
-
-  const checkLayoutFile = async layoutFile => {
-    const layout = (await fs.exists(P.join('layouts', layoutFile)))
-      ? vueTemplateCompiler.parseComponent(
-          await fs.readFile(P.join('layouts', layoutFile), 'utf8'),
-        )
-      : {}
-    if (layout.script?.content) {
-      const ast = await babel.parse(layout.script?.content, {
-        filename: 'index.js',
-      })
-      let valid = false
-      traverse.default(ast, {
-        ExportDefaultDeclaration: path => {
-          if (
-            path.node.declaration.properties
-            |> some(
-              property =>
-                property.type === 'ObjectMethod' &&
-                property.key?.name === 'head' &&
-                property.body.body.length === 1 &&
-                property.body.body[0].type === 'ReturnStatement' &&
-                property.body.body[0].argument.type === 'CallExpression' &&
-                property.body.body[0].argument.callee.type ===
-                  'MemberExpression' &&
-                property.body.body[0].argument.callee.object.type ===
-                  'ThisExpression' &&
-                property.body.body[0].argument.callee.property?.name ===
-                  '$nuxtI18nHead' &&
-                property.body.body[0].argument.arguments.length === 1 &&
-                property.body.body[0].argument.arguments[0].type ===
-                  'ObjectExpression' &&
-                property.body.body[0].argument.arguments[0].properties
-                  .length === 1 &&
-                property.body.body[0].argument.arguments[0].properties[0].key
-                  ?.name === 'addSeoAttributes' &&
-                property.body.body[0].argument.arguments[0].properties[0].value
-                  ?.value === true,
-            )
-          ) {
-            valid = true
-          }
-        },
-      })
-      if (valid) {
-        return
-      }
-    }
-    throw new MissingNuxtI18nHeadError(layoutFile)
-  }
-
-  return Promise.all(layoutFiles |> map(checkLayoutFile))
-}
-
-export default async function () {
-  const localeFiles = await globby('*.json', {
-    cwd: P.join(this.options.srcDir, 'i18n'),
-  })
-  if (localeFiles.length > 0) {
-    await checkNuxtI18nHead()
-    await this.addModule([
-      packageName`@nuxtjs/i18n`,
-      {
-        detectBrowserLanguage:
-          localeFiles.length === 1
-            ? false
-            : {
-                fallbackLocale: 'en',
-                redirectOn: 'no prefix',
-                useCookie: false,
-              },
-        langDir: 'i18n/',
-        lazy: true,
-        locales:
-          localeFiles
-          |> map(filename => {
-            const code = P.basename(filename, '.json')
-
-            return { code, file: filename, iso: code }
-          }),
-        seo: localeFiles.length > 1,
-        strategy: localeFiles.length === 1 ? 'no_prefix' : 'prefix',
-        ...(localeFiles.length === 1 && {
-          defaultLocale: P.basename(localeFiles[0], '.json'),
-        }),
-        ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
-      },
-    ])
+  const defaultLocale = locales.includes('en') ? 'en' : locales[0]
+  if (locales.length > 0) {
+    await installModule(packageName`@nuxtjs/i18n`, {
+      defaultLocale,
+      detectBrowserLanguage:
+        locales.length === 1
+          ? false
+          : {
+              fallbackLocale: defaultLocale,
+              redirectOn: 'no prefix',
+              useCookie: false,
+            },
+      langDir: 'i18n',
+      lazy: true,
+      locales: locales.map(locale => ({
+        code: locale,
+        file: `${locale}.json`,
+        iso: locale,
+      })),
+      strategy: `${locales.length === 1 ? 'no_' : ''}prefix`,
+      ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
+    })
   }
 }

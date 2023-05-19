@@ -1,5 +1,7 @@
-import Vue from 'vue'
+import { defineNuxtPlugin } from '#imports'
 
-import NuxtLocaleLink from './nuxt-locale-link.vue'
+import Component from './component.vue'
 
-Vue.component('NuxtLocaleLink', NuxtLocaleLink)
+export default defineNuxtPlugin(nuxtApp =>
+  nuxtApp.vueApp.component('NuxtLocaleLink', Component),
+)

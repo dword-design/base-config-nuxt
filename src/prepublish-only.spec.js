@@ -24,7 +24,6 @@ export default tester(
           `,
           'foo.js': "export default 'foo'",
         },
-        'package.json': JSON.stringify({ type: 'module' }),
       })
       await new Base(config).prepare()
       await self()
@@ -34,18 +33,18 @@ export default tester(
       expect(output.all).toMatch(/^foo$/m)
     },
     'fixable linting error': async () => {
-      await outputFiles({
-        'package.json': JSON.stringify({}),
-        'pages/index.vue': endent`
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
           <template>
             <div />
           </template>
+
           <script>
           export default {};
           </script>
-
         `,
-      })
+      )
       await new Base(config).prepare()
       await self()
       expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
@@ -53,6 +52,7 @@ export default tester(
           <template>
             <div />
           </template>
+
           <script>
           export default {}
           </script>
@@ -60,15 +60,14 @@ export default tester(
         `)
     },
     'linting error in cli': async () => {
-      await outputFiles({
-        'model/cli.js': endent`
+      await fs.outputFile(
+        'model/cli.js',
+        endent`
           #!/usr/bin/env node
 
           const foo = 'bar'
-
         `,
-        'package.json': JSON.stringify({}),
-      })
+      )
       await new Base(config).prepare()
       let output
       try {

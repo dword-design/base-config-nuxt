@@ -1,21 +1,22 @@
 import { execa } from 'execa'
 import fs from 'fs-extra'
-import { Builder, Nuxt } from 'nuxt'
+import { createRequire } from 'module'
 
-import getNuxtConfig from './get-nuxt-config.js'
 import lint from './lint.js'
 
-export default async (options = {}) => {
-  await lint()
+const _require = createRequire(import.meta.url)
 
-  const nuxt = new Nuxt({
-    ...getNuxtConfig(),
-    _build: true,
-    dev: false,
-    rootDir: options.rootDir,
-    server: false,
+const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
+
+export default async (options = {}) => {
+  options = { log: process.env.NODE_ENV !== 'test', ...options }
+  await lint()
+  await execa(nuxtWrapper, ['build'], {
+    ...(options.log ? { stdio: 'inherit' } : {}),
+    ...(process.env.NODE_ENV === 'test'
+      ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
+      : {}),
   })
-  await new Builder(nuxt).build()
   if (await fs.exists('model')) {
     await fs.remove('dist')
     await execa(
@@ -29,7 +30,7 @@ export default async (options = {}) => {
         '**/*.spec.js',
         'model',
       ],
-      { stdio: options.log === false ? 'ignore' : 'inherit' },
+      ...(options.log ? [{ stdio: 'inherit' }] : []),
     )
   }
 }

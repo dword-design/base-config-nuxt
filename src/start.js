@@ -1,16 +1,16 @@
-import { Nuxt } from 'nuxt'
+import { execa } from 'execa'
+import { createRequire } from 'module'
 
-import getNuxtConfig from './get-nuxt-config.js'
+const _require = createRequire(import.meta.url)
 
-export default async (options = { log: false }) => {
-  const nuxt = new Nuxt({
-    ...getNuxtConfig(),
-    _start: true,
-    build: { quiet: !options.log },
-    dev: false,
-    rootDir: options.rootDir,
-  })
-  await nuxt.listen()
+const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
 
-  return nuxt
+export default (options = {}) => {
+  options = { log: process.env.NODE_ENV !== 'test', ...options }
+
+  return execa(
+    nuxtWrapper,
+    ['start'],
+    ...(options.log ? [{ stdio: 'inherit' }] : []),
+  )
 }

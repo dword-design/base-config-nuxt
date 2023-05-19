@@ -1,18 +1,21 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
+import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
-import fs from 'fs-extra'
+import { globby } from 'globby'
+import { createRequire } from 'module'
+import outputFiles from 'output-files'
+import P from 'path'
 
 import analyze from './analyze.js'
 import depcheckSpecial from './depcheck-special.js'
 import dev from './dev.js'
 import eslintConfig from './eslint.config.js'
-import getNuxtConfig from './get-nuxt-config.js'
 import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
 import start from './start.js'
 
-export { getNuxtConfig }
+const _require = createRequire(import.meta.url)
 
 export default {
   allowedMatches: [
@@ -26,7 +29,7 @@ export default {
     'middleware',
     'model',
     'modules',
-    'nuxt.config.js',
+    'config.js',
     'pages',
     'plugins',
     'static',
@@ -46,24 +49,118 @@ export default {
     },
     specials: [depcheckSpecial],
   },
-  editorIgnore: ['.eslintcache', '.stylelintrc.json', '.nuxt', 'dist'],
+  editorIgnore: [
+    '.eslintcache',
+    '.stylelintrc.json',
+    '.nuxt',
+    'app.vue',
+    'dist',
+    'nuxt.config.js',
+  ],
   eslintConfig,
-  gitignore: ['/.eslintcache', '/.nuxt', '/dist'],
+  gitignore: [
+    '/.eslintcache',
+    '/.nuxt',
+    '/app.vue',
+    '/dist',
+    '/nuxt.config.js',
+  ],
   lint,
+  nodeVersion: 18,
   npmPublish: true,
   packageConfig: {
     main: 'dist/index.js',
   },
-  prepare: () =>
-    fs.outputFile(
-      '.stylelintrc.json',
-      JSON.stringify(
+  prepare: async () => {
+    const projectModulePath = `./${P.relative(
+      process.cwd(),
+      _require.resolve('./modules/project/index.js'),
+    )
+      .split(P.sep)
+      .join('/')}`
+
+    const translations = await globby('i18n/*.json')
+
+    const hasI18n = translations.length > 0
+    await outputFiles({
+      '.stylelintrc.json': JSON.stringify(
         {
           extends: packageName`@dword-design/stylelint-config`,
         },
         undefined,
         2,
       ),
-    ),
+      'app.vue': endent`
+        <template>
+          <NuxtLayout>
+            <NuxtPage />
+          </NuxtLayout>
+        </template>
+
+        <script setup>
+        import { ${[
+          'useHead',
+          ...(hasI18n ? ['useLocaleHead'] : []),
+          'useRuntimeConfig',
+        ].join(', ')} } from '#imports'
+
+        ${[
+          hasI18n
+            ? ['const i18nHead = useLocaleHead({ addSeoAttributes: true })']
+            : [],
+          'const runtimeConfig = useRuntimeConfig()',
+        ].join('\n')}
+
+        useHead({
+          ${[
+            ...(hasI18n
+              ? [
+                  endent`
+                    htmlAttrs: {
+                      lang: i18nHead.value.htmlAttrs.lang,
+                    },
+                    link: i18nHead.value.link,
+                    meta: i18nHead.value.meta,
+                  `,
+                ]
+              : []),
+            "titleTemplate: title => title ? `${title} | ${runtimeConfig.public.name}` : `${runtimeConfig.public.name}${runtimeConfig.public.title ? `: ${runtimeConfig.public.title}` : ''}`",
+          ].join('\n')}
+        })
+        </script>
+      `,
+      'nuxt.config.js': endent`
+        import projectModule from '${projectModulePath}'
+        import jiti from 'jiti'
+        import dotenv from '@dword-design/dotenv-json-extended'
+        import jitiBabelTransform from '@dword-design/jiti-babel-transform'
+
+        dotenv.config()
+
+        let options
+        try {
+          const jitiInstance = jiti(process.cwd(), {
+            esmResolve: true,
+            interopDefault: true,
+            transform: jitiBabelTransform,
+          })
+          options = jitiInstance('./config.js')
+        } catch (error) {
+          if (error.message.startsWith("Cannot find module './config.js'\\n")) {
+            options = {}
+          } else {
+            throw error
+          }
+        }
+
+        export default {
+          modules: [
+            [projectModule, options],
+          ],
+        }
+      `,
+    })
+  },
+  supportedNodeVersions: [16, 18],
   useJobMatrix: true,
 }

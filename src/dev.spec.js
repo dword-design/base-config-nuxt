@@ -1,5 +1,5 @@
 import { Base } from '@dword-design/base'
-import { endent } from '@dword-design/functions'
+import { delay, endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
@@ -7,15 +7,50 @@ import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import P from 'path'
 import portReady from 'port-ready'
+import kill from 'tree-kill-promise'
 
 import self from './dev.js'
 import config from './index.js'
 
 export default tester(
   {
+    async 'fixable linting error'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo" />
+          </template>
+
+          <script>
+          export default {};
+          </script>
+        `,
+      )
+      await new Base(config).prepare()
+
+      const nuxt = self()
+      try {
+        await portReady(3000)
+        await this.page.goto('http://localhost:3000')
+        await this.page.waitForSelector('.foo')
+        expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
+          .toEqual(endent`
+            <template>
+              <div class="foo" />
+            </template>
+
+            <script>
+            export default {}
+            </script>
+
+          `)
+      } finally {
+        await kill(nuxt.pid)
+      }
+    },
     async valid() {
       await outputFiles({
-        'package.json': JSON.stringify({}),
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
@@ -26,7 +61,7 @@ export default tester(
       const base = new Base(config)
       await base.prepare()
 
-      const nuxt = await self({ build: { babel: { cacheDirectory: false } } })
+      const nuxt = self()
       try {
         await portReady(3000)
         await this.page.goto('http://localhost:3000')
@@ -34,6 +69,7 @@ export default tester(
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world',
         )
+        await delay(1000) // for some reason Puppeteer does not detect the change without the delay
         await fs.outputFile(
           P.join('pages', 'index.vue'),
           endent`
@@ -47,7 +83,7 @@ export default tester(
           'Hello world',
         )
       } finally {
-        await nuxt.close()
+        await kill(nuxt.pid)
       }
     },
   },

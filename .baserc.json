@@ -1,12 +1,12 @@
 {
   "name": "@dword-design/node",
-  "depcheckConfig": {
-    "ignoreMatches": [
-      "sass",
-      "sass-loader"
-    ]
+  "nodeVersion": 18,
+  "supportedNodeVersions": [16, 18],
+  "eslintConfig": {
+    "extends": "@dword-design/eslint-config",
+    "rules": {
+      "import/no-unresolved": ["error", { "ignore": ["#express", "#imports"] }]
+    }
   },
-  "testInContainer": true,
-  "nodeVersion": 14,
-  "supportedNodeVersions": [14, 16]
+  "windows": false
 }

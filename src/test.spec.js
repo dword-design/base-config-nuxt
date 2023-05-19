@@ -41,7 +41,6 @@ export default tester(
           dependencies: {
             foo: '^1.0.0',
           },
-          type: 'module',
         }),
         'pages/index.vue': endent`
           <template>
@@ -68,7 +67,7 @@ export default tester(
     },
     'external modules': async () => {
       await outputFiles({
-        'nuxt.config.js': endent`
+        'config.js': endent`
           export default {
             modules: [
               'foo',
@@ -80,7 +79,6 @@ export default tester(
           dependencies: {
             foo: '^1.0.0',
           },
-          type: 'module',
         }),
       })
 
@@ -158,11 +156,5 @@ export default tester(
       await base.test()
     },
   },
-  [
-    testerPluginTmpDir(),
-    {
-      beforeEach: () =>
-        fs.outputFile('package.json', JSON.stringify({ type: 'module' })),
-    },
-  ],
+  [testerPluginTmpDir()],
 )

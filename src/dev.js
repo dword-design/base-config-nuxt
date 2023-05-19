@@ -1,16 +1,19 @@
-import { Builder, Nuxt } from 'nuxt'
+import { execa } from 'execa'
+import { createRequire } from 'module'
 
-import getNuxtConfig from './get-nuxt-config.js'
+const _require = createRequire(import.meta.url)
 
-export default async nuxtConfig => {
-  const nuxt = new Nuxt({
-    ...getNuxtConfig(),
-    _build: true,
-    dev: true,
-    ...nuxtConfig,
+const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
+
+export default (options = {}) => {
+  options = {
+    log: process.env.NODE_ENV !== 'test',
+    telemetry: process.env.NODE_ENV !== 'test',
+    ...options,
+  }
+
+  return execa(nuxtWrapper, ['dev'], {
+    [options.log ? 'stdio' : 'stderr']: 'inherit',
+    ...(options.telemetry ? {} : { env: { NUXT_TELEMETRY_DISABLED: 1 } }),
   })
-  await new Builder(nuxt).build()
-  await nuxt.listen()
-
-  return nuxt
 }

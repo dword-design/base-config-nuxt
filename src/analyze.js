@@ -1,8 +1,3 @@
-import { execa } from 'execa'
+import { execaCommand } from 'execa'
 
-export default () =>
-  execa(
-    'nuxt-babel',
-    ['build', '--analyze', '--config-file', require.resolve('./nuxt.config')],
-    { stdio: 'inherit' },
-  )
+export default () => execaCommand('nuxt build --analyze')

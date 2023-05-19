@@ -5,6 +5,7 @@ import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import outputFiles from 'output-files'
 import portReady from 'port-ready'
+import kill from 'tree-kill-promise'
 
 import config from './index.js'
 import prepublishOnly from './prepublish-only.js'
@@ -34,13 +35,13 @@ export default tester(
         async function () {
           await outputFiles(test.files)
           await new Base(config).prepare()
-          await prepublishOnly()
+          await prepublishOnly({ log: false })
 
-          const nuxt = await self({ log: false })
+          const nuxt = self()
           await portReady(3000)
           await this.page.goto('http://localhost:3000')
           await test.test.call(this)
-          await nuxt.close()
+          await kill(nuxt.pid)
         },
     },
     testerPluginPuppeteer(),
