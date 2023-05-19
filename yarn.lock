@@ -5319,10 +5319,10 @@ depcheck-parser-babel@^3.0.1:
     "@babel/core" "^7.7.7"
     fs-extra "^10.0.0"
 
-depcheck-parser-vue@^3.0.1:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/depcheck-parser-vue/-/depcheck-parser-vue-3.0.4.tgz#475ca2376dcb7e992147869b90e4efec57b365c3"
-  integrity sha512-Bpf+o6K3xQDMlg0DdABC+ZhxQvMgYjyVMUadDCCZIRyUMAOFP1L8VZNHFBLp+5uSsqwJPasyUzOs/yM6gfPnoQ==
+depcheck-parser-vue@^4.0.0:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/depcheck-parser-vue/-/depcheck-parser-vue-4.0.6.tgz#0960ca4077246ba79e10bd7ce627ef3881a4bc12"
+  integrity sha512-im6SAJZHtGAmaHf+RMd9OhD3yrHUfCGEKZG5WhAiBoaPwctY0nqMkrNzzyjQFScYW8SPFNITJZ2pz0CfJ5VpUQ==
   dependencies:
     "@babel/core" "^7.10.3"
     "@dword-design/functions" "^4.0.0"

@@ -32,7 +32,7 @@
     "@nuxtjs/i18n": "npm:@dword-design/nuxt-i18n",
     "@nuxtjs/stylelint-module": "^5.0.1",
     "depcheck-package-name": "^3.0.0",
-    "depcheck-parser-vue": "^3.0.1",
+    "depcheck-parser-vue": "^4.0.0",
     "execa": "^6.1.0",
     "express": "^4.17.1",
     "express-mount-files": "npm:@dword-design/express-mount-files",
