@@ -69,7 +69,7 @@ export default tester(
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world',
         )
-        await delay(300) // for some reason Puppeteer does not detect the change without the delay
+        await delay(1000) // for some reason Puppeteer does not detect the change without the delay
         await fs.outputFile(
           P.join('pages', 'index.vue'),
           endent`
