@@ -4,8 +4,8 @@ import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import { execaCommand } from 'execa'
 import fs from 'fs-extra'
+import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
-import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 
 export default tester(
@@ -28,7 +28,7 @@ export default tester(
 
       const nuxt = execaCommand('nuxt start')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.get('http://localhost:3000/api/foo/abc')
@@ -48,7 +48,7 @@ export default tester(
 
       const nuxt = execaCommand('nuxt start')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.get('http://localhost:3000/api/foo/abc')
@@ -68,7 +68,7 @@ export default tester(
 
       const nuxt = execaCommand('nuxt start')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.get('http://localhost:3000/api/abc/foo')
@@ -90,7 +90,7 @@ export default tester(
 
       const nuxt = execaCommand('nuxt start')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.get('http://localhost:3000/api/foo')
@@ -110,7 +110,7 @@ export default tester(
 
       const nuxt = execaCommand('nuxt start')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.get('http://localhost:3000/api/foo')

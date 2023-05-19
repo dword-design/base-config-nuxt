@@ -4,9 +4,9 @@ import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import fs from 'fs-extra'
+import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
 import P from 'path'
-import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 
 import self from './dev.js'
@@ -31,7 +31,7 @@ export default tester(
 
       const nuxt = self()
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('.foo')
         expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
@@ -63,7 +63,7 @@ export default tester(
 
       const nuxt = self()
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         let handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(el => el.textContent)).toEqual(

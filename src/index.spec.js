@@ -6,9 +6,9 @@ import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
+import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
 import pAll from 'p-all'
-import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 import xmlFormatter from 'xml-formatter'
 
@@ -41,7 +41,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
@@ -60,11 +60,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.get('http://localhost:3000/api/foo')
@@ -83,11 +82,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.post('http://localhost:3000/api/foo', { foo: 'bar' })
@@ -131,7 +129,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const foo = await this.page.waitForSelector('.foo')
@@ -166,11 +164,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
           'response.status',
           401,
@@ -227,7 +224,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('body.foo')
       } finally {
@@ -260,7 +257,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const foo = await this.page.waitForSelector('.foo')
@@ -294,7 +291,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForFunction(() => document.title === 'Bar')
       } finally {
@@ -341,7 +338,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
@@ -385,7 +382,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const link = await this.page.waitForSelector('link[rel=alternate]')
@@ -425,7 +422,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForFunction(
           () =>
@@ -457,7 +454,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('html.foo')
       } finally {
@@ -479,11 +476,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         expect(
           axios.get('http://localhost:3000')
             |> await
@@ -526,7 +522,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
@@ -555,7 +551,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000/de')
         expect(await this.page.url()).toEqual('http://localhost:3000/de')
       } finally {
@@ -577,11 +573,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         expect(
           axios.get('http://localhost:3000', {
             headers: { 'Accept-Language': 'de' },
@@ -611,11 +606,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         expect(
           axios.get('http://localhost:3000/de/foo', {
             headers: { 'Accept-Language': 'de' },
@@ -642,11 +636,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         expect(
           axios.get('http://localhost:3000/foo', {
             headers: { 'Accept-Language': 'de' },
@@ -680,7 +673,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'en',
         })
@@ -721,11 +714,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         expect(await this.page.url()).toEqual('http://localhost:3000/en')
 
@@ -776,11 +768,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         expect(await this.page.$eval('a', a => a.getAttribute('href'))).toEqual(
           '/en/foo',
@@ -808,7 +799,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForFunction(() => document.title === 'Test-App')
       } finally {
@@ -835,7 +826,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForFunction(
           () => document.title === 'Test-App: This is the ultimate app!',
@@ -857,11 +848,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         expect(
           await pAll([
             async () =>
@@ -897,7 +887,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('meta[name=og\\:image]')
@@ -932,7 +922,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000/foo')
         await this.page.waitForFunction(
           () => document.title === 'Foo page | Test-App',
@@ -957,7 +947,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3005)
+        await nuxtDevReady(3005)
         await this.page.goto('http://localhost:3005')
         await this.page.waitForSelector('.foo')
       } finally {
@@ -986,11 +976,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const button = await this.page.waitForSelector('button')
@@ -1024,7 +1013,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('.foo.is-active')
       } finally {
@@ -1043,11 +1032,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const result =
           axios.get('http://localhost:3000/api/foo')
@@ -1080,11 +1068,10 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
-      await base.run('prepublishOnly')
 
-      const childProcess = base.run('start')
+      const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
 
         const sitemap =
           (await axios.get('http://localhost:3000/sitemap.xml'))
@@ -1136,7 +1123,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const icon = await this.page.waitForSelector('.icon')
@@ -1170,7 +1157,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const image = await this.page.waitForSelector('.image')
@@ -1201,7 +1188,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector(
           'meta[name=viewport][content$=user-scalable\\=0]',
@@ -1225,7 +1212,7 @@ export default tester(
 
       const childProcess = base.run('dev')
       try {
-        await portReady(3000)
+        await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
