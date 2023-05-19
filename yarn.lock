@@ -1468,11 +1468,6 @@
   resolved "https://registry.yarnpkg.com/@dword-design/suppress-babel-register-esm-warning/-/suppress-babel-register-esm-warning-1.1.10.tgz#1fc68ca173a513a9f46642740e47cc3847cf391f"
   integrity sha512-VkXvIeTTutLLGr05RQEcuAs+ePlJa3yN2xuUuA3OtfXywdKlxA9r5xMFzGnHVc/y8T/95Z2eOEBpCn2QkChokg==
 
-"@dword-design/tester-plugin-env@^2.0.11":
-  version "2.0.34"
-  resolved "https://registry.yarnpkg.com/@dword-design/tester-plugin-env/-/tester-plugin-env-2.0.34.tgz#4b4ec4facf463b056719c51d4e78fa48d25f027d"
-  integrity sha512-gzXuofcILusxsad+J1SdeOuDf1vEHDvZ4+P2bklJc5Fo+7NVFlHIAV6Cxs8i38eF5unebUkAnyQ+VsSqVA2pkQ==
-
 "@dword-design/tester-plugin-puppeteer@^2.1.19":
   version "2.1.68"
   resolved "https://registry.yarnpkg.com/@dword-design/tester-plugin-puppeteer/-/tester-plugin-puppeteer-2.1.68.tgz#8b4a3354512fbf807e6a9dff7139789b2658f4b6"

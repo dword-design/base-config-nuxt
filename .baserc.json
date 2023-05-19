@@ -5,7 +5,7 @@
   "eslintConfig": {
     "extends": "@dword-design/eslint-config",
     "rules": {
-      "import/no-unresolved": ["error", { "ignore": ["#express", "#app"] }]
+      "import/no-unresolved": ["error", { "ignore": ["#express", "#imports"] }]
     }
   }
 }

@@ -9,12 +9,12 @@ import config from './index.js'
 
 export default tester(
   {
-    '#app import': {
+    '#imports import': {
       filename: 'plugins/foo.js',
       files: {
         'assets/hero.svg': '',
         'plugins/foo.js': endent`
-          import { defineNuxtPlugin } from '#app'
+          import { defineNuxtPlugin } from '#imports'
 
           export default defineNuxtPlugin(() => {})
 

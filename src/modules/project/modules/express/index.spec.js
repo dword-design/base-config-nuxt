@@ -1,123 +1,139 @@
 import { endent, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
-import testerPluginEnv from '@dword-design/tester-plugin-env'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import { execaCommand } from 'execa'
+import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 
 export default tester(
   {
-    'error in express.js': {
-      files: {
-        'setup-express.js': "throw new Error('foo')",
-      },
-      runtimeError: 'Error: foo',
+    'error in express.js': async () => {
+      await fs.outputFile('setup-express.js', "throw new Error('foo')")
+      await execaCommand('nuxt build')
+      await expect(
+        execaCommand('nuxt start', {
+          env: { NUXT_TELEMETRY_DISABLED: 1 },
+        }),
+      ).rejects.toThrow('Error: foo')
     },
-    'parameter casing': {
-      files: {
-        'api/foo/_paramFoo.get.js':
-          'export default (req, res) => res.send({ foo: req.params.paramFoo })',
-      },
-      test: async () => {
+    'parameter casing': async () => {
+      await fs.outputFile(
+        'api/foo/_paramFoo.get.js',
+        'export default (req, res) => res.send({ foo: req.params.paramFoo })',
+      )
+      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
+
+      const nuxt = execaCommand('nuxt start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.get('http://localhost:3000/api/foo/abc')
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'abc' })
-      },
+      } finally {
+        await kill(nuxt.pid)
+      }
     },
-    'parameter in filename': {
-      files: {
-        'api/foo/_param.get.js':
-          'export default (req, res) => res.send({ foo: req.params.param })',
-      },
-      test: async () => {
+    'parameter in filename': async () => {
+      await fs.outputFile(
+        'api/foo/_param.get.js',
+        'export default (req, res) => res.send({ foo: req.params.param })',
+      )
+      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
+
+      const nuxt = execaCommand('nuxt start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.get('http://localhost:3000/api/foo/abc')
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'abc' })
-      },
+      } finally {
+        await kill(nuxt.pid)
+      }
     },
-    'parameter in folder name': {
-      files: {
-        'api/_param/foo.get.js':
-          'export default (req, res) => res.send({ foo: req.params.param })',
-      },
-      test: async () => {
+    'parameter in folder name': async () => {
+      await fs.outputFile(
+        'api/_param/foo.get.js',
+        'export default (req, res) => res.send({ foo: req.params.param })',
+      )
+      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
+
+      const nuxt = execaCommand('nuxt start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.get('http://localhost:3000/api/abc/foo')
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'abc' })
-      },
+      } finally {
+        await kill(nuxt.pid)
+      }
     },
-    'setup-express.js': {
-      files: {
+    'setup-express.js': async () => {
+      await outputFiles({
         'api/foo.get.js':
           'export default (req, res) => res.send({ foo: req.foo })',
         'setup-express.js':
           "export default app => app.use((req, res, next) => { req.foo = 'bar'; next() })",
-      },
-      test: async () => {
+      })
+      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
+
+      const nuxt = execaCommand('nuxt start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.get('http://localhost:3000/api/foo')
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
-      },
+      } finally {
+        await kill(nuxt.pid)
+      }
     },
-    valid: {
-      files: {
-        'api/foo.get.js':
-          "export default (req, res) => res.send({ foo: 'bar' })",
-      },
-      test: async () => {
+    valid: async () => {
+      await fs.outputFile(
+        'api/foo.get.js',
+        "export default (req, res) => res.send({ foo: 'bar' })",
+      )
+      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
+
+      const nuxt = execaCommand('nuxt start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.get('http://localhost:3000/api/foo')
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
-      },
+      } finally {
+        await kill(nuxt.pid)
+      }
     },
   },
   [
     testerPluginTmpDir(),
-    testerPluginEnv(),
     {
-      transform: test => {
-        test = { output: '', test: () => {}, ...test }
-
-        return async () => {
-          await outputFiles({
-            'nuxt.config.js': endent`
-              export default {
-                modules: ['../src/modules/project/modules/express/index.js'],
-              }
-            `,
-            ...test.files,
-          })
-          await execaCommand('nuxt build', {
-            env: { NUXT_TELEMETRY_DISABLED: 1 },
-          })
-          if (test.runtimeError) {
-            await expect(execaCommand('nuxt start')).rejects.toThrow(
-              test.runtimeError,
-            )
-          } else {
-            const childProcess = execaCommand('nuxt start')
-            try {
-              await portReady(3000)
-              await test.test()
-            } finally {
-              await kill(childProcess.pid)
+      beforeEach: () =>
+        fs.outputFile(
+          'nuxt.config.js',
+          endent`
+            export default {
+              modules: ['../src/modules/project/modules/express/index.js'],
             }
-          }
-        }
-      },
+          `,
+        ),
     },
   ],
 )

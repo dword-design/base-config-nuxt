@@ -6,7 +6,7 @@
       {
         "ignore": [
           "#express",
-          "#app"
+          "#imports"
         ]
       }
     ]

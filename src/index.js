@@ -94,7 +94,11 @@ export default {
         </template>
 
         <script setup>
-        const i18nHead = typeof useLocaleHead === 'function' ? useLocaleHead({ addSeoAttributes: true }) : undefined
+        import { useHead, useRuntimeConfig } from '#imports'
+
+        const i18nHead = typeof global.useLocaleHead === 'function'
+          ? global.useLocaleHead({ addSeoAttributes: true })
+          : undefined
         const runtimeConfig = useRuntimeConfig()
 
         useHead({

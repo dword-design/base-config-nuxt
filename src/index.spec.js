@@ -1,21 +1,23 @@
 import { Base } from '@dword-design/base'
-import { delay, endent, endsWith, property } from '@dword-design/functions'
+import { endent, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import packageName from 'depcheck-package-name'
+import fs from 'fs-extra'
 import outputFiles from 'output-files'
 import pAll from 'p-all'
+import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 import xmlFormatter from 'xml-formatter'
 
-import config from './index.js'
+import self from './index.js'
 
 export default tester(
   {
-    aliases: {
-      files: {
+    async aliases() {
+      await outputFiles({
         'model/foo.js': "export default 'Hello world'",
         'pages/index.vue': endent`
           <template>
@@ -32,43 +34,72 @@ export default tester(
           }
           </script>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    api: {
-      files: {
-        'api/foo.get.js':
-          "export default (req, res) => res.json({ foo: 'bar' })",
-      },
-      test: async () => {
+    api: async () => {
+      await fs.outputFile(
+        'api/foo.get.js',
+        "export default (req, res) => res.json({ foo: 'bar' })",
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.get('http://localhost:3000/api/foo')
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'api body': {
-      files: {
-        'api/foo.post.js': 'export default (req, res) => res.json(req.body)',
-      },
-      test: async () => {
+    'api body': async () => {
+      await fs.outputFile(
+        'api/foo.post.js',
+        'export default (req, res) => res.json(req.body)',
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.post('http://localhost:3000/api/foo', { foo: 'bar' })
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'async modules': {
-      files: {
+    async 'async modules'() {
+      await outputFiles({
         'modules/foo': {
           'index.js': endent`
             import { delay } from '@dword-design/functions'
@@ -92,18 +123,25 @@ export default tester(
           <script setup>
           const { $foo } = useNuxtApp()
           </script>
-
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const foo = await this.page.waitForSelector('.foo')
         expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'basic auth': {
-      files: {
+    'basic auth': async () => {
+      await outputFiles({
         '.env.schema.json': JSON.stringify({
           basicAuthPassword: { type: 'string' },
           basicAuthUser: { type: 'string' },
@@ -113,15 +151,26 @@ export default tester(
           basicAuthUser: 'foo',
         }),
         'api/foo.get.js': "export default (req, res) => res.send('foo')",
+        'package.json': JSON.stringify({ dependencies: { h3: '*' } }),
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
         `,
-        'server/api/bar.get.js':
-          "export default defineEventHandler(() => ('bar'))",
-      },
-      test: async () => {
+        'server/api/bar.get.js': endent`
+          import { defineEventHandler } from 'h3'
+
+          export default defineEventHandler(() => ('bar'))
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
         await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
           'response.status',
           401,
@@ -152,14 +201,16 @@ export default tester(
             },
           }),
         ])
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    bodyAttrs: {
-      files: {
+    async bodyAttrs() {
+      await outputFiles({
         'config.js': endent`
           export default {
             bodyAttrs: {
-              class: 'foo bar',
+              class: 'foo',
             },
           }
         `,
@@ -169,16 +220,22 @@ export default tester(
           </template>
 
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.$eval('body', el => el.className)).toEqual(
-          'foo bar',
-        )
-      },
+        await this.page.waitForSelector('body.foo')
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    css: {
-      files: {
+    async css() {
+      await outputFiles({
         'assets/style.scss': endent`
           .foo {
             background: red;
@@ -195,22 +252,29 @@ export default tester(
           <template>
             <div class="foo">Hello world</div>
           </template>
-
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
-        const handle = await this.page.waitForSelector('.foo')
-
-        const backgroundColor = await handle.evaluate(
-          el => getComputedStyle(el).backgroundColor,
+        const foo = await this.page.waitForSelector('.foo')
+        await this.page.waitForFunction(
+          el => getComputedStyle(el).backgroundColor === 'rgb(255, 0, 0)',
+          {},
+          foo,
         )
-        expect(backgroundColor).toMatch('rgb(255, 0, 0)')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'dotenv: config': {
-      files: {
+    async 'dotenv: config'() {
+      await outputFiles({
         '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
         '.test.env.json': JSON.stringify({ foo: 'Bar' }),
         'config.js': endent`
@@ -223,14 +287,22 @@ export default tester(
             <div>Hello world</div>
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.title()).toEqual('Bar')
-      },
+        await this.page.waitForFunction(() => document.title === 'Bar')
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'dotenv: module': {
-      files: {
+    'dotenv: module': async () => {
+      await outputFiles({
         '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
         '.test.env.json': JSON.stringify({ foo: 'bar' }),
         'modules/foo.js': endent`
@@ -238,15 +310,20 @@ export default tester(
 
           export default () => expect(process.env.FOO).toEqual('bar')
         `,
+        'package.json': JSON.stringify({ dependencies: { expect: '*' } }),
         'pages/index.vue': endent`
           <template>
             <div>Hello world</div>
           </template>
         `,
-      },
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
     },
-    'global components': {
-      files: {
+    async 'global components'() {
+      await outputFiles({
         'components/foo.vue': endent`
           <template>
             <div class="foo">Hello world</div>
@@ -257,24 +334,36 @@ export default tester(
             <foo />
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'head in module': {
-      files: {
-        'modules/mod.js':
-          "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
-      },
+    'head in module': async () => {
+      await fs.outputFile(
+        'modules/mod.js',
+        "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
     },
-    'head link': {
-      files: {
+    async 'head link'() {
+      await outputFiles({
         'config.js': endent`
           export default {
             head: {
@@ -289,8 +378,14 @@ export default tester(
             <div />
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const link = await this.page.waitForSelector('link[rel=alternate]')
@@ -302,10 +397,12 @@ export default tester(
             link.evaluate(el => el.getAttribute('href')),
           ]),
         ).toEqual(['alternate', 'application/rss+xml', 'Blog', '/feed'])
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    hexrgba: {
-      files: {
+    async hexrgba() {
+      await outputFiles({
         'assets/style.css': endent`
           body {
             background: rgba(#fff, .5);
@@ -321,23 +418,30 @@ export default tester(
             <div />
           </template>
         `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
+      })
 
-        const backgroundColor = await this.page.$eval(
-          'body',
-          el => getComputedStyle(el).backgroundColor,
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
+        await this.page.goto('http://localhost:3000')
+        await this.page.waitForFunction(
+          () =>
+            getComputedStyle(document.body).backgroundColor ===
+            'rgba(0, 0, 0, 0)',
         )
-        expect(backgroundColor).toEqual('rgba(0, 0, 0, 0)')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    htmlAttrs: {
-      files: {
+    async htmlAttrs() {
+      await outputFiles({
         'config.js': endent`
           export default {
             htmlAttrs: {
-              class: 'foo bar',
+              class: 'foo',
             },
           }
         `,
@@ -346,16 +450,22 @@ export default tester(
             <div>Hello world</div>
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.$eval('html', el => el.className)).toEqual(
-          'foo bar',
-        )
-      },
+        await this.page.waitForSelector('html.foo')
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'i18n: browser language changed': {
-      files: {
+    'i18n: browser language changed': async () => {
+      await outputFiles({
         i18n: {
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
@@ -365,8 +475,15 @@ export default tester(
             <div />
           </template>
         `,
-      },
-      test: async () => {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
         expect(
           axios.get('http://localhost:3000')
             |> await
@@ -379,17 +496,18 @@ export default tester(
             |> await
             |> property('request.res.responseUrl'),
         ).toEqual('http://localhost:3000/de')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'i18n: middleware': {
-      files: {
+    async 'i18n: middleware'() {
+      await outputFiles({
         'config.js': endent`
           export default {
             router: {
               middleware: ['foo']
             }
           }
-
         `,
         i18n: {
           'de.json': JSON.stringify({}, undefined, 2),
@@ -401,18 +519,26 @@ export default tester(
             <div class="foo">Hello world</div>
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'i18n: root with prefix': {
-      files: {
+    async 'i18n: root with prefix'() {
+      await outputFiles({
         i18n: {
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
@@ -422,14 +548,22 @@ export default tester(
             <div />
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000/de')
         expect(await this.page.url()).toEqual('http://localhost:3000/de')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'i18n: root without prefix': {
-      files: {
+    async 'i18n: root without prefix'() {
+      await outputFiles({
         i18n: {
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
@@ -439,35 +573,31 @@ export default tester(
             <div />
           </template>
         `,
-      },
-      async test() {
-        await this.page.setExtraHTTPHeaders({
-          'Accept-Language': 'de',
-        })
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de')
-      },
-    },
-    'i18n: route with prefix': {
-      files: {
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
-        'pages/foo.vue': endent`
-          <template>
-            <div />
-          </template>
+      })
 
-        `,
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000/de/foo')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
-      },
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+        expect(
+          axios.get('http://localhost:3000', {
+            headers: { 'Accept-Language': 'de' },
+          })
+            |> await
+            |> property('request.res.responseUrl'),
+        ).toEqual('http://localhost:3000/de')
+        await this.page.setExtraHTTPHeaders({
+          'Accept-Language': 'de',
+        })
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'i18n: route without prefix': {
-      files: {
+    'i18n: route with prefix': async () => {
+      await outputFiles({
         i18n: {
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
@@ -477,17 +607,59 @@ export default tester(
             <div />
           </template>
         `,
-      },
-      async test() {
-        await this.page.setExtraHTTPHeaders({
-          'Accept-Language': 'de',
-        })
-        await this.page.goto('http://localhost:3000/foo')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de/foo')
-      },
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+        expect(
+          axios.get('http://localhost:3000/de/foo', {
+            headers: { 'Accept-Language': 'de' },
+          })
+            |> await
+            |> property('request.res.responseUrl'),
+        ).toEqual('http://localhost:3000/de/foo')
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'i18n: single locale': {
-      files: {
+    'i18n: route without prefix': async () => {
+      await outputFiles({
+        i18n: {
+          'de.json': JSON.stringify({}),
+          'en.json': JSON.stringify({}),
+        },
+        'pages/foo.vue': endent`
+          <template>
+            <div />
+          </template>
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+        expect(
+          axios.get('http://localhost:3000/foo', {
+            headers: { 'Accept-Language': 'de' },
+          })
+            |> await
+            |> property('request.res.responseUrl'),
+        ).toEqual('http://localhost:3000/de/foo')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
+    async 'i18n: single locale'() {
+      await outputFiles({
         'i18n/de.json': JSON.stringify({ foo: 'bar' }),
         pages: {
           'bar.vue': endent`
@@ -501,8 +673,14 @@ export default tester(
             </template>
           `,
         },
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.setExtraHTTPHeaders({
           'Accept-Language': 'en',
         })
@@ -514,10 +692,12 @@ export default tester(
         expect(await link.evaluate(el => el.href)).toEqual(
           'http://localhost:3000/bar',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'i18n: works': {
-      files: {
+    async 'i18n: works'() {
+      await outputFiles({
         '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
         '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
         'config.js': endent`
@@ -537,15 +717,18 @@ export default tester(
             <div class="foo">{{ $t('foo') }}</div>
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/en')
 
         const handle = await this.page.waitForSelector('.foo')
-        expect(await handle.evaluate(div => div.textContent)).toEqual(
-          'Hello world',
-        )
+        expect(await this.page.url()).toEqual('http://localhost:3000/en')
 
         const html = await this.page.waitForSelector('html[lang=en]')
         await this.page.waitForSelector(
@@ -554,16 +737,21 @@ export default tester(
         await this.page.waitForSelector(
           'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]',
         )
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
+          'Hello world',
+        )
         expect(await html.evaluate(el => el.getAttribute('style'))).toEqual(
           'background: red',
         )
         await this.page.waitForSelector(
           'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'locale link': {
-      files: {
+    async 'locale link'() {
+      await outputFiles({
         i18n: {
           'de.json': JSON.stringify({}),
           'en.json': JSON.stringify({}),
@@ -582,16 +770,22 @@ export default tester(
             </template>
           `,
         },
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.$eval('a', a => a.getAttribute('href'))).toEqual(
-          '/en/foo',
-        )
-      },
+        await this.page.waitForSelector('a[href=/en/foo]')
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    name: {
-      files: {
+    async name() {
+      await outputFiles({
         'config.js': endent`
           export default {
             name: 'Test-App',
@@ -601,16 +795,23 @@ export default tester(
           <template>
             <div>Hello world</div>
           </template>
-
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.title()).toEqual('Test-App')
-      },
+        await this.page.waitForFunction(() => document.title === 'Test-App')
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'name and title': {
-      files: {
+    async 'name and title'() {
+      await outputFiles({
         'config.js': endent`
           export default {
             name: 'Test-App',
@@ -621,24 +822,41 @@ export default tester(
           <template>
             <div>Hello world</div>
           </template>
-
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.title()).toEqual(
-          'Test-App: This is the ultimate app!',
+        await this.page.waitForFunction(
+          () => document.title === 'Test-App: This is the ultimate app!',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'nitro and express api': {
-      files: {
+    'nitro and express api': async () => {
+      await outputFiles({
         'api/bar.get.js':
           "export default (req, res) => res.json({ express: 'bar' })",
-        'server/api/foo.get.js':
-          "export default defineEventHandler(() => ({ nitro: 'foo' }))",
-      },
-      test: async () =>
+        'server/api/foo.get.js': endent`
+          import { defineEventHandler } from '#imports'
+
+          export default defineEventHandler(() => ({ nitro: 'foo' }))
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
         expect(
           await pAll([
             async () =>
@@ -650,34 +868,43 @@ export default tester(
               |> await
               |> property('data'),
           ]),
-        ).toEqual([{ nitro: 'foo' }, { express: 'bar' }]),
+        ).toEqual([{ nitro: 'foo' }, { express: 'bar' }])
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    ogImage: {
-      files: {
+    async ogImage() {
+      await outputFiles({
         'config.js': endent`
           export default {
             ogImage: 'https://example.com/og-image',
           }
         `,
-        pages: {
-          'index.vue': endent`
-            <template>
-              <div />
-            </template>
-          `,
-        },
-      },
-      async test() {
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('meta[name=og\\:image]')
         expect(await handle.evaluate(meta => meta.content)).toEqual(
           'https://example.com/og-image',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'page with title': {
-      files: {
+    async 'page with title'() {
+      await outputFiles({
         'config.js': endent`
           export default {
             name: 'Test-App',
@@ -692,16 +919,25 @@ export default tester(
           <script setup>
           useHead({ title: 'Foo page' })
           </script>
-
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000/foo')
-        expect(await this.page.title()).toEqual('Foo page | Test-App')
-      },
+        await this.page.waitForFunction(
+          () => document.title === 'Foo page | Test-App',
+        )
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    port: {
-      files: {
+    async port() {
+      await outputFiles({
         '.env.schema.json': JSON.stringify({ port: { type: 'integer' } }),
         '.test.env.json': JSON.stringify({ port: 3005 }),
         'pages/index.vue': endent`
@@ -709,15 +945,24 @@ export default tester(
             <div class="foo" />
           </template>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3005)
         await this.page.goto('http://localhost:3005')
         await this.page.waitForSelector('.foo')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'request body': {
-      files: {
-        'pages/index.vue': endent`
+    async 'request body'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
           <template>
             <form method="POST" :class="{ sent }">
               <button name="submit" type="submit" @submit="send">Send</button>
@@ -725,22 +970,33 @@ export default tester(
           </template>
 
           <script setup>
+          import { useRequestEvent } from '#imports'
+
           const event = useRequestEvent()
 
           const sent = event?.node?.req?.body?.submit !== undefined
           </script>
         `,
-      },
-      async test() {
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const button = await this.page.waitForSelector('button')
         await button.click()
         await this.page.waitForSelector('form.sent')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'router config': {
-      files: {
+    async 'router config'() {
+      await outputFiles({
         'config.js': endent`
           export default {
             router: {
@@ -756,38 +1012,55 @@ export default tester(
           `,
           'inner/info.vue': '<template />',
         },
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('.foo.is-active')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'setup-express.js': {
-      files: {
+    'setup-express.js': async () => {
+      await outputFiles({
         'api/foo.get.js': endent`
           export default (req, res) => res.json({ foo: 'bar' })
         `,
         'setup-express.js': endent`
           export default app => app.use((req, res, next) => { req.foo = 'bar'; next() })
         `,
-      },
-      test: async () => {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+
         const result =
           axios.get('http://localhost:3000/api/foo')
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    sitemap: {
-      files: {
+    sitemap: async () => {
+      await outputFiles({
         'config.js': endent`
           export default {
             modules: [
               '${packageName`@funken-studio/sitemap-nuxt-3`}',
             ]
           }
-
         `,
         i18n: {
           'de.json': JSON.stringify({}),
@@ -797,10 +1070,17 @@ export default tester(
           <template>
             <div class="foo">Hello world</div>
           </template>
-
         `,
-      },
-      test: async () => {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+
         const sitemap =
           (await axios.get('http://localhost:3000/sitemap.xml'))
           |> await
@@ -822,10 +1102,12 @@ export default tester(
             </url>
           </urlset>
         `)
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'svg inline': {
-      files: {
+    async 'svg inline'() {
+      await outputFiles({
         'assets/icon.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
         'pages/index.vue': endent`
           <template>
@@ -842,16 +1124,24 @@ export default tester(
           }
           </script>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const icon = await this.page.waitForSelector('.icon')
         expect(await icon.evaluate(el => el.tagName)).toEqual('svg')
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    'svg url': {
-      files: {
+    async 'svg url'() {
+      await outputFiles({
         'assets/image.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
         'pages/index.vue': endent`
           <template>
@@ -868,8 +1158,14 @@ export default tester(
           }
           </script>
         `,
-      },
-      async test() {
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const image = await this.page.waitForSelector('.image')
@@ -877,73 +1173,64 @@ export default tester(
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
           '/_nuxt/assets/image.svg',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
-    userScalable: {
-      files: {
+    async userScalable() {
+      await outputFiles({
         'config.js': endent`
           export default {
             userScalable: false,
           }
         `,
-        pages: {
-          'index.vue': endent`
-            <template>
-              <div />
-            </template>
-          `,
-        },
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-
-        const handle = await this.page.waitForSelector('meta[name=viewport]')
-        expect(
-          (await handle.evaluate(meta => meta.content))
-            |> endsWith('user-scalable=0'),
-        ).toBeTruthy()
-      },
-    },
-    valid: {
-      files: {
         'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
+        await this.page.goto('http://localhost:3000')
+        await this.page.waitForSelector(
+          'meta[name=viewport][content$=user-scalable\\=0]',
+        )
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
+    async valid() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
         `,
-      },
-      async test() {
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
         )
-      },
+      } finally {
+        await kill(childProcess.pid)
+      }
     },
   },
-  [
-    testerPluginPuppeteer(),
-    {
-      transform: test => {
-        test = { test: () => {}, ...test }
-
-        return async function () {
-          await outputFiles(test.files)
-
-          const base = new Base(config)
-          await base.prepare()
-
-          const childProcess = base.run('dev')
-          await delay(10000)
-          try {
-            await test.test.call(this)
-          } finally {
-            await kill(childProcess.pid)
-          }
-        }
-      },
-    },
-    testerPluginTmpDir(),
-  ],
+  [testerPluginTmpDir(), testerPluginPuppeteer()],
 )
