@@ -1,5 +1,6 @@
 import { addServerHandler, addTemplate, createResolver } from '@nuxt/kit'
 import P from 'path'
+import nuxtAliasPath from 'nuxt-alias-path'
 
 const resolver = createResolver(import.meta.url)
 
@@ -16,9 +17,6 @@ export default (options, nuxt) => {
       )}`,
     write: true,
   })
-  nuxt.options.alias[`#${moduleName}`] = P.resolve(
-    nuxt.options.buildDir,
-    moduleName,
-  )
+  nuxt.options.alias[`#${moduleName}`] = nuxtAliasPath(moduleName, nuxt)
   addServerHandler({ handler: resolver.resolve('./handler') })
 }

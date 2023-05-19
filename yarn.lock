@@ -11166,6 +11166,11 @@ nuxi@3.5.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
+nuxt-alias-path@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nuxt-alias-path/-/nuxt-alias-path-1.0.0.tgz#b700da66e6a4c050a18800306fd3f68a52e4968f"
+  integrity sha512-Brt1kbn6MxiYOo7B1B3Plz+NoMNLCPUzcQzcFOlSdxFFVtx5lqQoUvlQ/FlEuRZX0p7uKUiR3ItK7IeMRIqdAA==
+
 nuxt-basic-authentication-module@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/nuxt-basic-authentication-module/-/nuxt-basic-authentication-module-0.2.1.tgz#0fc234c28c2d4e5a8c516edfa27fd3a8df498007"
