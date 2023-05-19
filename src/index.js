@@ -2,6 +2,7 @@ import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
+import { globby } from 'globby'
 import { createRequire } from 'module'
 import outputFiles from 'output-files'
 import P from 'path'
@@ -70,7 +71,7 @@ export default {
   packageConfig: {
     main: 'dist/index.js',
   },
-  prepare: () => {
+  prepare: async () => {
     const projectModulePath = `./${P.relative(
       process.cwd(),
       _require.resolve('./modules/project/index.js'),
@@ -78,7 +79,10 @@ export default {
       .split(P.sep)
       .join('/')}`
 
-    return outputFiles({
+    const translations = await globby('i18n/*.json')
+
+    const hasI18n = translations.length > 0
+    await outputFiles({
       '.stylelintrc.json': JSON.stringify(
         {
           extends: packageName`@dword-design/stylelint-config`,
@@ -94,22 +98,34 @@ export default {
         </template>
 
         <script setup>
-        import { useHead, useRuntimeConfig } from '#imports'
+        import { ${[
+          'useHead',
+          ...(hasI18n ? ['useLocaleHead'] : []),
+          'useRuntimeConfig',
+        ].join(', ')} } from '#imports'
 
-        const i18nHead = typeof global.useLocaleHead === 'function'
-          ? global.useLocaleHead({ addSeoAttributes: true })
-          : undefined
-        const runtimeConfig = useRuntimeConfig()
+        ${[
+          hasI18n
+            ? ['const i18nHead = useLocaleHead({ addSeoAttributes: true })']
+            : [],
+          'const runtimeConfig = useRuntimeConfig()',
+        ].join('\n')}
 
         useHead({
-          ...i18nHead !== undefined && {
-            htmlAttrs: {
-              lang: i18nHead.value.htmlAttrs.lang,
-            },
-            link: i18nHead.value.link,
-            meta: i18nHead.value.meta,
-          },
-          titleTemplate: title => title ? \`\${title} | \$\{runtimeConfig.public.name}\` : \`\${runtimeConfig.public.name}\${runtimeConfig.public.title ? \`: \${runtimeConfig.public.title}\` : ''}\`,
+          ${[
+            ...(hasI18n
+              ? [
+                  endent`
+                    htmlAttrs: {
+                      lang: i18nHead.value.htmlAttrs.lang,
+                    },
+                    link: i18nHead.value.link,
+                    meta: i18nHead.value.meta,
+                  `,
+                ]
+              : []),
+            "titleTemplate: title => title ? `${title} | ${runtimeConfig.public.name}` : `${runtimeConfig.public.name}${runtimeConfig.public.title ? `: ${runtimeConfig.public.title}` : ''}`",
+          ].join('\n')}
         })
         </script>
       `,

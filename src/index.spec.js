@@ -721,30 +721,32 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
+      await base.run('prepublishOnly')
 
-      const childProcess = base.run('dev')
+      const childProcess = base.run('start')
       try {
         await portReady(3000)
         await this.page.goto('http://localhost:3000')
-
-        const handle = await this.page.waitForSelector('.foo')
         expect(await this.page.url()).toEqual('http://localhost:3000/en')
 
-        const html = await this.page.waitForSelector('html[lang=en]')
-        await this.page.waitForSelector(
-          'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]',
-        )
-        await this.page.waitForSelector(
-          'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]',
-        )
-        expect(await handle.evaluate(div => div.textContent)).toEqual(
+        const [foo, html] = await Promise.all([
+          this.page.waitForSelector('.foo'),
+          this.page.waitForSelector('html[lang=en]'),
+          this.page.waitForSelector(
+            'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]',
+          ),
+          this.page.waitForSelector(
+            'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]',
+          ),
+          this.page.waitForSelector(
+            'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]',
+          ),
+        ])
+        expect(await foo.evaluate(div => div.textContent)).toEqual(
           'Hello world',
         )
         expect(await html.evaluate(el => el.getAttribute('style'))).toEqual(
           'background: red',
-        )
-        await this.page.waitForSelector(
-          'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]',
         )
       } finally {
         await kill(childProcess.pid)
@@ -774,12 +776,15 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
+      await base.run('prepublishOnly')
 
-      const childProcess = base.run('dev')
+      const childProcess = base.run('start')
       try {
         await portReady(3000)
         await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('a[href=/en/foo]')
+        expect(await this.page.$eval('a', a => a.getAttribute('href'))).toEqual(
+          '/en/foo',
+        )
       } finally {
         await kill(childProcess.pid)
       }
