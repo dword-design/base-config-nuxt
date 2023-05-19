@@ -67,6 +67,8 @@ jobs:
             os: ubuntu-latest
           - node: 18
             os: macos-latest
+          - node: 18
+            os: windows-latest
 name: build
 on:
   pull_request: {}
