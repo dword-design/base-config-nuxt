@@ -1,3 +1,17 @@
+# [4.0.0](https://github.com/dword-design/base-config-nuxt/compare/v3.2.17...v4.0.0) (2023-05-19)
+
+
+### Bug Fixes
+
+* foo ([ea5dfba](https://github.com/dword-design/base-config-nuxt/commit/ea5dfba2daae646c15274e5d8be306a65e677e17))
+* foo ([f6f4928](https://github.com/dword-design/base-config-nuxt/commit/f6f4928638798abeda4184c33867af045ea4ad7a))
+* update dependency nuxt to v3 ([#186](https://github.com/dword-design/base-config-nuxt/issues/186)) ([b3736b0](https://github.com/dword-design/base-config-nuxt/commit/b3736b02c518aec7dda818acd5d38c47a6f24c7a))
+
+
+### BREAKING CHANGES
+
+* upgrade nuxt to 3
+
 ## [3.2.17](https://github.com/dword-design/base-config-nuxt/compare/v3.2.16...v3.2.17) (2023-04-29)
 
 
