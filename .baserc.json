@@ -1,5 +1,6 @@
 {
   "name": "@dword-design/node",
+  "supportedNodeVersions": [16, 18],
   "eslintConfig": {
     "extends": "@dword-design/eslint-config",
     "rules": {
