@@ -1,6 +1,6 @@
 import { addServerHandler, addTemplate, createResolver } from '@nuxt/kit'
-import P from 'path'
 import nuxtAliasPath from 'nuxt-alias-path'
+import P from 'path'
 
 const resolver = createResolver(import.meta.url)
 
