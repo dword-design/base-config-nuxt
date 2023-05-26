@@ -1331,6 +1331,16 @@
     node-sass-package-importer "^5.3.2"
     require-package-name "^2.0.1"
 
+"@dword-design/depcheck-parser-sass@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@dword-design/depcheck-parser-sass/-/depcheck-parser-sass-4.0.0.tgz#047350720f3664eb3a5585b2ebd86e86dcd973b3"
+  integrity sha512-hDEx/QSYef2dh8nA/qnOSVVl6BqC73kgIRjEplqGAyMSupbPRPlPTmUmJYrzXnr4JFnFBsXyBxDYb05rGt7kRg==
+  dependencies:
+    "@dword-design/functions" "^4.0.0"
+    get-package-name "^2.0.0"
+    resolve-cwd "^3.0.0"
+    sass "^1.62.1"
+
 "@dword-design/dotenv-json-extended@^2.0.0":
   version "2.0.22"
   resolved "https://registry.yarnpkg.com/@dword-design/dotenv-json-extended/-/dotenv-json-extended-2.0.22.tgz#13d76feb777c8d0d595cb59f24e0263c85673121"
@@ -13047,6 +13057,13 @@ reselect@^4.0.0:
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.8.tgz#3f5dc671ea168dccdeb3e141236f69f02eaec524"
   integrity sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==
 
+resolve-cwd@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/resolve-cwd/-/resolve-cwd-3.0.0.tgz#0f0075f1bb2544766cf73ba6a6e2adfebcb13f2d"
+  integrity sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==
+  dependencies:
+    resolve-from "^5.0.0"
+
 resolve-dir@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/resolve-dir/-/resolve-dir-0.1.1.tgz#b219259a5602fac5c5c496ad894a6e8cc430261e"
@@ -13271,7 +13288,7 @@ sass-graph@^4.0.1:
     scss-tokenizer "^0.4.3"
     yargs "^17.2.1"
 
-sass@^1.29.0:
+sass@^1.29.0, sass@^1.62.1:
   version "1.62.1"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.62.1.tgz#caa8d6bf098935bc92fc73fa169fb3790cacd029"
   integrity sha512-NHpxIzN29MXvWiuswfc1W3I0N8SXBd8UR26WntmDlRYf0bSADnwnOjsyMZ3lMezSlArD33Vs3YFhp7dWvL770A==
