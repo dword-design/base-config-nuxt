@@ -33,7 +33,7 @@ export default {
     'config.js',
     'pages',
     'plugins',
-    'static',
+    'public',
     'store',
     'types',
   ],
