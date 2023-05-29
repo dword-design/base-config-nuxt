@@ -137,6 +137,7 @@ export default {
         import jiti from 'jiti'
         import dotenv from '@dword-design/dotenv-json-extended'
         import jitiBabelTransform from '@dword-design/jiti-babel-transform'
+        import { babel } from '${packageName`@rollup/plugin-babel`}'
 
         dotenv.config()
 
@@ -157,6 +158,11 @@ export default {
         }
 
         export default {
+          nitro: {
+            rollupConfig: {
+              plugins: [babel({ babelHelpers: 'bundled' })],
+            },
+          },
           modules: [
             [projectModule, options],
           ],

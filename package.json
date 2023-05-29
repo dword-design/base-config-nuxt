@@ -31,6 +31,7 @@
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/i18n": "npm:@dword-design/nuxt-i18n",
     "@nuxtjs/stylelint-module": "^5.0.1",
+    "@rollup/plugin-babel": "^6.0.3",
     "depcheck-package-name": "^3.0.0",
     "depcheck-parser-vue": "^3.0.1",
     "execa": "^6.1.0",

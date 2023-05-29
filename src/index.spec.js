@@ -119,6 +119,32 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+    'babel in api': async () => {
+      await fs.outputFile(
+        'server/api/foo.get.js',
+        endent`
+          import { defineEventHandler } from '#imports'
+
+          export default defineEventHandler(() => 1 |> x => x * 2)
+        `,
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+
+        const result =
+          axios.get('http://localhost:3000/api/foo')
+          |> await
+          |> property('data')
+        expect(result).toEqual(2)
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
     'basic auth': async () => {
       await outputFiles({
         '.env.schema.json': JSON.stringify({
