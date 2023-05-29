@@ -1,3 +1,10 @@
+## [4.0.3](https://github.com/dword-design/base-config-nuxt/compare/v4.0.2...v4.0.3) (2023-05-29)
+
+
+### Bug Fixes
+
+* index.js ([8289b8f](https://github.com/dword-design/base-config-nuxt/commit/8289b8f9c4d44a9a8721c10cc9464bdd4def3060))
+
 ## [4.0.2](https://github.com/dword-design/base-config-nuxt/compare/v4.0.1...v4.0.2) (2023-05-29)
 
 
