@@ -8,7 +8,6 @@ import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
 import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
-import pAll from 'p-all'
 import kill from 'tree-kill-promise'
 import xmlFormatter from 'xml-formatter'
 
@@ -54,8 +53,12 @@ export default tester(
     },
     api: async () => {
       await fs.outputFile(
-        'api/foo.get.js',
-        "export default (req, res) => res.json({ foo: 'bar' })",
+        'server/api/foo.get.js',
+        endent`
+          import { defineEventHandler } from '#imports'
+
+          export default defineEventHandler(() => ({ foo: 'bar' }))
+        `,
       )
 
       const base = new Base(self)
@@ -67,28 +70,6 @@ export default tester(
 
         const result =
           axios.get('http://localhost:3000/api/foo')
-          |> await
-          |> property('data')
-        expect(result).toEqual({ foo: 'bar' })
-      } finally {
-        await kill(childProcess.pid)
-      }
-    },
-    'api body': async () => {
-      await fs.outputFile(
-        'api/foo.post.js',
-        'export default (req, res) => res.json(req.body)',
-      )
-
-      const base = new Base(self)
-      await base.prepare()
-
-      const childProcess = base.run('dev')
-      try {
-        await nuxtDevReady()
-
-        const result =
-          axios.post('http://localhost:3000/api/foo', { foo: 'bar' })
           |> await
           |> property('data')
         expect(result).toEqual({ foo: 'bar' })
@@ -148,17 +129,16 @@ export default tester(
           basicAuthPassword: 'bar',
           basicAuthUser: 'foo',
         }),
-        'api/foo.get.js': "export default (req, res) => res.send('foo')",
         'package.json': JSON.stringify({ dependencies: { h3: '*' } }),
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
         `,
-        'server/api/bar.get.js': endent`
+        'server/api/foo.get.js': endent`
           import { defineEventHandler } from 'h3'
 
-          export default defineEventHandler(() => ('bar'))
+          export default defineEventHandler(() => ('foo'))
         `,
       })
 
@@ -175,9 +155,6 @@ export default tester(
         await expect(
           axios.get('http://localhost:3000/api/foo'),
         ).rejects.toHaveProperty('response.status', 401)
-        await expect(
-          axios.get('http://localhost:3000/api/bar'),
-        ).rejects.toHaveProperty('response.status', 401)
         await Promise.all([
           axios.get('http://localhost:3000', {
             auth: {
@@ -186,12 +163,6 @@ export default tester(
             },
           }),
           axios.get('http://localhost:3000/api/foo', {
-            auth: {
-              password: 'bar',
-              username: 'foo',
-            },
-          }),
-          axios.get('http://localhost:3000/api/bar', {
             auth: {
               password: 'bar',
               username: 'foo',
@@ -835,39 +806,6 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
-    'nitro and express api': async () => {
-      await outputFiles({
-        'api/bar.get.js':
-          "export default (req, res) => res.json({ express: 'bar' })",
-        'server/api/foo.get.js': endent`
-          import { defineEventHandler } from '#imports'
-
-          export default defineEventHandler(() => ({ nitro: 'foo' }))
-        `,
-      })
-
-      const base = new Base(self)
-      await base.prepare()
-
-      const childProcess = base.run('dev')
-      try {
-        await nuxtDevReady()
-        expect(
-          await pAll([
-            async () =>
-              axios.get('http://localhost:3000/api/foo')
-              |> await
-              |> property('data'),
-            async () =>
-              axios.get('http://localhost:3000/api/bar')
-              |> await
-              |> property('data'),
-          ]),
-        ).toEqual([{ nitro: 'foo' }, { express: 'bar' }])
-      } finally {
-        await kill(childProcess.pid)
-      }
-    },
     async ogImage() {
       await outputFiles({
         'config.js': endent`
@@ -966,10 +904,11 @@ export default tester(
 
           <script setup>
           import { useRequestEvent } from '#imports'
+          import { getMethod, readBody } from 'h3'
 
           const event = useRequestEvent()
 
-          const sent = event?.node?.req?.body?.submit !== undefined
+          const sent = event && getMethod(event) === 'POST' && (await readBody(event)).submit !== undefined
           </script>
         `,
       )
@@ -1016,32 +955,6 @@ export default tester(
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('.foo.is-active')
-      } finally {
-        await kill(childProcess.pid)
-      }
-    },
-    'setup-express.js': async () => {
-      await outputFiles({
-        'api/foo.get.js': endent`
-          export default (req, res) => res.json({ foo: 'bar' })
-        `,
-        'setup-express.js': endent`
-          export default app => app.use((req, res, next) => { req.foo = 'bar'; next() })
-        `,
-      })
-
-      const base = new Base(self)
-      await base.prepare()
-
-      const childProcess = base.run('dev')
-      try {
-        await nuxtDevReady()
-
-        const result =
-          axios.get('http://localhost:3000/api/foo')
-          |> await
-          |> property('data')
-        expect(result).toEqual({ foo: 'bar' })
       } finally {
         await kill(childProcess.pid)
       }

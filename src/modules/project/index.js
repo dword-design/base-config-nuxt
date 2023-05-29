@@ -4,7 +4,7 @@ import packageName from 'depcheck-package-name'
 import { createRequire } from 'module'
 import P from 'path'
 
-import expressModule from './modules/express/index.js'
+// import expressModule from './modules/express/index.js'
 import i18nModule from './modules/i18n/index.js'
 import localeLinkModule from './modules/locale-link/index.js'
 import svgModule from './modules/svg.js'
@@ -85,10 +85,10 @@ export default async (options, nuxt) => {
         enabled: nuxt.options.runtimeConfig.basicAuth !== undefined,
       },
     ],
-    [
+    /*[
       packageName`@nuxtjs/eslint-module`,
       { cache: false, failOnWarning: true, fix: true, lintOnStart: false },
-    ],
+    ],*/
     [
       packageName`@nuxtjs/stylelint-module`,
       {
@@ -99,7 +99,7 @@ export default async (options, nuxt) => {
       },
     ],
     i18nModule,
-    expressModule,
+    // expressModule,
     svgModule,
     localeLinkModule,
     ...(projectConfig.modules || []),

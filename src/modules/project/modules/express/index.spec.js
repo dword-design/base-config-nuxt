@@ -1,5 +1,6 @@
-import { endent, property } from '@dword-design/functions'
+import { endent as javascript, property } from '@dword-design/functions'
 import tester from '@dword-design/tester'
+import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import axios from 'axios'
 import { execaCommand } from 'execa'
@@ -19,14 +20,38 @@ export default tester(
         }),
       ).rejects.toThrow('Error: foo')
     },
+    /* async fetch() {
+      await outputFiles({
+        'api/foo.get.js': "export default (req, res) => res.send('foo')",
+        'pages/index.vue': javascript`
+          <template>
+            <div :class="foo" />
+          </template>
+
+          <script setup>
+          import { useFetch } from '#imports'
+
+          const { data: foo } = await useFetch('/api/foo')
+          </script>
+        `,
+      })
+
+      const nuxt = execaCommand('nuxt dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+        await this.page.waitForSelector('.foo')
+      } finally {
+        await kill(nuxt.pid)
+      }
+    }, */
     'parameter casing': async () => {
       await fs.outputFile(
         'api/foo/_paramFoo.get.js',
         'export default (req, res) => res.send({ foo: req.params.paramFoo })',
       )
-      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
 
-      const nuxt = execaCommand('nuxt start')
+      const nuxt = execaCommand('nuxt dev')
       try {
         await nuxtDevReady()
 
@@ -44,9 +69,8 @@ export default tester(
         'api/foo/_param.get.js',
         'export default (req, res) => res.send({ foo: req.params.param })',
       )
-      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
 
-      const nuxt = execaCommand('nuxt start')
+      const nuxt = execaCommand('nuxt dev')
       try {
         await nuxtDevReady()
 
@@ -64,9 +88,8 @@ export default tester(
         'api/_param/foo.get.js',
         'export default (req, res) => res.send({ foo: req.params.param })',
       )
-      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
 
-      const nuxt = execaCommand('nuxt start')
+      const nuxt = execaCommand('nuxt dev')
       try {
         await nuxtDevReady()
 
@@ -86,9 +109,8 @@ export default tester(
         'setup-express.js':
           "export default app => app.use((req, res, next) => { req.foo = 'bar'; next() })",
       })
-      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
 
-      const nuxt = execaCommand('nuxt start')
+      const nuxt = execaCommand('nuxt dev')
       try {
         await nuxtDevReady()
 
@@ -106,9 +128,8 @@ export default tester(
         'api/foo.get.js',
         "export default (req, res) => res.send({ foo: 'bar' })",
       )
-      await execaCommand('nuxt build', { env: { NUXT_TELEMETRY_DISABLED: 1 } })
 
-      const nuxt = execaCommand('nuxt start')
+      const nuxt = execaCommand('nuxt dev')
       try {
         await nuxtDevReady()
 
@@ -124,11 +145,12 @@ export default tester(
   },
   [
     testerPluginTmpDir(),
+    testerPluginPuppeteer(),
     {
       beforeEach: () =>
         fs.outputFile(
           'nuxt.config.js',
-          endent`
+          javascript`
             export default {
               modules: ['../src/modules/project/modules/express/index.js'],
             }

@@ -20,7 +20,8 @@ const _require = createRequire(import.meta.url)
 export default {
   allowedMatches: [
     '.stylelintrc.json',
-    'api',
+    'server/api/**/*.js',
+    'server/middleware/**/*.js',
     'assets',
     'components',
     'content',
