@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/dword-design/base-config-nuxt/compare/v4.0.1...v4.0.2) (2023-05-29)
+
+
+### Bug Fixes
+
+* remove express ([#226](https://github.com/dword-design/base-config-nuxt/issues/226)) ([3c79dee](https://github.com/dword-design/base-config-nuxt/commit/3c79dee547517617ae557e0f0ed02f6d3ff629ae))
+
 ## [4.0.1](https://github.com/dword-design/base-config-nuxt/compare/v4.0.0...v4.0.1) (2023-05-29)
 
 
