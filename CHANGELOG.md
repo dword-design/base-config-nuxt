@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/dword-design/base-config-nuxt/compare/v4.0.0...v4.0.1) (2023-05-29)
+
+
+### Bug Fixes
+
+* ignore stylelintcache ([dea81fd](https://github.com/dword-design/base-config-nuxt/commit/dea81fdb01b55180e0503e759e8556bdd48610fc))
+
 # [4.0.0](https://github.com/dword-design/base-config-nuxt/compare/v3.2.17...v4.0.0) (2023-05-19)
 
 
