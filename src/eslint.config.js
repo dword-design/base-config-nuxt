@@ -2,8 +2,8 @@ import packageName from 'depcheck-package-name'
 
 export default {
   extends: packageName`@dword-design/eslint-config`,
-  "globals": {
-    "$fetch": "readonly",
+  globals: {
+    $fetch: 'readonly',
   },
   rules: {
     'import/no-unresolved': ['error', { ignore: ['#imports'] }],
