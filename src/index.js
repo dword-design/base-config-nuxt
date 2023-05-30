@@ -55,6 +55,7 @@ export default {
     '.stylelintcache',
     '.stylelintrc.json',
     '.nuxt',
+    '.output',
     'app.vue',
     'dist',
     'nuxt.config.js',
@@ -63,6 +64,7 @@ export default {
   gitignore: [
     '/.eslintcache',
     '/.nuxt',
+    '/.output',
     '/.stylelintcache',
     '/app.vue',
     '/dist',
