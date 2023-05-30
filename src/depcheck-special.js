@@ -2,6 +2,7 @@ import { filter, first, map } from '@dword-design/functions'
 import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 import jiti from 'jiti'
 import P from 'path'
+import requirePackageName from 'require-package-name'
 
 export default path => {
   if (P.basename(path) === 'config.js') {
@@ -19,6 +20,7 @@ export default path => {
       modules
       |> map(mod => [].concat(mod) |> first)
       |> filter(name => typeof name === 'string')
+      |> map(name => requirePackageName(name))
     )
   }
 

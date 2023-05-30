@@ -63,22 +63,71 @@ export default tester(
         `,
       },
     },
+    'relative path': {
+      fail: true,
+      files: {
+        'config.js': endent`
+          export default {
+            modules: [
+              './modules/foo.js',
+            ],
+          }
+        `,
+      },
+    },
+    scoped: {
+      dependency: '@name/foo',
+      files: {
+        'config.js': endent`
+          export default {
+            modules: [
+              '@name/foo',
+            ],
+          }
+        `,
+      },
+    },
+    'scoped and subpath': {
+      dependency: '@name/foo',
+      files: {
+        'config.js': endent`
+          export default {
+            modules: [
+              '@name/foo/bar',
+            ],
+          }
+        `,
+      },
+    },
+    subpath: {
+      files: {
+        'config.js': endent`
+          export default {
+            modules: [
+              'foo/bar',
+            ],
+          }
+        `,
+      },
+    },
     'unused dependency': { fail: true },
   },
   [
     {
-      transform: config => async () => {
-        await outputFiles(config.files)
+      transform: test => async () => {
+        test = { dependency: 'foo', fail: false, ...test }
+
+        await outputFiles(test.files)
 
         const result = await depcheck('.', {
           package: {
             dependencies: {
-              foo: '^1.0.0',
+              [test.dependency]: '^1.0.0',
             },
           },
           specials: [self],
         })
-        expect(result.dependencies.length > 0).toEqual(!!config.fail)
+        expect(result.dependencies.length > 0).toEqual(!!test.fail)
       },
     },
     testerPluginTmpDir(),
