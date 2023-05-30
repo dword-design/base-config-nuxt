@@ -1,3 +1,10 @@
+## [4.0.6](https://github.com/dword-design/base-config-nuxt/compare/v4.0.5...v4.0.6) (2023-05-30)
+
+
+### Bug Fixes
+
+* vue babel ([#228](https://github.com/dword-design/base-config-nuxt/issues/228)) ([7b8aea0](https://github.com/dword-design/base-config-nuxt/commit/7b8aea0b3f0ccff61c40dc0c42c1dc54a0defa5a))
+
 ## [4.0.5](https://github.com/dword-design/base-config-nuxt/compare/v4.0.4...v4.0.5) (2023-05-30)
 
 
