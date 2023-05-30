@@ -1,5 +1,5 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
-import { endent } from '@dword-design/functions'
+import { endent, endent as javascript } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
 import { globby } from 'globby'
@@ -132,11 +132,12 @@ export default {
         })
         </script>
       `,
-      'nuxt.config.js': endent`
+      'nuxt.config.js': javascript`
         import projectModule from '${projectModulePath}'
         import jiti from 'jiti'
         import dotenv from '@dword-design/dotenv-json-extended'
         import jitiBabelTransform from '@dword-design/jiti-babel-transform'
+        import { transform } from '@babel/core'
         import { babel } from '${packageName`@rollup/plugin-babel`}'
 
         dotenv.config()
@@ -166,6 +167,28 @@ export default {
           modules: [
             [projectModule, options],
           ],
+          vite: {
+            plugins: [
+              {
+                transform: (code, id) => {
+                  if (id.endsWith('.vue')) {
+                    return transform(code, {
+                      plugins: [
+                        ['@babel/proposal-pipeline-operator', { proposal: 'fsharp'}],
+                      ],
+                    })
+                  }
+                },
+              }
+            ],
+            vue: {
+              script: {
+                babelParserPlugins: [
+                  ['pipelineOperator', { proposal: 'fsharp' }],
+                ],
+              },
+            },
+          },
         }
       `,
     })

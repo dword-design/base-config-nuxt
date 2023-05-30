@@ -145,6 +145,38 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+    async 'babel in vue'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script>
+          export default {
+            computed: {
+              foo: () => 1 |> x => x * 2,
+            },
+          }
+          </script>
+        `,
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const foo = await this.page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
     'basic auth': async () => {
       await outputFiles({
         '.env.schema.json': JSON.stringify({
@@ -155,14 +187,13 @@ export default tester(
           basicAuthPassword: 'bar',
           basicAuthUser: 'foo',
         }),
-        'package.json': JSON.stringify({ dependencies: { h3: '*' } }),
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
         `,
         'server/api/foo.get.js': endent`
-          import { defineEventHandler } from 'h3'
+          import { defineEventHandler } from '#imports'
 
           export default defineEventHandler(() => ('foo'))
         `,
