@@ -1,3 +1,11 @@
+## [4.0.7](https://github.com/dword-design/base-config-nuxt/compare/v4.0.6...v4.0.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* index.js ([f9bc8c4](https://github.com/dword-design/base-config-nuxt/commit/f9bc8c4f0dcf57751f2b719c016586cf4fd2b6c4))
+* update eslint.config.js ([ba6166d](https://github.com/dword-design/base-config-nuxt/commit/ba6166d39e1fbf4de8d783bede1f72c5966b0ee6))
+
 ## [4.0.6](https://github.com/dword-design/base-config-nuxt/compare/v4.0.5...v4.0.6) (2023-05-30)
 
 
