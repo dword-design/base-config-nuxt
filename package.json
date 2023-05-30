@@ -54,7 +54,7 @@
     "@dword-design/tester-plugin-puppeteer": "^2.1.19",
     "@dword-design/tester-plugin-tmp-dir": "^2.1.3",
     "@funken-studio/sitemap-nuxt-3": "^4.0.4",
-    "axios": "^1.4.0",
+    "axios": "^0",
     "depcheck": "^1.4.2",
     "nuxt-dev-ready": "^2.0.0",
     "port-ready": "^0.1.0",
