@@ -1,3 +1,10 @@
+## [4.0.5](https://github.com/dword-design/base-config-nuxt/compare/v4.0.4...v4.0.5) (2023-05-30)
+
+
+### Bug Fixes
+
+* upgrades ([#227](https://github.com/dword-design/base-config-nuxt/issues/227)) ([0d106ca](https://github.com/dword-design/base-config-nuxt/commit/0d106cab27fc327c510eb6104078eae984a2ee0b))
+
 ## [4.0.4](https://github.com/dword-design/base-config-nuxt/compare/v4.0.3...v4.0.4) (2023-05-29)
 
 
