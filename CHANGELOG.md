@@ -1,3 +1,11 @@
+## [4.0.8](https://github.com/dword-design/base-config-nuxt/compare/v4.0.7...v4.0.8) (2023-05-31)
+
+
+### Bug Fixes
+
+* fix depcheck special ([47d52f1](https://github.com/dword-design/base-config-nuxt/commit/47d52f1f13c3eaf0012574027ea3a5177c66d72d))
+* update config files ([c023307](https://github.com/dword-design/base-config-nuxt/commit/c023307f8a64a59c2502798bfc27e005cb491a77))
+
 ## [4.0.7](https://github.com/dword-design/base-config-nuxt/compare/v4.0.6...v4.0.7) (2023-05-30)
 
 
