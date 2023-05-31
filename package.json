@@ -43,8 +43,8 @@
     "nuxt": "^3.2.3",
     "nuxt-alias-path": "^1.0.0",
     "nuxt-basic-authentication-module": "^0.2.1",
-    "require-package-name": "^2.0.1",
     "output-files": "^2.0.0",
+    "require-package-name": "^2.0.1",
     "stylelint": "^13.6.0",
     "vite-svg-loader": "^4.0.0"
   },

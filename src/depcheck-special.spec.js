@@ -116,7 +116,6 @@ export default tester(
     {
       transform: test => async () => {
         test = { dependency: 'foo', fail: false, ...test }
-
         await outputFiles(test.files)
 
         const result = await depcheck('.', {
