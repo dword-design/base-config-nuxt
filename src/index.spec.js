@@ -120,7 +120,7 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
-    'babel in api': () => {
+    'babel in api': async () => {
       await fs.outputFile(
         'server/api/foo.get.js',
         endent`
