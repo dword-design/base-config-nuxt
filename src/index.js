@@ -176,7 +176,7 @@ export default {
                   if (id.endsWith('.vue')) {
                     return transform(code, {
                       plugins: [
-                        ['@babel/proposal-pipeline-operator', { proposal: 'fsharp'}],
+                        ['@babel/proposal-pipeline-operator', { proposal: 'fsharp' }],
                       ],
                     })
                   }

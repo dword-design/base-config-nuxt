@@ -309,9 +309,14 @@ export default tester(
 
       const base = new Base(self)
       await base.prepare()
+      await base.run('prepublishOnly')
 
-      const result = await base.run('prepublishOnly')
-      expect(result.stderr).toEqual('')
+      const nuxt = base.run('start')
+      try {
+        await portReady({ port: 3000, timeout: 10000 })
+      } finally {
+        await kill(nuxt.pid)
+      }
     },
     async 'dotenv: config'() {
       await outputFiles({

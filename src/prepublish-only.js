@@ -11,6 +11,12 @@ const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
 export default async (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options }
   await lint()
+  await execa(nuxtWrapper, ['build'], {
+    ...(options.log ? { stdio: 'inherit' } : {}),
+    ...(process.env.NODE_ENV === 'test'
+      ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
+      : {}),
+  })
   if (await fs.exists('model')) {
     await fs.remove('dist')
     await execa(
@@ -27,11 +33,4 @@ export default async (options = {}) => {
       ...(options.log ? [{ stdio: 'inherit' }] : []),
     )
   }
-
-  return execa(nuxtWrapper, ['build'], {
-    ...(options.log ? { stdio: 'inherit' } : {}),
-    ...(process.env.NODE_ENV === 'test'
-      ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
-      : {}),
-  })
 }
