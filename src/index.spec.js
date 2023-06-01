@@ -964,7 +964,7 @@ export default tester(
       const base = new Base(self)
       await base.prepare()
 
-      const childProcess = base.run('dev', { stdio: 'inherit' })
+      const childProcess = base.run('dev')
       try {
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
