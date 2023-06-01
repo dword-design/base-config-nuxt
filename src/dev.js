@@ -8,12 +8,15 @@ const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
 export default (options = {}) => {
   options = {
     log: process.env.NODE_ENV !== 'test',
-    telemetry: process.env.NODE_ENV !== 'test',
     ...options,
   }
 
   return execa(nuxtWrapper, ['dev'], {
     [options.log ? 'stdio' : 'stderr']: 'inherit',
-    ...(options.telemetry ? {} : { env: { NUXT_TELEMETRY_DISABLED: 1 } }),
+    env: {
+      NODE_ENV: '',
+      NODE_OPTIONS:
+        '--require=suppress-experimental-warnings --require=@dword-design/suppress-babel-register-esm-warning --experimental-loader=babel-register-esm',
+    },
   })
 }

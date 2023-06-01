@@ -120,7 +120,7 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
-    'babel in api': async () => {
+    'babel in api': () => {
       await fs.outputFile(
         'server/api/foo.get.js',
         endent`
@@ -144,6 +144,39 @@ export default tester(
         expect(result).toEqual(2)
       } finally {
         await kill(childProcess.pid)
+      }
+    },
+    async 'babel in file imported from api'() {
+      await outputFiles({
+        'model/foo.js': 'export default 1 |> x => x * 2',
+        'pages/index.vue': endent`
+          <template>
+            <div class="foo" />
+          </template>
+        `,
+        'server/api/foo.get.js': endent`
+          import { defineEventHandler } from '#imports'
+
+          import foo from '@/model/foo.js'
+
+          export default defineEventHandler(() => foo)
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const oldNodeOptions = process.env.NODE_OPTIONS
+      process.env.NODE_OPTIONS = ''
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+        await this.page.waitForSelector('.foo')
+      } finally {
+        await kill(childProcess.pid)
+        process.env.NODE_OPTIONS = oldNodeOptions
       }
     },
     async 'babel in vue'() {
