@@ -1,3 +1,10 @@
+## [4.0.9](https://github.com/dword-design/base-config-nuxt/compare/v4.0.8...v4.0.9) (2023-06-01)
+
+
+### Bug Fixes
+
+* do not transform absolute urls ([e0cf574](https://github.com/dword-design/base-config-nuxt/commit/e0cf574c8e32db0c102f6d44c4c45db863cd533f))
+
 ## [4.0.8](https://github.com/dword-design/base-config-nuxt/compare/v4.0.7...v4.0.8) (2023-05-31)
 
 
