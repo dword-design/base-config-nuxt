@@ -140,7 +140,10 @@ export default {
         import dotenv from '@dword-design/dotenv-json-extended'
         import jitiBabelTransform from '@dword-design/jiti-babel-transform'
         import { transform } from '@babel/core'
-        import { babel } from '${packageName`@rollup/plugin-babel`}'
+        import { babel as rollupPluginBabel } from '${packageName`@rollup/plugin-babel`}'
+        import { parse } from 'vue/compiler-sfc'
+        import vueSfcDescriptorToString from '${packageName`vue-sfc-descriptor-to-string`}'
+        import { parseVueRequest } from '@vitejs/plugin-vue'
 
         dotenv.config()
 
@@ -163,7 +166,7 @@ export default {
         export default {
           nitro: {
             rollupConfig: {
-              plugins: [babel({ babelHelpers: 'bundled' })],
+              plugins: [rollupPluginBabel({ babelHelpers: 'bundled' })],
             },
           },
           modules: [
@@ -172,23 +175,28 @@ export default {
           vite: {
             plugins: [
               {
-                transform: (code, id) => {
-                  if (id.endsWith('.vue')) {
-                    return transform(code, {
-                      plugins: [
-                        ['@babel/proposal-pipeline-operator', { proposal: 'fsharp' }],
-                      ],
-                    })
+                enforce: 'pre',
+                transform: async (code, id) => {
+                  const query = parseVueRequest(id)
+                  if (query.filename.endsWith('.vue')) {
+                    const sfc = parse(code)
+                    if (sfc.descriptor.scriptSetup) {
+                      sfc.descriptor.scriptSetup.content = await transform(sfc.descriptor.scriptSetup.content, {
+                        plugins: [['@babel/plugin-proposal-pipeline-operator', { proposal: 'fsharp' }]]
+                      }).code
+                    }
+                    if (sfc.descriptor.script) {
+                      sfc.descriptor.script.content = await transform(sfc.descriptor.script.content, {
+                        plugins: [['@babel/plugin-proposal-pipeline-operator', { proposal: 'fsharp' }]]
+                      }).code
+                    }
+                    return vueSfcDescriptorToString(sfc.descriptor)
                   }
+                  return code
                 },
               }
             ],
             vue: {
-              script: {
-                babelParserPlugins: [
-                  ['pipelineOperator', { proposal: 'fsharp' }],
-                ],
-              },
               template: {
                 transformAssetUrls: {
                   includeAbsolute: false,

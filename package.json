@@ -46,7 +46,8 @@
     "output-files": "^2.0.0",
     "require-package-name": "^2.0.1",
     "stylelint": "^13.6.0",
-    "vite-svg-loader": "^4.0.0"
+    "vite-svg-loader": "^4.0.0",
+    "vue-sfc-descriptor-to-string": "npm:@dword-design/vue-sfc-descriptor-to-string"
   },
   "devDependencies": {
     "@dword-design/base": "^10.0.0",

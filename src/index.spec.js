@@ -8,6 +8,7 @@ import packageName from 'depcheck-package-name'
 import fs from 'fs-extra'
 import nuxtDevReady from 'nuxt-dev-ready'
 import outputFiles from 'output-files'
+import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 import xmlFormatter from 'xml-formatter'
 
@@ -195,7 +196,7 @@ export default tester(
         'server/api/foo.get.js': endent`
           import { defineEventHandler } from '#imports'
 
-          export default defineEventHandler(() => ('foo'))
+          export default defineEventHandler(() => 'foo')
         `,
       })
 
@@ -942,6 +943,34 @@ export default tester(
         await this.page.waitForFunction(
           () => document.title === 'Foo page | Test-App',
         )
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
+    async 'pipeline operator await in vue'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script setup>
+          const foo = Promise.resolve(1) |> await |> x => x * 2
+          </script>
+        `,
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev', { stdio: 'inherit' })
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const foo = await this.page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
       } finally {
         await kill(childProcess.pid)
       }
