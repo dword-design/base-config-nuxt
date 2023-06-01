@@ -298,6 +298,21 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+    'do not import image urls': async () => {
+      await outputFiles({
+        'pages/index.vue': endent`
+          <template>
+            <img src="/api/foo.png" />
+          </template>
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const result = await base.run('prepublishOnly')
+      expect(result.stderr).toEqual('')
+    },
     async 'dotenv: config'() {
       await outputFiles({
         '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),

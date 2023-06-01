@@ -189,6 +189,11 @@ export default {
                   ['pipelineOperator', { proposal: 'fsharp' }],
                 ],
               },
+              template: {
+                transformAssetUrls: {
+                  includeAbsolute: false,
+                },
+              },
             },
           },
         }
