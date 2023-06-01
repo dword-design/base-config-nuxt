@@ -14749,9 +14749,9 @@ vue-router@^4.2.2:
     "@vue/devtools-api" "^6.5.0"
 
 "vue-sfc-descriptor-to-string@npm:@dword-design/vue-sfc-descriptor-to-string":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@dword-design/vue-sfc-descriptor-to-string/-/vue-sfc-descriptor-to-string-0.0.1.tgz#a16d40783c2cb7bd41f5f20f8cf08ba8e29c7f48"
-  integrity sha512-YNqOau4H4lJt4HjGzuO1YHbB/HypOs8lrTSrL+5Eqb03m9nGsSC7g6JX3gL0Crx75+65+Zjm6DdyuCc2X8hPdg==
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dword-design/vue-sfc-descriptor-to-string/-/vue-sfc-descriptor-to-string-0.0.2.tgz#9a8198f8c50b485ec9164a896da97285b83b890b"
+  integrity sha512-D9yUTfvnExlNvKnD/JxLenkH/iaFgcX7wn6QOOaYAsXHUGJ7jwSbxzW41od8Nq9fN/gje2PdVjuwR9jrMIGBkw==
   dependencies:
     "@vue/compiler-sfc" "^3.3.4"
     indent-string "^5.0.0"
