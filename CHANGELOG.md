@@ -1,3 +1,11 @@
+## [4.0.10](https://github.com/dword-design/base-config-nuxt/compare/v4.0.9...v4.0.10) (2023-06-01)
+
+
+### Bug Fixes
+
+* fix pipeline await ([1668664](https://github.com/dword-design/base-config-nuxt/commit/16686648eba83b749e2b07fef4e6aea4f4f2d66f))
+* make url transform more robust ([c4c0989](https://github.com/dword-design/base-config-nuxt/commit/c4c09897aac1f7649f537e06c60870025df87955))
+
 ## [4.0.9](https://github.com/dword-design/base-config-nuxt/compare/v4.0.8...v4.0.9) (2023-06-01)
 
 
