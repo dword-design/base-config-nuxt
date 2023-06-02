@@ -1,3 +1,11 @@
+## [4.0.12](https://github.com/dword-design/base-config-nuxt/compare/v4.0.11...v4.0.12) (2023-06-02)
+
+
+### Bug Fixes
+
+* foo ([725cf14](https://github.com/dword-design/base-config-nuxt/commit/725cf1470d76c5f35725c2e9ca731da6efaa3061))
+* foo ([ee5a940](https://github.com/dword-design/base-config-nuxt/commit/ee5a940805afc208e983794c0e2bdc83de00d62c))
+
 ## [4.0.11](https://github.com/dword-design/base-config-nuxt/compare/v4.0.10...v4.0.11) (2023-06-01)
 
 
