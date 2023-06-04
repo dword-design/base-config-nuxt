@@ -180,15 +180,12 @@ export default {
                   const query = parseVueRequest(id)
                   if (query.filename.endsWith('.vue')) {
                     const sfc = parse(code)
-                    if (sfc.descriptor.scriptSetup) {
-                      sfc.descriptor.scriptSetup.content = await transform(sfc.descriptor.scriptSetup.content, {
-                        plugins: [['@babel/plugin-proposal-pipeline-operator', { proposal: 'fsharp' }]]
-                      }).code
-                    }
-                    if (sfc.descriptor.script) {
-                      sfc.descriptor.script.content = await transform(sfc.descriptor.script.content, {
-                        plugins: [['@babel/plugin-proposal-pipeline-operator', { proposal: 'fsharp' }]]
-                      }).code
+                    for (const section of ['scriptSetup', 'script']) {
+                      if (sfc.descriptor[section] && sfc.descriptor[section].lang === undefined) {
+                        sfc.descriptor[section].content = await transform(sfc.descriptor[section].content, {
+                          plugins: [['@babel/plugin-proposal-pipeline-operator', { proposal: 'fsharp' }]]
+                        }).code
+                      }
                     }
                     return vueSfcDescriptorToString(sfc.descriptor)
                   }

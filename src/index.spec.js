@@ -1221,6 +1221,34 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+    async 'typescript in vue'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script setup lang="ts">
+          const foo: number = 2
+          </script>
+        `,
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const foo = await this.page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
     async userScalable() {
       await outputFiles({
         'config.js': endent`
