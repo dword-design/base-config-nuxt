@@ -352,6 +352,68 @@ export default tester(
         await kill(nuxt.pid)
       }
     },
+    async 'do not transpile other language than js in vue'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script setup lang="ts">
+          const foo: number = 2
+          </script>
+        `,
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const foo = await this.page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
+    'do not transpile vue in node_modules': async () => {
+      await outputFiles({
+        'node_modules/foo': {
+          'index.vue': endent`
+            <template>
+              <div class="foo">{{ foo }}</div>
+            </template>
+
+            <script setup>
+            const foo = 1 |> x => x * 2
+            </script>
+          `,
+          'package.json': JSON.stringify({ main: 'index.vue', name: 'foo' }),
+        },
+        'package.json': JSON.stringify({ dependencies: { foo: '*' } }),
+        'pages/index.vue': endent`
+          <template>
+            <foo />
+          </template>
+
+          <script setup>
+          import Foo from 'foo'
+          </script>
+        `,
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const buildOutput = await base.run('prepublishOnly')
+      expect(buildOutput.stderr).toMatch(
+        'This experimental syntax requires enabling the parser plugin: "pipelineOperator".',
+      )
+    },
     async 'dotenv: config'() {
       await outputFiles({
         '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
@@ -1217,34 +1279,6 @@ export default tester(
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
           '/_nuxt/assets/image.svg',
         )
-      } finally {
-        await kill(childProcess.pid)
-      }
-    },
-    async 'typescript in vue'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
-
-          <script setup lang="ts">
-          const foo: number = 2
-          </script>
-        `,
-      )
-
-      const base = new Base(self)
-      await base.prepare()
-
-      const childProcess = base.run('dev')
-      try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
       } finally {
         await kill(childProcess.pid)
       }

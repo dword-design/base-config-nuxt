@@ -1,16 +1,13 @@
 import { execaCommand } from 'execa'
 
-export default async () => {
-  try {
-    await execaCommand(
-      'eslint --fix --ignore-path .gitignore --ext .js,.json,.vue .',
-      { all: true },
-    )
-    await execaCommand(
-      'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
-      { all: true },
-    )
-  } catch (error) {
-    throw new Error(error.all)
-  }
+export default async (options = {}) => {
+  options = { log: process.env.NODE_ENV !== 'test', ...options }
+  await execaCommand(
+    'eslint --fix --ignore-path .gitignore --ext .js,.json,.vue .',
+    ...(options.log ? [{ stdio: 'inherit' }] : []),
+  )
+  await execaCommand(
+    'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
+    ...(options.log ? [{ stdio: 'inherit' }] : []),
+  )
 }
