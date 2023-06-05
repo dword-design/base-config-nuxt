@@ -1523,19 +1523,6 @@
   resolved "https://registry.yarnpkg.com/@dword-design/setup-test/-/setup-test-1.0.2.tgz#0bea8800f2349de41a9f42986d09bf89ff69fd1c"
   integrity sha512-W861E4cbZmUaYri3mhZNfpo2Yxc1hHPP0v5iDZGE+h9EHplY+8tzWaTNHIF67DmrcDLP79zxd/lkJX0xZs0l8Q==
 
-"@dword-design/stylelint-config@^2.0.0":
-  version "2.0.19"
-  resolved "https://registry.yarnpkg.com/@dword-design/stylelint-config/-/stylelint-config-2.0.19.tgz#781d3037cc125c186ab4c35bc141acb6660b6f18"
-  integrity sha512-Nlo+IFcDKBsuXtzBxXn4q+sEL44RYdl6+XiQ8NzATSHkbeepUVqqRfx7w3IBXxlAGJCnWJOWYeGTlNgWJ2Seag==
-  dependencies:
-    depcheck-package-name "^3.0.0"
-    jiti "^1.18.2"
-    stylelint-config-hudochenkov "^9.0.0"
-    stylelint-declaration-block-no-ignored-properties "^2.3.0"
-    stylelint-order "^6.0.3"
-    stylelint-prettier "^3.0.0"
-    stylelint-use-nesting "github:dword-design/stylelint-use-nesting#fork"
-
 "@dword-design/suppress-babel-register-esm-warning@^1.1.0":
   version "1.1.10"
   resolved "https://registry.yarnpkg.com/@dword-design/suppress-babel-register-esm-warning/-/suppress-babel-register-esm-warning-1.1.10.tgz#1fc68ca173a513a9f46642740e47cc3847cf391f"
@@ -13455,11 +13442,6 @@ stylelint-prettier@^3.0.0:
   integrity sha512-kIks1xw6np0zElokMT2kP6ar3S4MBoj6vUtPJuND1pFELMpZxVS/0uHPR4HDAVn0WAD3I5oF0IA3qBFxBpMkLg==
   dependencies:
     prettier-linter-helpers "^1.0.0"
-
-"stylelint-use-nesting@github:dword-design/stylelint-use-nesting#fork":
-  version "3.0.0"
-  uid "3fa262d8898e33da3831ed526e45dade37c270e7"
-  resolved "https://codeload.github.com/dword-design/stylelint-use-nesting/tar.gz/3fa262d8898e33da3831ed526e45dade37c270e7"
 
 stylelint-webpack-plugin@^4.1.1:
   version "4.1.1"
