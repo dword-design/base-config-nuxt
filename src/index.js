@@ -179,7 +179,7 @@ export default {
                 enforce: 'pre',
                 transform: async (code, id) => {
                   const query = parseVueRequest(id)
-                  if (query.filename.endsWith('.vue') && !query.filename.split(P.sep).includes('node_modules')) {
+                  if (query.filename.endsWith('.vue') && !query.filename.split('/').includes('node_modules')) {
                     const sfc = parse(code)
                     for (const section of ['scriptSetup', 'script']) {
                       if (sfc.descriptor[section] && sfc.descriptor[section].lang === undefined) {
