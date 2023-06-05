@@ -22,7 +22,7 @@
     "test": "base test"
   },
   "resolutions": {
-    "stylelint/cosmiconfig": "8.1.3"
+    "stylelint/cosmiconfig": "8.2.0"
   },
   "dependencies": {
     "@dword-design/depcheck-parser-sass": "^4.0.0",
