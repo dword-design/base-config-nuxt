@@ -144,6 +144,7 @@ export default {
         import { parse } from 'vue/compiler-sfc'
         import vueSfcDescriptorToString from '${packageName`vue-sfc-descriptor-to-string`}'
         import { parseVueRequest } from '@vitejs/plugin-vue'
+        import P from 'path'
 
         dotenv.config()
 
@@ -178,7 +179,7 @@ export default {
                 enforce: 'pre',
                 transform: async (code, id) => {
                   const query = parseVueRequest(id)
-                  if (query.filename.endsWith('.vue')) {
+                  if (query.filename.endsWith('.vue') && !query.filename.split(P.sep).includes('node_modules')) {
                     const sfc = parse(code)
                     for (const section of ['scriptSetup', 'script']) {
                       if (sfc.descriptor[section] && sfc.descriptor[section].lang === undefined) {

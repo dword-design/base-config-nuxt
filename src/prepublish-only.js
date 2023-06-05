@@ -10,8 +10,9 @@ const nuxtWrapper = _require.resolve('./nuxt-wrapper.js')
 
 export default async (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options }
-  await lint()
-  await execa(nuxtWrapper, ['build'], {
+  await lint({ log: options.log })
+
+  const nuxt = await execa(nuxtWrapper, ['build'], {
     ...(options.log ? { stdio: 'inherit' } : {}),
     ...(process.env.NODE_ENV === 'test'
       ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
@@ -33,4 +34,6 @@ export default async (options = {}) => {
       ...(options.log ? [{ stdio: 'inherit' }] : []),
     )
   }
+
+  return nuxt
 }
