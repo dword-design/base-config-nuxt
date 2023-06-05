@@ -1524,13 +1524,15 @@
   integrity sha512-W861E4cbZmUaYri3mhZNfpo2Yxc1hHPP0v5iDZGE+h9EHplY+8tzWaTNHIF67DmrcDLP79zxd/lkJX0xZs0l8Q==
 
 "@dword-design/stylelint-config@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@dword-design/stylelint-config/-/stylelint-config-3.0.0.tgz#fd850a0dc54cf9460923914809d310210960b070"
-  integrity sha512-bSsVk/744TrKcF6nGAzSOyIymLLu0XUtwGx/WbL7nRTU9522dHrrhX+Nv/lfraV9oXk3Pm63WLfvdj+4T4tQWQ==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@dword-design/stylelint-config/-/stylelint-config-3.0.1.tgz#a802878daa023ffac63621c66b4bfed7567a744a"
+  integrity sha512-8TqKlSOVrwBT1dypJwDzagqvP0ew/hLMj3AigIwfxAw23RZieUC+CxTiApHs61W6OmKHSfjNNfWlod7Cl2+Sug==
   dependencies:
     depcheck-package-name "^3.0.0"
     jiti "^1.18.2"
+    postcss-html "^1.5.0"
     stylelint-config-hudochenkov "^9.0.0"
+    stylelint-config-recommended-vue "^1.4.0"
     stylelint-config-standard-scss "^9.0.0"
     stylelint-declaration-block-no-ignored-properties "^2.3.0"
     stylelint-order "^6.0.3"
@@ -5582,7 +5584,7 @@ enhanced-resolve@^5.10.0, enhanced-resolve@^5.14.1:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
 
-entities@^4.2.0:
+entities@^4.2.0, entities@^4.4.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/entities/-/entities-4.5.0.tgz#5d268ea5e7113ec74c4d033b79ea5a35a488fb48"
   integrity sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==
@@ -7562,6 +7564,16 @@ html-tags@^3.1.0, html-tags@^3.3.1:
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-3.3.1.tgz#a04026a18c882e4bba8a01a3d39cfe465d40b5ce"
   integrity sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==
 
+htmlparser2@^8.0.0:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-8.0.2.tgz#f002151705b383e62433b5cf466f5b716edaec21"
+  integrity sha512-GYdjWKDkbRLkZ5geuHs5NY1puJ+PXwP7+fHPRz06Eirsb9ugf6d8kkXav6ADhcODhFFPMIXyxkxSuMf3D6NCFA==
+  dependencies:
+    domelementtype "^2.3.0"
+    domhandler "^5.0.3"
+    domutils "^3.0.1"
+    entities "^4.4.0"
+
 http-cache-semantics@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
@@ -8905,6 +8917,11 @@ js-cookie@^3.0.1:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
+
+js-tokens@^8.0.0:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-8.0.1.tgz#f068fde9bd2f9f4a24ad78f3b4fa787216b433e3"
+  integrity sha512-3AGrZT6tuMm1ZWWn9mLXh7XMfi2YtiLNPALCVxBCiUVq0LD1OQMxV/AdS/s7rLJU5o9i/jBZw/N4vXXL5dm29A==
 
 js-yaml@4.1.0, js-yaml@^4.1.0:
   version "4.1.0"
@@ -11553,6 +11570,16 @@ postcss-discard-overridden@^6.0.0:
   resolved "https://registry.yarnpkg.com/postcss-discard-overridden/-/postcss-discard-overridden-6.0.0.tgz#49c5262db14e975e349692d9024442de7cd8e234"
   integrity sha512-4VELwssYXDFigPYAZ8vL4yX4mUepF/oCBeeIT4OXsJPYOtvJumyz9WflmJWTfDwCUcpDR+z0zvCWBXgTx35SVw==
 
+postcss-html@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-1.5.0.tgz#57a43bc9e336f516ecc448a37d2e8c2290170a6f"
+  integrity sha512-kCMRWJRHKicpA166kc2lAVUGxDZL324bkj/pVOb6RhjB0Z5Krl7mN0AsVkBhVIRZZirY0lyQXG38HCVaoKVNoA==
+  dependencies:
+    htmlparser2 "^8.0.0"
+    js-tokens "^8.0.0"
+    postcss "^8.4.0"
+    postcss-safe-parser "^6.0.0"
+
 postcss-import-resolver@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/postcss-import-resolver/-/postcss-import-resolver-2.0.0.tgz#95c61ac5489047bd93ff42a9cd405cfe9041e2c0"
@@ -11767,7 +11794,7 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.2.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz#723c09920836ba6d3e5af019f92bc0971c02e514"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@^8.1.10, postcss@^8.4.21, postcss@^8.4.23, postcss@^8.4.24:
+postcss@^8.1.10, postcss@^8.4.0, postcss@^8.4.21, postcss@^8.4.23, postcss@^8.4.24:
   version "8.4.24"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.24.tgz#f714dba9b2284be3cc07dbd2fc57ee4dc972d2df"
   integrity sha512-M0RzbcI0sO/XJNucsGjvWU9ERWxb/ytp1w6dKtxTKgixdtQDq4rmx/g8W1hnaheq9jgwL/oyEdH5Bc4WwJKMqg==
@@ -13352,6 +13379,11 @@ stylehacks@^6.0.0:
     browserslist "^4.21.4"
     postcss-selector-parser "^6.0.4"
 
+stylelint-config-html@>=1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-html/-/stylelint-config-html-1.1.0.tgz#999db19aea713b7ff6dde92ada76e4c1bd812b66"
+  integrity sha512-IZv4IVESjKLumUGi+HWeb7skgO6/g4VMuAYrJdlqQFndgbj6WJAXPhaysvBiXefX79upBdQVumgYcdd17gCpjQ==
+
 stylelint-config-hudochenkov@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/stylelint-config-hudochenkov/-/stylelint-config-hudochenkov-9.0.0.tgz#2e387799c6245be8c2be0fcdf2738a18789b17f4"
@@ -13366,7 +13398,16 @@ stylelint-config-recommended-scss@^11.0.0:
     stylelint-config-recommended "^12.0.0"
     stylelint-scss "^4.6.0"
 
-stylelint-config-recommended@^12.0.0:
+stylelint-config-recommended-vue@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-recommended-vue/-/stylelint-config-recommended-vue-1.4.0.tgz#0a182da17dc9e846e4bec65a7676ccf882b35964"
+  integrity sha512-DVJqyX2KvMCn9U0+keL12r7xlsH26K4Vg8NrIZuq5MoF7g82DpMp326Om4E0Q+Il1o+bTHuUyejf2XAI0iD04Q==
+  dependencies:
+    semver "^7.3.5"
+    stylelint-config-html ">=1.0.0"
+    stylelint-config-recommended ">=6.0.0"
+
+stylelint-config-recommended@>=6.0.0, stylelint-config-recommended@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-12.0.0.tgz#d0993232fca017065fd5acfcb52dd8a188784ef4"
   integrity sha512-x6x8QNARrGO2sG6iURkzqL+Dp+4bJorPMMRNPScdvaUK8PsynriOcMW7AFDKqkWAS5wbue/u8fUT/4ynzcmqdQ==
