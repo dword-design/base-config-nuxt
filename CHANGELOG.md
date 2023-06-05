@@ -1,3 +1,13 @@
+## [4.0.14](https://github.com/dword-design/base-config-nuxt/compare/v4.0.13...v4.0.14) (2023-06-05)
+
+
+### Bug Fixes
+
+* foo ([4b40bf0](https://github.com/dword-design/base-config-nuxt/commit/4b40bf07d34b59a49c600ef178843f462b9f5d09))
+* foo ([43721cc](https://github.com/dword-design/base-config-nuxt/commit/43721cc1beddd8315ec76abb7563fe4d4143caaa))
+* foo ([29be716](https://github.com/dword-design/base-config-nuxt/commit/29be7169e7b3edf96142eea3519ca61858d2e558))
+* update dependency stylelint to v15 ([#211](https://github.com/dword-design/base-config-nuxt/issues/211)) ([450c566](https://github.com/dword-design/base-config-nuxt/commit/450c5663a9cba756564fa297ba4bf16891d192dd))
+
 ## [4.0.13](https://github.com/dword-design/base-config-nuxt/compare/v4.0.12...v4.0.13) (2023-06-05)
 
 
