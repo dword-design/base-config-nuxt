@@ -352,6 +352,34 @@ export default tester(
         await kill(nuxt.pid)
       }
     },
+    async 'do not transpile other language than js in vue'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script setup lang="ts">
+          const foo: number = 2
+          </script>
+        `,
+      )
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const foo = await this.page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
     'do not transpile vue in node_modules': async () => {
       await outputFiles({
         'node_modules/foo': {
@@ -1251,34 +1279,6 @@ export default tester(
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
           '/_nuxt/assets/image.svg',
         )
-      } finally {
-        await kill(childProcess.pid)
-      }
-    },
-    async 'do not transpile other language than js in vue'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
-
-          <script setup lang="ts">
-          const foo: number = 2
-          </script>
-        `,
-      )
-
-      const base = new Base(self)
-      await base.prepare()
-
-      const childProcess = base.run('dev')
-      try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
       } finally {
         await kill(childProcess.pid)
       }
