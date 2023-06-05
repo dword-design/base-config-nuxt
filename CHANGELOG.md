@@ -1,3 +1,10 @@
+## [4.0.13](https://github.com/dword-design/base-config-nuxt/compare/v4.0.12...v4.0.13) (2023-06-05)
+
+
+### Bug Fixes
+
+* fix typescript ([da8fe52](https://github.com/dword-design/base-config-nuxt/commit/da8fe522710d80d5e57ff03bdd455a6185a02023))
+
 ## [4.0.12](https://github.com/dword-design/base-config-nuxt/compare/v4.0.11...v4.0.12) (2023-06-02)
 
 
