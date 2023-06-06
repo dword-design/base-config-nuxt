@@ -1,3 +1,10 @@
+## [4.0.15](https://github.com/dword-design/base-config-nuxt/compare/v4.0.14...v4.0.15) (2023-06-06)
+
+
+### Bug Fixes
+
+* remove routeNameSplitter ([4c70d52](https://github.com/dword-design/base-config-nuxt/commit/4c70d52efe964607c5934be1a7264aa416243dac))
+
 ## [4.0.14](https://github.com/dword-design/base-config-nuxt/compare/v4.0.13...v4.0.14) (2023-06-05)
 
 
