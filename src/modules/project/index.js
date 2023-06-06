@@ -68,11 +68,7 @@ export default async (options, nuxt) => {
   nuxt.options.app.head.htmlAttrs = projectConfig.htmlAttrs
   nuxt.options.app.head.bodyAttrs = projectConfig.bodyAttrs
   nuxt.options.css.push(...projectConfig.css)
-  Object.assign(nuxt.options.router.options, {
-    linkActiveClass: 'active',
-    routeNameSplitter: '.',
-    ...projectConfig.router,
-  })
+  Object.assign(nuxt.options.router.options, { linkActiveClass: 'active', ...projectConfig.router })
   Object.assign(
     nuxt.options,
     omit(Object.keys({ ...defaultConfig, ...nuxt.options }))(projectConfig),
