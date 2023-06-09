@@ -268,8 +268,12 @@ export default tester(
       await outputFiles({
         'config.js': endent`
           export default {
-            bodyAttrs: {
-              class: 'foo',
+            app: {
+              head: {
+                bodyAttrs: {
+                  class: 'foo',
+                },
+              },
             },
           }
         `,
@@ -288,7 +292,11 @@ export default tester(
       try {
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('body.foo')
+        expect(
+          await this.page.evaluate(() =>
+            document.body.classList.contains('foo'),
+          ),
+        ).toEqual(true)
       } finally {
         await kill(childProcess.pid)
       }
@@ -347,7 +355,7 @@ export default tester(
 
       const nuxt = base.run('start')
       try {
-        await portReady({ port: 3000, timeout: 10000 })
+        await portReady(3000)
       } finally {
         await kill(nuxt.pid)
       }
@@ -507,10 +515,12 @@ export default tester(
       await outputFiles({
         'config.js': endent`
           export default {
-            head: {
-              link: [
-                { rel: 'alternate', type: 'application/rss+xml', title: 'Blog', href: '/feed' }
-              ]
+            app: {
+              head: {
+                link: [
+                  { rel: 'alternate', type: 'application/rss+xml', title: 'Blog', href: '/feed' }
+                ],
+              },
             },
           }
         `,
@@ -581,8 +591,12 @@ export default tester(
       await outputFiles({
         'config.js': endent`
           export default {
-            htmlAttrs: {
-              class: 'foo',
+            app: {
+              head: {
+                htmlAttrs: {
+                  class: 'foo',
+                },
+              },
             },
           }
         `,
@@ -839,9 +853,11 @@ export default tester(
         '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
         'config.js': endent`
           export default {
-            htmlAttrs: { style: 'background: red' },
-            head: {
-              link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+            app: {
+              head: {
+                htmlAttrs: { style: 'background: red' },
+                link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+              },
             },
           }
         `,
@@ -888,6 +904,42 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+    /*'local module with options': async () => {
+      await outputFiles({
+        'config.js': endent`
+          export default {
+            modules: [
+              ['./modules/foo/index.js', { foo: 'foo' }],
+            ],
+          }
+        `,
+        'modules/foo': {
+          'index.js': endent`
+            import { addServerPlugin, createResolver } from '@nuxt/kit'
+
+            const resolver = createResolver(import.meta.url)
+
+            export default (options, nuxt) => addServerPlugin(resolver.resolve('./plugin.js'))
+          `,
+          'plugin.js': endent`
+            import { defineNitroPlugin } from '#imports'
+
+            export default defineNitroPlugin(() => {})
+          `,
+        },
+      })
+
+      const base = new Base(self)
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await axios.get('http://localhost:3000')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },*/
     async 'locale link'() {
       await outputFiles({
         i18n: {

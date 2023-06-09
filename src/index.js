@@ -77,9 +77,16 @@ export default {
     main: 'dist/index.js',
   },
   prepare: async () => {
-    const projectModulePath = `./${P.relative(
+    const configPath = `./${P.relative(
       process.cwd(),
-      _require.resolve('./modules/project/index.js'),
+      _require.resolve('./config.js'),
+    )
+      .split(P.sep)
+      .join('/')}`
+
+    const parentConfigPath = `./${P.relative(
+      process.cwd(),
+      _require.resolve('./nuxt.config.js'),
     )
       .split(P.sep)
       .join('/')}`
@@ -135,73 +142,11 @@ export default {
         </script>
       `,
       'nuxt.config.js': javascript`
-        import projectModule from '${projectModulePath}'
-        import jiti from 'jiti'
-        import dotenv from '@dword-design/dotenv-json-extended'
-        import jitiBabelTransform from '@dword-design/jiti-babel-transform'
-        import { transform } from '@babel/core'
-        import { babel as rollupPluginBabel } from '${packageName`@rollup/plugin-babel`}'
-        import { parse } from 'vue/compiler-sfc'
-        import vueSfcDescriptorToString from '${packageName`vue-sfc-descriptor-to-string`}'
-        import { parseVueRequest } from '@vitejs/plugin-vue'
-        import P from 'path'
-
-        dotenv.config()
-
-        let options
-        try {
-          const jitiInstance = jiti(process.cwd(), {
-            esmResolve: true,
-            interopDefault: true,
-            transform: jitiBabelTransform,
-          })
-          options = jitiInstance('./config.js')
-        } catch (error) {
-          if (error.message.startsWith("Cannot find module './config.js'\\n")) {
-            options = {}
-          } else {
-            throw error
-          }
-        }
+        import config from '${configPath}'
 
         export default {
-          nitro: {
-            rollupConfig: {
-              plugins: [rollupPluginBabel({ babelHelpers: 'bundled' })],
-            },
-          },
-          modules: [
-            [projectModule, options],
-          ],
-          vite: {
-            plugins: [
-              {
-                enforce: 'pre',
-                transform: async (code, id) => {
-                  const query = parseVueRequest(id)
-                  if (query.filename.endsWith('.vue') && !query.filename.split('/').includes('node_modules')) {
-                    const sfc = parse(code)
-                    for (const section of ['scriptSetup', 'script']) {
-                      if (sfc.descriptor[section] && sfc.descriptor[section].lang === undefined) {
-                        sfc.descriptor[section].content = await transform(sfc.descriptor[section].content, {
-                          plugins: [['@babel/plugin-proposal-pipeline-operator', { proposal: 'fsharp' }]]
-                        }).code
-                      }
-                    }
-                    return vueSfcDescriptorToString(sfc.descriptor)
-                  }
-                  return code
-                },
-              }
-            ],
-            vue: {
-              template: {
-                transformAssetUrls: {
-                  includeAbsolute: false,
-                },
-              },
-            },
-          },
+          extends: '${parentConfigPath}',
+          ...config,
         }
       `,
     })
