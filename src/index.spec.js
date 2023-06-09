@@ -904,7 +904,7 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
-    /*'local module with options': async () => {
+    /* 'local module with options': async () => {
       await outputFiles({
         'config.js': endent`
           export default {
@@ -939,7 +939,7 @@ export default tester(
       } finally {
         await kill(childProcess.pid)
       }
-    },*/
+    }, */
     async 'locale link'() {
       await outputFiles({
         i18n: {
@@ -1186,7 +1186,9 @@ export default tester(
         'config.js': endent`
           export default {
             router: {
-              linkActiveClass: 'is-active',
+              options: {
+                linkActiveClass: 'is-active',
+              },
             },
           }
         `,
