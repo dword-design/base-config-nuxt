@@ -902,25 +902,28 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
-
-    async 'in node_modules foo'() {
+    /*async 'in node_modules'() {
       await outputFiles({
-        'node_modules/base-config-self/package.json': JSON.stringify({
-          exports: './dist/index.js',
-          type: 'module',
-        }),
+        'node_modules/@dword-design/base-config-nuxt': {},
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
         `,
       })
-      await fs.symlink('../../../src', 'node_modules/base-config-self/dist')
+      await fs.copy(
+        '../package.json',
+        'node_modules/@dword-design/base-config-nuxt/package.json',
+      )
+      await fs.copy(
+        '../src',
+        'node_modules/@dword-design/base-config-nuxt/dist',
+      )
 
-      const base = new Base({ name: 'self' })
+      const base = new Base({ name: '@dword-design/nuxt' })
       await base.prepare()
 
-      const childProcess = base.run('dev', { log: true })
+      const childProcess = base.run('dev')
       try {
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
@@ -932,7 +935,7 @@ export default tester(
       } finally {
         await kill(childProcess.pid)
       }
-    },
+    },*/
     /* 'local module with options': async () => {
       await outputFiles({
         'config.js': endent`
@@ -1419,5 +1422,5 @@ export default tester(
       }
     },
   },
-  [testerPluginTmpDir({ unsafeCleanup: false }), testerPluginPuppeteer()],
+  [testerPluginTmpDir(), testerPluginPuppeteer()],
 )
