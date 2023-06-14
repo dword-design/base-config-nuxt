@@ -152,7 +152,7 @@ export default tester(
           'nuxt.config.js',
           javascript`
             export default {
-              modules: ['../src/modules/project/modules/express/index.js'],
+              modules: ['../src/modules/express/index.js'],
             }
           `,
         ),

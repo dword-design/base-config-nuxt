@@ -21,10 +21,8 @@
     "prepublishOnly": "base prepublishOnly",
     "test": "base test"
   },
-  "resolutions": {
-    "stylelint/cosmiconfig": "8.1.3"
-  },
   "dependencies": {
+    "@babel/core": "^7.22.5",
     "@dword-design/depcheck-parser-sass": "^4.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
     "@dword-design/functions": "^4.0.0",
@@ -35,6 +33,8 @@
     "@nuxtjs/i18n": "npm:@dword-design/nuxt-i18n",
     "@nuxtjs/stylelint-module": "^5.0.1",
     "@rollup/plugin-babel": "^6.0.3",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/compiler-sfc": "^3.3.4",
     "depcheck-package-name": "^3.0.0",
     "depcheck-parser-vue": "^4.0.7",
     "execa": "^7.1.1",
