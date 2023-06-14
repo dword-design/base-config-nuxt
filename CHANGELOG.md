@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/dword-design/base-config-nuxt/compare/v4.0.15...v5.0.0) (2023-06-14)
+
+
+### Bug Fixes
+
+* extends config ([#232](https://github.com/dword-design/base-config-nuxt/issues/232)) ([38c71ed](https://github.com/dword-design/base-config-nuxt/commit/38c71edf30cc569187869b9825ff442cc7694fc9))
+
+
+### BREAKING CHANGES
+
+* changes to config format because the config is now directly passed to nuxt
+
 ## [4.0.15](https://github.com/dword-design/base-config-nuxt/compare/v4.0.14...v4.0.15) (2023-06-06)
 
 
