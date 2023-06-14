@@ -902,7 +902,7 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
-    /*async 'in node_modules'() {
+    /* async 'in node_modules'() {
       await outputFiles({
         'node_modules/@dword-design/base-config-nuxt': {},
         'pages/index.vue': endent`
@@ -935,7 +935,7 @@ export default tester(
       } finally {
         await kill(childProcess.pid)
       }
-    },*/
+    }, */
     /* 'local module with options': async () => {
       await outputFiles({
         'config.js': endent`
@@ -1199,7 +1199,7 @@ export default tester(
       const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
-      const childProcess = base.run('dev', { log: true })
+      const childProcess = base.run('dev')
       try {
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
