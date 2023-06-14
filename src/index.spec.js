@@ -1146,30 +1146,28 @@ export default tester(
       }
     },
     async 'request body'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
+      await outputFiles({
+        'pages/index.vue': endent`
           <template>
             <form method="POST" :class="{ sent }">
-              <button name="submit" type="submit" @submit="send">Send</button>
+              <button name="submit" type="submit">Send</button>
             </form>
           </template>
 
           <script setup>
           import { useRequestEvent } from '#imports'
-          import { getMethod, readBody } from 'h3'
 
           const event = useRequestEvent()
 
-          const sent = event && getMethod(event) === 'POST' && (await readBody(event)).submit !== undefined
+          const sent = event && event.node.req.method === 'POST' && event.node.req.body.submit !== undefined
           </script>
         `,
-      )
+      })
 
       const base = new Base(self)
       await base.prepare()
 
-      const childProcess = base.run('dev')
+      const childProcess = base.run('dev', { log: true })
       try {
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
