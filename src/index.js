@@ -6,6 +6,7 @@ import { globby } from 'globby'
 import { createRequire } from 'module'
 import outputFiles from 'output-files'
 import P from 'path'
+import { fileURLToPath } from 'url'
 
 import analyze from './analyze.js'
 import depcheckSpecial from './depcheck-special.js'
@@ -15,7 +16,11 @@ import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
 import start from './start.js'
 
+const __dirname = P.dirname(fileURLToPath(import.meta.url))
+
 const _require = createRequire(import.meta.url)
+
+const isInNodeModules = __dirname.split(P.sep).includes('node_modules')
 
 export default {
   allowedMatches: [
@@ -77,31 +82,29 @@ export default {
     main: 'dist/index.js',
   },
   prepare: async () => {
-    const configPath = `./${P.relative(
-      process.cwd(),
-      _require.resolve('./config.js'),
-    )
-      .split(P.sep)
-      .join('/')}`
+    const configPath = isInNodeModules
+      ? '@dword-design/base-config-nuxt/config'
+      : `./${P.relative(process.cwd(), _require.resolve('./config.js'))
+          .split(P.sep)
+          .join('/')}`
 
-    const parentConfigPath = `./${P.relative(
-      process.cwd(),
-      _require.resolve('./nuxt.config.js'),
-    )
-      .split(P.sep)
-      .join('/')}`
+    const parentConfigPath = isInNodeModules
+      ? '@dword-design/base-config-nuxt/nuxt.config'
+      : `./${P.relative(process.cwd(), _require.resolve('./nuxt.config.js'))
+          .split(P.sep)
+          .join('/')}`
 
     const translations = await globby('i18n/*.json')
 
     const hasI18n = translations.length > 0
     await outputFiles({
-      '.stylelintrc.json': JSON.stringify(
+      '.stylelintrc.json': `${JSON.stringify(
         {
           extends: packageName`@dword-design/stylelint-config`,
         },
         undefined,
         2,
-      ),
+      )}\n`,
       'app.vue': endent`
         <template>
           <NuxtLayout>
@@ -139,7 +142,7 @@ export default {
             "titleTemplate: title => title ? `${title} | ${runtimeConfig.public.name}` : `${runtimeConfig.public.name}${runtimeConfig.public.title ? `: ${runtimeConfig.public.title}` : ''}`",
           ].join('\n')}
         })
-        </script>
+        </script>\n
       `,
       'nuxt.config.js': javascript`
         import config from '${configPath}'
@@ -147,7 +150,7 @@ export default {
         export default {
           extends: '${parentConfigPath}',
           ...config,
-        }
+        }\n
       `,
     })
   },

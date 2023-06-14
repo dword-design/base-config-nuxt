@@ -12,8 +12,6 @@ import portReady from 'port-ready'
 import kill from 'tree-kill-promise'
 import xmlFormatter from 'xml-formatter'
 
-import self from './index.js'
-
 export default tester(
   {
     async aliases() {
@@ -36,7 +34,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -62,7 +60,7 @@ export default tester(
         `,
       )
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -106,7 +104,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -130,7 +128,7 @@ export default tester(
         `,
       )
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -163,7 +161,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const oldNodeOptions = process.env.NODE_OPTIONS
@@ -197,7 +195,7 @@ export default tester(
         `,
       )
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -233,7 +231,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -285,7 +283,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -322,7 +320,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -349,7 +347,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
       await base.run('prepublishOnly')
 
@@ -374,7 +372,7 @@ export default tester(
         `,
       )
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -414,7 +412,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const buildOutput = await base.run('prepublishOnly')
@@ -438,7 +436,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -467,7 +465,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
       await base.run('prepublishOnly')
     },
@@ -485,7 +483,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -507,7 +505,7 @@ export default tester(
         "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
       )
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
       await base.run('prepublishOnly')
     },
@@ -531,7 +529,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -571,7 +569,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -607,7 +605,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -632,7 +630,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -675,7 +673,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -704,7 +702,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -729,7 +727,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -762,7 +760,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -792,7 +790,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -826,7 +824,7 @@ export default tester(
         },
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -872,7 +870,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -904,6 +902,37 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+
+    async 'in node_modules foo'() {
+      await outputFiles({
+        'node_modules/base-config-self/package.json': JSON.stringify({
+          exports: './dist/index.js',
+          type: 'module',
+        }),
+        'pages/index.vue': endent`
+          <template>
+            <div class="foo">Hello world</div>
+          </template>
+        `,
+      })
+      await fs.symlink('../../../src', 'node_modules/base-config-self/dist')
+
+      const base = new Base({ name: 'self' })
+      await base.prepare()
+
+      const childProcess = base.run('dev', { log: true })
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const handle = await this.page.waitForSelector('.foo')
+        expect(await handle.evaluate(div => div.textContent)).toEqual(
+          'Hello world',
+        )
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
     /* 'local module with options': async () => {
       await outputFiles({
         'config.js': endent`
@@ -929,7 +958,7 @@ export default tester(
         },
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -962,7 +991,7 @@ export default tester(
         },
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -990,7 +1019,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1017,7 +1046,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1045,7 +1074,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1080,7 +1109,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1108,7 +1137,7 @@ export default tester(
         `,
       )
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1133,7 +1162,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1164,7 +1193,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev', { log: true })
@@ -1200,7 +1229,7 @@ export default tester(
         },
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1232,7 +1261,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1284,7 +1313,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1318,7 +1347,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1349,7 +1378,7 @@ export default tester(
         `,
       })
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1373,7 +1402,7 @@ export default tester(
         `,
       )
 
-      const base = new Base(self)
+      const base = new Base({ name: '../src/index.js' })
       await base.prepare()
 
       const childProcess = base.run('dev')
@@ -1390,5 +1419,5 @@ export default tester(
       }
     },
   },
-  [testerPluginTmpDir(), testerPluginPuppeteer()],
+  [testerPluginTmpDir({ unsafeCleanup: false }), testerPluginPuppeteer()],
 )

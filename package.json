@@ -6,7 +6,11 @@
   "license": "MIT",
   "author": "Sebastian Landwehr <info@sebastianlandwehr.com>",
   "type": "module",
-  "exports": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./config": "./dist/config.js",
+    "./nuxt.config": "./dist/nuxt.config.js"
+  },
   "main": "dist/index.js",
   "files": [
     "dist"
