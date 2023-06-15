@@ -7,7 +7,7 @@ import vueSfcDescriptorToString from 'vue-sfc-descriptor-to-string'
 
 import config from './config.js'
 // import expressModule from './modules/express/index.js'
-import i18nModule from './modules/i18n/index.js'
+import i18nModule from './modules/i18n.js'
 import localeLinkModule from './modules/locale-link/index.js'
 import svgModule from './modules/svg.js'
 
@@ -44,7 +44,7 @@ export default {
     },
   },
   modules: [
-    (otpoins, nuxt) => {
+    (options, nuxt) => {
       if (!config.userScalable) {
         const viewportMeta = nuxt.options.app.head.meta.find(
           meta => meta.name === 'viewport',
