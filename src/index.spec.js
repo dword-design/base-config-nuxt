@@ -1179,6 +1179,10 @@ export default tester(
     },
     async 'request body'() {
       await outputFiles({
+        'package.json': JSON.stringify({
+          dependencies: { '@dword-design/functions': '*', h3: '*' },
+          type: 'module',
+        }),
         'pages/index.vue': endent`
           <template>
             <form method="POST" :class="{ sent }">
@@ -1187,11 +1191,13 @@ export default tester(
           </template>
 
           <script setup>
+          import { property } from '@dword-design/functions'
           import { useRequestEvent } from '#imports'
+          import { getMethod, readBody } from 'h3'
 
           const event = useRequestEvent()
 
-          const sent = event && event.node.req.method === 'POST' && event.node.req.body.submit !== undefined
+          const sent = event && getMethod(event) === 'POST' && (readBody(event) |> await |> property('submit')) !== undefined
           </script>
         `,
       })
