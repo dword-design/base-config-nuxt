@@ -145,11 +145,14 @@ export default {
         </script>\n
       `,
       'nuxt.config.js': javascript`
+        import defu from 'defu'
         import config from '${configPath}'
+        import parentConfig from '${parentConfigPath}'
 
         export default {
-          extends: '${parentConfigPath}',
-          ...config,
+          ...defu(config, parentConfig),
+          modules: [...parentConfig.modules || [], ...config.modules || []],
+          plugins: [...parentConfig.plugins || [], ...config.plugins || []],
         }\n
       `,
     })

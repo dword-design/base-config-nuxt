@@ -5,10 +5,10 @@ import { parse } from '@vue/compiler-sfc'
 import packageName from 'depcheck-package-name'
 import vueSfcDescriptorToString from 'vue-sfc-descriptor-to-string'
 
-// import expressModule from './_modules/express/index.js'
-import i18nModule from './_modules/i18n/index.js'
-import localeLinkModule from './_modules/locale-link/index.js'
-import svgModule from './_modules/svg.js'
+// import expressModule from './modules/express/index.js'
+import i18nModule from './modules/i18n.js'
+import localeLinkModule from './modules/locale-link/index.js'
+import svgModule from './modules/svg.js'
 import config from './config.js'
 
 const isBasicAuthEnabled =
