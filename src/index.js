@@ -26,6 +26,8 @@ export default {
   allowedMatches: [
     '.stylelintrc.json',
     'server/api/**/*.js',
+    'server/plugins/**/*.js',
+    'server/routes/**/*.js',
     'server/middleware/**/*.js',
     'assets',
     'components',
