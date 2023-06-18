@@ -3,6 +3,7 @@ import { babel as rollupPluginBabel } from '@rollup/plugin-babel'
 import { parseVueRequest } from '@vitejs/plugin-vue'
 import { parse } from '@vue/compiler-sfc'
 import packageName from 'depcheck-package-name'
+import vitePluginBabel from 'vite-plugin-babel'
 import vueSfcDescriptorToString from 'vue-sfc-descriptor-to-string'
 
 import config from './config.js'
@@ -133,6 +134,7 @@ export default {
           return code
         },
       },
+      vitePluginBabel(),
     ],
     vue: {
       template: {

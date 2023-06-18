@@ -144,6 +144,34 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+    async 'babel in composable'() {
+      await outputFiles({
+        'composables/foo.js': 'export const foo = 1 |> x => x * 2',
+        'pages/index.vue': endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script setup>
+          import { foo } from '#imports'
+          </script>
+        `,
+      })
+
+      const base = new Base({ name: '../src/index.js' })
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const foo = await this.page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
     async 'babel in file imported from api'() {
       await outputFiles({
         'model/foo.js': 'export default 1 |> x => x * 2',
@@ -175,6 +203,41 @@ export default tester(
       } finally {
         await kill(childProcess.pid)
         process.env.NODE_OPTIONS = oldNodeOptions
+      }
+    },
+    async 'babel in plugin'() {
+      await outputFiles({
+        'pages/index.vue': endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script setup>
+          import { useNuxtApp } from '#imports'
+
+          const nuxtApp = useNuxtApp()
+          const foo = nuxtApp.$foo
+          </script>
+        `,
+        'plugins/foo.js': endent`
+          import { defineNuxtPlugin } from '#imports'
+
+          export default defineNuxtPlugin(() => ({ provide: { foo: 1 |> x => x * 2 } }))
+        `,
+      })
+
+      const base = new Base({ name: '../src/index.js' })
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+
+        const foo = await this.page.waitForSelector('.foo')
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+      } finally {
+        await kill(childProcess.pid)
       }
     },
     async 'babel in vue'() {

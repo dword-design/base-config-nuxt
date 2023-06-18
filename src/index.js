@@ -31,6 +31,7 @@ export default {
     'server/middleware/**/*.js',
     'assets',
     'components',
+    'composables',
     'content',
     'i18n',
     'layouts',
