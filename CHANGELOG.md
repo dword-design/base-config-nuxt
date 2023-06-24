@@ -1,3 +1,10 @@
+## [5.0.5](https://github.com/dword-design/base-config-nuxt/compare/v5.0.4...v5.0.5) (2023-06-24)
+
+
+### Bug Fixes
+
+* fix env ([#237](https://github.com/dword-design/base-config-nuxt/issues/237)) ([12fb7ee](https://github.com/dword-design/base-config-nuxt/commit/12fb7eeab0399e72271f842e09247b309353f3a3))
+
 ## [5.0.4](https://github.com/dword-design/base-config-nuxt/compare/v5.0.3...v5.0.4) (2023-06-18)
 
 
