@@ -485,6 +485,7 @@ export default tester(
     },
     async 'dotenv: config'() {
       await outputFiles({
+        '.env.json': JSON.stringify({ foo: 'Foo' }),
         '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
         '.test.env.json': JSON.stringify({ foo: 'Bar' }),
         'config.js': endent`
@@ -506,7 +507,7 @@ export default tester(
       try {
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
-        await this.page.waitForFunction(() => document.title === 'Bar')
+        expect(await this.page.evaluate(() => document.title)).toEqual('Bar')
       } finally {
         await kill(childProcess.pid)
       }

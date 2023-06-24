@@ -1,8 +1,6 @@
-import dotenv from '@dword-design/dotenv-json-extended'
 import jitiBabelTransform from '@dword-design/jiti-babel-transform'
 import jiti from 'jiti'
 
-dotenv.config()
 let config
 try {
   const jitiInstance = jiti(process.cwd(), {
