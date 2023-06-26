@@ -56,10 +56,6 @@ export default tester(
       filename: 'pages/index.vue',
       files: {
         'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
-
           <script setup>
           definePageMeta({ foo: 'bar' })
           </script>
@@ -72,7 +68,9 @@ export default tester(
       filename: 'foo/pages/index.vue',
       files: {
         'foo/pages/index.vue': endent`
+          <script setup>
           definePageMeta({ foo: 'bar' })
+          </script>
 
         `,
       },
@@ -112,22 +110,20 @@ export default tester(
   [
     {
       transform: test => {
-        test = { filename: 'pages/index.vue', match: '', ...test }
+        test = { error: '', filename: 'pages/index.vue', ...test }
 
         return async () => {
           await outputFiles(test.files)
-          try {
-            await new Base({
-              name: '../src/index.js',
-              ...test.config,
-            }).prepare()
+          await new Base({
+            name: '../src/index.js',
+            ...test.config,
+          }).prepare()
+          if (test.error) {
+            await expect(
+              execaCommand(`eslint ${test.filename}`),
+            ).rejects.toThrow(test.error)
+          } else {
             await execaCommand(`eslint ${test.filename}`)
-          } catch (error) {
-            if (test.match) {
-              expect(error.all).toMatch(test.match)
-            } else {
-              throw error
-            }
           }
         }
       },
