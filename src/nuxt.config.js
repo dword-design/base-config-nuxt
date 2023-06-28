@@ -7,7 +7,6 @@ import vitePluginBabel from 'vite-plugin-babel'
 import vueSfcDescriptorToString from 'vue-sfc-descriptor-to-string'
 
 import config from './config.js'
-// import expressModule from './modules/express/index.js'
 import i18nModule from './modules/i18n.js'
 import localeLinkModule from './modules/locale-link/index.js'
 import svgModule from './modules/svg.js'
