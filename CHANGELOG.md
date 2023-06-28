@@ -1,3 +1,11 @@
+## [5.0.7](https://github.com/dword-design/base-config-nuxt/compare/v5.0.6...v5.0.7) (2023-06-28)
+
+
+### Bug Fixes
+
+* foo ([49c07b9](https://github.com/dword-design/base-config-nuxt/commit/49c07b956a606276cf125a9ac9177a7b13d97e51))
+* foo ([547bc21](https://github.com/dword-design/base-config-nuxt/commit/547bc2148a8331ac3c4f1eb440411768fd23127e))
+
 ## [5.0.6](https://github.com/dword-design/base-config-nuxt/compare/v5.0.5...v5.0.6) (2023-06-26)
 
 
