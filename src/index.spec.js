@@ -1072,6 +1072,7 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
+
     async name() {
       await outputFiles({
         'config.js': endent`
@@ -1310,6 +1311,40 @@ export default tester(
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('.foo.is-active')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
+    async 'scoped style in production'() {
+      await fs.outputFile(
+        'pages/index.vue',
+        endent`
+          <template>
+            <div class="foo" />
+          </template>
+
+          <style scoped>
+          .foo {
+            background: red;
+          }
+          </style>
+        `,
+      )
+
+      const base = new Base({ name: '../src/index.js' })
+      await base.prepare()
+      await base.run('prepublishOnly')
+
+      const childProcess = base.run('start')
+      try {
+        await portReady(3000)
+        await this.page.goto('http://localhost:3000')
+        expect(
+          await this.page.$eval(
+            '.foo',
+            el => getComputedStyle(el).backgroundColor,
+          ),
+        ).toEqual('rgb(255, 0, 0)')
       } finally {
         await kill(childProcess.pid)
       }

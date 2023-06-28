@@ -105,6 +105,7 @@ export default {
           const query = parseVueRequest(id)
           if (
             query.filename.endsWith('.vue') &&
+            query.query.type !== 'style' &&
             !query.filename.split('/').includes('node_modules')
           ) {
             const sfc = parse(code)
