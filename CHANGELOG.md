@@ -1,3 +1,10 @@
+## [5.0.8](https://github.com/dword-design/base-config-nuxt/compare/v5.0.7...v5.0.8) (2023-07-02)
+
+
+### Bug Fixes
+
+* nuxt-babel-runtime ([#238](https://github.com/dword-design/base-config-nuxt/issues/238)) ([740c1df](https://github.com/dword-design/base-config-nuxt/commit/740c1dfe4b5d9f5fb2a1e35a8c09b67b8a5269b6))
+
 ## [5.0.7](https://github.com/dword-design/base-config-nuxt/compare/v5.0.6...v5.0.7) (2023-06-28)
 
 
