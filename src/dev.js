@@ -13,9 +13,5 @@ export default (options = {}) => {
 
   return execa(nuxtWrapper, ['dev'], {
     [options.log ? 'stdio' : 'stderr']: 'inherit',
-    env: {
-      NODE_OPTIONS:
-        '--require=suppress-experimental-warnings --require=@dword-design/suppress-babel-register-esm-warning --experimental-loader=babel-register-esm',
-    },
   })
 }

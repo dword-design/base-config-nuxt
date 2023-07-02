@@ -1,15 +1,9 @@
-import { transform } from '@babel/core'
-import { babel as rollupPluginBabel } from '@rollup/plugin-babel'
-import { parseVueRequest } from '@vitejs/plugin-vue'
-import { parse } from '@vue/compiler-sfc'
 import packageName from 'depcheck-package-name'
-import vitePluginBabel from 'vite-plugin-babel'
-import vueSfcDescriptorToString from 'vue-sfc-descriptor-to-string'
+import { createRequire } from 'module'
 
 import config from './config.js'
-import i18nModule from './modules/i18n.js'
-import localeLinkModule from './modules/locale-link/index.js'
-import svgModule from './modules/svg.js'
+
+const resolver = createRequire(import.meta.url)
 
 const isBasicAuthEnabled =
   process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD
@@ -69,16 +63,10 @@ export default {
         lintOnStart: false,
       },
     ],
-    i18nModule,
-    // expressModule,
-    svgModule,
-    localeLinkModule,
+    resolver.resolve('./modules/i18n.js'),
+    resolver.resolve('./modules/locale-link/index.js'),
+    resolver.resolve('./modules/svg.js'),
   ],
-  nitro: {
-    rollupConfig: {
-      plugins: [rollupPluginBabel({ babelHelpers: 'bundled' })],
-    },
-  },
   router: {
     options: {
       linkActiveClass: 'active',
@@ -98,44 +86,6 @@ export default {
     }),
   },
   vite: {
-    plugins: [
-      {
-        enforce: 'pre',
-        transform: async (code, id) => {
-          const query = parseVueRequest(id)
-          if (
-            query.filename.endsWith('.vue') &&
-            query.query.type !== 'style' &&
-            !query.filename.split('/').includes('node_modules')
-          ) {
-            const sfc = parse(code)
-            for (const section of ['scriptSetup', 'script']) {
-              if (
-                sfc.descriptor[section] &&
-                sfc.descriptor[section].lang === undefined
-              ) {
-                sfc.descriptor[section].content = await transform(
-                  sfc.descriptor[section].content,
-                  {
-                    plugins: [
-                      [
-                        '@babel/plugin-proposal-pipeline-operator',
-                        { proposal: 'fsharp' },
-                      ],
-                    ],
-                  },
-                ).code
-              }
-            }
-
-            return vueSfcDescriptorToString(sfc.descriptor)
-          }
-
-          return code
-        },
-      },
-      vitePluginBabel(),
-    ],
     vue: {
       template: {
         transformAssetUrls: {
