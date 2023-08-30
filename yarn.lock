@@ -2388,7 +2388,7 @@
   resolved "https://registry.yarnpkg.com/@nuxt/devalue/-/devalue-2.0.2.tgz#5749f04df13bda4c863338d8dabaf370f45ef7c7"
   integrity sha512-GBzP8zOc7CGWyFQS6dv1lQz8VVpz5C2yRszbXufwG/9zhStTIH50EtD87NmWbTMwXDvZLNg8GIpb1UFdH93JCA==
 
-"@nuxt/kit@3.7.0", "@nuxt/kit@^3.0.0", "@nuxt/kit@^3.0.0-rc.6", "@nuxt/kit@^3.1.2", "@nuxt/kit@^3.2.3", "@nuxt/kit@^3.5.0", "@nuxt/kit@^3.6.5":
+"@nuxt/kit@3.7.0", "@nuxt/kit@^3.0.0", "@nuxt/kit@^3.0.0-rc.6", "@nuxt/kit@^3.1.2", "@nuxt/kit@^3.2.3", "@nuxt/kit@^3.5.0", "@nuxt/kit@^3.6.5", "@nuxt/kit@^3.7.0":
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.7.0.tgz#14046349a7b12412e84782525ef802b65624268f"
   integrity sha512-bsPRb2NTLHRacjyybhhA3pZFIqo2pxB6bcP4FQDuzlGzVTI5PtJzbfNpkmQC7q+LZt8K0pNlxKVGisDvZctk6w==
@@ -3395,7 +3395,7 @@
     lodash.kebabcase "^4.1.1"
     svg-tags "^1.0.0"
 
-"@vue/babel-preset-jsx@dword-design/jsx#fork-babel-preset-jsx":
+"@vue/babel-preset-jsx@github:dword-design/jsx#fork-babel-preset-jsx":
   version "1.1.2"
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/a73cb9961541a60a66b1b99a69a32e00bc66d336"
   dependencies:
@@ -5874,9 +5874,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.477:
-  version "1.4.505"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.505.tgz#00571ade5975b58413f0f56a665b065bfc29cdfc"
-  integrity sha512-0A50eL5BCCKdxig2SsCXhpuztnB9PfUgRMojj5tMvt8O54lbwz3t6wNgnpiTRosw5QjlJB7ixhVyeg8daLQwSQ==
+  version "1.4.506"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.506.tgz#59f64a211102db4c3ebae2f39cc0e8e1b12b3a07"
+  integrity sha512-xxGct4GPAKSRlrLBtJxJFYy74W11zX6PO9GyHgl/U+2s3Dp0ZEwAklDfNHXOWcvH7zWMpsmgbR0ggEuaYAVvHA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -7179,9 +7179,9 @@ formdata-polyfill@^4.0.10:
     fetch-blob "^3.1.2"
 
 fraction.js@^4.2.0:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.1.tgz#828c46dce1c8ad270e1c4170b3d06a2761e997d3"
-  integrity sha512-nx0cki48JBA6ThPeUpeKCNpdhEl/9bRS+dAEYnRUod+Z1jhFfC3K/mBLorZZntqHM+GTH3/dkkpfoT3QITYe7g==
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.2.tgz#ea144a08ed23a284bf9067153075f212771a92d9"
+  integrity sha512-9VLF466MqX1OUP7/d9r7/Vsvu6Hpp+taXBLmiR5x6mEYfT0BDkGVBt5TyA1aDu1WzIE1sF8F66evOFaz7iAEGQ==
 
 fragment-cache@^0.2.1:
   version "0.2.1"
@@ -7279,7 +7279,7 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
-fsevents@^2.1.2, fsevents@^2.3.2, fsevents@~2.3.2:
+fsevents@^2.1.2, fsevents@^2.3.2, fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
@@ -8866,14 +8866,13 @@ istanbul-reports@^3.0.2, istanbul-reports@^3.1.6:
     istanbul-lib-report "^3.0.0"
 
 iterator.prototype@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/iterator.prototype/-/iterator.prototype-1.1.0.tgz#690c88b043d821f783843aaf725d7ac3b62e3b46"
-  integrity sha512-rjuhAk1AJ1fssphHD0IFV6TWL40CwRZ53FrztKx43yk2v6rguBYsY4Bj1VU4HmoMmKwZUlx7mfnhDf9cOp4YTw==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/iterator.prototype/-/iterator.prototype-1.1.1.tgz#ab5b790e23ec00658f5974e032a2b05188bd3a5c"
+  integrity sha512-9E+nePc8C9cnQldmNl6bgpTY6zI4OPRZd97fhJ/iVZ1GifIUDVV5F6x1nEDqpe8KaMEZGT4xgrwKQDxXnjOIZQ==
   dependencies:
-    define-properties "^1.1.4"
-    get-intrinsic "^1.1.3"
+    define-properties "^1.2.0"
+    get-intrinsic "^1.2.1"
     has-symbols "^1.0.3"
-    has-tostringtag "^1.0.0"
     reflect.getprototypeof "^1.0.3"
 
 jackspeak@^2.0.3:
@@ -9639,7 +9638,14 @@ load-json-file@^4.0.0:
     pify "^3.0.0"
     strip-bom "^3.0.0"
 
-load-pkg@^4.0.0, "load-pkg@npm:@dword-design/load-pkg":
+load-pkg@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/load-pkg/-/load-pkg-4.0.0.tgz#f80a29aec2f6d02aadde714099fda4eea1b611f1"
+  integrity sha512-xS6uYdbUzHbwO5bExhtM8RsU6Z/fVEfZE4uZpWQOwVygLSUfXz7J97nGzJfZ+FFCZc0Weabn/wA3y1k9Q7Y4mw==
+  dependencies:
+    find-pkg "^2.0.0"
+
+"load-pkg@npm:@dword-design/load-pkg":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@dword-design/load-pkg/-/load-pkg-4.0.0.tgz#201f76adeb44c64ed22d789591ab740573fe0a5b"
   integrity sha512-lZxKRusgIqSg2y4jLzZzMPWyhrGPGke3YYmAxj4SoJeUGV4CmvYyhJkJnfA7Yaov7GMXZi64nlhx8D809VDazg==
@@ -10997,20 +11003,21 @@ nth-check@^2.0.1, nth-check@^2.1.1:
   dependencies:
     boolbase "^1.0.0"
 
-nuxi@3.6.5, nuxi@^3.7.0:
-  version "3.6.5"
-  resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.6.5.tgz#eceb93e6ad957138776fd544a961b2c05615ccca"
-  integrity sha512-4XEXYz71UiWWiKC1/cJCzqRSUEImYRmjcvKpSsBKMU58ALYVSx5KIoas5SwLO8tEKO5BS4DAe4u7MYix7hfuHQ==
+nuxi@^3.7.0:
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.7.3.tgz#e979601b763cd9c57bec400c265e3879ac907aa4"
+  integrity sha512-Cg+ygRmhonE6PwAtDeKvKU/0VRqEyzmSSoJYfr0MzwIxQYrBSnLvw0z3UgJl/8MgFKjiZ5Y4wBUEiRsUw8O6uw==
   optionalDependencies:
-    fsevents "~2.3.2"
+    fsevents "~2.3.3"
 
 nuxt-babel-runtime@^4.0.0:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-4.0.2.tgz#456d3f2383562a306a89ab3d8598410436d17433"
-  integrity sha512-c9v7GT9uk/KUIMu9sC4kYWLSxn0C0Va2Do+czISzTmt1B4bC90Fte15OGiCkNhy4zDA0UHUYm6eoGS8AxWNgDQ==
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-4.0.4.tgz#add55223fb2386544ed9520ab6ff4b839e5598c7"
+  integrity sha512-60aEh7Rs8JF3CmwBIKHhz8il/exSuHmiyHhzUYrABZuw8aMxmxickgypbUFQmvIBcZs9lTBC3s1R9cmdOA9fpQ==
   dependencies:
     "@babel/core" "^7.10.2"
     "@dword-design/suppress-babel-register-esm-warning" "^1.1.10"
+    "@nuxt/kit" "^3.7.0"
     "@rollup/plugin-babel" "^6.0.3"
     "@vitejs/plugin-vue" "^4.2.3"
     "@vue/compiler-sfc" "^3.3.4"
