@@ -25,6 +25,9 @@
     "prepublishOnly": "base prepublishOnly",
     "test": "base test"
   },
+  "resolutions": {
+    "nuxi": "3.6.5"
+  },
   "dependencies": {
     "@dword-design/depcheck-parser-sass": "^4.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",

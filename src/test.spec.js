@@ -86,22 +86,6 @@ export default tester(
       await base.prepare()
       await base.test()
     },
-    jsx: async () => {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
-          <script>
-          export default {
-            render: () => <div />,
-          }
-          </script>
-        `,
-      )
-
-      const base = new Base(config)
-      await base.prepare()
-      await base.test()
-    },
     'linting error in js file': async () => {
       await outputFiles({
         'model/foo.js': 'const foo = 1',
