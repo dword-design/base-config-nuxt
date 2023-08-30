@@ -1,3 +1,10 @@
+## [5.0.9](https://github.com/dword-design/base-config-nuxt/compare/v5.0.8...v5.0.9) (2023-08-30)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#239](https://github.com/dword-design/base-config-nuxt/issues/239)) ([2e09d51](https://github.com/dword-design/base-config-nuxt/commit/2e09d51e786d2fc3cae1e0d6be07040047154a7a))
+
 ## [5.0.8](https://github.com/dword-design/base-config-nuxt/compare/v5.0.7...v5.0.8) (2023-07-02)
 
 
