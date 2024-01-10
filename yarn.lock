@@ -1508,6 +1508,16 @@
     lodash "^4.17.15"
     tinycolor2 "^1.4.1"
 
+"@dword-design/functions@^5.0.27":
+  version "5.0.27"
+  resolved "https://registry.yarnpkg.com/@dword-design/functions/-/functions-5.0.27.tgz#a609129207ec37abc0fae6aee26872166e409fc6"
+  integrity sha512-16A97RKtn21xLWI7Y7VhFz4WCWui+TLit/J5/l77BDpWmPi2LzgjQzDbafDDw7OUeY6GEAi/M4jdbuQhsIbSEg==
+  dependencies:
+    "@dword-design/endent" "^1.0.0"
+    delay "^5.0.0"
+    lodash "^4.17.15"
+    tinycolor2 "^1.4.1"
+
 "@dword-design/jiti-babel-transform@^1.0.11", "@dword-design/jiti-babel-transform@^1.0.7":
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/@dword-design/jiti-babel-transform/-/jiti-babel-transform-1.0.13.tgz#3069ffe580838c8730e2d803a83e4881051aece9"
@@ -5562,13 +5572,13 @@ depcheck-parser-babel@^3.0.1:
     "@babel/core" "^7.7.7"
     fs-extra "^10.0.0"
 
-depcheck-parser-vue@^4.0.7:
-  version "4.0.12"
-  resolved "https://registry.yarnpkg.com/depcheck-parser-vue/-/depcheck-parser-vue-4.0.12.tgz#fd16134603b94905b1ff0f53ee8a2ee85468e6e6"
-  integrity sha512-JurnhtVUAFotRIoIPi4meEcl7ApjUBAEmaAtLTs94AQU5wonRzTUe4NOWJeTKOI9x8DRknvvLTXS6Q8eqqf4kg==
+depcheck-parser-vue@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/depcheck-parser-vue/-/depcheck-parser-vue-5.0.0.tgz#0af61017959ec512542fc8326f591b97891d96e9"
+  integrity sha512-y1IM+f4MMBi7nzBLuIPKOatVDOk5oyAdxZ4ES04SOFNayN7JAjd3wyedmzPQPdMRwyoR8ADCg91TeLWgSIB+Og==
   dependencies:
     "@babel/core" "^7.10.3"
-    "@dword-design/functions" "^4.0.0"
+    "@dword-design/functions" "^5.0.27"
     "@vue/compiler-sfc" "^3.2.45"
     fs-extra "^11.0.0"
 
