@@ -82,7 +82,6 @@ export default (config = {}) => {
       '/nuxt.config.js',
     ],
     lint,
-    nodeVersion: 18,
     npmPublish: true,
     packageConfig: {
       main: 'dist/index.js',
@@ -159,7 +158,6 @@ export default (config = {}) => {
         `,
       })
     },
-    supportedNodeVersions: [16, 18],
     useJobMatrix: true,
   }
 }
