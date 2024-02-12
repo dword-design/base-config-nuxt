@@ -1554,7 +1554,7 @@
     stylelint-prettier "^5.0.0"
     stylelint-use-nesting "^4.1.0"
 
-"@dword-design/suppress-babel-register-esm-warning@^1.1.0", "@dword-design/suppress-babel-register-esm-warning@^1.1.10":
+"@dword-design/suppress-babel-register-esm-warning@^1.1.0":
   version "1.1.10"
   resolved "https://registry.yarnpkg.com/@dword-design/suppress-babel-register-esm-warning/-/suppress-babel-register-esm-warning-1.1.10.tgz#1fc68ca173a513a9f46642740e47cc3847cf391f"
   integrity sha512-VkXvIeTTutLLGr05RQEcuAs+ePlJa3yN2xuUuA3OtfXywdKlxA9r5xMFzGnHVc/y8T/95Z2eOEBpCn2QkChokg==
@@ -5674,7 +5674,7 @@ depcheck-detector-package-name@^3.0.0:
   resolved "https://registry.yarnpkg.com/depcheck-detector-package-name/-/depcheck-detector-package-name-3.0.4.tgz#ec4af5bc682d265bb73b26a5fdfef8b6b89f9962"
   integrity sha512-NJpk3gOZ+UhAs3O2nebM7tWQCiXG95/d+ZovyoD5dObbGxqvGr1NSFyz4NXgmV7BP/42z5Mr6L3GRbcJ1hU+3w==
 
-depcheck-package-name@^3.0.0, depcheck-package-name@^3.0.1:
+depcheck-package-name@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/depcheck-package-name/-/depcheck-package-name-3.0.1.tgz#606b43b9aadb623d95c933480e1261a52b1966cc"
   integrity sha512-7rR+VPs0wZCOgAyNe4klyXc+93cXl62pQ4akwHcnQQypdqDC18cy3LNLXmgu8geb3on8pgcxOhfbQ66+yLaNoQ==
@@ -11040,19 +11040,16 @@ nuxi@^3.10.0:
   optionalDependencies:
     fsevents "~2.3.3"
 
-nuxt-babel-runtime@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-5.0.0.tgz#fbd2d319339084081bcc241aed890aff9c46c739"
-  integrity sha512-VnLzS93nAb5qHgEz3ocdv/mfW0h/LEd941VxAnqh/3tA3WT11aSov8RrS1Va7JLWcZNXtVs7bKcLc3G82OZBKQ==
+nuxt-babel-runtime@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/nuxt-babel-runtime/-/nuxt-babel-runtime-5.0.1.tgz#f752ae1ccb138a295ab31c6accdbdc5cda71ed0f"
+  integrity sha512-bZIxpQVC41GVchpuE45Nc6ZEPYs4S9c7927SgHK+5a6v4BsK3y5/HAsc8Mj6+NSoQ3Oo4ItbwY4AtUZPrdOddA==
   dependencies:
     "@babel/core" "^7.10.2"
-    "@dword-design/suppress-babel-register-esm-warning" "^1.1.10"
     "@rollup/plugin-babel" "^6.0.3"
     "@vitejs/plugin-vue" "^5.0.3"
     "@vue/compiler-sfc" "^3.3.4"
-    depcheck-package-name "^3.0.1"
     execa "^8.0.1"
-    suppress-experimental-warnings "^1.1.17"
     vite-plugin-babel "^1.1.3"
     vue-sfc-descriptor-to-string "^2.0.0"
 
@@ -13927,7 +13924,7 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-suppress-experimental-warnings@^1.1.0, suppress-experimental-warnings@^1.1.17:
+suppress-experimental-warnings@^1.1.0:
   version "1.1.17"
   resolved "https://registry.yarnpkg.com/suppress-experimental-warnings/-/suppress-experimental-warnings-1.1.17.tgz#5408a8511dcb088c2d28133ce873fef3b3f1d46d"
   integrity sha512-n1huqqtVdNSTV04x0lC9gfBsCl6X+RRA10B6VTw8kQjrNbkwkU6DJB/qTbQFjO+ItYT9VbGe3NvuS4XWq5vUEQ==

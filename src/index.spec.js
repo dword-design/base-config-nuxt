@@ -51,18 +51,11 @@ export default tester(
       }
     },
     api: async () => {
-      await outputFiles({
-        'server/api/foo.get.js': endent`
-          import { defineEventHandler } from '#imports'
+      await fs.outputFile('server/api/foo.get.js', endent`
+        import { defineEventHandler } from '#imports'
 
-          export default defineEventHandler(() => ({ foo: 'bar' }))
-        `,
-        'pages/index.vue': endent`
-          <template>
-            <div />
-          </template>
-        `,
-      })
+        export default defineEventHandler(() => ({ foo: 'bar' }))
+      `)
 
       const base = new Base({ name: '../src/index.js' })
       await base.prepare()
@@ -133,7 +126,7 @@ export default tester(
       )
 
       const base = new Base({ name: '../src/index.js' })
-      //await base.prepare()
+      await base.prepare()
 
       const childProcess = base.run('dev')
       try {

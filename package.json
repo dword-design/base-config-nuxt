@@ -43,7 +43,7 @@
     "globby": "^14.0.1",
     "jiti": "^1.18.2",
     "nuxt": "^3.2.3",
-    "nuxt-babel-runtime": "^5.0.0",
+    "nuxt-babel-runtime": "^5.0.1",
     "nuxt-basic-authentication-module": "^0.2.1",
     "output-files": "^2.0.0",
     "require-package-name": "^2.0.1",
