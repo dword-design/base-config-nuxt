@@ -51,11 +51,14 @@ export default tester(
       }
     },
     api: async () => {
-      await fs.outputFile('server/api/foo.get.js', endent`
-        import { defineEventHandler } from '#imports'
+      await fs.outputFile(
+        'server/api/foo.get.js',
+        endent`
+          import { defineEventHandler } from '#imports'
 
-        export default defineEventHandler(() => ({ foo: 'bar' }))
-      `)
+          export default defineEventHandler(() => ({ foo: 'bar' }))
+        `,
+      )
 
       const base = new Base({ name: '../src/index.js' })
       await base.prepare()
