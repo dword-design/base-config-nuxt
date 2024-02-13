@@ -88,9 +88,7 @@ export default {
   vite: {
     vue: {
       template: {
-        transformAssetUrls: {
-          includeAbsolute: false,
-        },
+        transformAssetUrls: false,
       },
     },
   },
