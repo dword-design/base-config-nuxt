@@ -401,7 +401,7 @@ export default tester(
         await kill(childProcess.pid)
       }
     },
-    'do not import image urls': async () => {
+    'do not import image urls in production': async () => {
       await outputFiles({
         'pages/index.vue': endent`
           <template>
