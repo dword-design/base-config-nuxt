@@ -1276,7 +1276,7 @@ export default tester(
         await this.page.goto('http://localhost:3000')
 
         const button = await this.page.waitForSelector('button')
-        await button.click()
+        await button.evaluate(el => el.click())
         await this.page.waitForSelector('form.sent')
       } finally {
         await kill(childProcess.pid)
