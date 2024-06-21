@@ -390,6 +390,70 @@ export default tester(
       try {
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
+        expect(
+          await this.page.$eval(
+            '.foo',
+            _ => getComputedStyle(_).backgroundColor,
+          ),
+        ).toEqual('rgb(255, 0, 0)')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
+    async 'css modules: camelCase'() {
+      await outputFiles({
+        'pages/index.vue': endent`
+          <template>
+            <div :class="['foo', $style.fooBar]">Hello world</div>
+          </template>
+
+          <style lang="scss" module>
+          .foo-bar {
+            background: red;
+          }
+          </style>
+        `,
+      })
+
+      const base = new Base({ name: '../src/index.js' })
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
+        expect(
+          await this.page.$eval(
+            '.foo',
+            _ => getComputedStyle(_).backgroundColor,
+          ),
+        ).toEqual('rgb(255, 0, 0)')
+      } finally {
+        await kill(childProcess.pid)
+      }
+    },
+    async 'css modules: works'() {
+      await outputFiles({
+        'pages/index.vue': endent`
+          <template>
+            <div :class="['foo', $style.foo]">Hello world</div>
+          </template>
+
+          <style lang="scss" module>
+          .foo {
+            background: red;
+          }
+          </style>
+        `,
+      })
+
+      const base = new Base({ name: '../src/index.js' })
+      await base.prepare()
+
+      const childProcess = base.run('dev')
+      try {
+        await nuxtDevReady()
+        await this.page.goto('http://localhost:3000')
 
         const foo = await this.page.waitForSelector('.foo')
         await this.page.waitForFunction(
@@ -1311,40 +1375,6 @@ export default tester(
         await nuxtDevReady()
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('.foo.is-active')
-      } finally {
-        await kill(childProcess.pid)
-      }
-    },
-    async 'scoped style in production'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
-          <template>
-            <div class="foo" />
-          </template>
-
-          <style scoped>
-          .foo {
-            background: red;
-          }
-          </style>
-        `,
-      )
-
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
-      await base.run('prepublishOnly')
-
-      const childProcess = base.run('start')
-      try {
-        await portReady(3000)
-        await this.page.goto('http://localhost:3000')
-        expect(
-          await this.page.$eval(
-            '.foo',
-            el => getComputedStyle(el).backgroundColor,
-          ),
-        ).toEqual('rgb(255, 0, 0)')
       } finally {
         await kill(childProcess.pid)
       }
