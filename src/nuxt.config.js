@@ -86,6 +86,11 @@ export default {
     }),
   },
   vite: {
+    css: {
+      modules: {
+        localsConvention: 'camelCase',
+      },
+    },
     vue: {
       template: {
         transformAssetUrls: false,
