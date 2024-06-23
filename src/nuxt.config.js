@@ -86,6 +86,9 @@ export default {
       },
     }),
   },
+  devtools: {
+    enabled: true,
+  },
   vite: {
     vue: {
       template: {
