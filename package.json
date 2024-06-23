@@ -28,7 +28,7 @@
   "dependencies": {
     "@dword-design/depcheck-parser-sass": "^4.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
-    "@dword-design/functions": "^5.0.27",
+    "@dword-design/functions": "^6.0.0",
     "@dword-design/jiti-babel-transform": "^1.0.11",
     "@dword-design/stylelint-config": "^4.0.0",
     "@nuxt/kit": "^3.2.3",
@@ -38,7 +38,7 @@
     "deepmerge": "^4.3.1",
     "depcheck-package-name": "^3.0.0",
     "depcheck-parser-vue": "^5.0.0",
-    "execa": "^8.0.1",
+    "execa": "^9.3.0",
     "fs-extra": "^11.1.0",
     "globby": "^14.0.1",
     "jiti": "^1.18.2",
