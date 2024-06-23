@@ -1,8 +1,7 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
-import { endent, endent as javascript } from '@dword-design/functions'
+import { endent as javascript } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import depcheckParserVue from 'depcheck-parser-vue'
-import { globby } from 'globby'
 import { createRequire } from 'module'
 import outputFiles from 'output-files'
 import P from 'path'
@@ -32,6 +31,7 @@ export default (config = {}) => {
       'server/plugins/**/*.js',
       'server/routes/**/*.js',
       'server/middleware/**/*.js',
+      'app.vue',
       'assets',
       'components',
       'composables',
@@ -67,7 +67,6 @@ export default (config = {}) => {
       '.stylelintrc.json',
       '.nuxt',
       '.output',
-      'app.vue',
       'dist',
       'nuxt.config.js',
     ],
@@ -77,7 +76,6 @@ export default (config = {}) => {
       '/.nuxt',
       '/.output',
       '/.stylelintcache',
-      '/app.vue',
       '/dist',
       '/nuxt.config.js',
     ],
@@ -98,10 +96,6 @@ export default (config = {}) => {
         : `./${P.relative(process.cwd(), _require.resolve('./nuxt.config.js'))
             .split(P.sep)
             .join('/')}`
-
-      const translations = await globby('i18n/*.json')
-
-      const hasI18n = translations.length > 0
       await outputFiles({
         '.stylelintrc.json': `${JSON.stringify(
           {
@@ -110,45 +104,6 @@ export default (config = {}) => {
           undefined,
           2,
         )}\n`,
-        'app.vue': endent`
-          <template>
-            <NuxtLayout>
-              <NuxtPage />
-            </NuxtLayout>
-          </template>
-
-          <script setup>
-          import { ${[
-            'useHead',
-            ...(hasI18n ? ['useLocaleHead'] : []),
-            'useRuntimeConfig',
-          ].join(', ')} } from '#imports'
-
-          ${[
-            hasI18n
-              ? ['const i18nHead = useLocaleHead({ addSeoAttributes: true })']
-              : [],
-            'const runtimeConfig = useRuntimeConfig()',
-          ].join('\n')}
-
-          useHead({
-            ${[
-              ...(hasI18n
-                ? [
-                    endent`
-                      htmlAttrs: {
-                        lang: i18nHead.value.htmlAttrs.lang,
-                      },
-                      link: i18nHead.value.link,
-                      meta: i18nHead.value.meta,
-                    `,
-                  ]
-                : []),
-              "titleTemplate: title => title ? `${title} | ${runtimeConfig.public.name}` : `${runtimeConfig.public.name}${runtimeConfig.public.title ? `: ${runtimeConfig.public.title}` : ''}`",
-            ].join('\n')}
-          })
-          </script>\n
-        `,
         'nuxt.config.js': javascript`
           import deepmerge from '${packageName`deepmerge`}'
           import config from '${configPath}'
