@@ -63,10 +63,11 @@ export default {
         lintOnStart: false,
       },
     ],
-    resolver.resolve('./modules/i18n.js'),
+    resolver.resolve('./modules/i18n/index.js'),
     resolver.resolve('./modules/locale-link/index.js'),
     resolver.resolve('./modules/svg.js'),
   ],
+  plugins: [resolver.resolve('./plugins/title.js')],
   router: {
     options: {
       linkActiveClass: 'active',
