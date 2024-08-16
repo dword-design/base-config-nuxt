@@ -31,7 +31,6 @@ export default (config = {}) => {
       'server/plugins/**/*.js',
       'server/routes/**/*.js',
       'server/middleware/**/*.js',
-      'app.vue',
       'assets',
       'components',
       'composables',
