@@ -5,7 +5,6 @@ import P from 'path';
 import requirePackageName from 'require-package-name';
 
 export default path => {
-  try {
   if (P.basename(path) === 'config.js') {
     const jitiInstance = jiti(process.cwd(), {
       esmResolve: true,
@@ -24,8 +23,4 @@ export default path => {
   }
 
   return [];
-} catch (error) {
-  console.log(error);
-  throw error;
-}
 };
