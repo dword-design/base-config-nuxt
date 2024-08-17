@@ -1,16 +1,16 @@
-import { Base } from '@dword-design/base'
-import { endent, property } from '@dword-design/functions'
-import tester from '@dword-design/tester'
-import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import axios from 'axios'
-import packageName from 'depcheck-package-name'
-import fs from 'fs-extra'
-import nuxtDevReady from 'nuxt-dev-ready'
-import outputFiles from 'output-files'
-import portReady from 'port-ready'
-import kill from 'tree-kill-promise'
-import xmlFormatter from 'xml-formatter'
+import { Base } from '@dword-design/base';
+import { endent, property } from '@dword-design/functions';
+import tester from '@dword-design/tester';
+import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer';
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import axios from 'axios';
+import packageName from 'depcheck-package-name';
+import fs from 'fs-extra';
+import nuxtDevReady from 'nuxt-dev-ready';
+import outputFiles from 'output-files';
+import portReady from 'port-ready';
+import kill from 'tree-kill-promise';
+import xmlFormatter from 'xml-formatter';
 
 export default tester(
   {
@@ -32,22 +32,22 @@ export default tester(
           }
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const handle = await this.page.waitForSelector('.foo');
 
-        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     api: async () => {
@@ -58,22 +58,23 @@ export default tester(
 
           export default defineEventHandler(() => ({ foo: 'bar' }))
         `,
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
 
         const result =
           axios.get('http://localhost:3000/api/foo')
           |> await
-          |> property('data')
-        expect(result).toEqual({ foo: 'bar' })
+          |> property('data');
+
+        expect(result).toEqual({ foo: 'bar' });
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'async modules'() {
@@ -102,20 +103,19 @@ export default tester(
           const { $foo } = useNuxtApp()
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
+        expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'babel in api': async () => {
@@ -126,22 +126,23 @@ export default tester(
 
           export default defineEventHandler(() => 1 |> x => x * 2)
         `,
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
 
         const result =
           axios.get('http://localhost:3000/api/foo')
           |> await
-          |> property('data')
-        expect(result).toEqual(2)
+          |> property('data');
+
+        expect(result).toEqual(2);
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'babel in composable'() {
@@ -156,20 +157,19 @@ export default tester(
           import { foo } from '#imports'
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'babel in file imported from api'() {
@@ -187,22 +187,21 @@ export default tester(
 
           export default defineEventHandler(() => foo)
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const oldNodeOptions = process.env.NODE_OPTIONS;
+      process.env.NODE_OPTIONS = '';
+      const childProcess = base.run('dev');
 
-      const oldNodeOptions = process.env.NODE_OPTIONS
-      process.env.NODE_OPTIONS = ''
-
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('.foo')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        await this.page.waitForSelector('.foo');
       } finally {
-        await kill(childProcess.pid)
-        process.env.NODE_OPTIONS = oldNodeOptions
+        await kill(childProcess.pid);
+        process.env.NODE_OPTIONS = oldNodeOptions;
       }
     },
     async 'babel in plugin'() {
@@ -224,20 +223,19 @@ export default tester(
 
           export default defineNuxtPlugin(() => ({ provide: { foo: 1 |> x => x * 2 } }))
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'babel in vue'() {
@@ -256,20 +254,19 @@ export default tester(
           }
           </script>
         `,
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'basic auth': async () => {
@@ -292,37 +289,34 @@ export default tester(
 
           export default defineEventHandler(() => 'foo')
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
+
         await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
           'response.status',
           401,
-        )
+        );
+
         await expect(
           axios.get('http://localhost:3000/api/foo'),
-        ).rejects.toHaveProperty('response.status', 401)
+        ).rejects.toHaveProperty('response.status', 401);
+
         await Promise.all([
           axios.get('http://localhost:3000', {
-            auth: {
-              password: 'bar',
-              username: 'foo',
-            },
+            auth: { password: 'bar', username: 'foo' },
           }),
           axios.get('http://localhost:3000/api/foo', {
-            auth: {
-              password: 'bar',
-              username: 'foo',
-            },
+            auth: { password: 'bar', username: 'foo' },
           }),
-        ])
+        ]);
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async bodyAttrs() {
@@ -344,22 +338,23 @@ export default tester(
           </template>
 
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+
         expect(
           await this.page.evaluate(() =>
             document.body.classList.contains('foo'),
           ),
-        ).toEqual(true)
+        ).toEqual(true);
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async css() {
@@ -381,24 +376,24 @@ export default tester(
             <div class="foo">Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
 
-        const foo = await this.page.waitForSelector('.foo')
         await this.page.waitForFunction(
           el => getComputedStyle(el).backgroundColor === 'rgb(255, 0, 0)',
           {},
           foo,
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'do not import image urls in production': async () => {
@@ -408,17 +403,17 @@ export default tester(
             <img src="/api/foo.png" />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
-      await base.run('prepublishOnly')
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      await base.run('prepublishOnly');
+      const nuxt = base.run('start');
 
-      const nuxt = base.run('start')
       try {
-        await portReady(3000)
+        await portReady(3000);
       } finally {
-        await kill(nuxt.pid)
+        await kill(nuxt.pid);
       }
     },
     async 'do not transpile other language than js in vue'() {
@@ -433,20 +428,19 @@ export default tester(
           const foo: number = 2
           </script>
         `,
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'do not transpile vue in node_modules': async () => {
@@ -473,15 +467,15 @@ export default tester(
           import Foo from 'foo'
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const buildOutput = await base.run('prepublishOnly');
 
-      const buildOutput = await base.run('prepublishOnly')
       expect(buildOutput.stderr).toMatch(
         'This experimental syntax requires enabling the parser plugin: "pipelineOperator".',
-      )
+      );
     },
     async 'dotenv: config'() {
       await outputFiles({
@@ -498,18 +492,18 @@ export default tester(
             <div>Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.evaluate(() => document.title)).toEqual('Bar')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        expect(await this.page.evaluate(() => document.title)).toEqual('Bar');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'dotenv: module': async () => {
@@ -527,11 +521,11 @@ export default tester(
             <div>Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
-      await base.run('prepublishOnly')
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      await base.run('prepublishOnly');
     },
     async 'global components'() {
       await outputFiles({
@@ -545,33 +539,33 @@ export default tester(
             <foo />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const handle = await this.page.waitForSelector('.foo');
 
-        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'head in module': async () => {
       await fs.outputFile(
         'modules/mod.js',
         "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
-      await base.run('prepublishOnly')
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      await base.run('prepublishOnly');
     },
     async 'head link'() {
       await outputFiles({
@@ -591,17 +585,17 @@ export default tester(
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const link = await this.page.waitForSelector('link[rel=alternate]');
 
-        const link = await this.page.waitForSelector('link[rel=alternate]')
         expect(
           await Promise.all([
             link.evaluate(el => el.getAttribute('rel')),
@@ -609,9 +603,9 @@ export default tester(
             link.evaluate(el => el.getAttribute('title')),
             link.evaluate(el => el.getAttribute('href')),
           ]),
-        ).toEqual(['alternate', 'application/rss+xml', 'Blog', '/feed'])
+        ).toEqual(['alternate', 'application/rss+xml', 'Blog', '/feed']);
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async hexrgba() {
@@ -631,22 +625,23 @@ export default tester(
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+
         await this.page.waitForFunction(
           () =>
             getComputedStyle(document.body).backgroundColor ===
             'rgba(0, 0, 0, 0)',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async htmlAttrs() {
@@ -667,62 +662,59 @@ export default tester(
             <div>Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('html.foo')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        await this.page.waitForSelector('html.foo');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'i18n: browser language changed': async () => {
       await outputFiles({
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
+        i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
+
         expect(
           axios.get('http://localhost:3000')
             |> await
             |> property('request.res.responseUrl'),
-        ).toEqual('http://localhost:3000/en')
+        ).toEqual('http://localhost:3000/en');
+
         expect(
           axios.get('http://localhost:3000', {
             headers: { 'Accept-Language': 'de' },
           })
             |> await
             |> property('request.res.responseUrl'),
-        ).toEqual('http://localhost:3000/de')
+        ).toEqual('http://localhost:3000/de');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'i18n: change page, meta up-to-date'() {
       await outputFiles({
         '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
         '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
-        i18n: {
-          'en.json': JSON.stringify({ foo: 'Hello world' }),
-        },
+        i18n: { 'en.json': JSON.stringify({ foo: 'Hello world' }) },
         pages: {
           'foo.vue': endent`
             <template>
@@ -735,24 +727,27 @@ export default tester(
             </template>
           `,
         },
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+
         await this.page.waitForSelector(
           'link[rel=canonical][href="http://localhost:3000/"]',
-        )
-        await this.page.goto('http://localhost:3000/foo')
+        );
+
+        await this.page.goto('http://localhost:3000/foo');
+
         await this.page.waitForSelector(
           'link[rel=canonical][href="http://localhost:3000/foo"]',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'i18n: middleware'() {
@@ -774,140 +769,130 @@ export default tester(
             <div class="foo">Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const handle = await this.page.waitForSelector('.foo');
 
-        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'i18n: root with prefix'() {
       await outputFiles({
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
+        i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000/de')
-        expect(await this.page.url()).toEqual('http://localhost:3000/de')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000/de');
+        expect(await this.page.url()).toEqual('http://localhost:3000/de');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'i18n: root without prefix'() {
       await outputFiles({
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
+        i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/index.vue': endent`
           <template>
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
+
         expect(
           axios.get('http://localhost:3000', {
             headers: { 'Accept-Language': 'de' },
           })
             |> await
             |> property('request.res.responseUrl'),
-        ).toEqual('http://localhost:3000/de')
-        await this.page.setExtraHTTPHeaders({
-          'Accept-Language': 'de',
-        })
+        ).toEqual('http://localhost:3000/de');
+
+        await this.page.setExtraHTTPHeaders({ 'Accept-Language': 'de' });
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'i18n: route with prefix': async () => {
       await outputFiles({
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
+        i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/foo.vue': endent`
           <template>
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
+
         expect(
           axios.get('http://localhost:3000/de/foo', {
             headers: { 'Accept-Language': 'de' },
           })
             |> await
             |> property('request.res.responseUrl'),
-        ).toEqual('http://localhost:3000/de/foo')
+        ).toEqual('http://localhost:3000/de/foo');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     'i18n: route without prefix': async () => {
       await outputFiles({
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
+        i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/foo.vue': endent`
           <template>
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
+
         expect(
           axios.get('http://localhost:3000/foo', {
             headers: { 'Accept-Language': 'de' },
           })
             |> await
             |> property('request.res.responseUrl'),
-        ).toEqual('http://localhost:3000/de/foo')
+        ).toEqual('http://localhost:3000/de/foo');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'i18n: single locale'() {
@@ -925,27 +910,25 @@ export default tester(
             </template>
           `,
         },
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.setExtraHTTPHeaders({
-          'Accept-Language': 'en',
-        })
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/')
+        await nuxtDevReady();
+        await this.page.setExtraHTTPHeaders({ 'Accept-Language': 'en' });
+        await this.page.goto('http://localhost:3000');
+        expect(await this.page.url()).toEqual('http://localhost:3000/');
+        const link = await this.page.waitForSelector('.foo');
+        expect(await link.evaluate(el => el.textContent)).toEqual('bar');
 
-        const link = await this.page.waitForSelector('.foo')
-        expect(await link.evaluate(el => el.textContent)).toEqual('bar')
         expect(await link.evaluate(el => el.href)).toEqual(
           'http://localhost:3000/bar',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'i18n: works'() {
@@ -971,16 +954,16 @@ export default tester(
             <div class="foo">{{ $t('foo') }}</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        expect(await this.page.url()).toEqual('http://localhost:3000/en')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        expect(await this.page.url()).toEqual('http://localhost:3000/en');
 
         const [foo, html] = await Promise.all([
           this.page.waitForSelector('.foo'),
@@ -997,15 +980,17 @@ export default tester(
           this.page.waitForSelector(
             'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]',
           ),
-        ])
+        ]);
+
         expect(await foo.evaluate(div => div.textContent)).toEqual(
           'Hello world',
-        )
+        );
+
         expect(await html.evaluate(el => el.getAttribute('style'))).toEqual(
           'background: red',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     /* async 'in node_modules'() {
@@ -1080,10 +1065,7 @@ export default tester(
     }, */
     async 'locale link'() {
       await outputFiles({
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
+        i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         pages: {
           'foo.vue': endent`
             <template>
@@ -1098,20 +1080,21 @@ export default tester(
             </template>
           `,
         },
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+
         expect(await this.page.$eval('a', a => a.getAttribute('href'))).toEqual(
           '/en/foo',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
 
@@ -1127,18 +1110,18 @@ export default tester(
             <div>Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        await this.page.waitForFunction(() => document.title === 'Test-App')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        await this.page.waitForFunction(() => document.title === 'Test-App');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'name and title'() {
@@ -1154,20 +1137,21 @@ export default tester(
             <div>Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+
         await this.page.waitForFunction(
           () => document.title === 'Test-App: This is the ultimate app!',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async ogImage() {
@@ -1182,22 +1166,22 @@ export default tester(
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const handle = await this.page.waitForSelector('meta[name=og\\:image]');
 
-        const handle = await this.page.waitForSelector('meta[name=og\\:image]')
         expect(await handle.evaluate(meta => meta.content)).toEqual(
           'https://example.com/og-image',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'page with title'() {
@@ -1217,20 +1201,21 @@ export default tester(
           useHead({ title: 'Foo page' })
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000/foo')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000/foo');
+
         await this.page.waitForFunction(
           () => document.title === 'Foo page | Test-App',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'pipeline operator await in vue'() {
@@ -1245,20 +1230,19 @@ export default tester(
           const foo = Promise.resolve(1) |> await |> x => x * 2
           </script>
         `,
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const foo = await this.page.waitForSelector('.foo')
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
+        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async port() {
@@ -1270,18 +1254,18 @@ export default tester(
             <div class="foo" />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady(3005)
-        await this.page.goto('http://localhost:3005')
-        await this.page.waitForSelector('.foo')
+        await nuxtDevReady(3005);
+        await this.page.goto('http://localhost:3005');
+        await this.page.waitForSelector('.foo');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'request body'() {
@@ -1307,21 +1291,20 @@ export default tester(
           const sent = event && getMethod(event) === 'POST' && (readBody(event) |> await |> property('submit')) !== undefined
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const button = await this.page.waitForSelector('button')
-        await button.evaluate(el => el.click())
-        await this.page.waitForSelector('form.sent')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const button = await this.page.waitForSelector('button');
+        await button.evaluate(el => el.click());
+        await this.page.waitForSelector('form.sent');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'router config'() {
@@ -1343,18 +1326,18 @@ export default tester(
           `,
           'inner/info.vue': '<template />',
         },
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('.foo.is-active')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        await this.page.waitForSelector('.foo.is-active');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'scoped style in production'() {
@@ -1371,24 +1354,25 @@ export default tester(
           }
           </style>
         `,
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
-      await base.run('prepublishOnly')
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      await base.run('prepublishOnly');
+      const childProcess = base.run('start');
 
-      const childProcess = base.run('start')
       try {
-        await portReady(3000)
-        await this.page.goto('http://localhost:3000')
+        await portReady(3000);
+        await this.page.goto('http://localhost:3000');
+
         expect(
           await this.page.$eval(
             '.foo',
             el => getComputedStyle(el).backgroundColor,
           ),
-        ).toEqual('rgb(255, 0, 0)')
+        ).toEqual('rgb(255, 0, 0)');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     sitemap: async () => {
@@ -1400,28 +1384,26 @@ export default tester(
             ]
           }
         `,
-        i18n: {
-          'de.json': JSON.stringify({}),
-          'en.json': JSON.stringify({}),
-        },
+        i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/index.vue': endent`
           <template>
             <div class="foo">Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
+        await nuxtDevReady();
 
         const sitemap =
           (await axios.get('http://localhost:3000/sitemap.xml'))
           |> await
-          |> property('data')
+          |> property('data');
+
         expect(
           xmlFormatter(sitemap, {
             collapseContent: true,
@@ -1438,9 +1420,9 @@ export default tester(
               <loc>http://localhost:3000/en</loc>
             </url>
           </urlset>
-        `)
+        `);
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'svg inline'() {
@@ -1461,20 +1443,19 @@ export default tester(
           }
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-
-        const icon = await this.page.waitForSelector('.icon')
-        expect(await icon.evaluate(el => el.tagName)).toEqual('svg')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const icon = await this.page.waitForSelector('.icon');
+        expect(await icon.evaluate(el => el.tagName)).toEqual('svg');
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async 'svg url'() {
@@ -1495,23 +1476,23 @@ export default tester(
           }
           </script>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const image = await this.page.waitForSelector('.image');
+        expect(await image.evaluate(el => el.tagName)).toEqual('IMG');
 
-        const image = await this.page.waitForSelector('.image')
-        expect(await image.evaluate(el => el.tagName)).toEqual('IMG')
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
           '/_nuxt/assets/image.svg',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async userScalable() {
@@ -1526,20 +1507,21 @@ export default tester(
             <div />
           </template>
         `,
-      })
+      });
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+
         await this.page.waitForSelector(
           'meta[name=viewport][content$=user-scalable\\=0]',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
     async valid() {
@@ -1550,24 +1532,24 @@ export default tester(
             <div class="foo">Hello world</div>
           </template>
         `,
-      )
+      );
 
-      const base = new Base({ name: '../src/index.js' })
-      await base.prepare()
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
 
-      const childProcess = base.run('dev')
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const handle = await this.page.waitForSelector('.foo');
 
-        const handle = await this.page.waitForSelector('.foo')
         expect(await handle.evaluate(div => div.textContent)).toEqual(
           'Hello world',
-        )
+        );
       } finally {
-        await kill(childProcess.pid)
+        await kill(childProcess.pid);
       }
     },
   },
   [testerPluginTmpDir(), testerPluginPuppeteer()],
-)
+);

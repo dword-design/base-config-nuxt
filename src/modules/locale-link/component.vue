@@ -5,9 +5,5 @@
 </template>
 
 <script>
-export default {
-  props: {
-    to: { required: true },
-  },
-}
+export default { props: { to: { required: true } } };
 </script>

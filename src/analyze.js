@@ -1,3 +1,3 @@
-import { execaCommand } from 'execa'
+import { execaCommand } from 'execa';
 
-export default () => execaCommand('nuxt build --analyze')
+export default () => execaCommand('nuxt build --analyze');

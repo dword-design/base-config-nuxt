@@ -1,9 +1,9 @@
-import { Base } from '@dword-design/base'
-import { endent } from '@dword-design/functions'
-import tester from '@dword-design/tester'
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import { execaCommand } from 'execa'
-import outputFiles from 'output-files'
+import { Base } from '@dword-design/base';
+import { endent } from '@dword-design/functions';
+import tester from '@dword-design/tester';
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import { execaCommand } from 'execa';
+import outputFiles from 'output-files';
 
 export default tester(
   {
@@ -16,7 +16,7 @@ export default tester(
           </template>
 
           <script setup>
-          import { NuxtLink } from '#components'
+          import { NuxtLink } from '#components';
           </script>
 
         `,
@@ -27,17 +27,15 @@ export default tester(
       files: {
         'assets/hero.svg': '',
         'plugins/foo.js': endent`
-          import { defineNuxtPlugin } from '#imports'
+          import { defineNuxtPlugin } from '#imports';
 
-          export default defineNuxtPlugin(() => {})
+          export default defineNuxtPlugin(() => {});
 
         `,
       },
     },
     'custom import': {
-      config: {
-        importAliases: ['#foo'],
-      },
+      config: { importAliases: ['#foo'] },
       filename: 'pages/index.vue',
       files: {
         'pages/index.vue': endent`
@@ -46,7 +44,7 @@ export default tester(
           </template>
 
           <script setup>
-          import { foo } from '#foo'
+          import { foo } from '#foo';
           </script>
 
         `,
@@ -57,7 +55,7 @@ export default tester(
       files: {
         'pages/index.vue': endent`
           <script setup>
-          definePageMeta({ foo: 'bar' })
+          definePageMeta({ foo: 'bar' });
           </script>
 
         `,
@@ -69,7 +67,7 @@ export default tester(
       files: {
         'foo/pages/index.vue': endent`
           <script setup>
-          definePageMeta({ foo: 'bar' })
+          definePageMeta({ foo: 'bar' });
           </script>
 
         `,
@@ -80,7 +78,7 @@ export default tester(
       filename: 'plugins/foo.js',
       files: {
         'plugins/foo.js': endent`
-          definePageMeta({ foo: 'bar' })
+          definePageMeta({ foo: 'bar' });
 
         `,
       },
@@ -93,14 +91,8 @@ export default tester(
             <div />
           </template>
 
-          <script>
-          import imageUrl from '@/assets/hero.svg?url'
-
-          export default {
-            computed: {
-              imageUrl: () => imageUrl,
-            },
-          }
+          <script setup>
+          import '@/assets/hero.svg?url';
           </script>
 
         `,
@@ -110,24 +102,22 @@ export default tester(
   [
     {
       transform: test => {
-        test = { error: '', filename: 'pages/index.vue', ...test }
+        test = { error: '', filename: 'pages/index.vue', ...test };
 
         return async () => {
-          await outputFiles(test.files)
-          await new Base({
-            name: '../src/index.js',
-            ...test.config,
-          }).prepare()
+          await outputFiles(test.files);
+          await new Base({ name: '../src/index.js', ...test.config }).prepare();
+
           if (test.error) {
             await expect(
               execaCommand(`eslint ${test.filename}`),
-            ).rejects.toThrow(test.error)
+            ).rejects.toThrow(test.error);
           } else {
-            await execaCommand(`eslint ${test.filename}`)
+            await execaCommand(`eslint ${test.filename}`);
           }
-        }
+        };
       },
     },
     testerPluginTmpDir(),
   ],
-)
+);

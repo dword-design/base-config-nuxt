@@ -1,29 +1,26 @@
-import depcheckParserSass from '@dword-design/depcheck-parser-sass'
-import { endent as javascript } from '@dword-design/functions'
-import packageName from 'depcheck-package-name'
-import depcheckParserVue from 'depcheck-parser-vue'
-import { createRequire } from 'module'
-import outputFiles from 'output-files'
-import P from 'path'
-import { fileURLToPath } from 'url'
+import depcheckParserSass from '@dword-design/depcheck-parser-sass';
+import { endent as javascript } from '@dword-design/functions';
+import packageName from 'depcheck-package-name';
+import depcheckParserVue from 'depcheck-parser-vue';
+import { createRequire } from 'module';
+import outputFiles from 'output-files';
+import P from 'path';
+import { fileURLToPath } from 'url';
 
-import analyze from './analyze.js'
-import depcheckSpecial from './depcheck-special.js'
-import dev from './dev.js'
-import getEslintConfig from './get-eslint-config.js'
-import lint from './lint.js'
-import prepublishOnly from './prepublish-only.js'
-import start from './start.js'
+import analyze from './analyze.js';
+import depcheckSpecial from './depcheck-special.js';
+import dev from './dev.js';
+import getEslintConfig from './get-eslint-config.js';
+import lint from './lint.js';
+import prepublishOnly from './prepublish-only.js';
+import start from './start.js';
 
-const __dirname = P.dirname(fileURLToPath(import.meta.url))
-
-const _require = createRequire(import.meta.url)
-
-const isInNodeModules = __dirname.split(P.sep).includes('node_modules')
+const __dirname = P.dirname(fileURLToPath(import.meta.url));
+const _require = createRequire(import.meta.url);
+const isInNodeModules = __dirname.split(P.sep).includes('node_modules');
 
 export default (config = {}) => {
-  config.importAliases = config.importAliases || []
-
+  config.importAliases = config.importAliases || [];
   return {
     allowedMatches: [
       '.stylelintrc.json',
@@ -48,12 +45,7 @@ export default (config = {}) => {
       'store',
       'types',
     ],
-    commands: {
-      analyze,
-      dev,
-      prepublishOnly,
-      start,
-    },
+    commands: { analyze, dev, prepublishOnly, start },
     depcheckConfig: {
       parsers: {
         '**/*.scss': depcheckParserSass,
@@ -81,26 +73,23 @@ export default (config = {}) => {
     ],
     lint,
     npmPublish: true,
-    packageConfig: {
-      main: 'dist/index.js',
-    },
+    packageConfig: { main: 'dist/index.js' },
     prepare: async () => {
       const configPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/config'
         : `./${P.relative(process.cwd(), _require.resolve('./config.js'))
             .split(P.sep)
-            .join('/')}`
+            .join('/')}`;
 
       const parentConfigPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/nuxt.config'
         : `./${P.relative(process.cwd(), _require.resolve('./nuxt.config.js'))
             .split(P.sep)
-            .join('/')}`
+            .join('/')}`;
+
       await outputFiles({
         '.stylelintrc.json': `${JSON.stringify(
-          {
-            extends: packageName`@dword-design/stylelint-config`,
-          },
+          { extends: packageName`@dword-design/stylelint-config` },
           undefined,
           2,
         )}\n`,
@@ -111,8 +100,8 @@ export default (config = {}) => {
 
           export default deepmerge(parentConfig, config)\n
         `,
-      })
+      });
     },
     useJobMatrix: true,
-  }
-}
+  };
+};

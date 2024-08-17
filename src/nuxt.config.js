@@ -1,38 +1,23 @@
-import packageName from 'depcheck-package-name'
-import { createRequire } from 'module'
+import packageName from 'depcheck-package-name';
+import { createRequire } from 'module';
 
-import config from './config.js'
+import config from './config.js';
 
-const resolver = createRequire(import.meta.url)
+const resolver = createRequire(import.meta.url);
 
 const isBasicAuthEnabled =
-  process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD
+  process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
 
 export default {
   app: {
     head: {
       meta: [
-        {
-          content: config.name,
-          hid: 'description',
-          name: 'description',
-        },
+        { content: config.name, hid: 'description', name: 'description' },
         ...(config.webApp
-          ? [
-              {
-                content: 'yes',
-                name: 'apple-mobile-web-app-capable',
-              },
-            ]
+          ? [{ content: 'yes', name: 'apple-mobile-web-app-capable' }]
           : []),
         ...(config.ogImage
-          ? [
-              {
-                content: config.ogImage,
-                hid: 'og:image',
-                name: 'og:image',
-              },
-            ]
+          ? [{ content: config.ogImage, hid: 'og:image', name: 'og:image' }]
           : []),
       ],
     },
@@ -42,8 +27,9 @@ export default {
       if (!config.userScalable) {
         const viewportMeta = nuxt.options.app.head.meta.find(
           meta => meta.name === 'viewport',
-        )
-        viewportMeta.content += ', user-scalable=0'
+        );
+
+        viewportMeta.content += ', user-scalable=0';
       }
     },
     [
@@ -68,16 +54,9 @@ export default {
     resolver.resolve('./modules/svg.js'),
   ],
   plugins: [resolver.resolve('./plugins/title.js')],
-  router: {
-    options: {
-      linkActiveClass: 'active',
-    },
-  },
+  router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {
-    public: {
-      name: config.name,
-      title: config.title,
-    },
+    public: { name: config.name, title: config.title },
     ...(isBasicAuthEnabled && {
       basicAuth: {
         pairs: {
@@ -86,12 +65,6 @@ export default {
       },
     }),
   },
-  vite: {
-    vue: {
-      template: {
-        transformAssetUrls: false,
-      },
-    },
-  },
+  vite: { vue: { template: { transformAssetUrls: false } } },
   watch: ['config.js'],
-}
+};

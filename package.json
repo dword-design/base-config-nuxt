@@ -51,7 +51,7 @@
     "vite-svg-loader": "^5.1.0"
   },
   "devDependencies": {
-    "@dword-design/base": "^11.0.3",
+    "@dword-design/base": "^11.1.2",
     "@dword-design/puppeteer": "^7.0.0",
     "@dword-design/tester": "^2.0.9",
     "@dword-design/tester-plugin-puppeteer": "^3.0.0",

@@ -1,17 +1,10 @@
-import packageName from 'depcheck-package-name'
+import packageName from 'depcheck-package-name';
 
 export default config => ({
   extends: packageName`@dword-design/eslint-config`,
-  globals: {
-    $fetch: 'readonly',
-  },
+  globals: { $fetch: 'readonly' },
   overrides: [
-    {
-      files: 'pages/**/*.vue',
-      globals: {
-        definePageMeta: 'readonly',
-      },
-    },
+    { files: 'pages/**/*.vue', globals: { definePageMeta: 'readonly' } },
   ],
   rules: {
     'import/no-unresolved': [
@@ -20,4 +13,4 @@ export default config => ({
     ],
     'import/no-webpack-loader-syntax': 'off',
   },
-})
+});

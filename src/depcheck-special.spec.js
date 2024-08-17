@@ -1,10 +1,10 @@
-import { endent } from '@dword-design/functions'
-import tester from '@dword-design/tester'
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import depcheck from 'depcheck'
-import outputFiles from 'output-files'
+import { endent } from '@dword-design/functions';
+import tester from '@dword-design/tester';
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import depcheck from 'depcheck';
+import outputFiles from 'output-files';
 
-import self from './depcheck-special.js'
+import self from './depcheck-special.js';
 
 export default tester(
   {
@@ -115,20 +115,17 @@ export default tester(
   [
     {
       transform: test => async () => {
-        test = { dependency: 'foo', fail: false, ...test }
-        await outputFiles(test.files)
+        test = { dependency: 'foo', fail: false, ...test };
+        await outputFiles(test.files);
 
         const result = await depcheck('.', {
-          package: {
-            dependencies: {
-              [test.dependency]: '^1.0.0',
-            },
-          },
+          package: { dependencies: { [test.dependency]: '^1.0.0' } },
           specials: [self],
-        })
-        expect(result.dependencies.length > 0).toEqual(!!test.fail)
+        });
+
+        expect(result.dependencies.length > 0).toEqual(test.fail);
       },
     },
     testerPluginTmpDir(),
   ],
-)
+);
