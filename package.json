@@ -29,7 +29,7 @@
     "@dword-design/depcheck-parser-sass": "^4.0.0",
     "@dword-design/dotenv-json-extended": "^2.0.0",
     "@dword-design/functions": "^6.0.0",
-    "@dword-design/jiti-babel-transform": "^1.0.11",
+    "@dword-design/jiti-babel-transform": "^1.0.13",
     "@dword-design/stylelint-config": "^4.0.0",
     "@nuxt/kit": "^3.2.3",
     "@nuxtjs/eslint-module": "^4.1.0",
