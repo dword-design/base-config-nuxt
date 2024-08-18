@@ -22,6 +22,7 @@ export default {
       ],
     },
   },
+  devtools: { enabled: true },
   modules: [
     (options, nuxt) => {
       if (!config.userScalable) {
@@ -65,15 +66,6 @@ export default {
       },
     }),
   },
-  devtools: {
-    enabled: true,
-  },
-  vite: {
-    vue: {
-      template: {
-        transformAssetUrls: false,
-      },
-    },
-  },
+  vite: { vue: { template: { transformAssetUrls: false } } },
   watch: ['config.js'],
 };
