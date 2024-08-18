@@ -65,6 +65,15 @@ export default {
       },
     }),
   },
-  vite: { vue: { template: { transformAssetUrls: false } } },
+  devtools: {
+    enabled: true,
+  },
+  vite: {
+    vue: {
+      template: {
+        transformAssetUrls: false,
+      },
+    },
+  },
   watch: ['config.js'],
 };
