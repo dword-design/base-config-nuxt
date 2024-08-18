@@ -1,3 +1,10 @@
+## [6.1.2](https://github.com/dword-design/base-config-nuxt/compare/v6.1.1...v6.1.2) (2024-08-18)
+
+
+### Bug Fixes
+
+* css modules ([17767d7](https://github.com/dword-design/base-config-nuxt/commit/17767d788cf82256b2353dc9cc01b0fdbd640fb4))
+
 ## [6.1.1](https://github.com/dword-design/base-config-nuxt/compare/v6.1.0...v6.1.1) (2024-08-18)
 
 
