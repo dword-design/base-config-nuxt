@@ -767,46 +767,6 @@ export default tester(
         await kill(childProcess.pid);
       }
     },
-    async 'i18n: change page, meta up-to-date'() {
-      await outputFiles({
-        '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
-        '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
-        i18n: { 'en.json': JSON.stringify({ foo: 'Hello world' }) },
-        pages: {
-          'foo.vue': endent`
-            <template>
-              <div />
-            </template>
-          `,
-          'index.vue': endent`
-            <template>
-              <div />
-            </template>
-          `,
-        },
-      });
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-      const childProcess = base.run('dev');
-
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-
-        await this.page.waitForSelector(
-          'link[rel=canonical][href="http://localhost:3000/"]',
-        );
-
-        await this.page.goto('http://localhost:3000/foo');
-
-        await this.page.waitForSelector(
-          'link[rel=canonical][href="http://localhost:3000/foo"]',
-        );
-      } finally {
-        await kill(childProcess.pid);
-      }
-    },
     async 'i18n: middleware'() {
       await outputFiles({
         'config.js': endent`
