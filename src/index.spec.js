@@ -174,6 +174,23 @@ export default tester(
     },
     async 'babel in file imported from api'() {
       await outputFiles({
+        'config.js': endent`
+          import { createResolver } from '@nuxt/kit';
+
+          const resolver = createResolver(import.meta.url);
+
+          export default {
+            modules: [
+              // Needed to resolve @ alias in server routes
+              (options, nuxt) =>
+                nuxt.hooks.hook('nitro:config', nitroConfig => {
+                  nitroConfig.externals = nitroConfig.externals || {};
+                  nitroConfig.externals.inline = nitroConfig.externals.inline || [];
+                  nitroConfig.externals.inline.push(resolver.resolve('./model'));
+                }),
+            ],
+          };
+        `,
         'model/foo.js': 'export default 1 |> x => x * 2',
         'pages/index.vue': endent`
           <template>
@@ -181,11 +198,11 @@ export default tester(
           </template>
         `,
         'server/api/foo.get.js': endent`
-          import { defineEventHandler } from '#imports'
+          import { defineEventHandler } from '#imports';
 
-          import foo from '@/model/foo.js'
+          import foo from '@/model/foo.js';
 
-          export default defineEventHandler(() => foo)
+          export default defineEventHandler(() => foo);
         `,
       });
 
