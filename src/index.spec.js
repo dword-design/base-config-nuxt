@@ -413,6 +413,39 @@ export default tester(
         await kill(childProcess.pid);
       }
     },
+    async 'css modules'() {
+      await outputFiles({
+        'pages/index.vue': endent`
+          <template>
+            <div class="foo" :class="$style.fooBar">Hello world</div>
+          </template>
+
+          <style lang="scss" module>
+          .foo-bar {
+            background: red;
+          }
+          </style>
+        `,
+      });
+
+      const base = new Base({ name: '../src/index.js' });
+      await base.prepare();
+      const childProcess = base.run('dev');
+
+      try {
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        const foo = await this.page.waitForSelector('.foo');
+
+        await this.page.waitForFunction(
+          el => getComputedStyle(el).backgroundColor === 'rgb(255, 0, 0)',
+          {},
+          foo,
+        );
+      } finally {
+        await kill(childProcess.pid);
+      }
+    },
     'do not import image urls in production': async () => {
       await outputFiles({
         'pages/index.vue': endent`

@@ -66,6 +66,9 @@ export default {
       },
     }),
   },
-  vite: { vue: { template: { transformAssetUrls: false } } },
+  vite: {
+    css: { modules: { localsConvention: 'camelCaseOnly' } },
+    vue: { template: { transformAssetUrls: false } },
+  },
   watch: ['config.js'],
 };
