@@ -1,3 +1,13 @@
+## [6.1.1](https://github.com/dword-design/base-config-nuxt/compare/v6.1.0...v6.1.1) (2024-08-18)
+
+
+### Bug Fixes
+
+* enable devtools ([cb3c589](https://github.com/dword-design/base-config-nuxt/commit/cb3c589f5839e0b3e882254b8df2b1927086a1cd))
+* foo ([31f454d](https://github.com/dword-design/base-config-nuxt/commit/31f454d6251898b63c47b21a626e7659dcd5a4a5))
+* lock file maintenance ([#254](https://github.com/dword-design/base-config-nuxt/issues/254)) ([8a88a81](https://github.com/dword-design/base-config-nuxt/commit/8a88a811bf6fb41b1d7cfa1f18fb24a664c8d7c7))
+* remove app.vue ([#258](https://github.com/dword-design/base-config-nuxt/issues/258)) ([50adeac](https://github.com/dword-design/base-config-nuxt/commit/50adeac47c585ec7f95ae92c191ee3228eac8ff9))
+
 # [6.1.0](https://github.com/dword-design/base-config-nuxt/compare/v6.0.0...v6.1.0) (2024-06-21)
 
 
