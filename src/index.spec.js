@@ -488,9 +488,8 @@ export default tester(
 
       const base = new Base({ name: '../src/index.js' });
       await base.prepare();
-      const buildOutput = await base.run('prepublishOnly');
 
-      expect(buildOutput.stderr).toMatch(
+      await expect(base.run('prepublishOnly')).rejects.toThrow(
         'This experimental syntax requires enabling the parser plugin: "pipelineOperator".',
       );
     },
@@ -528,7 +527,7 @@ export default tester(
         '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
         '.test.env.json': JSON.stringify({ foo: 'bar' }),
         'modules/foo.js': endent`
-          import { expect } from 'expect'
+          import { expect } from '${packageName`expect`}'
 
           export default () => expect(process.env.FOO).toEqual('bar')
         `,

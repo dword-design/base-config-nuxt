@@ -105,6 +105,9 @@ importers:
       depcheck:
         specifier: ^1.4.2
         version: 1.4.7
+      expect:
+        specifier: ^29.7.0
+        version: 29.7.0
       nuxt-dev-ready:
         specifier: ^3.0.0
         version: 3.0.0
