@@ -1,14 +1,14 @@
-import { Base } from '@dword-design/base'
-import { endent } from '@dword-design/functions'
-import tester from '@dword-design/tester'
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import { execaCommand } from 'execa'
-import fs from 'fs-extra'
-import outputFiles from 'output-files'
-import P from 'path'
+import { Base } from '@dword-design/base';
+import { endent } from '@dword-design/functions';
+import tester from '@dword-design/tester';
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import { execaCommand } from 'execa';
+import fs from 'fs-extra';
+import outputFiles from 'output-files';
+import P from 'path';
 
-import config from './index.js'
-import self from './prepublish-only.js'
+import config from './index.js';
+import self from './prepublish-only.js';
 
 export default tester(
   {
@@ -24,13 +24,13 @@ export default tester(
           `,
           'foo.js': "export default 'foo'",
         },
-      })
-      await new Base(config).prepare()
-      await self()
-      await fs.chmod(P.join('dist', 'cli.js'), '755')
+      });
 
-      const output = await execaCommand('./dist/cli.js', { all: true })
-      expect(output.all).toMatch(/^foo$/m)
+      await new Base(config).prepare();
+      await self();
+      await fs.chmod(P.join('dist', 'cli.js'), '755');
+      const output = await execaCommand('./dist/cli.js', { all: true });
+      expect(output.all).toMatch(/^foo$/m);
     },
     'fixable linting error': async () => {
       await fs.outputFile(
@@ -41,12 +41,14 @@ export default tester(
           </template>
 
           <script>
-          export default {};
+          export default {}
           </script>
         `,
-      )
-      await new Base(config).prepare()
-      await self()
+      );
+
+      await new Base(config).prepare();
+      await self();
+
       expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
           <template>
@@ -54,10 +56,10 @@ export default tester(
           </template>
 
           <script>
-          export default {}
+          export default {};
           </script>
 
-        `)
+        `);
     },
     'linting error in cli': async () => {
       await fs.outputFile(
@@ -67,16 +69,19 @@ export default tester(
 
           const foo = 'bar'
         `,
-      )
-      await new Base(config).prepare()
-      let output
+      );
+
+      await new Base(config).prepare();
+      let output;
+
       try {
-        await self()
+        await self();
       } catch (error) {
-        output = error.message
+        output = error.message;
       }
-      expect(output).toMatch("'foo' is assigned a value but never used")
+
+      expect(output).toMatch("'foo' is assigned a value but never used");
     },
   },
   [testerPluginTmpDir()],
-)
+);

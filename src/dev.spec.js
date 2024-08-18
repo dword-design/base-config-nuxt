@@ -1,16 +1,16 @@
-import { Base } from '@dword-design/base'
-import { delay, endent } from '@dword-design/functions'
-import tester from '@dword-design/tester'
-import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import fs from 'fs-extra'
-import nuxtDevReady from 'nuxt-dev-ready'
-import outputFiles from 'output-files'
-import P from 'path'
-import kill from 'tree-kill-promise'
+import { Base } from '@dword-design/base';
+import { delay, endent } from '@dword-design/functions';
+import tester from '@dword-design/tester';
+import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer';
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import fs from 'fs-extra';
+import nuxtDevReady from 'nuxt-dev-ready';
+import outputFiles from 'output-files';
+import P from 'path';
+import kill from 'tree-kill-promise';
 
-import self from './dev.js'
-import config from './index.js'
+import self from './dev.js';
+import config from './index.js';
 
 export default tester(
   {
@@ -23,17 +23,19 @@ export default tester(
           </template>
 
           <script>
-          export default {};
+          export default {}
           </script>
         `,
-      )
-      await new Base(config).prepare()
+      );
 
-      const nuxt = self()
+      await new Base(config).prepare();
+      const nuxt = self();
+
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('.foo')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        await this.page.waitForSelector('.foo');
+
         expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
           .toEqual(endent`
             <template>
@@ -41,12 +43,12 @@ export default tester(
             </template>
 
             <script>
-            export default {}
+            export default {};
             </script>
 
-          `)
+          `);
       } finally {
-        await kill(nuxt.pid)
+        await kill(nuxt.pid);
       }
     },
     async valid() {
@@ -56,20 +58,23 @@ export default tester(
             <div class="foo">Hello world</div>
           </template>
         `,
-      })
+      });
 
-      const base = new Base(config)
-      await base.prepare()
+      const base = new Base(config);
+      await base.prepare();
+      const nuxt = self();
 
-      const nuxt = self()
       try {
-        await nuxtDevReady()
-        await this.page.goto('http://localhost:3000')
-        let handle = await this.page.waitForSelector('.foo')
+        await nuxtDevReady();
+        await this.page.goto('http://localhost:3000');
+        let handle = await this.page.waitForSelector('.foo');
+
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world',
-        )
-        await delay(1000) // for some reason Puppeteer does not detect the change without the delay
+        );
+
+        await delay(1000); // for some reason Puppeteer does not detect the change without the delay
+
         await fs.outputFile(
           P.join('pages', 'index.vue'),
           endent`
@@ -77,15 +82,17 @@ export default tester(
               <div class="bar">Hello world</div>
             </template>
           `,
-        )
-        handle = await this.page.waitForSelector('.bar')
+        );
+
+        handle = await this.page.waitForSelector('.bar');
+
         expect(await handle.evaluate(el => el.textContent)).toEqual(
           'Hello world',
-        )
+        );
       } finally {
-        await kill(nuxt.pid)
+        await kill(nuxt.pid);
       }
     },
   },
   [testerPluginPuppeteer(), testerPluginTmpDir()],
-)
+);

@@ -1,6 +1,6 @@
-import svgLoader from 'vite-svg-loader'
+import svgLoader from 'vite-svg-loader';
 
 export default (moduleOptions, nuxt) => {
-  nuxt.options.vite.plugins = nuxt.options.vite.plugins || []
-  nuxt.options.vite.plugins.push(svgLoader())
-}
+  nuxt.options.vite.plugins = nuxt.options.vite.plugins || [];
+  nuxt.options.vite.plugins.push(svgLoader());
+};
