@@ -1,11 +1,10 @@
 import jitiBabelTransform from '@dword-design/jiti-babel-transform';
-import jiti from 'jiti';
+import { createJiti } from 'jiti';
 
 let config;
 
 try {
-  const jitiInstance = jiti(process.cwd(), {
-    esmResolve: true,
+  const jitiInstance = createJiti(process.cwd(), {
     interopDefault: true,
     transform: jitiBabelTransform,
   });

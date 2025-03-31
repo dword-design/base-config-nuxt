@@ -180,15 +180,11 @@ export default tester(
           const resolver = createResolver(import.meta.url);
 
           export default {
-            modules: [
-              // Needed to resolve @ alias in server routes
-              (options, nuxt) =>
-                nuxt.hooks.hook('nitro:config', nitroConfig => {
-                  nitroConfig.externals = nitroConfig.externals || {};
-                  nitroConfig.externals.inline = nitroConfig.externals.inline || [];
-                  nitroConfig.externals.inline.push(resolver.resolve('./model'));
-                }),
-            ],
+            nitro: {
+              externals: {
+                inline: [resolver.resolve('./model')],
+              },
+            },
           };
         `,
         'model/foo.js': 'export default 1 |> x => x * 2',
