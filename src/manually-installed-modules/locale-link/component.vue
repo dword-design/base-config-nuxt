@@ -8,6 +8,5 @@
 import { useLocalePath } from '#imports';
 
 defineProps({ to: { required: true } });
-
 const localePath = useLocalePath();
 </script>

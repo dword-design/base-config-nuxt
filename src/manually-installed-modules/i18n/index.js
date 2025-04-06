@@ -22,7 +22,23 @@ export default defineNuxtModule({
       return;
     }
 
-    const nuxtI18nOptions = {
+    /**
+     * @nuxtjs/i18n won't be able to merge the locales because it will not be in the layer configs
+     * since we install it via @nuxtjs/i18n (see applyLayerOptions calling getLayerI18n).
+     * So we add the locales via the hook.
+     */
+    nuxt.hook('i18n:registerModule', register =>
+      register({
+        langDir: P.join(nuxt.options.srcDir, 'i18n'), // Set to '.' when passed directly as inline module options
+        locales: locales.map(locale => ({
+          code: locale,
+          file: `${locale}.json`,
+          language: locale,
+        })),
+      }),
+    );
+
+    await installModule(packageName`@nuxtjs/i18n`, {
       defaultLocale,
       detectBrowserLanguage:
         locales.length === 1
@@ -32,26 +48,13 @@ export default defineNuxtModule({
               redirectOn: 'no prefix',
               useCookie: false,
             },
-      langDir: '.',
       lazy: true,
-      locales: locales.map(locale => ({
-        code: locale,
-        file: `${locale}.json`,
-        language: locale,
-      })),
       strategy: `${locales.length === 1 ? 'no_' : ''}prefix`,
       ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
-    };
+    });
 
-    /**
-     * Artificially add the module already so that @nuxtjs/i18n will find it when merging layers
-     * (see applyLayerOptions calling getLayerI18n)
-     */
-    nuxt.options._layers[0].config.modules =
-      nuxt.options._layers[0].config.modules || [];
-
-    nuxt.options._layers[0].config.modules.push(['@nuxtjs/i18n', nuxtI18nOptions]);
-    await installModule(packageName`@nuxtjs/i18n`, nuxtI18nOptions);
     addPlugin(resolver.resolve('./plugin.js'), { append: true });
+
+    await installModule('./manually-installed-modules/locale-link/index.js');
   },
 });
