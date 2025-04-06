@@ -23,6 +23,7 @@ export default {
     },
   },
   devtools: { enabled: true },
+  i18n: { bundle: { optimizeTranslationDirective: false } }, // @nuxtjs/i18n only checks global options, not inline options, so it needs to be declared here.
   modules: [
     (options, nuxt) => {
       if (!config.userScalable) {

@@ -4,6 +4,10 @@
   </nuxt-link>
 </template>
 
-<script>
-export default { props: { to: { required: true } } };
+<script setup>
+import { useLocalePath } from '#imports';
+
+defineProps({ to: { required: true } });
+
+const localePath = useLocalePath();
 </script>

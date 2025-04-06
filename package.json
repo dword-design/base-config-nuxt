@@ -33,7 +33,7 @@
     "@dword-design/stylelint-config": "^4.0.1",
     "@nuxt/kit": "^3.16.1",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "@nuxtjs/i18n": "npm:@dword-design/nuxt-i18n@^0.0.5",
+    "@nuxtjs/i18n": "^9.5.2",
     "@nuxtjs/stylelint-module": "^5.2.1",
     "deepmerge": "^4.3.1",
     "depcheck-package-name": "^3.0.1",
