@@ -1,5 +1,6 @@
 import packageName from 'depcheck-package-name';
 import { createRequire } from 'module';
+import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config.js';
 
@@ -52,7 +53,6 @@ export default {
       },
     ],
     resolver.resolve('./manually-installed-modules/i18n/index.js'),
-    resolver.resolve('./manually-installed-modules/svg.js'),
   ],
   plugins: [resolver.resolve('./plugins/title.js')],
   router: { options: { linkActiveClass: 'active' } },
@@ -68,6 +68,7 @@ export default {
   },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
+    plugins: [viteSvgLoader()],
     vue: { template: { transformAssetUrls: false } },
   },
   watch: ['config.js'],
