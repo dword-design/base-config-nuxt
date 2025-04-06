@@ -1426,7 +1426,7 @@ export default tester(
         'config.js': endent`
           export default {
             modules: [
-              '${packageName`@nuxtjs/sitemap`}',
+              ['${packageName`@nuxtjs/sitemap`}', { credits: false }],
             ],
           }
         `,
@@ -1440,7 +1440,7 @@ export default tester(
 
       const base = new Base({ name: '../src/index.js' });
       await base.prepare();
-      const childProcess = base.run('dev');
+      const childProcess = base.run('dev', { env: { HOST: 'localhost' } });
 
       try {
         await nuxtDevReady();

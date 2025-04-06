@@ -94,7 +94,7 @@ export default (config = {}) => {
           2,
         )}\n`,
         'nuxt.config.js': javascript`
-          import config from '${configPath}'
+          import config from '${configPath}';
 
           export default {
             extends: ['${parentConfigPath}'],

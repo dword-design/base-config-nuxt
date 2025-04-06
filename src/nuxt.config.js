@@ -57,7 +57,11 @@ export default {
   plugins: [resolver.resolve('./plugins/title.js')],
   router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {
-    public: { name: config.name, title: config.title },
+    public: {
+      name: config.name,
+      site: { url: 'https://example.com' },
+      title: config.title,
+    },
     ...(isBasicAuthEnabled && {
       basicAuth: {
         pairs: {
@@ -65,6 +69,7 @@ export default {
         },
       },
     }),
+    site: { url: 'https://example.com' },
   },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
