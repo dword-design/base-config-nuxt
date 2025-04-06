@@ -205,6 +205,7 @@ export default tester(
       const base = new Base({ name: '../src/index.js' });
       await base.prepare();
       const oldNodeOptions = process.env.NODE_OPTIONS;
+      // Remove babel Node.js loader for tests temporarily
       process.env.NODE_OPTIONS = '';
       const childProcess = base.run('dev');
 

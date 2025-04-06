@@ -1,17 +1,13 @@
-import jitiBabelTransform from '@dword-design/jiti-babel-transform';
-import { createJiti } from 'jiti';
+import { pathToFileURL } from 'url'
+import pathLib from 'path';
 
 let config;
 
 try {
-  const jitiInstance = createJiti(process.cwd(), {
-    interopDefault: true,
-    transform: jitiBabelTransform,
-  });
-
-  config = jitiInstance('./config.js');
+  const modulePath = pathLib.join(process.cwd(), 'config.js')
+  config = (await import(pathToFileURL(modulePath).href)).default;
 } catch (error) {
-  if (error.message.startsWith("Cannot find module './config.js'\n")) {
+  if (err.code === 'ERR_MODULE_NOT_FOUND') {
     config = {};
   } else {
     throw error;
