@@ -32,9 +32,6 @@ importers:
       '@nuxtjs/i18n':
         specifier: ^9.5.2
         version: 9.5.2(@vue/compiler-dom@3.5.13)(eslint@8.57.1)(magicast@0.3.5)(rollup@4.38.0)(vue@3.5.13(typescript@5.7.3))
-      '@nuxtjs/sitemap':
-        specifier: ^7.2.10
-        version: 7.2.10(h3@1.15.1)(magicast@0.3.5)(vite@6.2.4(@types/node@22.13.14)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.7.3))
       '@nuxtjs/stylelint-module':
         specifier: ^5.2.1
         version: 5.2.1(magicast@0.3.5)(postcss@8.5.3)(rollup@4.38.0)(stylelint@16.17.0(typescript@5.7.3))(vite@6.2.4(@types/node@22.13.14)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.97.1)
@@ -96,6 +93,9 @@ importers:
       '@dword-design/tester-plugin-tmp-dir':
         specifier: ^2.1.26
         version: 2.1.26
+      '@nuxtjs/sitemap':
+        specifier: ^7.2.10
+        version: 7.2.10(h3@1.15.1)(magicast@0.3.5)(vite@6.2.4(@types/node@22.13.14)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.7.3))
       axios:
         specifier: ^1.8.4
         version: 1.8.4
