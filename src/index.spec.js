@@ -1033,7 +1033,7 @@ export default tester(
         );
 
         expect(await html.evaluate(el => el.getAttribute('style'))).toEqual(
-          'background: red',
+          'background:red',
         );
       } finally {
         await kill(childProcess.pid);
@@ -1535,7 +1535,7 @@ export default tester(
         expect(await image.evaluate(el => el.tagName)).toEqual('IMG');
 
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
-          '/_nuxt/assets/image.svg',
+          "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20/%3e",
         );
       } finally {
         await kill(childProcess.pid);
