@@ -94,11 +94,12 @@ export default (config = {}) => {
           2,
         )}\n`,
         'nuxt.config.js': javascript`
-          import deepmerge from '${packageName`deepmerge`}'
           import config from '${configPath}'
-          import parentConfig from '${parentConfigPath}'
 
-          export default deepmerge(parentConfig, config)\n
+          export default {
+            extends: ['${parentConfigPath}'],
+            ...config,
+          };\n
         `,
       });
     },

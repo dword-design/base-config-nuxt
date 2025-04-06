@@ -180,15 +180,11 @@ export default tester(
           const resolver = createResolver(import.meta.url);
 
           export default {
-            modules: [
-              // Needed to resolve @ alias in server routes
-              (options, nuxt) =>
-                nuxt.hooks.hook('nitro:config', nitroConfig => {
-                  nitroConfig.externals = nitroConfig.externals || {};
-                  nitroConfig.externals.inline = nitroConfig.externals.inline || [];
-                  nitroConfig.externals.inline.push(resolver.resolve('./model'));
-                }),
-            ],
+            nitro: {
+              externals: {
+                inline: [resolver.resolve('./model')],
+              },
+            },
           };
         `,
         'model/foo.js': 'export default 1 |> x => x * 2',
@@ -209,6 +205,7 @@ export default tester(
       const base = new Base({ name: '../src/index.js' });
       await base.prepare();
       const oldNodeOptions = process.env.NODE_OPTIONS;
+      // Remove babel Node.js loader for tests temporarily
       process.env.NODE_OPTIONS = '';
       const childProcess = base.run('dev');
 
@@ -1036,7 +1033,7 @@ export default tester(
         );
 
         expect(await html.evaluate(el => el.getAttribute('style'))).toEqual(
-          'background: red',
+          'background:red',
         );
       } finally {
         await kill(childProcess.pid);
@@ -1424,13 +1421,13 @@ export default tester(
         await kill(childProcess.pid);
       }
     },
-    sitemap: async () => {
+    async sitemap() {
       await outputFiles({
         'config.js': endent`
           export default {
             modules: [
-              '${packageName`@funken-studio/sitemap-nuxt-3`}',
-            ]
+              '${packageName`@nuxtjs/sitemap`}',
+            ],
           }
         `,
         i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -1459,17 +1456,7 @@ export default tester(
             indentation: '  ',
             lineSeparator: '\n',
           }),
-        ).toEqual(endent`
-          <?xml version="1.0" encoding="UTF-8"?>
-          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-            <url>
-              <loc>http://localhost:3000/de</loc>
-            </url>
-            <url>
-              <loc>http://localhost:3000/en</loc>
-            </url>
-          </urlset>
-        `);
+        ).toMatchSnapshot(this);
       } finally {
         await kill(childProcess.pid);
       }
@@ -1538,7 +1525,7 @@ export default tester(
         expect(await image.evaluate(el => el.tagName)).toEqual('IMG');
 
         expect(await image.evaluate(el => el.getAttribute('src'))).toEqual(
-          '/_nuxt/assets/image.svg',
+          "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20/%3e",
         );
       } finally {
         await kill(childProcess.pid);

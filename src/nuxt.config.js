@@ -1,5 +1,6 @@
 import packageName from 'depcheck-package-name';
 import { createRequire } from 'module';
+import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config.js';
 
@@ -23,6 +24,7 @@ export default {
     },
   },
   devtools: { enabled: true },
+  i18n: { bundle: { optimizeTranslationDirective: false } }, // @nuxtjs/i18n only checks global options, not inline options, so it needs to be declared here.
   modules: [
     (options, nuxt) => {
       if (!config.userScalable) {
@@ -50,9 +52,7 @@ export default {
         lintOnStart: false,
       },
     ],
-    resolver.resolve('./modules/i18n/index.js'),
-    resolver.resolve('./modules/locale-link/index.js'),
-    resolver.resolve('./modules/svg.js'),
+    resolver.resolve('./manually-installed-modules/i18n/index.js'),
   ],
   plugins: [resolver.resolve('./plugins/title.js')],
   router: { options: { linkActiveClass: 'active' } },
@@ -68,6 +68,7 @@ export default {
   },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
+    plugins: [viteSvgLoader()],
     vue: { template: { transformAssetUrls: false } },
   },
   watch: ['config.js'],
