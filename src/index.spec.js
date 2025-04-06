@@ -1421,13 +1421,13 @@ export default tester(
         await kill(childProcess.pid);
       }
     },
-    sitemap: async () => {
+    async sitemap() {
       await outputFiles({
         'config.js': endent`
           export default {
             modules: [
-              '${packageName`@funken-studio/sitemap-nuxt-3`}',
-            ]
+              '${packageName`@nuxtjs/sitemap`}',
+            ],
           }
         `,
         i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -1456,17 +1456,7 @@ export default tester(
             indentation: '  ',
             lineSeparator: '\n',
           }),
-        ).toEqual(endent`
-          <?xml version="1.0" encoding="UTF-8"?>
-          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-            <url>
-              <loc>http://localhost:3000/de</loc>
-            </url>
-            <url>
-              <loc>http://localhost:3000/en</loc>
-            </url>
-          </urlset>
-        `);
+        ).toMatchSnapshot(this);
       } finally {
         await kill(childProcess.pid);
       }
