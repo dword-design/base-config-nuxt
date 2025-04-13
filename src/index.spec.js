@@ -784,13 +784,15 @@ export default tester(
         await this.page.goto('http://localhost:3000');
 
         await this.page.waitForSelector(
-          'link[rel=canonical][href="http://localhost:3000/"]',
+          'link[rel=canonical][href="http://localhost:3000"]',
+          { state: 'attached' },
         );
 
         await this.page.goto('http://localhost:3000/foo');
 
         await this.page.waitForSelector(
           'link[rel=canonical][href="http://localhost:3000/foo"]',
+          { state: 'attached' },
         );
       } finally {
         await kill(childProcess.pid);
