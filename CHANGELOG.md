@@ -1,3 +1,10 @@
+## [6.1.4](https://github.com/dword-design/base-config-nuxt/compare/v6.1.3...v6.1.4) (2025-04-13)
+
+
+### Bug Fixes
+
+* fix virtual imports ([15a568a](https://github.com/dword-design/base-config-nuxt/commit/15a568af3004901b849589a81167d3c7b8404956))
+
 ## [6.1.3](https://github.com/dword-design/base-config-nuxt/compare/v6.1.2...v6.1.3) (2025-04-13)
 
 
