@@ -34,7 +34,7 @@ export default tester(
       try {
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
-        await this.page.waitForSelector('.foo');
+        await this.page.waitForSelector('.foo', { state: 'attached' });
 
         expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
           .toEqual(endent`

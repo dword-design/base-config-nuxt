@@ -212,7 +212,7 @@ export default tester(
       try {
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
-        await this.page.waitForSelector('.foo');
+        await this.page.waitForSelector('.foo', { state: 'attached' });
       } finally {
         await kill(childProcess.pid);
         process.env.NODE_OPTIONS = oldNodeOptions;
@@ -403,7 +403,6 @@ export default tester(
 
         await this.page.waitForFunction(
           el => getComputedStyle(el).backgroundColor === 'rgb(255, 0, 0)',
-          {},
           foo,
         );
       } finally {
@@ -436,7 +435,6 @@ export default tester(
 
         await this.page.waitForFunction(
           el => getComputedStyle(el).backgroundColor === 'rgb(255, 0, 0)',
-          {},
           foo,
         );
       } finally {
@@ -640,7 +638,7 @@ export default tester(
       try {
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
-        const link = await this.page.waitForSelector('link[rel=alternate]');
+        const link = await this.page.waitForSelector('link[rel=alternate]', { state: 'attached' });
 
         expect(
           await Promise.all([
@@ -1223,7 +1221,7 @@ export default tester(
       try {
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
-        const handle = await this.page.waitForSelector('meta[name=og\\:image]');
+        const handle = await this.page.waitForSelector('meta[name=og\\:image]', { state: 'attached' });
 
         expect(await handle.evaluate(meta => meta.content)).toEqual(
           'https://example.com/og-image',
@@ -1311,7 +1309,7 @@ export default tester(
       try {
         await nuxtDevReady(3005);
         await this.page.goto('http://localhost:3005');
-        await this.page.waitForSelector('.foo');
+        await this.page.waitForSelector('.foo', { state: 'attached' });
       } finally {
         await kill(childProcess.pid);
       }
@@ -1383,7 +1381,7 @@ export default tester(
       try {
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
-        await this.page.waitForSelector('.foo.is-active');
+        await this.page.waitForSelector('.foo.is-active', { state: 'attached' });
       } finally {
         await kill(childProcess.pid);
       }
@@ -1558,6 +1556,7 @@ export default tester(
 
         await this.page.waitForSelector(
           'meta[name=viewport][content$=user-scalable\\=0]',
+          { state: 'attached' }
         );
       } finally {
         await kill(childProcess.pid);
