@@ -1018,16 +1018,20 @@ export default tester(
           this.page.waitForSelector('.foo'),
           this.page.waitForSelector('html[lang=en]'),
           this.page.waitForSelector(
-            'link[rel=canonical][href="http://localhost:3000/en"]', { state: 'attached'},
+            'link[rel=canonical][href="http://localhost:3000/en"]',
+            { state: 'attached' },
           ),
           this.page.waitForSelector(
-            'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]', { state: 'attached'},
+            'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]',
+            { state: 'attached' },
           ),
           this.page.waitForSelector(
-            'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]', { state: 'attached'},
+            'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]',
+            { state: 'attached' },
           ),
           this.page.waitForSelector(
-            'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]', { state: 'attached'},
+            'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]',
+            { state: 'attached' },
           ),
         ]);
 
@@ -1605,8 +1609,13 @@ export default tester(
       async after() {
         await this.browser.close();
       },
+      async afterEach() {
+        await this.browser.close();
+      },
       async before() {
         this.browser = await chromium.launch();
+      },
+      async beforeEach() {
         this.page = await this.browser.newPage();
       },
     },

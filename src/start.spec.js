@@ -47,8 +47,13 @@ export default tester(
       async after() {
         await this.browser.close();
       },
+      async afterEach() {
+        await this.browser.close();
+      },
       async before() {
         this.browser = await chromium.launch();
+      },
+      async beforeEach() {
         this.page = await this.browser.newPage();
       },
     },
