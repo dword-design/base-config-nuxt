@@ -22,19 +22,19 @@ importers:
         version: 2.0.0
       '@dword-design/stylelint-config':
         specifier: ^4.0.1
-        version: 4.0.1(postcss@8.5.3)(prettier@3.5.3)(stylelint@16.18.0(typescript@5.8.3))
+        version: 4.0.2(postcss@8.5.3)(prettier@3.5.3)(stylelint@16.18.0(typescript@5.8.3))
       '@nuxt/kit':
         specifier: ^3.16.2
         version: 3.16.2(magicast@0.3.5)
       '@nuxtjs/eslint-module':
         specifier: ^4.1.0
-        version: 4.1.0(eslint@8.57.1)(magicast@0.3.5)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.97.1)
+        version: 4.1.0(eslint@8.57.1)(magicast@0.3.5)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.99.5)
       '@nuxtjs/i18n':
         specifier: ^9.5.3
         version: 9.5.3(@vue/compiler-dom@3.5.13)(eslint@8.57.1)(magicast@0.3.5)(rollup@4.40.0)(vue@3.5.13(typescript@5.8.3))
       '@nuxtjs/stylelint-module':
         specifier: ^5.2.1
-        version: 5.2.1(magicast@0.3.5)(postcss@8.5.3)(rollup@4.40.0)(stylelint@16.18.0(typescript@5.8.3))(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.97.1)
+        version: 5.2.1(magicast@0.3.5)(postcss@8.5.3)(rollup@4.40.0)(stylelint@16.18.0(typescript@5.8.3))(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.99.5)
       depcheck-package-name:
         specifier: ^3.0.1
         version: 3.0.1
@@ -61,7 +61,7 @@ importers:
         version: 3.16.2(@parcel/watcher@2.5.1)(@types/node@22.14.1)(db0@0.3.1)(eslint@8.57.1)(ioredis@5.6.1)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.40.0)(sass@1.62.1)(stylelint@16.18.0(typescript@5.8.3))(terser@5.39.0)(typescript@5.8.3)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(yaml@2.7.1)
       nuxt-babel-runtime:
         specifier: ^5.0.10
-        version: 5.0.10(@types/babel__core@7.20.5)(@vue/compiler-dom@3.5.13)(nuxi@3.21.1)(rollup@4.40.0)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))
+        version: 5.0.11(@nuxt/cli@3.24.1(magicast@0.3.5))(@types/babel__core@7.20.5)(@vue/compiler-dom@3.5.13)(rollup@4.40.0)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))
       nuxt-basic-authentication-module:
         specifier: ^0.2.1
         version: 0.2.1(magicast@0.3.5)
@@ -975,8 +975,8 @@ packages:
     resolution: {integrity: sha512-W861E4cbZmUaYri3mhZNfpo2Yxc1hHPP0v5iDZGE+h9EHplY+8tzWaTNHIF67DmrcDLP79zxd/lkJX0xZs0l8Q==}
     engines: {node: '>=14'}
 
-  '@dword-design/stylelint-config@4.0.1':
-    resolution: {integrity: sha512-6cxKZZQbJA8VsYzFMVOIKcawX1t38/mlnp3pV3WC5dkaYvfuQPyMHq3zXv6o0JJ0Zx/6g/22btktbdxdmnNhLQ==}
+  '@dword-design/stylelint-config@4.0.2':
+    resolution: {integrity: sha512-GNLK3zkG0NPMQ5obmRLXlrx52etttwnsCDlRIriGcwiKpnOcu9ESNuKwooQhs/KpSGHugDaTz2OnFxWQt9WVcQ==}
     engines: {node: '>=18'}
 
   '@dword-design/suppress-babel-register-esm-warning@1.1.10':
@@ -2444,11 +2444,6 @@ packages:
     peerDependenciesMeta:
       ajv:
         optional: true
-
-  ajv-keywords@3.5.2:
-    resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
-    peerDependencies:
-      ajv: ^6.9.1
 
   ajv-keywords@5.1.0:
     resolution: {integrity: sha512-YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw==}
@@ -6182,18 +6177,13 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
-  nuxi@3.21.1:
-    resolution: {integrity: sha512-72OhQHeQg15SKZaoDjBTdrki4zqjShgVo69Dou7jm/euXchoss+VOU4/s73lvAXiVN2g84ogGdNSe0112N7ldA==}
-    engines: {node: ^16.10.0 || >=18.0.0}
-    hasBin: true
-
-  nuxt-babel-runtime@5.0.10:
-    resolution: {integrity: sha512-w6XP1p3xJrZi7F66Sry5/wiJRKLyrSbfwZb7YyLut75gPhPjLe+IVEfOFf4J9BeC2VEcw42eC+q0wOP0kkMt3A==}
+  nuxt-babel-runtime@5.0.11:
+    resolution: {integrity: sha512-sJF7TlBfm+1Nsth/aNy4JN3HpnP/KEOcG7c6jJuV4aCFPRh4EVpJ2P2a1pXClZ8ljF6wTBgCYydLC5LRoqYkPg==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
+      '@nuxt/cli': ^3
       '@vue/compiler-dom': '*'
-      nuxi: ^3
 
   nuxt-basic-authentication-module@0.2.1:
     resolution: {integrity: sha512-xjKC7pjORo093L6BbiJif7ZXnZxXKPo52LT2zyganz1OTCOMlJyDq/R6H8bpRduYETKJPmqMWeYT7eDLcIobNw==}
@@ -7276,10 +7266,6 @@ packages:
   saxes@5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
     engines: {node: '>=10'}
-
-  schema-utils@3.3.0:
-    resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
-    engines: {node: '>= 10.13.0'}
 
   schema-utils@4.3.0:
     resolution: {integrity: sha512-Gf9qqc58SpCA/xdziiHz35F4GNIWYWZrEshUc/G/r5BnLph6xpKuLeoJoQuj5WfBIx/eQLf+hmVPYHaxJu7V2g==}
@@ -8522,8 +8508,8 @@ packages:
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
-  webpack@5.97.1:
-    resolution: {integrity: sha512-EksG6gFY3L1eFMROS/7Wzgrii5mBAFe4rIr3r2BTfo7bcc+DWwFZ4OJ/miOuHJO/A85HwyI4eQ0F6IKXesO7Fg==}
+  webpack@5.99.5:
+    resolution: {integrity: sha512-q+vHBa6H9qwBLUlHL4Y7L0L1/LlyBKZtS9FHNCQmtayxjI5RKC9yD8gpvLeqGv5lCQp1Re04yi0MF40pf30Pvg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -10028,7 +10014,7 @@ snapshots:
 
   '@dword-design/setup-test@1.0.2': {}
 
-  '@dword-design/stylelint-config@4.0.1(postcss@8.5.3)(prettier@3.5.3)(stylelint@16.18.0(typescript@5.8.3))':
+  '@dword-design/stylelint-config@4.0.2(postcss@8.5.3)(prettier@3.5.3)(stylelint@16.18.0(typescript@5.8.3))':
     dependencies:
       depcheck-package-name: 3.0.1
       postcss-html: 1.8.0
@@ -10779,12 +10765,12 @@ snapshots:
       - vue-tsc
       - yaml
 
-  '@nuxtjs/eslint-module@4.1.0(eslint@8.57.1)(magicast@0.3.5)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.97.1)':
+  '@nuxtjs/eslint-module@4.1.0(eslint@8.57.1)(magicast@0.3.5)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.99.5)':
     dependencies:
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       chokidar: 3.6.0
       eslint: 8.57.1
-      eslint-webpack-plugin: 4.2.0(eslint@8.57.1)(webpack@5.97.1)
+      eslint-webpack-plugin: 4.2.0(eslint@8.57.1)(webpack@5.99.5)
       pathe: 1.1.2
       vite-plugin-eslint: 1.8.1(eslint@8.57.1)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))
     transitivePeerDependencies:
@@ -10849,13 +10835,13 @@ snapshots:
       - vite
       - vue
 
-  '@nuxtjs/stylelint-module@5.2.1(magicast@0.3.5)(postcss@8.5.3)(rollup@4.40.0)(stylelint@16.18.0(typescript@5.8.3))(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.97.1)':
+  '@nuxtjs/stylelint-module@5.2.1(magicast@0.3.5)(postcss@8.5.3)(rollup@4.40.0)(stylelint@16.18.0(typescript@5.8.3))(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(webpack@5.99.5)':
     dependencies:
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       chokidar: 4.0.3
       pathe: 2.0.3
       stylelint: 16.18.0(typescript@5.8.3)
-      stylelint-webpack-plugin: 5.0.1(stylelint@16.18.0(typescript@5.8.3))(webpack@5.97.1)
+      stylelint-webpack-plugin: 5.0.1(stylelint@16.18.0(typescript@5.8.3))(webpack@5.99.5)
       vite-plugin-stylelint: 6.0.0(postcss@8.5.3)(rollup@4.40.0)(stylelint@16.18.0(typescript@5.8.3))(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))
     transitivePeerDependencies:
       - '@types/stylelint'
@@ -11856,10 +11842,6 @@ snapshots:
   ajv-formats@2.1.1(ajv@8.17.1):
     optionalDependencies:
       ajv: 8.17.1
-
-  ajv-keywords@3.5.2(ajv@6.12.6):
-    dependencies:
-      ajv: 6.12.6
 
   ajv-keywords@5.1.0(ajv@8.17.1):
     dependencies:
@@ -13567,7 +13549,7 @@ snapshots:
 
   eslint-visitor-keys@4.2.0: {}
 
-  eslint-webpack-plugin@4.2.0(eslint@8.57.1)(webpack@5.97.1):
+  eslint-webpack-plugin@4.2.0(eslint@8.57.1)(webpack@5.99.5):
     dependencies:
       '@types/eslint': 8.56.12
       eslint: 8.57.1
@@ -13575,7 +13557,7 @@ snapshots:
       micromatch: 4.0.8
       normalize-path: 3.0.0
       schema-utils: 4.3.0
-      webpack: 5.97.1
+      webpack: 5.99.5
 
   eslint@8.57.1:
     dependencies:
@@ -16303,20 +16285,18 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nuxi@3.21.1: {}
-
-  nuxt-babel-runtime@5.0.10(@types/babel__core@7.20.5)(@vue/compiler-dom@3.5.13)(nuxi@3.21.1)(rollup@4.40.0)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3)):
+  nuxt-babel-runtime@5.0.11(@nuxt/cli@3.24.1(magicast@0.3.5))(@types/babel__core@7.20.5)(@vue/compiler-dom@3.5.13)(rollup@4.40.0)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3)):
     dependencies:
       '@babel/core': 7.26.10
       '@dword-design/suppress-babel-register-esm-warning': 1.1.10
       '@dword-design/vite-plugin-vue-babel': 1.0.1(@babel/core@7.26.10)(@vitejs/plugin-vue@5.2.3(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3)))(vue@3.5.13(typescript@5.8.3))
+      '@nuxt/cli': 3.24.1(magicast@0.3.5)
       '@rollup/plugin-babel': 6.0.4(@babel/core@7.26.10)(@types/babel__core@7.20.5)(rollup@4.40.0)
       '@vitejs/plugin-vue': 5.2.3(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))
       '@vue/compiler-dom': 3.5.13
       babel-register-esm: '@dword-design/babel-register-esm@2.0.3(@babel/core@7.26.10)'
       depcheck-package-name: 3.0.1
       execa: 9.5.2
-      nuxi: 3.21.1
       suppress-experimental-warnings: 2.0.0
       vite-plugin-babel: 1.3.0(@babel/core@7.26.10)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.62.1)(terser@5.39.0)(yaml@2.7.1))
     transitivePeerDependencies:
@@ -17574,12 +17554,6 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  schema-utils@3.3.0:
-    dependencies:
-      '@types/json-schema': 7.0.15
-      ajv: 6.12.6
-      ajv-keywords: 3.5.2(ajv@6.12.6)
-
   schema-utils@4.3.0:
     dependencies:
       '@types/json-schema': 7.0.15
@@ -18128,7 +18102,7 @@ snapshots:
     dependencies:
       stylelint: 16.18.0(typescript@5.8.3)
 
-  stylelint-webpack-plugin@5.0.1(stylelint@16.18.0(typescript@5.8.3))(webpack@5.97.1):
+  stylelint-webpack-plugin@5.0.1(stylelint@16.18.0(typescript@5.8.3))(webpack@5.99.5):
     dependencies:
       globby: 11.1.0
       jest-worker: 29.7.0
@@ -18136,7 +18110,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 4.3.0
       stylelint: 16.18.0(typescript@5.8.3)
-      webpack: 5.97.1
+      webpack: 5.99.5
 
   stylelint@16.18.0(typescript@5.8.3):
     dependencies:
@@ -18282,14 +18256,14 @@ snapshots:
       ansi-escapes: 4.3.2
       supports-hyperlinks: 2.3.0
 
-  terser-webpack-plugin@5.3.14(webpack@5.97.1):
+  terser-webpack-plugin@5.3.14(webpack@5.99.5):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 4.3.0
       serialize-javascript: 6.0.2
       terser: 5.39.0
-      webpack: 5.97.1
+      webpack: 5.99.5
 
   terser@5.39.0:
     dependencies:
@@ -18920,7 +18894,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.97.1:
+  webpack@5.99.5:
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.7
@@ -18940,9 +18914,9 @@ snapshots:
       loader-runner: 4.3.0
       mime-types: 2.1.35
       neo-async: 2.6.2
-      schema-utils: 3.3.0
+      schema-utils: 4.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.14(webpack@5.97.1)
+      terser-webpack-plugin: 5.3.14(webpack@5.99.5)
       watchpack: 2.4.2
       webpack-sources: 3.2.3
     transitivePeerDependencies:
