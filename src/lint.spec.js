@@ -5,7 +5,6 @@ import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
 
-import config from './index.js';
 import self from './lint.js';
 
 export default tester(
@@ -18,11 +17,11 @@ export default tester(
         `,
       });
 
-      await new Base(config).prepare();
+      await new Base({ name: '../src/index.js' }).prepare();
       await expect(self()).rejects.toThrow('CssSyntaxError');
     },
     ignored: async () => {
-      await new Base(config).prepare();
+      await new Base({ name: '../src/index.js' }).prepare();
 
       await fs.outputFile(
         'coverage/foo.scss',

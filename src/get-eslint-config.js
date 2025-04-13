@@ -7,6 +7,14 @@ export default config => ({
     { files: 'pages/**/*.vue', globals: { definePageMeta: 'readonly' } },
   ],
   rules: {
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        ignorePackages: true,
+        pathGroupOverrides: [{ action: 'ignore', pattern: '#*/**' }],
+      },
+    ],
     'import/no-unresolved': [
       'error',
       { ignore: ['#imports', '#components', ...config.importAliases] },

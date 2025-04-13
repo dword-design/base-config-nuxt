@@ -83,6 +83,33 @@ export default tester(
         `,
       },
     },
+    'file extension: alias: existing': {
+      filename: 'server/api/foo.js',
+      files: {
+        'model/foo.js': '',
+        'server/api/foo.js': "import '@/model/foo.js';\n",
+      },
+    },
+    'file extension: alias: missing': {
+      error:
+        '1:8  error  Missing file extension "js" for "@/model/foo"  import/extensions',
+      filename: 'server/api/foo.js',
+      files: {
+        'model/foo.js': '',
+        'server/api/foo.js': "import '@/model/foo';\n",
+      },
+    },
+    'file extension: virtual subpath: missing': {
+      config: {
+        eslintConfig: {
+          rules: {
+            'import/no-unresolved': ['error', { ignore: ['#content'] }],
+          },
+        },
+      },
+      filename: 'server/api/foo.js',
+      files: { 'server/api/foo.js': "import '#content/server';\n" },
+    },
     'loader import syntax': {
       files: {
         'assets/hero.svg': '',
