@@ -101,7 +101,7 @@ export default tester(
         await this.browser.close();
       },
       async afterEach() {
-        await this.browser.close();
+        await this.page.close();
       },
       async before() {
         this.browser = await chromium.launch();
