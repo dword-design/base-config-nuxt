@@ -1,13 +1,13 @@
 import { Base } from '@dword-design/base';
 import { endent, property } from '@dword-design/functions';
 import tester from '@dword-design/tester';
-import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer';
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
 import axios from 'axios';
 import packageName from 'depcheck-package-name';
 import fs from 'fs-extra';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
+import { chromium } from 'playwright';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
@@ -1428,6 +1428,7 @@ export default tester(
             modules: [
               ['${packageName`@nuxtjs/sitemap`}', { credits: false }],
             ],
+            site: { url: 'https://example.com' },
           }
         `,
         i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -1440,13 +1441,13 @@ export default tester(
 
       const base = new Base({ name: '../src/index.js' });
       await base.prepare();
-      const childProcess = base.run('dev', { env: { HOST: 'localhost' } });
+      const childProcess = base.run('dev');
 
       try {
         await nuxtDevReady();
 
         const sitemap =
-          (await axios.get('http://localhost:3000/sitemap.xml'))
+          (await axios.get('http://localhost:3000/sitemap.xml?canonical'))
           |> await
           |> property('data');
 
@@ -1587,5 +1588,16 @@ export default tester(
       }
     },
   },
-  [testerPluginTmpDir(), testerPluginPuppeteer()],
+  [
+    testerPluginTmpDir(),
+    {
+      async after() {
+        await this.browser.close();
+      },
+      async before() {
+        this.browser = await chromium.launch();
+        this.page = await this.browser.newPage();
+      },
+    },
+  ],
 );

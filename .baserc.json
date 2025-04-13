@@ -6,5 +6,10 @@
       "import/no-unresolved": ["error", { "ignore": ["#express", "#imports"] }]
     }
   },
-  "macos": false
+  "macos": false,
+  "depcheckConfig": {
+    "ignoreMatches": [
+      "playwright-chromium"
+    ]
+  }
 }

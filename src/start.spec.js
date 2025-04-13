@@ -1,9 +1,9 @@
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
 import tester from '@dword-design/tester';
-import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer';
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
 import outputFiles from 'output-files';
+import { chromium } from 'playwright';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 
@@ -43,7 +43,15 @@ export default tester(
           await kill(nuxt.pid);
         },
     },
-    testerPluginPuppeteer(),
+    {
+      async after() {
+        await this.browser.close();
+      },
+      async before() {
+        this.browser = await chromium.launch();
+        this.page = await this.browser.newPage();
+      },
+    },
     testerPluginTmpDir(),
   ],
 );
