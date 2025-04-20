@@ -1,3 +1,10 @@
+## [6.1.6](https://github.com/dword-design/base-config-nuxt/compare/v6.1.5...v6.1.6) (2025-04-20)
+
+
+### Bug Fixes
+
+* cleanup ([#280](https://github.com/dword-design/base-config-nuxt/issues/280)) ([3f8bef3](https://github.com/dword-design/base-config-nuxt/commit/3f8bef365812828a8544c462360aed3784228104))
+
 ## [6.1.5](https://github.com/dword-design/base-config-nuxt/compare/v6.1.4...v6.1.5) (2025-04-20)
 
 
