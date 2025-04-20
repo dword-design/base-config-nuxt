@@ -59,7 +59,6 @@ export default {
   runtimeConfig: {
     public: {
       name: config.name,
-      site: { url: 'https://example.com' },
       title: config.title,
     },
     ...(isBasicAuthEnabled && {
@@ -69,7 +68,6 @@ export default {
         },
       },
     }),
-    site: { url: 'https://example.com' },
   },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
