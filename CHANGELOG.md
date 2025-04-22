@@ -1,3 +1,13 @@
+## [6.1.7](https://github.com/dword-design/base-config-nuxt/compare/v6.1.6...v6.1.7) (2025-04-22)
+
+
+### Bug Fixes
+
+* foo ([93c25d4](https://github.com/dword-design/base-config-nuxt/commit/93c25d4e6dfca66b8fdfb8dc6dd74fdaee926ec0))
+* foo ([1eb1977](https://github.com/dword-design/base-config-nuxt/commit/1eb197791094c9157ac3bd46514b1dbef2072041))
+* log errors ([0864aab](https://github.com/dword-design/base-config-nuxt/commit/0864aab277b85c2d85dc3854dc093798bcc9ea04))
+* revert changes ([10da076](https://github.com/dword-design/base-config-nuxt/commit/10da076ed5dc90915e2b1ff29d9fa4584f1cbdee))
+
 ## [6.1.6](https://github.com/dword-design/base-config-nuxt/compare/v6.1.5...v6.1.6) (2025-04-20)
 
 
