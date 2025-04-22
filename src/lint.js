@@ -5,11 +5,11 @@ export default async (options = {}) => {
 
   await execaCommand(
     'eslint --fix --ignore-path .gitignore --ext .js,.json,.vue .',
-    ...(options.log ? [{ stdio: 'inherit' }] : []),
+    { [options.log ? 'stdio' : 'stderr']: 'inherit' },
   );
 
   await execaCommand(
     'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
-    ...(options.log ? [{ stdio: 'inherit' }] : []),
+    { [options.log ? 'stdio' : 'stderr']: 'inherit' },
   );
 };

@@ -12,7 +12,7 @@ export default async (options = {}) => {
   await lint({ log: options.log });
 
   const nuxt = await execa(nuxtWrapper, ['build'], {
-    ...(options.log ? { stdio: 'inherit' } : {}),
+    [options.log ? 'stdio' : 'stderr']: 'inherit',
     ...(process.env.NODE_ENV === 'test'
       ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
       : {}),
@@ -32,7 +32,7 @@ export default async (options = {}) => {
         '**/*.spec.js',
         'model',
       ],
-      ...(options.log ? [{ stdio: 'inherit' }] : []),
+      { [options.log ? 'stdio' : 'stderr']: 'inherit' },
     );
   }
 
