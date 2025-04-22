@@ -9,6 +9,6 @@ export default (options = {}) => {
   return execa(
     nuxtWrapper,
     ['start'],
-    { [options.log ? 'stdio' : 'stderr']: 'inherit' },
+    ...(options.log ? [{ stdio: 'inherit' }] : []),
   );
 };
