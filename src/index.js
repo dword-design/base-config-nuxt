@@ -8,6 +8,7 @@ import P from 'path';
 import { fileURLToPath } from 'url';
 
 import analyze from './analyze.js';
+import build from './build.js';
 import depcheckSpecial from './depcheck-special.js';
 import dev from './dev.js';
 import getEslintConfig from './get-eslint-config.js';
@@ -45,7 +46,7 @@ export default (config = {}) => {
       'store',
       'types',
     ],
-    commands: { analyze, dev, prepublishOnly, start },
+    commands: { analyze, build, dev, prepublishOnly, start },
     depcheckConfig: {
       parsers: {
         '**/*.scss': depcheckParserSass,
