@@ -1,3 +1,10 @@
+# [6.2.0](https://github.com/dword-design/base-config-nuxt/compare/v6.1.8...v6.2.0) (2025-05-04)
+
+
+### Features
+
+* build command ([7e88c75](https://github.com/dword-design/base-config-nuxt/commit/7e88c75c9c37092eabbbce58b9195e8d3e630c5d))
+
 ## [6.1.8](https://github.com/dword-design/base-config-nuxt/compare/v6.1.7...v6.1.8) (2025-05-03)
 
 
