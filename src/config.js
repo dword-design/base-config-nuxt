@@ -2,12 +2,12 @@ import pathLib from 'path';
 import { pathToFileURL } from 'url';
 
 let config;
+const moduleUrl = pathToFileURL(pathLib.join(process.cwd(), 'config.js')).href;
 
 try {
-  const modulePath = pathLib.join(process.cwd(), 'config.js');
-  config = (await import(pathToFileURL(modulePath).href)).default;
+  config = (await import(moduleUrl)).default;
 } catch (error) {
-  if (error.code === 'ERR_MODULE_NOT_FOUND') {
+  if (error.code === 'ERR_MODULE_NOT_FOUND' && error.url === moduleUrl) {
     config = {};
   } else {
     throw error;
