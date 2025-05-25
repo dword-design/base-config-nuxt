@@ -1,3 +1,5 @@
+import P from 'node:path';
+
 import {
   addPlugin,
   createResolver,
@@ -6,16 +8,16 @@ import {
 } from '@nuxt/kit';
 import packageName from 'depcheck-package-name';
 import { globby } from 'globby';
-import P from 'path';
 
 const resolver = createResolver(import.meta.url);
 
 export default defineNuxtModule({
   setup: async (options, nuxt) => {
-    const locales = (
-      await globby('*.json', { cwd: P.join(nuxt.options.srcDir, 'i18n') })
-    ).map(filename => P.basename(filename, '.json'));
+    const filenames = await globby('*.json', {
+      cwd: P.join(nuxt.options.srcDir, 'i18n'),
+    });
 
+    const locales = filenames.map(filename => P.basename(filename, '.json'));
     const defaultLocale = locales.includes('en') ? 'en' : locales[0];
 
     if (locales.length === 0) {

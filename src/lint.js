@@ -4,7 +4,12 @@ export default async (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options };
 
   await execaCommand(
-    'eslint --fix --ext .js,.json,.vue .',
+    'nuxi prepare',
+    ...(options.log ? [{ stdio: 'inherit' }] : []),
+  );
+
+  await execaCommand(
+    'eslint --fix .',
     ...(options.log ? [{ stdio: 'inherit' }] : []),
   );
 

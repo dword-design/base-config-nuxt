@@ -5,7 +5,7 @@ export default endent`
 
   import withNuxt from './.nuxt/eslint.config.mjs';
 
-  export default withNuxt([
+  export default withNuxt(
     config,
     {
       files: ['eslint.config.js'],
@@ -13,5 +13,5 @@ export default endent`
         'import/no-extraneous-dependencies': 'off',
       },
     },
-  ]);
+  );
 `;

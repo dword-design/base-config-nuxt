@@ -1,11 +1,12 @@
+import { createRequire } from 'node:module';
+import P from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import { endent as javascript } from '@dword-design/functions';
 import packageName from 'depcheck-package-name';
 import depcheckParserVue from 'depcheck-parser-vue';
-import { createRequire } from 'module';
 import outputFiles from 'output-files';
-import P from 'path';
-import { fileURLToPath } from 'url';
 
 import analyze from './analyze.js';
 import build from './build.js';
@@ -46,10 +47,7 @@ export default {
   ],
   commands: { analyze, build, dev, prepublishOnly, start },
   depcheckConfig: {
-    parsers: {
-      '**/*.scss': depcheckParserSass,
-      '**/*.vue': depcheckParserVue,
-    },
+    parsers: { '**/*.scss': depcheckParserSass, '**/*.vue': depcheckParserVue },
     specials: [depcheckSpecial],
   },
   editorIgnore: [

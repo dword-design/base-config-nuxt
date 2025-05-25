@@ -1,7 +1,8 @@
+import P from 'node:path';
+
 import { filter, first, map } from '@dword-design/functions';
 import jitiBabelTransform from '@dword-design/jiti-babel-transform';
 import { createJiti } from 'jiti';
-import P from 'path';
 import requirePackageName from 'require-package-name';
 
 export default path => {
@@ -16,7 +17,7 @@ export default path => {
     const modules = [...(config.modules || []), ...(config.buildModules || [])];
     return (
       modules
-      |> map(mod => [].concat(mod) |> first)
+      |> map(mod => [mod].flat() |> first)
       |> filter(name => typeof name === 'string')
       |> map(name => requirePackageName(name))
     );

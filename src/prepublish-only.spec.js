@@ -1,3 +1,5 @@
+import P from 'node:path';
+
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
 import tester from '@dword-design/tester';
@@ -5,7 +7,6 @@ import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
-import P from 'path';
 
 import config from './index.js';
 import self from './prepublish-only.js';

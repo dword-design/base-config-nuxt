@@ -113,7 +113,7 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
       } finally {
         await kill(childProcess.pid);
       }
@@ -167,7 +167,7 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('2');
       } finally {
         await kill(childProcess.pid);
       }
@@ -247,7 +247,7 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('2');
       } finally {
         await kill(childProcess.pid);
       }
@@ -278,7 +278,7 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('2');
       } finally {
         await kill(childProcess.pid);
       }
@@ -483,7 +483,7 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('2');
       } finally {
         await kill(childProcess.pid);
       }
@@ -1230,7 +1230,7 @@ export default tester(
         await this.page.goto('http://localhost:3000');
 
         const handle = await this.page.waitForSelector(
-          'meta[name=og\\:image]',
+          String.raw`meta[name=og\:image]`,
           { state: 'attached' },
         );
 
@@ -1297,7 +1297,7 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('2');
       } finally {
         await kill(childProcess.pid);
       }
@@ -1569,7 +1569,7 @@ export default tester(
         await this.page.goto('http://localhost:3000');
 
         await this.page.waitForSelector(
-          'meta[name=viewport][content$=user-scalable\\=0]',
+          String.raw`meta[name=viewport][content$=user-scalable\=0]`,
           { state: 'attached' },
         );
       } finally {
