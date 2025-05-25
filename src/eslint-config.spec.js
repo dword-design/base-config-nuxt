@@ -34,22 +34,6 @@ export default tester(
         `,
       },
     },
-    'custom import': {
-      config: { importAliases: ['#foo'] },
-      filename: 'pages/index.vue',
-      files: {
-        'pages/index.vue': endent`
-          <template>
-            <div>{{ foo }}</div>
-          </template>
-
-          <script setup>
-          import { foo } from '#foo';
-          </script>
-
-        `,
-      },
-    },
     definePageMeta: {
       filename: 'pages/index.vue',
       files: {

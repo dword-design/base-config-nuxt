@@ -39,10 +39,7 @@ export default {
       packageName`nuxt-basic-authentication-module`,
       { enabled: !!isBasicAuthEnabled },
     ],
-    [
-      packageName`@nuxtjs/eslint-module`,
-      { cache: false, failOnWarning: true, fix: true, lintOnStart: false },
-    ],
+    packageName`@nuxt/eslint`,
     [
       packageName`@nuxtjs/stylelint-module`,
       {

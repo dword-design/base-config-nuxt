@@ -4,7 +4,7 @@ export default async (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options };
 
   await execaCommand(
-    'eslint --fix --ignore-path .gitignore --ext .js,.json,.vue .',
+    'eslint --fix --ext .js,.json,.vue .',
     ...(options.log ? [{ stdio: 'inherit' }] : []),
   );
 

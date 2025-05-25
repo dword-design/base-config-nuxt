@@ -32,7 +32,6 @@
     "@dword-design/jiti-babel-transform": "^2.0.0",
     "@dword-design/stylelint-config": "^4.0.2",
     "@nuxt/kit": "^3.17.1",
-    "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/i18n": "^9.5.4",
     "@nuxtjs/stylelint-module": "^5.2.1",
     "depcheck-package-name": "^3.0.1",
