@@ -25,9 +25,7 @@ export default {
     },
   },
   devtools: { enabled: true },
-  eslint: { config: { standalone: false }, checker: {
-      fix: true,
-    }, },
+  eslint: { checker: { fix: true }, config: { standalone: false } },
   i18n: { bundle: { optimizeTranslationDirective: false } },
   // @nuxtjs/i18n only checks global options, not inline options, so it needs to be declared here.
   modules: [

@@ -1,5 +1,7 @@
-import { execaCommand, execa } from 'execa';
 import { createRequire } from 'node:module';
+
+import { execa, execaCommand } from 'execa';
+
 const resolver = createRequire(import.meta.url);
 const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
 
@@ -9,11 +11,6 @@ export default async (options = {}) => {
   await execa(
     nuxtWrapper,
     ['prepare'],
-    ...(options.log ? [{ stdio: 'inherit' }] : []),
-  );
-
-  await execaCommand(
-    'eslint --fix .',
     ...(options.log ? [{ stdio: 'inherit' }] : []),
   );
 
