@@ -5,11 +5,12 @@ import { delay, endent } from '@dword-design/functions';
 import tester from '@dword-design/tester';
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
 import fs from 'fs-extra';
+import { expect } from '@playwright/test';
+
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import { chromium } from 'playwright';
 import kill from 'tree-kill-promise';
-import { expect as playwrightExpect } from '@playwright/test';
 
 import self from './dev.js';
 import config from './index.js';
@@ -37,8 +38,11 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         await this.page.waitForSelector('.foo', { state: 'attached' });
-        await expect(async () => expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
-          .toEqual(endent`
+
+        await expect(async () =>
+          expect(
+            await fs.readFile(P.join('pages', 'index.vue'), 'utf8'),
+          ).toEqual(endent`
             <template>
               <div class="foo" />
             </template>
