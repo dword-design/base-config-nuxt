@@ -53,11 +53,7 @@ export default tester(
     api: async () => {
       await fs.outputFile(
         'server/api/foo.get.js',
-        endent`
-          import { defineEventHandler } from '#imports'
-
-          export default defineEventHandler(() => ({ foo: 'bar' }))
-        `,
+        "export default defineEventHandler(() => ({ foo: 'bar' }))",
       );
 
       const base = new Base({ name: '../src/index.js' });
@@ -121,11 +117,7 @@ export default tester(
     'babel in api': async () => {
       await fs.outputFile(
         'server/api/foo.get.js',
-        endent`
-          import { defineEventHandler } from '#imports'
-
-          export default defineEventHandler(() => 1 |> x => x * 2)
-        `,
+        'export default defineEventHandler(() => 1 |> x => x * 2);',
       );
 
       const base = new Base({ name: '../src/index.js' });
@@ -147,14 +139,14 @@ export default tester(
     },
     async 'babel in composable'() {
       await outputFiles({
-        'composables/foo.js': 'export const foo = 1 |> x => x * 2',
+        'composables/foo.js': 'export const useFoo = () => 1 |> x => x * 2;',
         'pages/index.vue': endent`
           <template>
             <div class="foo">{{ foo }}</div>
           </template>
 
           <script setup>
-          import { foo } from '#imports'
+          const foo = useFoo();
           </script>
         `,
       });
@@ -194,8 +186,6 @@ export default tester(
           </template>
         `,
         'server/api/foo.get.js': endent`
-          import { defineEventHandler } from '#imports';
-
           import foo from '@/model/foo.js';
 
           export default defineEventHandler(() => foo);
@@ -226,17 +216,11 @@ export default tester(
           </template>
 
           <script setup>
-          import { useNuxtApp } from '#imports'
-
           const nuxtApp = useNuxtApp()
           const foo = nuxtApp.$foo
           </script>
         `,
-        'plugins/foo.js': endent`
-          import { defineNuxtPlugin } from '#imports'
-
-          export default defineNuxtPlugin(() => ({ provide: { foo: 1 |> x => x * 2 } }))
-        `,
+        'plugins/foo.js': 'export default defineNuxtPlugin(() => ({ provide: { foo: 1 |> x => x * 2 } }))',
       });
 
       const base = new Base({ name: '../src/index.js' });
@@ -298,11 +282,7 @@ export default tester(
             <div />
           </template>
         `,
-        'server/api/foo.get.js': endent`
-          import { defineEventHandler } from '#imports'
-
-          export default defineEventHandler(() => 'foo')
-        `,
+        'server/api/foo.get.js': "export default defineEventHandler(() => 'foo')",
       });
 
       const base = new Base({ name: '../src/index.js' });
@@ -1097,10 +1077,7 @@ export default tester(
 
             export default (options, nuxt) => addServerPlugin(resolver.resolve('./plugin.js'))
           `,
-          'plugin.js': endent`
-            import { defineNitroPlugin } from '#imports'
-
-            export default defineNitroPlugin(() => {})
+          'plugin.js': 'export default defineNitroPlugin(() => {})',
           `,
         },
       })
@@ -1340,7 +1317,6 @@ export default tester(
 
           <script setup>
           import { property } from '@dword-design/functions'
-          import { useRequestEvent } from '#imports'
           import { getMethod, readBody } from 'h3'
 
           const event = useRequestEvent()
