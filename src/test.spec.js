@@ -71,6 +71,7 @@ export default tester(
           }
 
         `,
+        'node_modules/foo/index.js': 'export default () => {};',
         'package.json': JSON.stringify({ dependencies: { foo: '^1.0.0' } }),
       });
 

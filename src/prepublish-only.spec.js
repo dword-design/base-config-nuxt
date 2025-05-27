@@ -1,3 +1,5 @@
+import P from 'node:path';
+
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
 import tester from '@dword-design/tester';
@@ -5,10 +7,8 @@ import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
-import P from 'path';
 
 import config from './index.js';
-import self from './prepublish-only.js';
 
 export default tester(
   {
@@ -26,8 +26,9 @@ export default tester(
         },
       });
 
-      await new Base(config).prepare();
-      await self();
+      const base = new Base(config);
+      await base.prepare();
+      await base.run('prepublishOnly');
       await fs.chmod(P.join('dist', 'cli.js'), '755');
       const output = await execaCommand('./dist/cli.js', { all: true });
       expect(output.all).toMatch(/^foo$/m);
@@ -46,8 +47,9 @@ export default tester(
         `,
       );
 
-      await new Base(config).prepare();
-      await self();
+      const base = new Base(config);
+      await base.prepare();
+      await base.run('prepublishOnly');
 
       expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
@@ -71,11 +73,12 @@ export default tester(
         `,
       );
 
-      await new Base(config).prepare();
+      const base = new Base(config);
+      await base.prepare();
       let output;
 
       try {
-        await self();
+        await base.run('prepublishOnly');
       } catch (error) {
         output = error.message;
       }

@@ -1,15 +1,10 @@
 {
-  "name": "@dword-design/node",
-  "eslintConfig": {
-    "extends": "@dword-design/eslint-config",
-    "rules": {
-      "import/no-unresolved": ["error", { "ignore": ["#express", "#imports"] }]
-    }
-  },
-  "macos": false,
   "depcheckConfig": {
     "ignoreMatches": [
       "playwright-chromium"
     ]
-  }
+  },
+  "eslintConfig": "import config from '@dword-design/eslint-config';\nimport { defineConfig, globalIgnores } from 'eslint/config';\n\nexport default defineConfig([globalIgnores(['eslint.config.js']),config,{ rules: { 'import/no-unresolved': ['error', { ignore: ['#imports'] }] } }]);\n",
+  "macos": false,
+  "name": "@dword-design/node"
 }

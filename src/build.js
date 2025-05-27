@@ -1,6 +1,7 @@
+import { createRequire } from 'node:module';
+
 import { execa } from 'execa';
 import fs from 'fs-extra';
-import { createRequire } from 'module';
 
 const _require = createRequire(import.meta.url);
 const nuxtWrapper = _require.resolve('./nuxt-wrapper.js');

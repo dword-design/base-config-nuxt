@@ -1,5 +1,6 @@
+import { createRequire } from 'node:module';
+
 import packageName from 'depcheck-package-name';
-import { createRequire } from 'module';
 import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config.js';
@@ -24,7 +25,9 @@ export default {
     },
   },
   devtools: { enabled: true },
-  i18n: { bundle: { optimizeTranslationDirective: false } }, // @nuxtjs/i18n only checks global options, not inline options, so it needs to be declared here.
+  eslint: { checker: { fix: true }, config: { standalone: false } },
+  i18n: { bundle: { optimizeTranslationDirective: false } },
+  // @nuxtjs/i18n only checks global options, not inline options, so it needs to be declared here.
   modules: [
     (options, nuxt) => {
       if (!config.userScalable) {
@@ -39,10 +42,7 @@ export default {
       packageName`nuxt-basic-authentication-module`,
       { enabled: !!isBasicAuthEnabled },
     ],
-    [
-      packageName`@nuxtjs/eslint-module`,
-      { cache: false, failOnWarning: true, fix: true, lintOnStart: false },
-    ],
+    packageName`@nuxt/eslint`,
     [
       packageName`@nuxtjs/stylelint-module`,
       {

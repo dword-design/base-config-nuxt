@@ -53,11 +53,7 @@ export default tester(
     api: async () => {
       await fs.outputFile(
         'server/api/foo.get.js',
-        endent`
-          import { defineEventHandler } from '#imports'
-
-          export default defineEventHandler(() => ({ foo: 'bar' }))
-        `,
+        "export default defineEventHandler(() => ({ foo: 'bar' }))",
       );
 
       const base = new Base({ name: '../src/index.js' });
@@ -113,172 +109,7 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('Hello world');
-      } finally {
-        await kill(childProcess.pid);
-      }
-    },
-    'babel in api': async () => {
-      await fs.outputFile(
-        'server/api/foo.get.js',
-        endent`
-          import { defineEventHandler } from '#imports'
-
-          export default defineEventHandler(() => 1 |> x => x * 2)
-        `,
-      );
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-      const childProcess = base.run('dev');
-
-      try {
-        await nuxtDevReady();
-
-        const result =
-          axios.get('http://localhost:3000/api/foo')
-          |> await
-          |> property('data');
-
-        expect(result).toEqual(2);
-      } finally {
-        await kill(childProcess.pid);
-      }
-    },
-    async 'babel in composable'() {
-      await outputFiles({
-        'composables/foo.js': 'export const foo = 1 |> x => x * 2',
-        'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
-
-          <script setup>
-          import { foo } from '#imports'
-          </script>
-        `,
-      });
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-      const childProcess = base.run('dev');
-
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-        const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
-      } finally {
-        await kill(childProcess.pid);
-      }
-    },
-    async 'babel in file imported from api'() {
-      await outputFiles({
-        'config.js': endent`
-          import { createResolver } from '@nuxt/kit';
-
-          const resolver = createResolver(import.meta.url);
-
-          export default {
-            nitro: {
-              externals: {
-                inline: [resolver.resolve('./model')],
-              },
-            },
-          };
-        `,
-        'model/foo.js': 'export default 1 |> x => x * 2',
-        'pages/index.vue': endent`
-          <template>
-            <div class="foo" />
-          </template>
-        `,
-        'server/api/foo.get.js': endent`
-          import { defineEventHandler } from '#imports';
-
-          import foo from '@/model/foo.js';
-
-          export default defineEventHandler(() => foo);
-        `,
-      });
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-      const oldNodeOptions = process.env.NODE_OPTIONS;
-      // Remove babel Node.js loader for tests temporarily
-      process.env.NODE_OPTIONS = '';
-      const childProcess = base.run('dev');
-
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-        await this.page.waitForSelector('.foo', { state: 'attached' });
-      } finally {
-        await kill(childProcess.pid);
-        process.env.NODE_OPTIONS = oldNodeOptions;
-      }
-    },
-    async 'babel in plugin'() {
-      await outputFiles({
-        'pages/index.vue': endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
-
-          <script setup>
-          import { useNuxtApp } from '#imports'
-
-          const nuxtApp = useNuxtApp()
-          const foo = nuxtApp.$foo
-          </script>
-        `,
-        'plugins/foo.js': endent`
-          import { defineNuxtPlugin } from '#imports'
-
-          export default defineNuxtPlugin(() => ({ provide: { foo: 1 |> x => x * 2 } }))
-        `,
-      });
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-      const childProcess = base.run('dev');
-
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-        const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
-      } finally {
-        await kill(childProcess.pid);
-      }
-    },
-    async 'babel in vue'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
-
-          <script>
-          export default {
-            computed: {
-              foo: () => 1 |> x => x * 2,
-            },
-          }
-          </script>
-        `,
-      );
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-      const childProcess = base.run('dev');
-
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-        const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
       } finally {
         await kill(childProcess.pid);
       }
@@ -298,11 +129,8 @@ export default tester(
             <div />
           </template>
         `,
-        'server/api/foo.get.js': endent`
-          import { defineEventHandler } from '#imports'
-
-          export default defineEventHandler(() => 'foo')
-        `,
+        'server/api/foo.get.js':
+          "export default defineEventHandler(() => 'foo')",
       });
 
       const base = new Base({ name: '../src/index.js' });
@@ -483,43 +311,10 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
+        expect(await foo.evaluate(el => el.textContent)).toEqual('2');
       } finally {
         await kill(childProcess.pid);
       }
-    },
-    'do not transpile vue in node_modules': async () => {
-      await outputFiles({
-        'node_modules/foo': {
-          'index.vue': endent`
-            <template>
-              <div class="foo">{{ foo }}</div>
-            </template>
-
-            <script setup>
-            const foo = 1 |> x => x * 2
-            </script>
-          `,
-          'package.json': JSON.stringify({ main: 'index.vue', name: 'foo' }),
-        },
-        'package.json': JSON.stringify({ dependencies: { foo: '*' } }),
-        'pages/index.vue': endent`
-          <template>
-            <foo />
-          </template>
-
-          <script setup>
-          import Foo from 'foo'
-          </script>
-        `,
-      });
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-
-      await expect(base.run('prepublishOnly')).rejects.toThrow(
-        'This experimental syntax requires enabling the parser plugin: "pipelineOperator".',
-      );
     },
     async 'dotenv: config'() {
       await outputFiles({
@@ -1097,10 +892,7 @@ export default tester(
 
             export default (options, nuxt) => addServerPlugin(resolver.resolve('./plugin.js'))
           `,
-          'plugin.js': endent`
-            import { defineNitroPlugin } from '#imports'
-
-            export default defineNitroPlugin(() => {})
+          'plugin.js': 'export default defineNitroPlugin(() => {})',
           `,
         },
       })
@@ -1230,7 +1022,7 @@ export default tester(
         await this.page.goto('http://localhost:3000');
 
         const handle = await this.page.waitForSelector(
-          'meta[name=og\\:image]',
+          String.raw`meta[name=og\:image]`,
           { state: 'attached' },
         );
 
@@ -1275,33 +1067,6 @@ export default tester(
         await kill(childProcess.pid);
       }
     },
-    async 'pipeline operator await in vue'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
-          <template>
-            <div class="foo">{{ foo }}</div>
-          </template>
-
-          <script setup>
-          const foo = Promise.resolve(1) |> await |> x => x * 2
-          </script>
-        `,
-      );
-
-      const base = new Base({ name: '../src/index.js' });
-      await base.prepare();
-      const childProcess = base.run('dev');
-
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-        const foo = await this.page.waitForSelector('.foo');
-        expect(await foo.evaluate(el => el.innerText)).toEqual('2');
-      } finally {
-        await kill(childProcess.pid);
-      }
-    },
     async port() {
       await outputFiles({
         '.env.schema.json': JSON.stringify({ port: { type: 'integer' } }),
@@ -1339,13 +1104,12 @@ export default tester(
           </template>
 
           <script setup>
-          import { property } from '@dword-design/functions'
-          import { useRequestEvent } from '#imports'
-          import { getMethod, readBody } from 'h3'
+          import { property } from '@dword-design/functions';
+          import { getMethod, readBody } from 'h3';
 
-          const event = useRequestEvent()
+          const event = useRequestEvent();
 
-          const sent = event && getMethod(event) === 'POST' && (readBody(event) |> await |> property('submit')) !== undefined
+          const sent = event && getMethod(event) === 'POST' && (await readBody(event)).submit !== undefined;
           </script>
         `,
       });
@@ -1443,7 +1207,7 @@ export default tester(
               ['${packageName`@nuxtjs/sitemap`}', { credits: false }],
             ],
             site: { url: 'https://example.com' },
-          }
+          };
         `,
         i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/index.vue': endent`
@@ -1460,10 +1224,9 @@ export default tester(
       try {
         await nuxtDevReady();
 
-        const sitemap =
-          (await axios.get('http://localhost:3000/sitemap.xml?canonical'))
-          |> await
-          |> property('data');
+        const { data: sitemap } = await axios.get(
+          'http://localhost:3000/sitemap.xml?canonical',
+        );
 
         expect(
           xmlFormatter(sitemap, {
@@ -1569,7 +1332,7 @@ export default tester(
         await this.page.goto('http://localhost:3000');
 
         await this.page.waitForSelector(
-          'meta[name=viewport][content$=user-scalable\\=0]',
+          String.raw`meta[name=viewport][content$=user-scalable\=0]`,
           { state: 'attached' },
         );
       } finally {

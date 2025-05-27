@@ -7,49 +7,6 @@ import outputFiles from 'output-files';
 
 export default tester(
   {
-    '#components import': {
-      filename: 'pages/index.vue',
-      files: {
-        'pages/index.vue': endent`
-          <template>
-            <component :is="NuxtLink" />
-          </template>
-
-          <script setup>
-          import { NuxtLink } from '#components';
-          </script>
-
-        `,
-      },
-    },
-    '#imports import': {
-      filename: 'plugins/foo.js',
-      files: {
-        'assets/hero.svg': '',
-        'plugins/foo.js': endent`
-          import { defineNuxtPlugin } from '#imports';
-
-          export default defineNuxtPlugin(() => {});
-
-        `,
-      },
-    },
-    'custom import': {
-      config: { importAliases: ['#foo'] },
-      filename: 'pages/index.vue',
-      files: {
-        'pages/index.vue': endent`
-          <template>
-            <div>{{ foo }}</div>
-          </template>
-
-          <script setup>
-          import { foo } from '#foo';
-          </script>
-
-        `,
-      },
-    },
     definePageMeta: {
       filename: 'pages/index.vue',
       files: {
@@ -99,17 +56,6 @@ export default tester(
         'server/api/foo.js': "import '@/model/foo';\n",
       },
     },
-    'file extension: virtual subpath: missing': {
-      config: {
-        eslintConfig: {
-          rules: {
-            'import/no-unresolved': ['error', { ignore: ['#content'] }],
-          },
-        },
-      },
-      filename: 'server/api/foo.js',
-      files: { 'server/api/foo.js': "import '#content/server';\n" },
-    },
     'loader import syntax': {
       files: {
         'assets/hero.svg': '',
@@ -134,14 +80,13 @@ export default tester(
         return async () => {
           await outputFiles(test.files);
           await new Base({ name: '../src/index.js', ...test.config }).prepare();
+          await execaCommand('nuxi prepare');
 
-          if (test.error) {
-            await expect(
-              execaCommand(`eslint ${test.filename}`),
-            ).rejects.toThrow(test.error);
-          } else {
-            await execaCommand(`eslint ${test.filename}`);
-          }
+          await (test.error
+            ? expect(execaCommand(`eslint ${test.filename}`)).rejects.toThrow(
+                test.error,
+              )
+            : execaCommand(`eslint ${test.filename}`));
         };
       },
     },

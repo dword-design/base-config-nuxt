@@ -1,3 +1,5 @@
+import P from 'node:path';
+
 import { Base } from '@dword-design/base';
 import { delay, endent } from '@dword-design/functions';
 import tester from '@dword-design/tester';
@@ -5,11 +7,10 @@ import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
 import fs from 'fs-extra';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
-import P from 'path';
+import pWaitFor from 'p-wait-for';
 import { chromium } from 'playwright';
 import kill from 'tree-kill-promise';
 
-import self from './dev.js';
 import config from './index.js';
 
 export default tester(
@@ -24,29 +25,33 @@ export default tester(
 
           <script>
           export default {}
-          </script>
+          </script>\n
         `,
       );
 
-      await new Base(config).prepare();
-      const nuxt = self();
+      const base = new Base(config);
+      await base.prepare();
+      const nuxt = base.run('dev');
 
       try {
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         await this.page.waitForSelector('.foo', { state: 'attached' });
 
-        expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
-          .toEqual(endent`
-            <template>
-              <div class="foo" />
-            </template>
+        // Use Playwright toPass instead
+        await pWaitFor(
+          async () =>
+            (await fs.readFile(P.join('pages', 'index.vue'), 'utf8')) ===
+            endent`
+              <template>
+                <div class="foo" />
+              </template>
 
-            <script>
-            export default {};
-            </script>
-
-          `);
+              <script>
+              export default {};
+              </script>\n
+            `,
+        );
       } finally {
         await kill(nuxt.pid);
       }
@@ -62,7 +67,7 @@ export default tester(
 
       const base = new Base(config);
       await base.prepare();
-      const nuxt = self();
+      const nuxt = base.run('dev');
 
       try {
         await nuxtDevReady();
