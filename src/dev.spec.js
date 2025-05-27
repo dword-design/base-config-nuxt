@@ -9,6 +9,7 @@ import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import { chromium } from 'playwright';
 import kill from 'tree-kill-promise';
+import pWaitFor from 'p-wait-for';
 
 import config from './index.js';
 
@@ -37,21 +38,15 @@ export default tester(
         await this.page.goto('http://localhost:3000');
         await this.page.waitForSelector('.foo', { state: 'attached' });
         // Use Playwright toPass instead
-        await new Promise(resolve => fs.watch(P.join('pages', 'index.vue'), eventType => {
-          if (eventType === 'change') {
-            resolve();
-          }
-        }))
-        expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
-          .toEqual(endent`
-            <template>
-              <div class="foo" />
-            </template>
+        await pWaitFor(async () => (await fs.readFile(P.join('pages', 'index.vue'), 'utf8')) === endent`
+          <template>
+            <div class="foo" />
+          </template>
 
-            <script>
-            export default {};
-            </script>\n
-          `);
+          <script>
+          export default {};
+          </script>\n
+        `);
       } finally {
         await kill(nuxt.pid);
       }

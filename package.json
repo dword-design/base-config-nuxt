@@ -59,6 +59,7 @@
     "depcheck": "^1.4.7",
     "expect": "^29.7.0",
     "nuxt-dev-ready": "^3.0.0",
+    "p-wait-for": "^5.0.2",
     "playwright": "^1.52.0",
     "playwright-chromium": "^1.52.0",
     "port-ready": "^0.1.0",
