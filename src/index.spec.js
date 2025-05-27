@@ -10,7 +10,6 @@ import outputFiles from 'output-files';
 import { chromium } from 'playwright';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
-import xmlFormatter from 'xml-formatter';
 
 export default tester(
   {

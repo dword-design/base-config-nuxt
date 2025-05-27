@@ -120,9 +120,6 @@ importers:
       tree-kill-promise:
         specifier: ^3.0.14
         version: 3.0.14
-      xml-formatter:
-        specifier: ^3.6.6
-        version: 3.6.6
 
 packages:
 
@@ -9159,20 +9156,12 @@ packages:
       utf-8-validate:
         optional: true
 
-  xml-formatter@3.6.6:
-    resolution: {integrity: sha512-yfofQht42x2sN1YThT6Er6GFXiQinfDAsMTNvMPi2uZw5/Vtc2PYHfvALR8U+b2oN2ekBxLd2tGWV06rAM8nQA==}
-    engines: {node: '>= 16'}
-
   xml-name-validator@3.0.0:
     resolution: {integrity: sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==}
 
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
-
-  xml-parser-xo@4.1.4:
-    resolution: {integrity: sha512-wo+yWDNeMwd1ctzH4CsiGXaAappDsxuR+VnmPewOzHk/zvefksT2ZlcWpAePl11THOWgnIZM4GjvumevurNWZw==}
-    engines: {node: '>= 16'}
 
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
@@ -20236,15 +20225,9 @@ snapshots:
 
   ws@8.18.2: {}
 
-  xml-formatter@3.6.6:
-    dependencies:
-      xml-parser-xo: 4.1.4
-
   xml-name-validator@3.0.0: {}
 
   xml-name-validator@4.0.0: {}
-
-  xml-parser-xo@4.1.4: {}
 
   xmlchars@2.2.0: {}
 
