@@ -1,3 +1,10 @@
+## [6.2.2](https://github.com/dword-design/base-config-nuxt/compare/v6.2.1...v6.2.2) (2025-05-27)
+
+
+### Bug Fixes
+
+* nuxt eslint ([#285](https://github.com/dword-design/base-config-nuxt/issues/285)) ([950b7a0](https://github.com/dword-design/base-config-nuxt/commit/950b7a0a9fdedbe34b6b5c95f21082bb7ca81232))
+
 ## [6.2.1](https://github.com/dword-design/base-config-nuxt/compare/v6.2.0...v6.2.1) (2025-05-06)
 
 
