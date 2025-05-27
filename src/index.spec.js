@@ -1421,7 +1421,7 @@ export default tester(
               ['${packageName`@nuxtjs/sitemap`}', { credits: false }],
             ],
             site: { url: 'https://example.com' },
-          }
+          };
         `,
         i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
         'pages/index.vue': endent`
@@ -1438,10 +1438,9 @@ export default tester(
       try {
         await nuxtDevReady();
 
-        const sitemap =
-          (await axios.get('http://localhost:3000/sitemap.xml?canonical'))
-          |> await
-          |> property('data');
+        const { data: sitemap } = await axios.get(
+          'http://localhost:3000/sitemap.xml?canonical',
+        );
 
         expect(
           xmlFormatter(sitemap, {
