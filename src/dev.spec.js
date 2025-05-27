@@ -10,7 +10,6 @@ import outputFiles from 'output-files';
 import { chromium } from 'playwright';
 import kill from 'tree-kill-promise';
 
-import self from './dev.js';
 import config from './index.js';
 
 export default tester(
@@ -37,8 +36,8 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         await this.page.waitForSelector('.foo', { state: 'attached' });
-
         await delay(1000); // Use toPass with Playwright
+
         expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
           .toEqual(endent`
             <template>
