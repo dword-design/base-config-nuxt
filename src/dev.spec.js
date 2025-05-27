@@ -4,7 +4,6 @@ import { Base } from '@dword-design/base';
 import { delay, endent } from '@dword-design/functions';
 import tester from '@dword-design/tester';
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
-import { expect } from '@playwright/test';
 import fs from 'fs-extra';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
@@ -30,27 +29,25 @@ export default tester(
         `,
       );
 
-      await new Base(config).prepare();
-      const nuxt = self();
+      const base = new Base(config);
+      await base.prepare();
+      const nuxt = base.run('dev');
 
       try {
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         await this.page.waitForSelector('.foo', { state: 'attached' });
 
-        await expect(async () =>
-          expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
-            .toEqual(endent`
-              <template>
-                <div class="foo" />
-              </template>
-
-              <script>
-              export default {};
-              </script>
-
-            `),
-        ).toPass();
+        await delay(1000); // Use toPass with Playwright
+        expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
+          .toEqual(endent`
+            <template>
+              <div class="foo" />
+            </template>
+            <script>
+            export default {};
+            </script>
+          `);
       } finally {
         await kill(nuxt.pid);
       }
@@ -66,7 +63,7 @@ export default tester(
 
       const base = new Base(config);
       await base.prepare();
-      const nuxt = self();
+      const nuxt = base.run('dev');
 
       try {
         await nuxtDevReady();
