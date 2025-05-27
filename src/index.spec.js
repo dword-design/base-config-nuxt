@@ -220,7 +220,8 @@ export default tester(
           const foo = nuxtApp.$foo
           </script>
         `,
-        'plugins/foo.js': 'export default defineNuxtPlugin(() => ({ provide: { foo: 1 |> x => x * 2 } }))',
+        'plugins/foo.js':
+          'export default defineNuxtPlugin(() => ({ provide: { foo: 1 |> x => x * 2 } }))',
       });
 
       const base = new Base({ name: '../src/index.js' });
@@ -282,7 +283,8 @@ export default tester(
             <div />
           </template>
         `,
-        'server/api/foo.get.js': "export default defineEventHandler(() => 'foo')",
+        'server/api/foo.get.js':
+          "export default defineEventHandler(() => 'foo')",
       });
 
       const base = new Base({ name: '../src/index.js' });

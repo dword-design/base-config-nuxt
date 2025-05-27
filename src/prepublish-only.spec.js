@@ -27,8 +27,9 @@ export default tester(
         },
       });
 
-      await new Base(config).prepare();
-      await self();
+      const base = new Base(config);
+      await base.prepare();
+      await base.run('prepublishOnly');
       await fs.chmod(P.join('dist', 'cli.js'), '755');
       const output = await execaCommand('./dist/cli.js', { all: true });
       expect(output.all).toMatch(/^foo$/m);
@@ -47,8 +48,9 @@ export default tester(
         `,
       );
 
-      await new Base(config).prepare();
-      await self();
+      const base = new Base(config);
+      await base.prepare();
+      await base.run('prepublishOnly');
 
       expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
@@ -72,11 +74,12 @@ export default tester(
         `,
       );
 
-      await new Base(config).prepare();
+      const base = new Base(config);
+      await base.prepare();
       let output;
 
       try {
-        await self();
+        await base.run('prepublishOnly');
       } catch (error) {
         output = error.message;
       }
