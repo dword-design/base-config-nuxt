@@ -24,7 +24,7 @@ export default tester(
 
           <script>
           export default {}
-          </script>
+          </script>\n
         `,
       );
 
@@ -36,16 +36,21 @@ export default tester(
         await nuxtDevReady();
         await this.page.goto('http://localhost:3000');
         await this.page.waitForSelector('.foo', { state: 'attached' });
-        await delay(1000); // Use toPass with Playwright
-
+        // Use Playwright toPass instead
+        await new Promise(resolve => fs.watch(P.join('pages', 'index.vue'), eventType => {
+          if (eventType === 'change') {
+            resolve();
+          }
+        }))
         expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
           .toEqual(endent`
             <template>
               <div class="foo" />
             </template>
+
             <script>
             export default {};
-            </script>
+            </script>\n
           `);
       } finally {
         await kill(nuxt.pid);
