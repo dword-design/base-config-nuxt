@@ -1109,7 +1109,7 @@ export default tester(
 
           const event = useRequestEvent();
 
-          const sent = event && getMethod(event) === 'POST' && ((await readBody(event)).submit !== undefined;
+          const sent = event && getMethod(event) === 'POST' && (await readBody(event)).submit !== undefined;
           </script>
         `,
       });
