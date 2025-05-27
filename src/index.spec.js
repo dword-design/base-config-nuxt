@@ -10,6 +10,7 @@ import outputFiles from 'output-files';
 import { chromium } from 'playwright';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
+import xmlFormatter from 'xml-formatter';
 
 export default tester(
   {
@@ -1412,7 +1413,7 @@ export default tester(
         await kill(childProcess.pid);
       }
     },
-    /*async sitemap() {
+    async sitemap() {
       await outputFiles({
         'config.js': endent`
           export default {
@@ -1451,7 +1452,7 @@ export default tester(
       } finally {
         await kill(childProcess.pid);
       }
-    },*/
+    },
     async 'svg inline'() {
       await outputFiles({
         'assets/icon.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
