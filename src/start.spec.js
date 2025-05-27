@@ -1,3 +1,4 @@
+import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
 import tester from '@dword-design/tester';
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
@@ -5,7 +6,7 @@ import outputFiles from 'output-files';
 import { chromium } from 'playwright';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
-import { Base } from '@dword-design/base';
+
 import config from './index.js';
 
 export default tester(

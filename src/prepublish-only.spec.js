@@ -9,7 +9,6 @@ import fs from 'fs-extra';
 import outputFiles from 'output-files';
 
 import config from './index.js';
-import self from './prepublish-only.js';
 
 export default tester(
   {

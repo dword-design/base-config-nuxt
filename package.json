@@ -57,7 +57,6 @@
     "@nuxtjs/sitemap": "^7.3.0",
     "@playwright/test": "^1.52.0",
     "axios": "^1.9.0",
-    "dedent": "^1.6.0",
     "depcheck": "^1.4.7",
     "expect": "^29.7.0",
     "nuxt-dev-ready": "^3.0.0",

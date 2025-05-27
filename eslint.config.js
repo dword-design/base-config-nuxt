@@ -1,11 +1,4 @@
 import config from '@dword-design/eslint-config';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
-export default defineConfig([
-  config,
-  { rules: { 'import/no-unresolved': ['error', { ignore: ['#imports'] }] } },
-  {
-    files: ['eslint.config.js'],
-    rules: { 'import/no-extraneous-dependencies': 'off' },
-  },
-]);
+export default defineConfig([globalIgnores(['eslint.config.js']),config,{ rules: { 'import/no-unresolved': ['error', { ignore: ['#imports'] }] } }]);
