@@ -3,8 +3,8 @@ import { createRequire } from 'node:module';
 import { execa } from 'execa';
 import fs from 'fs-extra';
 
-const _require = createRequire(import.meta.url);
-const nuxtWrapper = _require.resolve('./nuxt-wrapper.js');
+const resolver = createRequire(import.meta.url);
+const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
 
 export default async (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options };

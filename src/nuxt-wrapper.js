@@ -1,11 +1,7 @@
 #!/usr/bin/env node
 
 import dotenv from '@dword-design/dotenv-json-extended';
-import { x } from 'tinyexec';
+import { execa } from 'execa';
 
 dotenv.config();
-
-x('nuxt', process.argv.slice(2), {
-  nodeOptions: { stdio: 'inherit' },
-  throwOnError: true,
-});
+execa('nuxt', process.argv.slice(2), { stdio: 'inherit' });

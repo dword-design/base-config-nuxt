@@ -18,7 +18,7 @@ import prepublishOnly from './prepublish-only.js';
 import start from './start.js';
 
 const __dirname = P.dirname(fileURLToPath(import.meta.url));
-const _require = createRequire(import.meta.url);
+const resolver = createRequire(import.meta.url);
 const isInNodeModules = __dirname.split(P.sep).includes('node_modules');
 
 export default {
@@ -72,13 +72,13 @@ export default {
   prepare: async () => {
     const configPath = isInNodeModules
       ? '@dword-design/base-config-nuxt/config'
-      : `./${P.relative(process.cwd(), _require.resolve('./config.js'))
+      : `./${P.relative(process.cwd(), resolver.resolve('./config.js'))
           .split(P.sep)
           .join('/')}`;
 
     const parentConfigPath = isInNodeModules
       ? '@dword-design/base-config-nuxt/nuxt.config'
-      : `./${P.relative(process.cwd(), _require.resolve('./nuxt.config.js'))
+      : `./${P.relative(process.cwd(), resolver.resolve('./nuxt.config.js'))
           .split(P.sep)
           .join('/')}`;
 
