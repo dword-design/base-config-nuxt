@@ -53,9 +53,11 @@
     "@dword-design/base": "^12.0.14",
     "@playwright/test": "^1.52.0",
     "depcheck": "^1.4.7",
+    "nuxt-dev-ready": "^3.0.0",
     "playwright": "^1.52.0",
     "playwright-chromium": "^1.52.0",
-    "playwright-local-tmp-dir": "^1.0.2"
+    "playwright-local-tmp-dir": "^1.0.2",
+    "tree-kill-promise": "^3.0.14"
   },
   "peerDependencies": {
     "h3": "*"

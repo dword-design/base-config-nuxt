@@ -87,6 +87,9 @@ importers:
       depcheck:
         specifier: ^1.4.7
         version: 1.4.7
+      nuxt-dev-ready:
+        specifier: ^3.0.0
+        version: 3.0.0
       playwright:
         specifier: ^1.52.0
         version: 1.52.0
@@ -96,6 +99,9 @@ importers:
       playwright-local-tmp-dir:
         specifier: ^1.0.2
         version: 1.0.2(@playwright/test@1.52.0)
+      tree-kill-promise:
+        specifier: ^3.0.14
+        version: 3.0.14
 
 packages:
 
@@ -2909,6 +2915,9 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
+  axios@1.9.0:
+    resolution: {integrity: sha512-re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==}
+
   b4a@1.6.7:
     resolution: {integrity: sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==}
 
@@ -3370,6 +3379,10 @@ packages:
 
   confusing-browser-globals@1.0.11:
     resolution: {integrity: sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==}
+
+  connect-port@0.0.1:
+    resolution: {integrity: sha512-wWUq+XRW36RJWnbdtpTl+gM9GC7ifZkq2MkpLSrVHvu7ACAie35CntcEsfDmZX7BJfOZG13oDjzhmbGOCf5j1g==}
+    engines: {node: '>=6'}
 
   consola@3.4.2:
     resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
@@ -4618,6 +4631,15 @@ packages:
   fn.name@1.1.0:
     resolution: {integrity: sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==}
 
+  follow-redirects@1.15.9:
+    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
   for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
     engines: {node: '>= 0.4'}
@@ -4640,6 +4662,10 @@ packages:
 
   form-data@3.0.3:
     resolution: {integrity: sha512-q5YBMeWy6E2Un0nMGWMgI65MAKtaylxfNJGJxpGh45YDciZB4epbWpaAfImil6CPAPTYB4sh0URQNDRIZG5F2w==}
+    engines: {node: '>= 6'}
+
+  form-data@4.0.2:
+    resolution: {integrity: sha512-hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==}
     engines: {node: '>= 6'}
 
   formdata-polyfill@4.0.10:
@@ -6590,6 +6616,10 @@ packages:
   nuxt-basic-authentication-module@0.2.1:
     resolution: {integrity: sha512-xjKC7pjORo093L6BbiJif7ZXnZxXKPo52LT2zyganz1OTCOMlJyDq/R6H8bpRduYETKJPmqMWeYT7eDLcIobNw==}
 
+  nuxt-dev-ready@3.0.0:
+    resolution: {integrity: sha512-7F+zTD0I/a7QZPUpnFq4WWt8TbMYUYRjQTKBnFLayIYqx6a5k8w61n9aS3gafHwRGBEX00mPv7ggn0n3b004Cg==}
+    engines: {node: '>=18'}
+
   nuxt@3.17.4:
     resolution: {integrity: sha512-49tkp7/+QVhuEOFoTDVvNV6Pc5+aI7wWjZHXzLUrt3tlWLPFh0yYbNXOc3kaxir1FuhRQHHyHZ7azCPmGukfFg==}
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0.0}
@@ -6731,6 +6761,10 @@ packages:
     resolution: {integrity: sha512-lastgtAdoH9YaLyDa5i5z64q+kzOcQHsQ5SsZJD3q0VEyI8mq872S3geuNbRUQLVAE9siMfgKrpj7MloKFHruw==}
     engines: {node: '>=12'}
 
+  p-event@1.3.0:
+    resolution: {integrity: sha512-hV1zbA7gwqPVFcapfeATaNjQ3J0NuzorHPyG8GPL9g/Y/TplWVBVoCKCXL6Ej2zscrCEv195QNWJXuBH6XZuzA==}
+    engines: {node: '>=4'}
+
   p-event@6.0.1:
     resolution: {integrity: sha512-Q6Bekk5wpzW5qIyUP4gdMEujObYstZl6DMMOSenwBvV0BlE5LkDwkjs5yHbZmdCEq2o4RJx4tE1vwxFVf2FG1w==}
     engines: {node: '>=16.17'}
@@ -6799,6 +6833,14 @@ packages:
     resolution: {integrity: sha512-xsrIUgI0Kn6iyDYm9StOpOeK29XM1aboGji26+QEortiFST1hGZaUQOLhtEbqHErPpGW/aSz6allwK2qcptp0Q==}
     engines: {node: '>=12'}
 
+  p-timeout@1.2.1:
+    resolution: {integrity: sha512-gb0ryzr+K2qFqFv6qi3khoeqMZF/+ajxQipEF6NteZVnvz9tzdsfAVj3lYtn1gAXvH5lfLwfxEII799gt/mRIA==}
+    engines: {node: '>=4'}
+
+  p-timeout@2.0.1:
+    resolution: {integrity: sha512-88em58dDVB/KzPEx1X0N3LwFfYZPyDc4B6eF38M1rk9VTZMbxXXgjugz8mmwpS9Ox4BDZ+t6t3QP5+/gazweIA==}
+    engines: {node: '>=4'}
+
   p-timeout@6.1.4:
     resolution: {integrity: sha512-MyIV3ZA/PmyBN/ud8vV9XzwTrNtR4jFrObymZYnZqMmW0zA8Z17vnT0rBgFE/TlohB+YCHqXMgZzb3Csp49vqg==}
     engines: {node: '>=14.16'}
@@ -6810,6 +6852,10 @@ packages:
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
+
+  p-wait-for@1.0.0:
+    resolution: {integrity: sha512-raZs7eMN7mRqP2UEaXMSxDAkSqwN41J0yXCV1AVU9PbB4t7aBAj/6nDPgFcUikX+4GeBgXWLxITAn9hr+bdhrg==}
+    engines: {node: '>=4'}
 
   p-wait-for@5.0.2:
     resolution: {integrity: sha512-lwx6u1CotQYPVju77R+D0vFomni/AqRfqLmqQ8hekklqZ6gAY9rONh7lBQ0uxWMkC2AuX9b2DVAl8To0NyP1JA==}
@@ -7031,6 +7077,10 @@ packages:
   pngjs@6.0.0:
     resolution: {integrity: sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==}
     engines: {node: '>=12.13.0'}
+
+  port-ready@0.1.0:
+    resolution: {integrity: sha512-6IJ0anhRxATv5dZ5PJgYOwDbl3Jeu2GqnB/gLngC16Mur/4/ELdkIrg3D5RNS9bfek+r10rs3206+Jgv65Z+bw==}
+    engines: {node: '>=6'}
 
   posix-character-classes@0.1.1:
     resolution: {integrity: sha512-xTgYBc3fuo7Yt7JbiuFxSYGToMoz8fLoE6TC9Wx1P/u+LfeThMOAqmuyECnlBaaJb+u1m9hHiXUEtwW4OzfUJg==}
@@ -7318,6 +7368,9 @@ packages:
 
   protocols@2.0.2:
     resolution: {integrity: sha512-hHVTzba3wboROl0/aWRRG9dMytgH6ow//STBZh43l/wQgmMhYhOFi0EHWAPtoCz9IAUymsyP0TSBHkhgMEGNnQ==}
+
+  proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
   psl@1.15.0:
     resolution: {integrity: sha512-JZd3gMVBAVQkSs6HdNZo9Sdo0LNcQeMNP3CozBJb3JYC/QUYZTnKxP+f8oWRX4rHP5EurWxqAHTSwUCjlNKa1w==}
@@ -8392,6 +8445,14 @@ packages:
   traverse@0.6.8:
     resolution: {integrity: sha512-aXJDbk6SnumuaZSANd21XAo15ucCDE38H4fkqiGsc3MhCK+wOlZvLP9cB/TvpHT0mOyWgC4Z8EwRlzqYSUzdsA==}
     engines: {node: '>= 0.4'}
+
+  tree-kill-promise@3.0.14:
+    resolution: {integrity: sha512-HMWDVJq3oby7uxA2AKVThX5fKkF7GPT3FhjNb75tG/6P4tQBtIhElaSucFHFMlBV5f3e+KPqIlHsJVZjueKX/A==}
+    engines: {node: '>=14'}
+
+  tree-kill@1.2.2:
+    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
+    hasBin: true
 
   trim-newlines@3.0.1:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
@@ -12890,6 +12951,14 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
+  axios@1.9.0:
+    dependencies:
+      follow-redirects: 1.15.9
+      form-data: 4.0.2
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
   b4a@1.6.7: {}
 
   babel-jest@27.5.1(@babel/core@7.27.3):
@@ -13450,6 +13519,10 @@ snapshots:
       proto-list: 1.2.4
 
   confusing-browser-globals@1.0.11: {}
+
+  connect-port@0.0.1:
+    dependencies:
+      p-event: 1.3.0
 
   consola@3.4.2: {}
 
@@ -14901,6 +14974,8 @@ snapshots:
 
   fn.name@1.1.0: {}
 
+  follow-redirects@1.15.9: {}
+
   for-each@0.3.5:
     dependencies:
       is-callable: 1.2.7
@@ -14922,6 +14997,13 @@ snapshots:
       signal-exit: 4.1.0
 
   form-data@3.0.3:
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      es-set-tostringtag: 2.1.0
+      mime-types: 2.1.35
+
+  form-data@4.0.2:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -17241,6 +17323,14 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
+  nuxt-dev-ready@3.0.0:
+    dependencies:
+      axios: 1.9.0
+      p-wait-for: 5.0.2
+      port-ready: 0.1.0
+    transitivePeerDependencies:
+      - debug
+
   nuxt@3.17.4(@parcel/watcher@2.5.1)(@types/node@22.15.24)(db0@0.3.2)(eslint@9.27.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.41.1)(sass@1.62.1)(stylelint@16.19.1(typescript@5.8.3))(terser@5.40.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.24)(jiti@2.4.2)(sass@1.62.1)(terser@5.40.0)(yaml@2.8.0))(yaml@2.8.0):
     dependencies:
       '@nuxt/cli': 3.25.1(magicast@0.3.5)
@@ -17572,6 +17662,10 @@ snapshots:
 
   p-each-series@3.0.0: {}
 
+  p-event@1.3.0:
+    dependencies:
+      p-timeout: 1.2.1
+
   p-event@6.0.1:
     dependencies:
       p-timeout: 6.1.4
@@ -17630,11 +17724,21 @@ snapshots:
 
   p-reduce@3.0.0: {}
 
+  p-timeout@1.2.1:
+    dependencies:
+      p-finally: 1.0.0
+
+  p-timeout@2.0.1:
+    dependencies:
+      p-finally: 1.0.0
+
   p-timeout@6.1.4: {}
 
   p-try@1.0.0: {}
 
   p-try@2.2.0: {}
+
+  p-wait-for@1.0.0: {}
 
   p-wait-for@5.0.2:
     dependencies:
@@ -17818,6 +17922,12 @@ snapshots:
   pngjs@3.4.0: {}
 
   pngjs@6.0.0: {}
+
+  port-ready@0.1.0:
+    dependencies:
+      connect-port: 0.0.1
+      p-timeout: 2.0.1
+      p-wait-for: 1.0.0
 
   posix-character-classes@0.1.1: {}
 
@@ -18095,6 +18205,8 @@ snapshots:
   proto-list@1.2.4: {}
 
   protocols@2.0.2: {}
+
+  proxy-from-env@1.1.0: {}
 
   psl@1.15.0:
     dependencies:
@@ -19320,6 +19432,12 @@ snapshots:
       punycode: 2.3.1
 
   traverse@0.6.8: {}
+
+  tree-kill-promise@3.0.14:
+    dependencies:
+      tree-kill: 1.2.2
+
+  tree-kill@1.2.2: {}
 
   trim-newlines@3.0.1: {}
 
