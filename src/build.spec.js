@@ -30,4 +30,5 @@ test('cli', async () => {
   await fs.chmod(P.join('dist', 'cli.js'), '755');
   const output = await execaCommand('./dist/cli.js', { all: true });
   expect(output.all).toMatch(/^foo$/m);
+  await new Promise(resolve => setTimeout(resolve, 10_000));
 });
