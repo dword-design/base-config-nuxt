@@ -43,6 +43,7 @@ test('aliases', async ({ page }) => {
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
   } finally {
     await kill(childProcess.pid);
+    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 
@@ -65,6 +66,7 @@ test('api', async () => {
     expect(result).toEqual({ foo: 'bar' });
   } finally {
     await kill(childProcess.pid);
+    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 
@@ -108,6 +110,7 @@ test('async modules', async ({ page }) => {
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
     await kill(childProcess.pid);
+    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 

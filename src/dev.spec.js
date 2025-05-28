@@ -48,6 +48,7 @@ test('fixable linting error', async ({ page }) => {
     }).toPass();
   } finally {
     await kill(nuxt.pid);
+    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 
@@ -85,5 +86,6 @@ test('valid', async ({ page }) => {
     expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
     await kill(nuxt.pid);
+    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
