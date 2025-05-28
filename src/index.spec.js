@@ -8,7 +8,6 @@ import kill from 'tree-kill-promise';
 
 test('aliases', async ({ page }) => {
   test.setTimeout(60_000);
-
   await outputFiles({
     'model/foo.js': "export default 'Hello world'",
     'pages/index.vue': endent`

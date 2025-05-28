@@ -12,7 +12,6 @@ import config from './index.js';
 
 test('cli', async () => {
   test.setTimeout(60_000);
-
   await outputFiles({
     model: {
       'cli.js': endent`
