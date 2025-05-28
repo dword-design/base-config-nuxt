@@ -8,7 +8,6 @@ import fs from 'fs-extra';
 import outputFiles from 'output-files';
 import { test } from 'playwright-local-tmp-dir';
 
-import self from './build.js';
 import config from './index.js';
 
 test('cli', async () => {
@@ -25,8 +24,9 @@ test('cli', async () => {
     },
   });
 
-  await new Base(config).prepare();
-  await self();
+  const base = new Base(config);
+  await base.prepare();
+  await base.run('build');
   await fs.chmod(P.join('dist', 'cli.js'), '755');
   const output = await execaCommand('./dist/cli.js', { all: true });
   expect(output.all).toMatch(/^foo$/m);
