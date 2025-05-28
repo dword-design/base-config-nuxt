@@ -1,38 +1,18 @@
 import { Base } from '@dword-design/base';
-import { endent } from '@dword-design/functions';
-import tester from '@dword-design/tester';
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import { expect } from '@playwright/test';
 import fs from 'fs-extra';
-import outputFiles from 'output-files';
+import { test } from 'playwright-local-tmp-dir';
 
 import self from './lint.js';
 
-export default tester(
-  {
-    'css error': async () => {
-      await outputFiles({
-        'assets/style.scss': endent`
-          foo bar
+test('css error', async () => {
+  await fs.outputFile('assets/style.scss', 'foo bar\n');
+  await new Base({ name: '../src/index.js' }).prepare();
+  await expect(self()).rejects.toThrow('CssSyntaxError');
+});
 
-        `,
-      });
-
-      await new Base({ name: '../src/index.js' }).prepare();
-      await expect(self()).rejects.toThrow('CssSyntaxError');
-    },
-    ignored: async () => {
-      await new Base({ name: '../src/index.js' }).prepare();
-
-      await fs.outputFile(
-        'coverage/foo.scss',
-        endent`
-          foo bar
-
-        `,
-      );
-
-      await self();
-    },
-  },
-  [testerPluginTmpDir()],
-);
+test('ignored', async () => {
+  await new Base({ name: '../src/index.js' }).prepare();
+  await fs.outputFile('coverage/foo.scss', 'foo bar\n');
+  await self();
+});

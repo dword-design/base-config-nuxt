@@ -81,15 +81,12 @@ importers:
       '@dword-design/base':
         specifier: ^12.0.14
         version: 12.0.14(@babel/core@7.27.1)(@types/eslint@9.6.1)(@types/node@22.15.24)(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(babel-plugin-module-resolver@5.0.2)(jest@27.5.1)(typescript@5.8.3)(vue-eslint-parser@10.1.3(eslint@9.27.0(jiti@2.4.2)))
-      '@dword-design/tester':
-        specifier: ^2.0.19
-        version: 2.0.19
-      '@dword-design/tester-plugin-tmp-dir':
-        specifier: ^2.1.26
-        version: 2.1.26
       '@nuxtjs/sitemap':
         specifier: ^7.3.0
         version: 7.3.0(h3@1.15.3)(magicast@0.3.5)(vite@6.3.5(@types/node@22.15.24)(jiti@2.4.2)(sass@1.62.1)(terser@5.40.0)(yaml@2.8.0))(vue@3.5.15(typescript@5.8.3))
+      '@playwright/test':
+        specifier: ^1.52.0
+        version: 1.52.0
       axios:
         specifier: ^1.9.0
         version: 1.9.0
@@ -102,15 +99,15 @@ importers:
       nuxt-dev-ready:
         specifier: ^3.0.0
         version: 3.0.0
-      p-wait-for:
-        specifier: ^5.0.2
-        version: 5.0.2
       playwright:
         specifier: ^1.52.0
         version: 1.52.0
       playwright-chromium:
         specifier: ^1.52.0
         version: 1.52.0
+      playwright-local-tmp-dir:
+        specifier: ^1.0.2
+        version: 1.0.2(@playwright/test@1.52.0)
       port-ready:
         specifier: ^0.1.0
         version: 0.1.0
@@ -1048,14 +1045,6 @@ packages:
     resolution: {integrity: sha512-VkXvIeTTutLLGr05RQEcuAs+ePlJa3yN2xuUuA3OtfXywdKlxA9r5xMFzGnHVc/y8T/95Z2eOEBpCn2QkChokg==}
     engines: {node: '>=14'}
 
-  '@dword-design/tester-plugin-tmp-dir@2.1.26':
-    resolution: {integrity: sha512-3ZtSfP0bOLszp/GO3zQ7XAJvkzkXS0Z2jZlVlM/rZYb+PaZB/pSgQ3824ipgwmBr2rOe9m3SZJcuYe7fo6GSjQ==}
-    engines: {node: '>=14'}
-
-  '@dword-design/tester@2.0.19':
-    resolution: {integrity: sha512-dZGmY9YjxKNFiyWuAz0UA7AYledVlc4PZmRHK4WT45kYGT9KkWM67NPr0L7OiLITyYVGRV6igey/77FB1Rjc8A==}
-    engines: {node: '>=14'}
-
   '@emnapi/core@1.4.3':
     resolution: {integrity: sha512-4m62DuCE07lw01soJwPiBGC0nAww0Q+RY70VZ+n49yDIO13yyinhbWCeNnaob0lakDtWQzSdtNWzJeOJt2ma+g==}
 
@@ -1960,6 +1949,11 @@ packages:
   '@pkgr/core@0.2.4':
     resolution: {integrity: sha512-ROFF39F6ZrnzSUEmQQZUar0Jt4xVoP9WnDRdWwF4NNcXs3xBTLgBUDoOwW141y1jP+S8nahIbdxbFC7IShw9Iw==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  '@playwright/test@1.52.0':
+    resolution: {integrity: sha512-uh6W7sb55hl7D6vsAeA+V2p5JnlAqzhqFyF0VcJkKZXkgnFcVG9PziERRHQfPLfNGx1C292a4JqbWzhR8L4R1g==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@pnpm/config.env-replace@1.1.0':
     resolution: {integrity: sha512-htyl8TWnKL7K/ESFa1oW2UB5lVDxuF5DpM7tBi6Hu2LNL3mWkIzNLG6N4zoCUP1lCKNxWy/3iu8mS8MvToGd6w==}
@@ -7088,6 +7082,12 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  playwright-local-tmp-dir@1.0.2:
+    resolution: {integrity: sha512-uATBqggiqKdfFDKerIHPsCm5PTOM8tDgl4UZcYY3Jqwy2Sw3VdrMoedxme/ibMqSC27cTh1gewAynfHdjQic6g==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@playwright/test': ^1
+
   playwright@1.52.0:
     resolution: {integrity: sha512-JAwMNMBlxJ2oD1kce4KPtMkDeKGHQstdpFPcPH3maElAXon/QZeTvtsfXmTMRyO9TslfoYOXkSsvao2nE1ilTw==}
     engines: {node: '>=18'}
@@ -10717,14 +10717,6 @@ snapshots:
 
   '@dword-design/suppress-babel-register-esm-warning@1.1.10': {}
 
-  '@dword-design/tester-plugin-tmp-dir@2.1.26':
-    dependencies:
-      with-local-tmp-dir: 5.1.1
-
-  '@dword-design/tester@2.0.19':
-    dependencies:
-      '@dword-design/functions': 4.1.7
-
   '@emnapi/core@1.4.3':
     dependencies:
       '@emnapi/wasi-threads': 1.0.2
@@ -11943,6 +11935,10 @@ snapshots:
     optional: true
 
   '@pkgr/core@0.2.4': {}
+
+  '@playwright/test@1.52.0':
+    dependencies:
+      playwright: 1.52.0
 
   '@pnpm/config.env-replace@1.1.0': {}
 
@@ -17997,6 +17993,11 @@ snapshots:
       playwright-core: 1.52.0
 
   playwright-core@1.52.0: {}
+
+  playwright-local-tmp-dir@1.0.2(@playwright/test@1.52.0):
+    dependencies:
+      '@playwright/test': 1.52.0
+      with-local-tmp-dir: 5.1.1
 
   playwright@1.52.0:
     dependencies:

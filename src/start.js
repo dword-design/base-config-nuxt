@@ -7,9 +7,8 @@ const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
 
 export default (options = {}) => {
   options = { log: process.env.NODE_ENV !== 'test', ...options };
-  return execa(
-    nuxtWrapper,
-    ['start'],
-    ...(options.log ? [{ stdio: 'inherit' }] : []),
-  );
+  return execa(nuxtWrapper, ['start'], {
+    reject: false,
+    ...(options.log && { stdio: 'inherit' }),
+  });
 };
