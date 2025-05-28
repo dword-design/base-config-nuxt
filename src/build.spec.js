@@ -11,7 +11,8 @@ import { test } from 'playwright-local-tmp-dir';
 import config from './index.js';
 
 test('cli', async () => {
-  test.setTimeout(60_000)
+  test.setTimeout(60_000);
+
   await outputFiles({
     model: {
       'cli.js': endent`
