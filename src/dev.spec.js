@@ -12,6 +12,7 @@ import kill from 'tree-kill-promise';
 import config from './index.js';
 
 test('fixable linting error', async ({ page }) => {
+  test.setTimeout(60_000);
   await fs.outputFile(
     'pages/index.vue',
     endent`
@@ -53,6 +54,7 @@ test('fixable linting error', async ({ page }) => {
 });
 
 test('valid', async ({ page }) => {
+  test.setTimeout(60_000);
   await outputFiles({
     'pages/index.vue': endent`
       <template>

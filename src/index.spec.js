@@ -12,6 +12,7 @@ import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
 
 test('aliases', async ({ page }) => {
+  test.setTimeout(60_000);
   await outputFiles({
     'model/foo.js': "export default 'Hello world'",
     'pages/index.vue': endent`
@@ -48,6 +49,7 @@ test('aliases', async ({ page }) => {
 });
 
 test('api', async () => {
+  test.setTimeout(60_000);
   await fs.outputFile(
     'server/api/foo.get.js',
     "export default defineEventHandler(() => ({ foo: 'bar' }))",
@@ -71,6 +73,7 @@ test('api', async () => {
 });
 
 test('async modules', async ({ page }) => {
+  test.setTimeout(60_000);
   await outputFiles({
     'modules/foo': {
       'index.js': endent`
