@@ -51,18 +51,11 @@
   },
   "devDependencies": {
     "@dword-design/base": "^12.0.14",
-    "@nuxtjs/sitemap": "^7.3.0",
     "@playwright/test": "^1.52.0",
-    "axios": "^1.9.0",
     "depcheck": "^1.4.7",
-    "expect": "^29.7.0",
-    "nuxt-dev-ready": "^3.0.0",
     "playwright": "^1.52.0",
     "playwright-chromium": "^1.52.0",
-    "playwright-local-tmp-dir": "^1.0.2",
-    "port-ready": "^0.1.0",
-    "tree-kill-promise": "^3.0.14",
-    "xml-formatter": "^3.6.6"
+    "playwright-local-tmp-dir": "^1.0.2"
   },
   "peerDependencies": {
     "h3": "*"
