@@ -11,7 +11,6 @@ import { test } from 'playwright-local-tmp-dir';
 import config from './index.js';
 
 test('cli', async () => {
-  test.setTimeout(60_000);
   await outputFiles({
     model: {
       'cli.js': endent`
@@ -31,5 +30,4 @@ test('cli', async () => {
   await fs.chmod(P.join('dist', 'cli.js'), '755');
   const output = await execaCommand('./dist/cli.js', { all: true });
   expect(output.all).toMatch(/^foo$/m);
-  await new Promise(resolve => setTimeout(resolve, 10_000));
 });

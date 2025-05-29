@@ -12,7 +12,6 @@ import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
 
 test('aliases', async ({ page }) => {
-  test.setTimeout(60_000);
   await outputFiles({
     'model/foo.js': "export default 'Hello world'",
     'pages/index.vue': endent`
@@ -44,12 +43,10 @@ test('aliases', async ({ page }) => {
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
   } finally {
     await kill(childProcess.pid);
-    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 
 test('api', async () => {
-  test.setTimeout(60_000);
   await fs.outputFile(
     'server/api/foo.get.js',
     "export default defineEventHandler(() => ({ foo: 'bar' }))",
@@ -68,12 +65,10 @@ test('api', async () => {
     expect(result).toEqual({ foo: 'bar' });
   } finally {
     await kill(childProcess.pid);
-    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 
 test('async modules', async ({ page }) => {
-  test.setTimeout(60_000);
   await outputFiles({
     'modules/foo': {
       'index.js': endent`
@@ -113,7 +108,6 @@ test('async modules', async ({ page }) => {
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
     await kill(childProcess.pid);
-    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 

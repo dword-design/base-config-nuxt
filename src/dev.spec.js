@@ -12,7 +12,6 @@ import kill from 'tree-kill-promise';
 import config from './index.js';
 
 test('fixable linting error', async ({ page }) => {
-  test.setTimeout(60_000);
   await fs.outputFile(
     'pages/index.vue',
     endent`
@@ -49,12 +48,10 @@ test('fixable linting error', async ({ page }) => {
     }).toPass();
   } finally {
     await kill(nuxt.pid);
-    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
 
 test('valid', async ({ page }) => {
-  test.setTimeout(60_000);
   await outputFiles({
     'pages/index.vue': endent`
       <template>
@@ -88,6 +85,5 @@ test('valid', async ({ page }) => {
     expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
     await kill(nuxt.pid);
-    await new Promise(resolve => setTimeout(resolve, 10_000));
   }
 });
