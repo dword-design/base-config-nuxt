@@ -77,7 +77,7 @@ test('valid', async ({ page }, testInfo) => {
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
-    await delay(5000); // TODO: Replace this by detecting if HMR is ready
+    await delay(15_000); // TODO: Replace this by detecting if HMR is ready
 
     await fs.outputFile(
       pathLib.join(cwd, 'pages', 'index.vue'),
@@ -88,7 +88,6 @@ test('valid', async ({ page }, testInfo) => {
       `,
     );
 
-    console.log('file changed');
     const bar = page.locator('.bar');
     await expect(bar).toBeAttached({ timeout: 15_000 });
     expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');
