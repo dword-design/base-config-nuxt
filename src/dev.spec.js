@@ -77,7 +77,7 @@ test('valid', async ({ page }, testInfo) => {
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
-    await delay(5000); // For some reason Playwright does not detect the change without the delay
+    await delay(5000); // TODO: Replace this by detecting if HMR is ready
 
     await fs.outputFile(
       pathLib.join(cwd, 'pages', 'index.vue'),
