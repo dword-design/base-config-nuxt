@@ -11,6 +11,7 @@ import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
 import xmlFormatter from 'xml-formatter';
+import { execaCommand } from 'execa';
 
 import config from './index.js';
 import killAndWait from './kill-and-wait.js';
