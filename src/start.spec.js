@@ -3,11 +3,10 @@ import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import getPort from 'get-port';
 import outputFiles from 'output-files';
-import pWaitFor from 'p-wait-for';
 import portReady from 'port-ready';
 
 import config from './index.js';
-import isPortFree from './is-port-free.js';
+import killAndWait from './kill-and-wait.js';
 
 const tests = {
   valid: {
@@ -32,12 +31,16 @@ for (const [name, testConfig] of Object.entries(tests)) {
     const base = new Base(config, { cwd });
     await base.prepare();
     const port = await getPort();
+    console.log(port);
     await base.run('prepublishOnly');
     const nuxt = base.run('start', { env: { PORT: port } });
-    await portReady(port);
-    await page.goto(`http://localhost:${port}`);
-    await testConfig.test({ page });
-    nuxt.kill('SIGINT');
-    await pWaitFor(() => isPortFree(port));
+
+    try {
+      await portReady(port);
+      await page.goto(`http://localhost:${port}`);
+      await testConfig.test({ page });
+    } finally {
+      await killAndWait(nuxt, port);
+    }
   });
 }

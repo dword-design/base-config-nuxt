@@ -7,10 +7,9 @@ import fs from 'fs-extra';
 import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
-import pWaitFor from 'p-wait-for';
 
 import config from './index.js';
-import isPortFree from './is-port-free.js';
+import killAndWait from './kill-and-wait.js';
 
 test('fixable linting error', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath('');
@@ -51,8 +50,7 @@ test('fixable linting error', async ({ page }, testInfo) => {
         `);
     }).toPass();
   } finally {
-    nuxt.kill('SIGINT');
-    await pWaitFor(() => isPortFree(port));
+    await killAndWait(nuxt, port);
   }
 });
 
@@ -94,7 +92,6 @@ test('valid', async ({ page }, testInfo) => {
     await expect(bar).toBeAttached({ timeout: 10_000 });
     expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
-    nuxt.kill('SIGINT');
-    await pWaitFor(() => isPortFree(port));
+    await killAndWait(nuxt, port);
   }
 });

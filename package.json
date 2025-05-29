@@ -44,8 +44,10 @@
     "nuxt": "^3.17.4",
     "nuxt-basic-authentication-module": "^0.2.1",
     "output-files": "^2.0.32",
+    "p-wait-for": "^5.0.2",
     "require-package-name": "^2.0.1",
     "stylelint": "^16.19.1",
+    "tree-kill-promise": "^3.0.14",
     "vite-plugin-eslint2": "^5.0.3",
     "vite-svg-loader": "^5.1.0"
   },
@@ -58,7 +60,6 @@
     "expect": "^29.7.0",
     "get-port": "^7.1.0",
     "nuxt-dev-ready": "^3.0.0",
-    "p-wait-for": "^5.0.2",
     "playwright": "^1.52.0",
     "playwright-chromium": "^1.52.0",
     "port-ready": "^0.1.0",
