@@ -3,10 +3,11 @@ import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import getPort from 'get-port';
 import outputFiles from 'output-files';
+import pWaitFor from 'p-wait-for';
 import portReady from 'port-ready';
-import kill from 'tree-kill-promise';
 
 import config from './index.js';
+import isPortFree from './is-port-free.js';
 
 const tests = {
   valid: {
@@ -36,6 +37,7 @@ for (const [name, testConfig] of Object.entries(tests)) {
     await portReady(port);
     await page.goto(`http://localhost:${port}`);
     await testConfig.test({ page });
-    await kill(nuxt.pid);
+    nuxt.kill();
+    await pWaitFor(() => isPortFree(port));
   });
 }
