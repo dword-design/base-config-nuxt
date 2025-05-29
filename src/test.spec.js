@@ -33,8 +33,9 @@ test('aliases', async ({}, testInfo) => {
   await base.test();
 });
 
-test('dependency inside vue file', async () => {
-  await outputFiles({
+test('dependency inside vue file', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+  await outputFiles(cwd, {
     'node_modules/foo/index.js': '',
     'package.json': JSON.stringify({ dependencies: { foo: '^1.0.0' } }),
     'pages/index.vue': endent`
@@ -55,13 +56,14 @@ test('dependency inside vue file', async () => {
     `,
   });
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.test();
 });
 
-test('external modules', async () => {
-  await outputFiles({
+test('external modules', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         modules: [
@@ -73,13 +75,13 @@ test('external modules', async () => {
     'package.json': JSON.stringify({ dependencies: { foo: '^1.0.0' } }),
   });
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.test();
 });
 
-test('linting error in js file', async () => {
-  await outputFiles({
+test('linting error in js file', async ({}, testInfo) => {
+  await outputFiles(cwd, {
     'model/foo.js': 'const foo = 1',
     'pages/index.vue': endent`
       <script>
@@ -94,7 +96,7 @@ test('linting error in js file', async () => {
     `,
   });
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
 
   await expect(base.test()).rejects.toThrow(
@@ -102,9 +104,10 @@ test('linting error in js file', async () => {
   );
 });
 
-test('linting error in vue file', async () => {
+test('linting error in vue file', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
   await fs.outputFile(
-    'pages/index.vue',
+    pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
       <script>
       foo bar
@@ -112,7 +115,7 @@ test('linting error in vue file', async () => {
     `,
   );
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
 
   await expect(base.test()).rejects.toThrow(
@@ -120,9 +123,10 @@ test('linting error in vue file', async () => {
   );
 });
 
-test('valid', async () => {
+test('valid', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
   await fs.outputFile(
-    'pages/index.vue',
+    pathLib.join('pages', 'index.vue'),
     endent`
       <template>
         <div>Hello world</div>
@@ -130,7 +134,7 @@ test('valid', async () => {
     `,
   );
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.test();
 });

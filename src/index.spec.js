@@ -766,7 +766,7 @@ test('i18n: route with prefix', async ({}, testInfo) => {
     `,
   });
 
-  const base = new Base(config, cwd);
+  const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
   const nuxt = base.run('dev', { env: { PORT: port } });
@@ -821,7 +821,7 @@ test('i18n: route without prefix', async ({}, testInfo) => {
 test('i18n: single locale', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath('');
 
-  await outputFiles({
+  await outputFiles(cwd, {
     'i18n/de.json': JSON.stringify({ foo: 'bar' }),
     pages: {
       'bar.vue': endent`
@@ -1111,9 +1111,9 @@ test('port', async ({ page }, testInfo) => {
     `,
   });
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
     await nuxtDevReady(port);
@@ -1168,7 +1168,7 @@ test('request body', async ({ page }, testInfo) => {
 test('router config', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath('');
 
-  await outputFiles({
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         router: {
