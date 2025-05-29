@@ -3,6 +3,7 @@ import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import { execaCommand } from 'execa';
 import outputFiles from 'output-files';
+import config from './index.js';
 
 const tests = {
   definePageMeta: {
@@ -79,7 +80,7 @@ for (const [name, _testConfig] of Object.entries(tests)) {
     await outputFiles(cwd, testConfig.files);
 
     const base = new Base(
-      { name: '../src/index.js', ...testConfig.config },
+      { ...config, ...testConfig.config },
       { cwd },
     );
 
