@@ -612,6 +612,7 @@ test('i18n: browser language changed', async ({}, testInfo) => {
 
 test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath('');
+  const port = await getPort();
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
@@ -633,7 +634,6 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const port = await getPort();
   const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
@@ -860,6 +860,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
 
 test('i18n: works', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath('');
+  const port = await getPort();
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
@@ -887,7 +888,6 @@ test('i18n: works', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const port = await getPort();
   const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {

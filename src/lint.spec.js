@@ -11,7 +11,7 @@ test('css error', async ({}, testInfo) => {
   await fs.outputFile(pathLib.join(cwd, 'assets', 'style.scss'), 'foo bar\n');
   const base = new Base(config, { cwd });
   await base.prepare();
-  await expect(base.lint()).rejects.toThrow('CssSyntaxError');
+  await expect(base.lint({ stderr: 'pipe' })).rejects.toThrow('CssSyntaxError');
 });
 
 test('ignored', async ({}, testInfo) => {
