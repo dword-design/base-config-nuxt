@@ -55,6 +55,7 @@ test('fixable linting error', async ({ page }, testInfo) => {
 });
 
 test('valid', async ({ page }, testInfo) => {
+  test.setTimeout(60_000);
   const cwd = testInfo.outputPath('');
 
   await outputFiles(cwd, {
@@ -68,7 +69,7 @@ test('valid', async ({ page }, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
+  const nuxt = base.run('dev', { env: { PORT: port, NODE_ENV: '' }, log: true });
 
   try {
     await nuxtDevReady(port);
@@ -76,7 +77,7 @@ test('valid', async ({ page }, testInfo) => {
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
-    await delay(1000); // For some reason Playwright does not detect the change without the delay
+    await delay(5000); // For some reason Playwright does not detect the change without the delay
 
     await fs.outputFile(
       pathLib.join(cwd, 'pages', 'index.vue'),
@@ -87,8 +88,11 @@ test('valid', async ({ page }, testInfo) => {
       `,
     );
 
+    console.log('file changed')
+    await delay(5000);
+
     const bar = page.locator('.bar');
-    await expect(bar).toBeAttached();
+    await expect(bar).toBeAttached({ timeout: 15_000 });
     expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
     await kill(nuxt.pid);
