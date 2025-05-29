@@ -89,7 +89,6 @@ test('valid', async ({ page }, testInfo) => {
     );
 
     console.log('file changed')
-    await delay(5000);
 
     const bar = page.locator('.bar');
     await expect(bar).toBeAttached({ timeout: 15_000 });
