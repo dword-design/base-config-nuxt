@@ -1,7 +1,7 @@
 import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
-import { endent } from '@dword-design/functions';
+import { delay, endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import fs from 'fs-extra';
 import getPort from 'get-port';
@@ -76,6 +76,8 @@ test('valid', async ({ page }, testInfo) => {
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
+
+    await delay(1000); // For some reason Playwright does not detect the change without the delay
 
     await fs.outputFile(
       pathLib.join(cwd, 'pages', 'index.vue'),
