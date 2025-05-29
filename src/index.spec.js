@@ -847,9 +847,11 @@ test('i18n: single locale', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page).toHaveURL(`http://localhost:${port}`);
     const link = page.locator('.foo');
-    await expect(link).toBeAttached();
-    await expect(link).toHaveText('bar');
-    await expect(link).toHaveAttribute('href', '/bar');
+
+    await Promise.all([
+      expect(link).toHaveText('bar'),
+      expect(link).toHaveAttribute('href', '/bar'),
+    ]);
   } finally {
     await kill(nuxt.pid);
   }
