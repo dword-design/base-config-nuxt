@@ -845,7 +845,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
     await nuxtDevReady(port);
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'en' });
     await page.goto(`http://localhost:${port}`);
-    expect(page.url()).toEqual(`http://localhost:${port}/`);
+    await expect(page).toHaveURL(`http://localhost:${port}`);
     const link = page.locator('.foo');
     await expect(link).toBeAttached();
     expect(await link.evaluate(el => el.textContent)).toEqual('bar');
