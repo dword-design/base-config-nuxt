@@ -69,7 +69,7 @@ test('valid', async ({ page }, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port, NODE_ENV: '' }, log: true });
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
     await nuxtDevReady(port);
@@ -88,8 +88,7 @@ test('valid', async ({ page }, testInfo) => {
       `,
     );
 
-    console.log('file changed')
-
+    console.log('file changed');
     const bar = page.locator('.bar');
     await expect(bar).toBeAttached({ timeout: 15_000 });
     expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');

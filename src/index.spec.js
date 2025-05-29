@@ -842,7 +842,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
   const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'en' });
     await page.goto(`http://localhost:${port}`);
     expect(page.url()).toEqual(`http://localhost:${port}/`);
