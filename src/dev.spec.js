@@ -51,7 +51,7 @@ test('fixable linting error', async ({ page }, testInfo) => {
         `);
     }).toPass();
   } finally {
-    nuxt.kill();
+    nuxt.kill('SIGINT');
     await pWaitFor(() => isPortFree(port));
   }
 });
@@ -95,7 +95,7 @@ test('valid', async ({ page }, testInfo) => {
     await expect(bar).toBeAttached({ timeout: 15_000 });
     expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
-    nuxt.kill();
+    nuxt.kill('SIGINT');
     await pWaitFor(() => isPortFree(port));
   }
 });

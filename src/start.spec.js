@@ -37,7 +37,7 @@ for (const [name, testConfig] of Object.entries(tests)) {
     await portReady(port);
     await page.goto(`http://localhost:${port}`);
     await testConfig.test({ page });
-    nuxt.kill();
+    nuxt.kill('SIGINT');
     await pWaitFor(() => isPortFree(port));
   });
 }
