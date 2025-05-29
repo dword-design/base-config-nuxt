@@ -38,16 +38,17 @@ test('aliases', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -61,17 +62,18 @@ test('api', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
 
     const result =
-      axios.get('http://localhost:3000/api/foo') |> await |> property('data');
+      axios.get(`http://localhost:${port}/api/foo`) |> await |> property('data');
 
     expect(result).toEqual({ foo: 'bar' });
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -107,16 +109,17 @@ test('async modules', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -142,30 +145,31 @@ test('basic auth', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
 
-    await expect(axios.get('http://localhost:3000')).rejects.toHaveProperty(
+    await expect(axios.get(`http://localhost:${port}`)).rejects.toHaveProperty(
       'response.status',
       401,
     );
 
     await expect(
-      axios.get('http://localhost:3000/api/foo'),
+      axios.get(`http://localhost:${port}/api/foo`),
     ).rejects.toHaveProperty('response.status', 401);
 
     await Promise.all([
-      axios.get('http://localhost:3000', {
+      axios.get(`http://localhost:${port}`, {
         auth: { password: 'bar', username: 'foo' },
       }),
-      axios.get('http://localhost:3000/api/foo', {
+      axios.get(`http://localhost:${port}/api/foo`, {
         auth: { password: 'bar', username: 'foo' },
       }),
     ]);
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -194,7 +198,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -204,7 +208,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
       await page.evaluate(() => document.body.classList.contains('foo')),
     ).toEqual(true);
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -233,7 +237,7 @@ test('css', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -245,7 +249,7 @@ test('css', async ({ page }, testInfo) => {
       'rgb(255, 0, 0)',
     );
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -268,7 +272,7 @@ test('css modules', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -280,7 +284,7 @@ test('css modules', async ({ page }, testInfo) => {
       await foo.evaluate(el => getComputedStyle(el).backgroundColor),
     ).toEqual('rgb(255, 0, 0)');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -327,7 +331,7 @@ test('do not transpile other language than js in vue', async ({
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -336,7 +340,7 @@ test('do not transpile other language than js in vue', async ({
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('2');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -361,14 +365,14 @@ test('dotenv: config', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
     await page.goto('http://localhost:3000');
     expect(await page.evaluate(() => document.title)).toEqual('Bar');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -414,7 +418,7 @@ test('global components', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -423,7 +427,7 @@ test('global components', async ({ page }, testInfo) => {
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -464,7 +468,7 @@ test('head link', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -479,7 +483,7 @@ test('head link', async ({ page }, testInfo) => {
       expect(link).toHaveAttribute('href', '/feed'),
     ]);
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -506,7 +510,7 @@ test('hexrgba', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -517,7 +521,7 @@ test('hexrgba', async ({ page }, testInfo) => {
         getComputedStyle(document.body).backgroundColor === 'rgba(0, 0, 0, 0)',
     );
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -545,14 +549,14 @@ test('htmlAttrs', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
     await page.goto('http://localhost:3000');
     await expect(page.locator('html.foo')).toBeAttached();
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -570,7 +574,7 @@ test('i18n: browser language changed', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -589,7 +593,7 @@ test('i18n: browser language changed', async ({}, testInfo) => {
         |> property('request.res.responseUrl'),
     ).toEqual('http://localhost:3000/de');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -616,7 +620,7 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -632,7 +636,7 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
       page.locator('link[rel=canonical][href="http://localhost:3000/foo"]'),
     ).toBeAttached();
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -661,7 +665,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -670,7 +674,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -688,14 +692,14 @@ test('i18n: root with prefix', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
     await page.goto('http://localhost:3000/de');
     expect(page.url()).toEqual('http://localhost:3000/de');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -713,7 +717,7 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -728,7 +732,7 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
 
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'de' });
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -746,7 +750,7 @@ test('i18n: route with prefix', async ({}, testInfo) => {
 
   const base = new Base(config, cwd);
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -759,7 +763,7 @@ test('i18n: route with prefix', async ({}, testInfo) => {
         |> property('request.res.responseUrl'),
     ).toEqual('http://localhost:3000/de/foo');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -777,7 +781,7 @@ test('i18n: route without prefix', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -790,7 +794,7 @@ test('i18n: route without prefix', async ({}, testInfo) => {
         |> property('request.res.responseUrl'),
     ).toEqual('http://localhost:3000/de/foo');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -815,7 +819,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -830,7 +834,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
       'http://localhost:3000/bar',
     );
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -863,7 +867,7 @@ test('i18n: works', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -898,7 +902,7 @@ test('i18n: works', async ({ page }, testInfo) => {
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
     await expect(html).toHaveAttribute('style', 'background:red');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -925,14 +929,14 @@ test('locale link', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
     await page.goto('http://localhost:3000');
     await expect(page.locator('a')).toHaveAttribute('href', '/en/foo');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -954,14 +958,14 @@ test('name', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
     await page.goto('http://localhost:3000');
     await page.waitForFunction(() => document.title === 'Test-App');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -984,7 +988,7 @@ test('name and title', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -994,7 +998,7 @@ test('name and title', async ({ page }, testInfo) => {
       () => document.title === 'Test-App: This is the ultimate app!',
     );
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1016,7 +1020,7 @@ test('ogImage', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -1028,7 +1032,7 @@ test('ogImage', async ({ page }, testInfo) => {
       'https://example.com/og-image',
     );
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1055,14 +1059,14 @@ test('page with title', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
     await page.goto('http://localhost:3000/foo');
     await page.waitForFunction(() => document.title === 'Foo page | Test-App');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1081,14 +1085,14 @@ test('port', async ({ page }, testInfo) => {
 
   const base = new Base(config);
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady(3005);
     await page.goto('http://localhost:3005');
     await expect(page.locator('.foo')).toBeAttached();
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1120,7 +1124,7 @@ test('request body', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -1128,7 +1132,7 @@ test('request body', async ({ page }, testInfo) => {
     await page.locator('button').click();
     await expect(page.locator('form')).toContainClass('sent');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1157,14 +1161,14 @@ test('router config', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
     await page.goto('http://localhost:3000');
     await expect(page.locator('.foo.is-active')).toBeAttached();
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1189,7 +1193,7 @@ test('scoped style in production', async ({ page }, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
-  const childProcess = base.run('start');
+  const nuxt = base.run('start');
 
   try {
     await portReady(3000);
@@ -1201,7 +1205,7 @@ test('scoped style in production', async ({ page }, testInfo) => {
         .evaluate(el => getComputedStyle(el).backgroundColor),
     ).toEqual('rgb(255, 0, 0)');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1227,7 +1231,7 @@ test('sitemap', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -1244,7 +1248,7 @@ test('sitemap', async ({}, testInfo) => {
       }),
     ).toMatchSnapshot();
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1272,7 +1276,7 @@ test('svg inline', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -1281,7 +1285,7 @@ test('svg inline', async ({ page }, testInfo) => {
     await expect(icon).toBeAttached();
     expect(await icon.evaluate(el => el.tagName)).toEqual('svg');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1309,7 +1313,7 @@ test('svg url', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -1323,7 +1327,7 @@ test('svg url', async ({ page }, testInfo) => {
       "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20/%3e",
     );
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1345,7 +1349,7 @@ test('userScalable', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -1357,7 +1361,7 @@ test('userScalable', async ({ page }, testInfo) => {
       }),
     ).toBeAttached();
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1375,7 +1379,7 @@ test('valid', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const childProcess = base.run('dev');
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady();
@@ -1384,6 +1388,6 @@ test('valid', async ({ page }, testInfo) => {
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
   } finally {
-    await kill(childProcess.pid);
+    await kill(nuxt.pid);
   }
 });

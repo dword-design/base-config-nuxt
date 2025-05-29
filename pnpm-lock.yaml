@@ -96,6 +96,9 @@ importers:
       expect:
         specifier: ^29.7.0
         version: 29.7.0
+      get-port:
+        specifier: ^7.1.0
+        version: 7.1.0
       nuxt-dev-ready:
         specifier: ^3.0.0
         version: 3.0.0
@@ -4903,6 +4906,10 @@ packages:
 
   get-port-please@3.1.2:
     resolution: {integrity: sha512-Gxc29eLs1fbn6LQ4jSU4vXjlwyZhF5HsGuMAa7gqBP4Rw4yxxltyDUuF5MBclFzDTXO+ACchGQoeela4DSfzdQ==}
+
+  get-port@7.1.0:
+    resolution: {integrity: sha512-QB9NKEeDg3xxVwCCwJQ9+xycaz6pBB6iQ76wiWMl1927n0Kir6alPiP+yuiICLLU4jpMe08dXfpebuQppFA2zw==}
+    engines: {node: '>=16'}
 
   get-projectz-readme-section-regex@3.0.10:
     resolution: {integrity: sha512-Om3mBcQdRQGXAR8WPYBDSFw9GMLGRnnaHpyQPsuTCBzqhO5xAa92HwT7qodY8CYnhpcdd/OtAvj3vyoJYw+2sg==}
@@ -15320,6 +15327,8 @@ snapshots:
   get-package-type@0.1.0: {}
 
   get-port-please@3.1.2: {}
+
+  get-port@7.1.0: {}
 
   get-projectz-readme-section-regex@3.0.10:
     dependencies:

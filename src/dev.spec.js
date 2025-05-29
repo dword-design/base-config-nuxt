@@ -28,11 +28,12 @@ test('fixable linting error', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toBeAttached();
 
     await expect(async () => {
@@ -65,11 +66,12 @@ test('valid', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
