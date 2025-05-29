@@ -1,19 +1,20 @@
-import P from 'node:path';
+import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import fs from 'fs-extra';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
-import { test } from 'playwright-local-tmp-dir';
 import kill from 'tree-kill-promise';
 
 import config from './index.js';
 
-test('fixable linting error', async ({ page }) => {
+test('fixable linting error', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    'pages/index.vue',
+    pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
       <template>
         <div class="foo" />
@@ -25,7 +26,7 @@ test('fixable linting error', async ({ page }) => {
     `,
   );
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   const nuxt = base.run('dev');
 
@@ -35,7 +36,7 @@ test('fixable linting error', async ({ page }) => {
     await expect(page.locator('.foo')).toBeAttached();
 
     await expect(async () => {
-      expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
+      expect(await fs.readFile(pathLib.join(cwd, 'pages', 'index.vue'), 'utf8'))
         .toEqual(endent`
           <template>
             <div class="foo" />
@@ -51,8 +52,10 @@ test('fixable linting error', async ({ page }) => {
   }
 });
 
-test('valid', async ({ page }) => {
-  await outputFiles({
+test('valid', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'pages/index.vue': endent`
       <template>
         <div class="foo">Hello world</div>
@@ -60,7 +63,7 @@ test('valid', async ({ page }) => {
     `,
   });
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   const nuxt = base.run('dev');
 
@@ -72,7 +75,7 @@ test('valid', async ({ page }) => {
     expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
 
     await fs.outputFile(
-      P.join('pages', 'index.vue'),
+      pathLib.join(cwd, 'pages', 'index.vue'),
       endent`
         <template>
           <div class="bar">Hello world</div>

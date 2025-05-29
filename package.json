@@ -1,6 +1,6 @@
 {
   "name": "@dword-design/base-config-nuxt",
-  "version": "6.2.4",
+  "version": "6.2.5",
   "repository": "dword-design/base-config-nuxt",
   "funding": "https://github.com/sponsors/dword-design",
   "license": "MIT",
@@ -50,7 +50,7 @@
     "vite-svg-loader": "^5.1.0"
   },
   "devDependencies": {
-    "@dword-design/base": "^12.0.14",
+    "@dword-design/base": "^12.0.18",
     "@nuxtjs/sitemap": "^7.3.0",
     "@playwright/test": "^1.52.0",
     "axios": "^1.9.0",

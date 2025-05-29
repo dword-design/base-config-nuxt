@@ -1,9 +1,8 @@
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { execaCommand } from 'execa';
 import outputFiles from 'output-files';
-import { test } from 'playwright-local-tmp-dir';
 
 const tests = {
   definePageMeta: {
@@ -75,15 +74,22 @@ const tests = {
 for (const [name, _testConfig] of Object.entries(tests)) {
   const testConfig = { error: '', filename: 'pages/index.vue', ..._testConfig };
 
-  test(name, async () => {
-    await outputFiles(testConfig.files);
-    await new Base({ name: '../src/index.js', ...testConfig.config }).prepare();
+  test(name, async ({}, testInfo) => {
+    const cwd = testInfo.outputPath('');
+    await outputFiles(cwd, testConfig.files);
+
+    const base = new Base(
+      { name: '../src/index.js', ...testConfig.config },
+      { cwd },
+    );
+
+    await base.prepare();
     await execaCommand('nuxi prepare');
 
     await (testConfig.error
-      ? expect(execaCommand(`eslint ${testConfig.filename}`)).rejects.toThrow(
-          testConfig.error,
-        )
-      : execaCommand(`eslint ${testConfig.filename}`));
+      ? expect(
+          execaCommand(`eslint ${testConfig.filename}`, { cwd }),
+        ).rejects.toThrow(testConfig.error)
+      : execaCommand(`eslint ${testConfig.filename}`, { cwd }));
   });
 }

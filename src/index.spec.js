@@ -1,18 +1,22 @@
+import pathLib from 'node:path';
+
 import { Base } from '@dword-design/base';
 import { endent, property } from '@dword-design/functions';
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import axios from 'axios';
 import packageName from 'depcheck-package-name';
 import fs from 'fs-extra';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
-import { test } from 'playwright-local-tmp-dir';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
+import config from './index.js';
 
-test('aliases', async ({ page }) => {
-  await outputFiles({
+test('aliases', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'model/foo.js': "export default 'Hello world'",
     'pages/index.vue': endent`
       <template>
@@ -31,7 +35,7 @@ test('aliases', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -46,13 +50,15 @@ test('aliases', async ({ page }) => {
   }
 });
 
-test('api', async () => {
+test('api', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    'server/api/foo.get.js',
+    pathLib.join(cwd, 'server', 'api', 'foo.get.js'),
     "export default defineEventHandler(() => ({ foo: 'bar' }))",
   );
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -68,8 +74,10 @@ test('api', async () => {
   }
 });
 
-test('async modules', async ({ page }) => {
-  await outputFiles({
+test('async modules', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'modules/foo': {
       'index.js': endent`
         import { delay } from '@dword-design/functions'
@@ -96,7 +104,7 @@ test('async modules', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -111,8 +119,10 @@ test('async modules', async ({ page }) => {
   }
 });
 
-test('basic auth', async () => {
-  await outputFiles({
+test('basic auth', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({
       basicAuthPassword: { type: 'string' },
       basicAuthUser: { type: 'string' },
@@ -129,7 +139,7 @@ test('basic auth', async () => {
     'server/api/foo.get.js': "export default defineEventHandler(() => 'foo')",
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -158,8 +168,10 @@ test('basic auth', async () => {
   }
 });
 
-test('bodyAttrs', async ({ page }) => {
-  await outputFiles({
+test('bodyAttrs', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         app: {
@@ -179,7 +191,7 @@ test('bodyAttrs', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -195,8 +207,10 @@ test('bodyAttrs', async ({ page }) => {
   }
 });
 
-test('css', async ({ page }) => {
-  await outputFiles({
+test('css', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'assets/style.scss': endent`
       .foo {
         background: red;
@@ -216,7 +230,7 @@ test('css', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -234,8 +248,10 @@ test('css', async ({ page }) => {
   }
 });
 
-test('css modules', async ({ page }) => {
-  await outputFiles({
+test('css modules', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'pages/index.vue': endent`
       <template>
         <div class="foo" :class="$style.fooBar">Hello world</div>
@@ -249,7 +265,7 @@ test('css modules', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -267,8 +283,10 @@ test('css modules', async ({ page }) => {
   }
 });
 
-test('do not import image urls in production', async () => {
-  await outputFiles({
+test('do not import image urls in production', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'pages/index.vue': endent`
       <template>
         <img src="/api/foo.png" />
@@ -276,7 +294,7 @@ test('do not import image urls in production', async () => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
   const nuxt = base.run('start');
@@ -288,9 +306,13 @@ test('do not import image urls in production', async () => {
   }
 });
 
-test('do not transpile other language than js in vue', async ({ page }) => {
+test('do not transpile other language than js in vue', async ({
+  page,
+}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    'pages/index.vue',
+    pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
       <template>
         <div class="foo">{{ foo }}</div>
@@ -302,7 +324,7 @@ test('do not transpile other language than js in vue', async ({ page }) => {
     `,
   );
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -317,8 +339,10 @@ test('do not transpile other language than js in vue', async ({ page }) => {
   }
 });
 
-test('dotenv: config', async ({ page }) => {
-  await outputFiles({
+test('dotenv: config', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     '.env.json': JSON.stringify({ foo: 'Foo' }),
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'Bar' }),
@@ -334,7 +358,7 @@ test('dotenv: config', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -347,8 +371,10 @@ test('dotenv: config', async ({ page }) => {
   }
 });
 
-test('dotenv: module', async () => {
-  await outputFiles({
+test('dotenv: module', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'bar' }),
     'modules/foo.js': endent`
@@ -364,13 +390,15 @@ test('dotenv: module', async () => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 });
 
-test('global components', async ({ page }) => {
-  await outputFiles({
+test('global components', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'components/foo.vue': endent`
       <template>
         <div class="foo">Hello world</div>
@@ -383,7 +411,7 @@ test('global components', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -398,19 +426,23 @@ test('global components', async ({ page }) => {
   }
 });
 
-test('head in module', async () => {
+test('head in module', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    'modules/mod.js',
+    pathLib.join(cwd, 'modules', 'mod.js'),
     "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
   );
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 });
 
-test('head link', async ({ page }) => {
-  await outputFiles({
+test('head link', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         app: {
@@ -429,7 +461,7 @@ test('head link', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -450,8 +482,10 @@ test('head link', async ({ page }) => {
   }
 });
 
-test('hexrgba', async ({ page }) => {
-  await outputFiles({
+test('hexrgba', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'assets/style.css': endent`
       body {
         background: rgba(#fff, .5);
@@ -469,7 +503,7 @@ test('hexrgba', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -486,8 +520,10 @@ test('hexrgba', async ({ page }) => {
   }
 });
 
-test('htmlAttrs', async ({ page }) => {
-  await outputFiles({
+test('htmlAttrs', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         app: {
@@ -506,7 +542,7 @@ test('htmlAttrs', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -519,8 +555,10 @@ test('htmlAttrs', async ({ page }) => {
   }
 });
 
-test('i18n: browser language changed', async () => {
-  await outputFiles({
+test('i18n: browser language changed', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
     'pages/index.vue': endent`
       <template>
@@ -529,7 +567,7 @@ test('i18n: browser language changed', async () => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -554,8 +592,10 @@ test('i18n: browser language changed', async () => {
   }
 });
 
-test('i18n: change page, meta up-to-date', async ({ page }) => {
-  await outputFiles({
+test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
     i18n: { 'en.json': JSON.stringify({ foo: 'Hello world' }) },
@@ -573,7 +613,7 @@ test('i18n: change page, meta up-to-date', async ({ page }) => {
     },
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -595,8 +635,10 @@ test('i18n: change page, meta up-to-date', async ({ page }) => {
   }
 });
 
-test('i18n: middleware', async ({ page }) => {
-  await outputFiles({
+test('i18n: middleware', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         router: {
@@ -616,7 +658,7 @@ test('i18n: middleware', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -631,8 +673,10 @@ test('i18n: middleware', async ({ page }) => {
   }
 });
 
-test('i18n: root with prefix', async ({ page }) => {
-  await outputFiles({
+test('i18n: root with prefix', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
     'pages/index.vue': endent`
       <template>
@@ -641,7 +685,7 @@ test('i18n: root with prefix', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -654,8 +698,10 @@ test('i18n: root with prefix', async ({ page }) => {
   }
 });
 
-test('i18n: root without prefix', async ({ page }) => {
-  await outputFiles({
+test('i18n: root without prefix', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
     'pages/index.vue': endent`
       <template>
@@ -664,7 +710,7 @@ test('i18n: root without prefix', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -685,8 +731,10 @@ test('i18n: root without prefix', async ({ page }) => {
   }
 });
 
-test('i18n: route with prefix', async () => {
-  await outputFiles({
+test('i18n: route with prefix', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
     'pages/foo.vue': endent`
       <template>
@@ -695,7 +743,7 @@ test('i18n: route with prefix', async () => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, cwd);
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -714,8 +762,10 @@ test('i18n: route with prefix', async () => {
   }
 });
 
-test('i18n: route without prefix', async () => {
-  await outputFiles({
+test('i18n: route without prefix', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
     'pages/foo.vue': endent`
       <template>
@@ -724,7 +774,7 @@ test('i18n: route without prefix', async () => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -743,7 +793,9 @@ test('i18n: route without prefix', async () => {
   }
 });
 
-test('i18n: single locale', async ({ page }) => {
+test('i18n: single locale', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await outputFiles({
     'i18n/de.json': JSON.stringify({ foo: 'bar' }),
     pages: {
@@ -760,7 +812,7 @@ test('i18n: single locale', async ({ page }) => {
     },
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -781,8 +833,10 @@ test('i18n: single locale', async ({ page }) => {
   }
 });
 
-test('i18n: works', async ({ page }) => {
-  await outputFiles({
+test('i18n: works', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
     'config.js': endent`
@@ -806,7 +860,7 @@ test('i18n: works', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -847,8 +901,10 @@ test('i18n: works', async ({ page }) => {
   }
 });
 
-test('locale link', async ({ page }) => {
-  await outputFiles({
+test('locale link', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
     pages: {
       'foo.vue': endent`
@@ -866,7 +922,7 @@ test('locale link', async ({ page }) => {
     },
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -879,8 +935,10 @@ test('locale link', async ({ page }) => {
   }
 });
 
-test('name', async ({ page }) => {
-  await outputFiles({
+test('name', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         name: 'Test-App',
@@ -893,7 +951,7 @@ test('name', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -906,8 +964,10 @@ test('name', async ({ page }) => {
   }
 });
 
-test('name and title', async ({ page }) => {
-  await outputFiles({
+test('name and title', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         name: 'Test-App',
@@ -921,7 +981,7 @@ test('name and title', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -937,8 +997,10 @@ test('name and title', async ({ page }) => {
   }
 });
 
-test('ogImage', async ({ page }) => {
-  await outputFiles({
+test('ogImage', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         ogImage: 'https://example.com/og-image',
@@ -951,7 +1013,7 @@ test('ogImage', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -969,8 +1031,10 @@ test('ogImage', async ({ page }) => {
   }
 });
 
-test('page with title', async ({ page }) => {
-  await outputFiles({
+test('page with title', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         name: 'Test-App',
@@ -988,7 +1052,7 @@ test('page with title', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1001,8 +1065,10 @@ test('page with title', async ({ page }) => {
   }
 });
 
-test('port', async ({ page }) => {
-  await outputFiles({
+test('port', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ port: { type: 'integer' } }),
     '.test.env.json': JSON.stringify({ port: 3005 }),
     'pages/index.vue': endent`
@@ -1012,7 +1078,7 @@ test('port', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config);
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1025,8 +1091,10 @@ test('port', async ({ page }) => {
   }
 });
 
-test('request body', async ({ page }) => {
-  await outputFiles({
+test('request body', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'package.json': JSON.stringify({
       dependencies: { '@dword-design/functions': '*', h3: '*' },
       type: 'module',
@@ -1049,7 +1117,7 @@ test('request body', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1063,7 +1131,9 @@ test('request body', async ({ page }) => {
   }
 });
 
-test('router config', async ({ page }) => {
+test('router config', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await outputFiles({
     'config.js': endent`
       export default {
@@ -1084,7 +1154,7 @@ test('router config', async ({ page }) => {
     },
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1097,9 +1167,11 @@ test('router config', async ({ page }) => {
   }
 });
 
-test('scoped style in production', async ({ page }) => {
+test('scoped style in production', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    'pages/index.vue',
+    pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
       <template>
         <div class="foo" />
@@ -1113,7 +1185,7 @@ test('scoped style in production', async ({ page }) => {
     `,
   );
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
   const childProcess = base.run('start');
@@ -1132,8 +1204,10 @@ test('scoped style in production', async ({ page }) => {
   }
 });
 
-test('sitemap', async () => {
-  await outputFiles({
+test('sitemap', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         modules: [
@@ -1150,7 +1224,7 @@ test('sitemap', async () => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1173,8 +1247,10 @@ test('sitemap', async () => {
   }
 });
 
-test('svg inline', async ({ page }) => {
-  await outputFiles({
+test('svg inline', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'assets/icon.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
     'pages/index.vue': endent`
       <template>
@@ -1193,7 +1269,7 @@ test('svg inline', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1208,8 +1284,10 @@ test('svg inline', async ({ page }) => {
   }
 });
 
-test('svg url', async ({ page }) => {
-  await outputFiles({
+test('svg url', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'assets/image.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
     'pages/index.vue': endent`
       <template>
@@ -1228,7 +1306,7 @@ test('svg url', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1248,8 +1326,10 @@ test('svg url', async ({ page }) => {
   }
 });
 
-test('userScalable', async ({ page }) => {
-  await outputFiles({
+test('userScalable', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'config.js': endent`
       export default {
         userScalable: false,
@@ -1262,7 +1342,7 @@ test('userScalable', async ({ page }) => {
     `,
   });
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 
@@ -1280,9 +1360,11 @@ test('userScalable', async ({ page }) => {
   }
 });
 
-test('valid', async ({ page }) => {
+test('valid', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    'pages/index.vue',
+    pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
       <template>
         <div class="foo">Hello world</div>
@@ -1290,7 +1372,7 @@ test('valid', async ({ page }) => {
     `,
   );
 
-  const base = new Base({ name: '../src/index.js' });
+  const base = new Base(config, { cwd });
   await base.prepare();
   const childProcess = base.run('dev');
 

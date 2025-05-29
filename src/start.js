@@ -6,9 +6,15 @@ const resolver = createRequire(import.meta.url);
 const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
 
 export default (options = {}) => {
-  options = { log: process.env.NODE_ENV !== 'test', ...options };
+  options = {
+    log: process.env.NODE_ENV !== 'test',
+    stderr: 'inherit',
+    ...options,
+  };
+
   return execa(nuxtWrapper, ['start'], {
-    reject: false,
-    ...(options.log && { stdio: 'inherit' }),
+    ...(options.log && { stdout: 'inherit' }),
+    cwd: this.cwd,
+    stderr: options.stderr,
   });
 };

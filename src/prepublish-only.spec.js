@@ -1,17 +1,18 @@
-import P from 'node:path';
+import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
-import { test } from 'playwright-local-tmp-dir';
 
 import config from './index.js';
 
-test('cli', async () => {
-  await outputFiles({
+test('cli', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     model: {
       'cli.js': endent`
         #!/usr/bin/env node
@@ -24,15 +25,17 @@ test('cli', async () => {
     },
   });
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
-  await fs.chmod(P.join('dist', 'cli.js'), '755');
-  const output = await execaCommand('./dist/cli.js', { all: true });
-  expect(output.all).toMatch(/^foo$/m);
+  await fs.chmod(pathLib.join(cwd, 'dist', 'cli.js'), '755');
+  const { stdout } = await execaCommand('./dist/cli.js', { cwd });
+  expect(stdout).toMatch(/^foo$/m);
 });
 
-test('fixable linting error', async () => {
+test('fixable linting error', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
     'pages/index.vue',
     endent`
@@ -46,11 +49,11 @@ test('fixable linting error', async () => {
     `,
   );
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 
-  expect(await fs.readFile(P.join('pages', 'index.vue'), 'utf8'))
+  expect(await fs.readFile(pathLib.join(cwd, 'pages', 'index.vue'), 'utf8'))
     .toEqual(endent`
       <template>
         <div />
@@ -63,9 +66,11 @@ test('fixable linting error', async () => {
     `);
 });
 
-test('linting error in cli', async () => {
+test('linting error in cli', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    'model/cli.js',
+    pathLib.join(cwd, 'model', 'cli.js'),
     endent`
       #!/usr/bin/env node
 
@@ -73,15 +78,10 @@ test('linting error in cli', async () => {
     `,
   );
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
-  let output;
 
-  try {
-    await base.run('prepublishOnly');
-  } catch (error) {
-    output = error.message;
-  }
-
-  expect(output).toMatch("'foo' is assigned a value but never used");
+  await expect(base.run('prepublishOnly')).rejects.toThrow(
+    "'foo' is assigned a value but never used",
+  );
 });

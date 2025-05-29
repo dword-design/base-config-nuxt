@@ -1,10 +1,9 @@
 import { endent } from '@dword-design/functions';
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import depcheck from 'depcheck';
 import outputFiles from 'output-files';
-import { test } from 'playwright-local-tmp-dir';
 
-import self from './depcheck-special.js';
+import self from './get-depcheck-special.js';
 
 const tests = {
   'array syntax': {
@@ -115,12 +114,13 @@ const tests = {
 for (const [name, _testConfig] of Object.entries(tests)) {
   const testConfig = { dependency: 'foo', fail: false, ..._testConfig };
 
-  test(name, async () => {
-    await outputFiles(testConfig.files);
+  test(name, async ({}, testInfo) => {
+    const cwd = testInfo.outputPath('');
+    await outputFiles(cwd, testConfig.files);
 
-    const result = await depcheck('.', {
+    const result = await depcheck(cwd, {
       package: { dependencies: { [testConfig.dependency]: '^1.0.0' } },
-      specials: [self],
+      specials: [self({ cwd })],
     });
 
     expect(result.dependencies.length > 0).toEqual(testConfig.fail);

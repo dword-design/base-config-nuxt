@@ -1,8 +1,7 @@
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import outputFiles from 'output-files';
-import { test } from 'playwright-local-tmp-dir';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 
@@ -25,9 +24,10 @@ const tests = {
 };
 
 for (const [name, testConfig] of Object.entries(tests)) {
-  test(name, async ({ page }) => {
-    await outputFiles(testConfig.files);
-    const base = new Base(config);
+  test(name, async ({ page }, testInfo) => {
+    const cwd = testInfo.outputPath('');
+    await outputFiles(cwd, testConfig.files);
+    const base = new Base(config, { cwd });
     await base.prepare();
     await base.run('prepublishOnly');
     const nuxt = base.run('start');

@@ -5,10 +5,16 @@ import { execa } from 'execa';
 const resolver = createRequire(import.meta.url);
 const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
 
-export default (options = {}) => {
-  options = { log: process.env.NODE_ENV !== 'test', ...options };
+export default function (options = {}) {
+  options = {
+    log: process.env.NODE_ENV !== 'test',
+    stderr: 'inherit',
+    ...options,
+  };
+
   return execa(nuxtWrapper, ['dev'], {
-    [options.log ? 'stdio' : 'stderr']: 'inherit',
-    reject: false,
+    ...(options.log && { stdout: 'inherit' }),
+    cwd: this.cwd,
+    stderr: options.stderr,
   });
-};
+}

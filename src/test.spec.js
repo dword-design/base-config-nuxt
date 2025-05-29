@@ -1,14 +1,15 @@
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
-import { test } from 'playwright-local-tmp-dir';
 
 import config from './index.js';
 
-test('aliases', async () => {
-  await outputFiles({
+test('aliases', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
     'model/foo.js': "export default 'bar'",
     'pages/index.vue': endent`
       <template>
@@ -27,7 +28,7 @@ test('aliases', async () => {
     `,
   });
 
-  const base = new Base(config);
+  const base = new Base(config, { cwd });
   await base.prepare();
   await base.test();
 });
