@@ -58,10 +58,10 @@
     "expect": "^29.7.0",
     "get-port": "^7.1.0",
     "nuxt-dev-ready": "^3.0.0",
+    "p-wait-for": "^5.0.2",
     "playwright": "^1.52.0",
     "playwright-chromium": "^1.52.0",
     "port-ready": "^0.1.0",
-    "tree-kill-promise": "^3.0.14",
     "xml-formatter": "^3.6.6"
   },
   "peerDependencies": {
