@@ -16,5 +16,6 @@ export default function (options = {}) {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
     stderr: options.stderr,
+    reject: process.env.NODE_ENV === 'test',
   });
 }

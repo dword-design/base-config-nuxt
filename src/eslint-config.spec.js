@@ -3,6 +3,7 @@ import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import { execaCommand } from 'execa';
 import outputFiles from 'output-files';
+
 import config from './index.js';
 
 const tests = {
@@ -12,8 +13,7 @@ const tests = {
       'pages/index.vue': endent`
         <script setup>
         definePageMeta({ foo: 'bar' });
-        </script>
-
+        </script>\n
       `,
     },
   },
@@ -24,8 +24,7 @@ const tests = {
       'foo/pages/index.vue': endent`
         <script setup>
         definePageMeta({ foo: 'bar' });
-        </script>
-
+        </script>\n
       `,
     },
   },
@@ -33,10 +32,7 @@ const tests = {
     error: "error  'definePageMeta' is not defined  no-undef",
     filename: 'plugins/foo.js',
     files: {
-      'plugins/foo.js': endent`
-        definePageMeta({ foo: 'bar' });
-
-      `,
+      'plugins/foo.js': "definePageMeta({ foo: 'bar' });\n",
     },
   },
   'file extension: alias: existing': {
@@ -65,8 +61,7 @@ const tests = {
 
         <script setup>
         import '@/assets/hero.svg?url';
-        </script>
-
+        </script>\n
       `,
     },
   },
@@ -78,14 +73,9 @@ for (const [name, _testConfig] of Object.entries(tests)) {
   test(name, async ({}, testInfo) => {
     const cwd = testInfo.outputPath('');
     await outputFiles(cwd, testConfig.files);
-
-    const base = new Base(
-      { ...config, ...testConfig.config },
-      { cwd },
-    );
-
+    const base = new Base({ ...config, ...testConfig.config }, { cwd });
     await base.prepare();
-    await execaCommand('nuxi prepare');
+    await execaCommand('nuxi prepare', { cwd });
 
     await (testConfig.error
       ? expect(
