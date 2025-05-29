@@ -194,8 +194,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
     'pages/index.vue': endent`
       <template>
         <div>Hello world</div>
-      </template>
-
+      </template>\n
     `,
   });
 
@@ -250,9 +249,9 @@ test('css', async ({ page }, testInfo) => {
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
 
-    expect(foo.evaluate(el => getComputedStyle(el).backgroundColor)).toEqual(
-      'rgb(255, 0, 0)',
-    );
+    expect(
+      await foo.evaluate(el => getComputedStyle(el).backgroundColor),
+    ).toEqual('rgb(255, 0, 0)');
   } finally {
     await kill(nuxt.pid);
   }

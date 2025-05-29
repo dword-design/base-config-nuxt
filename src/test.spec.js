@@ -1,3 +1,5 @@
+import pathLib from 'node:path';
+
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
@@ -35,6 +37,7 @@ test('aliases', async ({}, testInfo) => {
 
 test('dependency inside vue file', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
+
   await outputFiles(cwd, {
     'node_modules/foo/index.js': '',
     'package.json': JSON.stringify({ dependencies: { foo: '^1.0.0' } }),
@@ -63,6 +66,7 @@ test('dependency inside vue file', async ({}, testInfo) => {
 
 test('external modules', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
+
   await outputFiles(cwd, {
     'config.js': endent`
       export default {
@@ -81,6 +85,8 @@ test('external modules', async ({}, testInfo) => {
 });
 
 test('linting error in js file', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
   await outputFiles(cwd, {
     'model/foo.js': 'const foo = 1',
     'pages/index.vue': endent`
@@ -106,6 +112,7 @@ test('linting error in js file', async ({}, testInfo) => {
 
 test('linting error in vue file', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
@@ -125,8 +132,9 @@ test('linting error in vue file', async ({}, testInfo) => {
 
 test('valid', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
+
   await fs.outputFile(
-    pathLib.join('pages', 'index.vue'),
+    pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
       <template>
         <div>Hello world</div>

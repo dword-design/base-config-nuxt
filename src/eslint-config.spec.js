@@ -71,7 +71,7 @@ for (const [name, _testConfig] of Object.entries(tests)) {
   test(name, async ({}, testInfo) => {
     const cwd = testInfo.outputPath('');
     await outputFiles(cwd, testConfig.files);
-    const base = new Base({ ...config, ...testConfig.config }, { cwd });
+    const base = new Base(config, { cwd });
     await base.prepare();
     await execaCommand('nuxi prepare', { cwd });
 
