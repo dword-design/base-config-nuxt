@@ -849,10 +849,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
     const link = page.locator('.foo');
     await expect(link).toBeAttached();
     expect(await link.evaluate(el => el.textContent)).toEqual('bar');
-
-    expect(await link.evaluate(el => el.href)).toEqual(
-      `http://localhost:${port}/bar`,
-    );
+    await expect(link).toHaveAttribute('href', '/bar');
   } finally {
     await kill(nuxt.pid);
   }
