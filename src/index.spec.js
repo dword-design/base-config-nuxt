@@ -11,6 +11,7 @@ import outputFiles from 'output-files';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
+
 import config from './index.js';
 
 test('aliases', async ({ page }, testInfo) => {
