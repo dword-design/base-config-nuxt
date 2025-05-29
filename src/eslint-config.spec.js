@@ -31,9 +31,7 @@ const tests = {
   'definePageMeta outside page': {
     error: "error  'definePageMeta' is not defined  no-undef",
     filename: 'plugins/foo.js',
-    files: {
-      'plugins/foo.js': "definePageMeta({ foo: 'bar' });\n",
-    },
+    files: { 'plugins/foo.js': "definePageMeta({ foo: 'bar' });\n" },
   },
   'file extension: alias: existing': {
     filename: 'server/api/foo.js',

@@ -1,6 +1,7 @@
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
+import getPort from 'get-port';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
@@ -29,10 +30,11 @@ for (const [name, testConfig] of Object.entries(tests)) {
     await outputFiles(cwd, testConfig.files);
     const base = new Base(config, { cwd });
     await base.prepare();
+    const port = await getPort();
     await base.run('prepublishOnly');
-    const nuxt = base.run('start');
-    await portReady(3000);
-    await page.goto('http://localhost:3000');
+    const nuxt = base.run('start', { env: { PORT: port } });
+    await portReady(port);
+    await page.goto(`http://localhost:${port}`);
     await testConfig.test({ page });
     await kill(nuxt.pid);
   });

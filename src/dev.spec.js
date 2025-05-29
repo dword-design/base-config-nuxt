@@ -4,6 +4,7 @@ import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import fs from 'fs-extra';
+import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import kill from 'tree-kill-promise';

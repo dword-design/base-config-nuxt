@@ -6,6 +6,7 @@ import { expect, test } from '@playwright/test';
 import axios from 'axios';
 import packageName from 'depcheck-package-name';
 import fs from 'fs-extra';
+import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
@@ -69,7 +70,9 @@ test('api', async ({}, testInfo) => {
     await nuxtDevReady(port);
 
     const result =
-      axios.get(`http://localhost:${port}/api/foo`) |> await |> property('data');
+      axios.get(`http://localhost:${port}/api/foo`)
+      |> await
+      |> property('data');
 
     expect(result).toEqual({ foo: 'bar' });
   } finally {
@@ -198,11 +201,12 @@ test('bodyAttrs', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
 
     expect(
       await page.evaluate(() => document.body.classList.contains('foo')),
@@ -237,11 +241,12 @@ test('css', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
 
@@ -272,11 +277,12 @@ test('css modules', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
 
@@ -301,11 +307,12 @@ test('do not import image urls in production', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
+  const port = await getPort();
   await base.run('prepublishOnly');
-  const nuxt = base.run('start');
+  const nuxt = base.run('start', { env: { PORT: port } });
 
   try {
-    await portReady(3000);
+    await portReady(port);
   } finally {
     await kill(nuxt.pid);
   }
@@ -331,11 +338,12 @@ test('do not transpile other language than js in vue', async ({
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(el => el.textContent)).toEqual('2');
@@ -365,11 +373,12 @@ test('dotenv: config', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     expect(await page.evaluate(() => document.title)).toEqual('Bar');
   } finally {
     await kill(nuxt.pid);
@@ -418,11 +427,12 @@ test('global components', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
@@ -468,11 +478,12 @@ test('head link', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const link = page.locator('link[rel=alternate]');
     await expect(link).toBeAttached();
 
@@ -510,11 +521,12 @@ test('hexrgba', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
 
     await page.waitForFunction(
       () =>
@@ -549,11 +561,12 @@ test('htmlAttrs', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     await expect(page.locator('html.foo')).toBeAttached();
   } finally {
     await kill(nuxt.pid);
@@ -574,24 +587,25 @@ test('i18n: browser language changed', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
 
     expect(
-      axios.get('http://localhost:3000')
+      axios.get(`http://localhost:${port}`)
         |> await
         |> property('request.res.responseUrl'),
-    ).toEqual('http://localhost:3000/en');
+    ).toEqual(`http://localhost:${port}/en`);
 
     expect(
-      axios.get('http://localhost:3000', {
+      axios.get(`http://localhost:${port}`, {
         headers: { 'Accept-Language': 'de' },
       })
         |> await
         |> property('request.res.responseUrl'),
-    ).toEqual('http://localhost:3000/de');
+    ).toEqual(`http://localhost:${port}/de`);
   } finally {
     await kill(nuxt.pid);
   }
@@ -602,7 +616,7 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
-    '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
+    '.test.env.json': JSON.stringify({ baseUrl: `http://localhost:${port}` }),
     i18n: { 'en.json': JSON.stringify({ foo: 'Hello world' }) },
     pages: {
       'foo.vue': endent`
@@ -620,20 +634,21 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
 
     await expect(
-      page.locator('link[rel=canonical][href="http://localhost:3000"]'),
+      page.locator(`link[rel=canonical][href="http://localhost:${port}"]`),
     ).toBeAttached();
 
-    await page.goto('http://localhost:3000/foo');
+    await page.goto(`http://localhost:${port}/foo`);
 
     await expect(
-      page.locator('link[rel=canonical][href="http://localhost:3000/foo"]'),
+      page.locator(`link[rel=canonical][href="http://localhost:${port}/foo"]`),
     ).toBeAttached();
   } finally {
     await kill(nuxt.pid);
@@ -665,11 +680,12 @@ test('i18n: middleware', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
@@ -692,12 +708,13 @@ test('i18n: root with prefix', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000/de');
-    expect(page.url()).toEqual('http://localhost:3000/de');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}/de`);
+    expect(page.url()).toEqual(`http://localhost:${port}/de`);
   } finally {
     await kill(nuxt.pid);
   }
@@ -717,18 +734,19 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
 
     expect(
-      axios.get('http://localhost:3000', {
+      axios.get(`http://localhost:${port}`, {
         headers: { 'Accept-Language': 'de' },
       })
         |> await
         |> property('request.res.responseUrl'),
-    ).toEqual('http://localhost:3000/de');
+    ).toEqual(`http://localhost:${port}/de`);
 
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'de' });
   } finally {
@@ -750,18 +768,19 @@ test('i18n: route with prefix', async ({}, testInfo) => {
 
   const base = new Base(config, cwd);
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
 
     expect(
-      axios.get('http://localhost:3000/de/foo', {
+      axios.get(`http://localhost:${port}/de/foo`, {
         headers: { 'Accept-Language': 'de' },
       })
         |> await
         |> property('request.res.responseUrl'),
-    ).toEqual('http://localhost:3000/de/foo');
+    ).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
     await kill(nuxt.pid);
   }
@@ -781,18 +800,19 @@ test('i18n: route without prefix', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
 
     expect(
-      axios.get('http://localhost:3000/foo', {
+      axios.get(`http://localhost:${port}/foo`, {
         headers: { 'Accept-Language': 'de' },
       })
         |> await
         |> property('request.res.responseUrl'),
-    ).toEqual('http://localhost:3000/de/foo');
+    ).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
     await kill(nuxt.pid);
   }
@@ -819,19 +839,20 @@ test('i18n: single locale', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
     await nuxtDevReady();
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'en' });
-    await page.goto('http://localhost:3000');
-    expect(page.url()).toEqual('http://localhost:3000/');
+    await page.goto(`http://localhost:${port}`);
+    expect(page.url()).toEqual(`http://localhost:${port}/`);
     const link = page.locator('.foo');
     await expect(link).toBeAttached();
     expect(await link.evaluate(el => el.textContent)).toEqual('bar');
 
     expect(await link.evaluate(el => el.href)).toEqual(
-      'http://localhost:3000/bar',
+      `http://localhost:${port}/bar`,
     );
   } finally {
     await kill(nuxt.pid);
@@ -843,7 +864,7 @@ test('i18n: works', async ({ page }, testInfo) => {
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
-    '.test.env.json': JSON.stringify({ baseUrl: 'http://localhost:3000' }),
+    '.test.env.json': JSON.stringify({ baseUrl: `http://localhost:${port}` }),
     'config.js': endent`
       export default {
         app: {
@@ -867,12 +888,13 @@ test('i18n: works', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
-    expect(page.url()).toEqual('http://localhost:3000/en');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
+    expect(page.url()).toEqual(`http://localhost:${port}/en`);
     const foo = page.locator('.foo');
     const html = page.locator('html[lang=en]');
 
@@ -880,16 +902,16 @@ test('i18n: works', async ({ page }, testInfo) => {
       expect(foo).toBeAttached(),
       expect(html).toBeAttached(),
       expect(
-        page.locator('link[rel=canonical][href="http://localhost:3000/en"]'),
+        page.locator(`link[rel=canonical][href="http://localhost:${port}/en"]`),
       ).toBeAttached(),
       expect(
         page.locator(
-          'link[rel=alternate][href="http://localhost:3000/de"][hreflang=de]',
+          `link[rel=alternate][href="http://localhost:${port}/de"][hreflang=de]`,
         ),
       ).toBeAttached(),
       expect(
         page.locator(
-          'link[rel=alternate][href="http://localhost:3000/en"][hreflang=en]',
+          `link[rel=alternate][href="http://localhost:${port}/en"][hreflang=en]`,
         ),
       ).toBeAttached(),
       expect(
@@ -929,11 +951,12 @@ test('locale link', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     await expect(page.locator('a')).toHaveAttribute('href', '/en/foo');
   } finally {
     await kill(nuxt.pid);
@@ -958,11 +981,12 @@ test('name', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     await page.waitForFunction(() => document.title === 'Test-App');
   } finally {
     await kill(nuxt.pid);
@@ -988,11 +1012,12 @@ test('name and title', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
 
     await page.waitForFunction(
       () => document.title === 'Test-App: This is the ultimate app!',
@@ -1020,11 +1045,12 @@ test('ogImage', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const meta = page.locator(String.raw`meta[name=og\:image]`);
     await expect(meta).toBeAttached();
 
@@ -1059,11 +1085,12 @@ test('page with title', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000/foo');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}/foo`);
     await page.waitForFunction(() => document.title === 'Foo page | Test-App');
   } finally {
     await kill(nuxt.pid);
@@ -1072,10 +1099,11 @@ test('page with title', async ({ page }, testInfo) => {
 
 test('port', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath('');
+  const port = await getPort();
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ port: { type: 'integer' } }),
-    '.test.env.json': JSON.stringify({ port: 3005 }),
+    '.test.env.json': JSON.stringify({ port }),
     'pages/index.vue': endent`
       <template>
         <div class="foo" />
@@ -1088,8 +1116,8 @@ test('port', async ({ page }, testInfo) => {
   const nuxt = base.run('dev');
 
   try {
-    await nuxtDevReady(3005);
-    await page.goto('http://localhost:3005');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toBeAttached();
   } finally {
     await kill(nuxt.pid);
@@ -1124,11 +1152,12 @@ test('request body', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     await page.locator('button').click();
     await expect(page.locator('form')).toContainClass('sent');
   } finally {
@@ -1161,11 +1190,12 @@ test('router config', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo.is-active')).toBeAttached();
   } finally {
     await kill(nuxt.pid);
@@ -1192,12 +1222,13 @@ test('scoped style in production', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
+  const port = await getPort();
   await base.run('prepublishOnly');
-  const nuxt = base.run('start');
+  const nuxt = base.run('start', { env: { PORT: port } });
 
   try {
-    await portReady(3000);
-    await page.goto('http://localhost:3000');
+    await portReady(port);
+    await page.goto(`http://localhost:${port}`);
 
     expect(
       await page
@@ -1231,13 +1262,14 @@ test('sitemap', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
+    await nuxtDevReady(port);
 
     const { data: sitemap } = await axios.get(
-      'http://localhost:3000/sitemap.xml?canonical',
+      `http://localhost:${port}/sitemap.xml?canonical`,
     );
 
     expect(
@@ -1276,11 +1308,12 @@ test('svg inline', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const icon = page.locator('.icon');
     await expect(icon).toBeAttached();
     expect(await icon.evaluate(el => el.tagName)).toEqual('svg');
@@ -1313,11 +1346,12 @@ test('svg url', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const image = page.locator('.image');
     await expect(image).toBeAttached();
     expect(await image.evaluate(el => el.tagName)).toEqual('IMG');
@@ -1349,11 +1383,12 @@ test('userScalable', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
 
     await expect(
       page.locator(String.raw`meta[name=viewport][content$=user-scalable\=0]`, {
@@ -1379,11 +1414,12 @@ test('valid', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
-    await nuxtDevReady();
-    await page.goto('http://localhost:3000');
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
     await expect(foo).toBeAttached();
     expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');

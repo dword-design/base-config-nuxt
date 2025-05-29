@@ -7,8 +7,9 @@ import fs from 'fs-extra';
 const resolver = createRequire(import.meta.url);
 const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
 
-export default async function (options = {}) {
+export default async function (options) {
   options = {
+    env: {},
     log: process.env.NODE_ENV !== 'test',
     stderr: 'inherit',
     ...options,
@@ -21,6 +22,7 @@ export default async function (options = {}) {
       ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
       : {}),
     cwd: this.cwd,
+    env: options.env,
   });
 
   if (await fs.exists(pathLib.join(this.cwd, 'model'))) {
@@ -40,6 +42,7 @@ export default async function (options = {}) {
       {
         ...(options.log && { stdout: 'inherit' }),
         cwd: this.cwd,
+        env: options.env,
         stderr: options.stderr,
       },
     );

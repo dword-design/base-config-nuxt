@@ -5,8 +5,9 @@ import { execa } from 'execa';
 const resolver = createRequire(import.meta.url);
 const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
 
-export default function (options = {}) {
+export default function (options) {
   options = {
+    env: {},
     log: process.env.NODE_ENV !== 'test',
     stderr: 'inherit',
     ...options,
@@ -15,7 +16,8 @@ export default function (options = {}) {
   return execa(nuxtWrapper, ['dev'], {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
-    stderr: options.stderr,
+    env: options.env,
     reject: process.env.NODE_ENV === 'test',
+    stderr: options.stderr,
   });
 }
