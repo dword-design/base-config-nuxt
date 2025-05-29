@@ -1115,7 +1115,7 @@ test('port', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const nuxt = base.run('dev', { env: { PORT: port } });
+  const nuxt = base.run('dev');
 
   try {
     await nuxtDevReady(port);
