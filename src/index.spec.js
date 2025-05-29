@@ -405,7 +405,7 @@ test('dotenv: module', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  await base.run('prepublishOnly');
+  await base.run('prepublishOnly', { log: true });
 });
 
 test('global components', async ({ page }, testInfo) => {
