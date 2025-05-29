@@ -37,7 +37,7 @@ test('fixable linting error', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 
   await fs.outputFile(
-    'pages/index.vue',
+    pathLib.join(cwd, 'pages', 'index.vue'),
     endent`
       <template>
         <div />
