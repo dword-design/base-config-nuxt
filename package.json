@@ -54,16 +54,12 @@
   },
   "devDependencies": {
     "@dword-design/base": "^12.0.18",
-    "@nuxtjs/sitemap": "^7.3.0",
-    "axios": "^1.9.0",
     "depcheck": "^1.4.7",
     "expect": "^29.7.0",
     "get-port": "^7.1.0",
-    "nuxt-dev-ready": "^3.0.0",
     "playwright": "^1.52.0",
     "playwright-chromium": "^1.52.0",
-    "port-ready": "^0.1.0",
-    "xml-formatter": "^3.6.6"
+    "port-ready": "^0.1.0"
   },
   "peerDependencies": {
     "h3": "*"
