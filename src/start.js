@@ -8,7 +8,7 @@ export default function (options) {
     ...options,
   };
 
-  return execaCommand('node .output/server/index.mjs', {
+  return execa(nuxtWrapper, ['start'], {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
     env: options.env,
