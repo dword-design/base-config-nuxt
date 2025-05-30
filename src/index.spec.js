@@ -406,13 +406,7 @@ test('dotenv: module', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-
-  try {
-    await base.run('prepublishOnly', { log: true });
-    console.log('dotenv: module done prepublishing');
-  } finally {
-    await execaCommand('nuxi cleanup', { stdio: 'inherit' });
-  }
+  await base.run('prepublishOnly');
 });
 
 test('global components', async ({ page }, testInfo) => {
