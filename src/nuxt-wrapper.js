@@ -7,6 +7,6 @@ dotenv.config();
 
 execa('nuxt', process.argv.slice(2), {
   reject:
-    process.argv[2] !== 'test' || !['dev', 'start'].includes(process.argv[2]),
+    process.env.NODE_ENV !== 'test' || !['dev', 'start'].includes(process.argv[2]),
   stdio: 'inherit',
 });
