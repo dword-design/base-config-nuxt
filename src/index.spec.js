@@ -408,6 +408,7 @@ test('dotenv: module', async ({}, testInfo) => {
   await base.prepare();
   try {
     await base.run('prepublishOnly', { log: true });
+    console.log('dotenv: module done prepublishing');
   } finally {
     await execaCommand('nuxi cleanup', { stdio: 'inherit' });
   }
