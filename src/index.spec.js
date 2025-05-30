@@ -5,7 +5,6 @@ import { endent, property } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import axios from 'axios';
 import packageName from 'depcheck-package-name';
-import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
