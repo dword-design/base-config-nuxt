@@ -10,7 +10,7 @@ console.log(expect.foo);
 console.log(isPortFree.foo);
 
 export default async nuxt => {
-  await kill(nuxt.pid, 'SIGINT');
+  await kill(nuxt.pid/*, 'SIGINT'*/);
   //await expect(() => isPortFree(port)).toPass();
   //await pWaitFor(() => isPortFree(port));
 };
