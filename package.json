@@ -34,7 +34,6 @@
     "@nuxt/eslint": "^1.4.1",
     "@nuxt/kit": "^3.17.4",
     "@nuxtjs/i18n": "^9.5.4",
-    "@nuxtjs/stylelint-module": "^5.2.1",
     "@playwright/test": "^1.52.0",
     "depcheck-package-name": "^3.0.1",
     "depcheck-parser-vue": "^5.0.0",
@@ -47,7 +46,6 @@
     "nuxt-basic-authentication-module": "^0.2.1",
     "output-files": "^2.0.32",
     "require-package-name": "^2.0.1",
-    "stylelint": "^16.19.1",
     "tree-kill-promise": "^3.0.14",
     "vite-plugin-eslint2": "^5.0.3",
     "vite-svg-loader": "^5.1.0"
