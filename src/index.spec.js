@@ -29,3 +29,24 @@ test('dotenv: module', async ({}, testInfo) => {
   await base.prepare();
   await base.run('prepublishOnly');
 });
+
+test('minimal', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
+    /*'modules/foo.js': endent`
+      import { expect } from '${packageName`expect`}'
+
+      export default () => console.log('foo');
+    `,*/
+    'pages/index.vue': endent`
+      <template>
+        <div>Hello world</div>
+      </template>
+    `,
+  });
+
+  const base = new Base(config, { cwd });
+  await base.prepare();
+  await base.run('prepublishOnly');
+});
