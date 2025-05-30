@@ -9,8 +9,10 @@ console.log(pWaitFor.foo);
 console.log(expect.foo);
 console.log(isPortFree.foo);
 
-export default async nuxt => {
-  await kill(nuxt.pid/*, 'SIGINT'*/);
+export default async (nuxt, port) => {
+  await kill(nuxt.pid /*, 'SIGINT'*/);
   //await expect(() => isPortFree(port)).toPass();
-  //await pWaitFor(() => isPortFree(port));
+  console.log('waiting for port release');
+  await pWaitFor(() => isPortFree(port));
+  console.log('port released');
 };
