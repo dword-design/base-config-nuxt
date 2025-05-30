@@ -34,11 +34,9 @@ test('minimal', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 
   await outputFiles(cwd, {
-    /*'modules/foo.js': endent`
-      import { expect } from '${packageName`expect`}'
-
-      export default () => console.log('foo');
-    `,*/
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    '.test.env.json': JSON.stringify({ foo: 'bar' }),
+    'modules/foo.js': `import { expect } from '${packageName`expect`}'`,
     'pages/index.vue': endent`
       <template>
         <div>Hello world</div>
