@@ -4,4 +4,8 @@ import dotenv from '@dword-design/dotenv-json-extended';
 import { execa } from 'execa';
 
 dotenv.config();
-execa('nuxt', process.argv.slice(2), { stdio: 'inherit', reject: process.argv[2] !== 'test' });
+
+execa('nuxt', process.argv.slice(2), {
+  reject: !['dev', 'start'].includes(process.argv[2]),
+  stdio: 'inherit',
+});

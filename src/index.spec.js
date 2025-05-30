@@ -5,13 +5,13 @@ import { endent, property } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import axios from 'axios';
 import packageName from 'depcheck-package-name';
+import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
 import xmlFormatter from 'xml-formatter';
-import { execaCommand } from 'execa';
 
 import config from './index.js';
 import killAndWait from './kill-and-wait.js';
@@ -406,6 +406,7 @@ test('dotenv: module', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
+
   try {
     await base.run('prepublishOnly', { log: true });
     console.log('dotenv: module done prepublishing');
