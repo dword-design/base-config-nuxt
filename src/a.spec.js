@@ -31,7 +31,8 @@ for (const [name, testConfig] of Object.entries(tests)) {
     const base = new Base(config, { cwd });
     await base.prepare();
     const port = await getPort();
-    await base.run('prepublishOnly', { env: { PORT: port } });
+    console.log('prepublishing');
+    await base.run('prepublishOnly', { env: { PORT: port }, log: true });
     console.log('starting');
     const nuxt = base.run('start', { env: { PORT: port }, log: true });
 
