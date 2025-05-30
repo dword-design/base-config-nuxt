@@ -71,9 +71,6 @@ importers:
       output-files:
         specifier: ^2.0.32
         version: 2.0.32
-      p-wait-for:
-        specifier: ^5.0.2
-        version: 5.0.2
       require-package-name:
         specifier: ^2.0.1
         version: 2.0.1
