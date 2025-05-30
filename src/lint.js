@@ -13,12 +13,14 @@ export default async function (options) {
     ...options,
   };
 
+  console.log('preparing')
   await execa(nuxtWrapper, ['prepare'], {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
     env: options.env,
     stderr: options.stderr,
   });
+  console.log('prepared')
 
   //await execaCommand(
   //  'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
