@@ -31,20 +31,15 @@ for (const [name, testConfig] of Object.entries(tests)) {
     const base = new Base(config, { cwd });
     await base.prepare();
     const port = await getPort();
-    await base.run('prepublishOnly', { env: { PORT: port } });
+    await base.run('prepublishOnly');
     const nuxt = base.run('start', { env: { PORT: port } });
 
     try {
-      console.log('waiting for port');
       await portReady(port);
-      console.log('ready');
       await page.goto(`http://localhost:${port}`);
       await testConfig.test({ page });
-      console.log('test done');
     } finally {
-      console.log('killing');
       await killAndWait(nuxt, port);
-      console.log('killed');
     }
   });
 }
