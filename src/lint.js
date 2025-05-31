@@ -1,9 +1,7 @@
-import dotenv from '@dword-design/dotenv-json-extended';
 import { execaCommand } from 'execa';
 
 export default async function (options) {
   options = {
-    env: {},
     log: process.env.NODE_ENV !== 'test',
     stderr: 'inherit',
     ...options,
@@ -12,7 +10,6 @@ export default async function (options) {
   await execaCommand('nuxi prepare', {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
-    env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
     stderr: options.stderr,
   });
 
