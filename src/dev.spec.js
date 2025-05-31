@@ -53,6 +53,7 @@ test('fixable linting error', async ({ page }, testInfo) => {
   }
 });
 
+// TODO: Implement that test and make it robust (detect when the HMR is ready)
 /*test('valid', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
