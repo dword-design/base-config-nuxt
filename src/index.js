@@ -56,6 +56,7 @@ export default function (config) {
       specials: [getDepcheckSpecial({ cwd: this.cwd })],
     },
     editorIgnore: [
+      '.eslintcache',
       '.stylelintcache',
       '.stylelintrc.json',
       '.nuxt',
@@ -65,6 +66,7 @@ export default function (config) {
     ],
     eslintConfig: getEslintConfig(pick(config, ['virtualImports'])),
     gitignore: [
+      './.eslintcache',
       '/.nuxt',
       '/.output',
       '/.stylelintcache',
