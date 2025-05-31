@@ -1,3 +1,10 @@
+## [6.2.6](https://github.com/dword-design/base-config-nuxt/compare/v6.2.5...v6.2.6) (2025-05-31)
+
+
+### Bug Fixes
+
+* playwright ([#288](https://github.com/dword-design/base-config-nuxt/issues/288)) ([2d71c7e](https://github.com/dword-design/base-config-nuxt/commit/2d71c7e7fa61b6211facad1188575ee394a2c5aa))
+
 ## [6.2.5](https://github.com/dword-design/base-config-nuxt/compare/v6.2.4...v6.2.5) (2025-05-28)
 
 
