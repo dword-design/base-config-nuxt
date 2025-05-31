@@ -474,6 +474,7 @@ test('head link', async ({ page }, testInfo) => {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
     const link = page.locator('link[rel=alternate]');
+
     await Promise.all([
       expect(link).toHaveAttribute('rel', 'alternate'),
       expect(link).toHaveAttribute('type', 'application/rss+xml'),
