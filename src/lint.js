@@ -21,7 +21,6 @@ export default async function (options) {
     {
       ...(options.log && { stdout: 'inherit' }),
       cwd: this.cwd,
-      env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
       stderr: options.stderr,
     },
   );
