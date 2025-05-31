@@ -10,10 +10,10 @@ import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
+import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
 
 import config from './index.js';
-import killAndWait from './kill-and-wait.js';
 
 test('aliases', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
@@ -48,7 +48,7 @@ test('aliases', async ({ page }, testInfo) => {
     const foo = page.locator('.foo');
     await expect(foo).toHaveText('Hello world');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -75,7 +75,7 @@ test('api', async ({}, testInfo) => {
 
     expect(result).toEqual({ foo: 'bar' });
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -119,7 +119,7 @@ test('async modules', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -169,7 +169,7 @@ test('basic auth', async ({}, testInfo) => {
       }),
     ]);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -205,7 +205,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('body')).toContainClass('foo');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -247,7 +247,7 @@ test('css', async ({ page }, testInfo) => {
       await foo.evaluate(el => getComputedStyle(el).backgroundColor),
     ).toEqual('rgb(255, 0, 0)');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -283,7 +283,7 @@ test('css modules', async ({ page }, testInfo) => {
       await foo.evaluate(el => getComputedStyle(el).backgroundColor),
     ).toEqual('rgb(255, 0, 0)');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -307,7 +307,7 @@ test('do not import image urls in production', async ({}, testInfo) => {
   try {
     await portReady(port);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -339,7 +339,7 @@ test('do not transpile other language than js in vue', async ({
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('2');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -372,7 +372,7 @@ test('dotenv: config', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page).toHaveTitle('Bar');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -426,7 +426,7 @@ test('global components', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -482,7 +482,7 @@ test('head link', async ({ page }, testInfo) => {
       expect(link).toHaveAttribute('href', '/feed'),
     ]);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -521,7 +521,7 @@ test('hexrgba', async ({ page }, testInfo) => {
         getComputedStyle(document.body).backgroundColor === 'rgba(0, 0, 0, 0)',
     );
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -557,7 +557,7 @@ test('htmlAttrs', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('html.foo')).toBeAttached();
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -595,7 +595,7 @@ test('i18n: browser language changed', async ({}, testInfo) => {
         |> property('request.res.responseUrl'),
     ).toEqual(`http://localhost:${port}/de`);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -639,7 +639,7 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
       page.locator(`link[rel=canonical][href="http://localhost:${port}/foo"]`),
     ).toBeAttached();
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -676,7 +676,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -702,7 +702,7 @@ test('i18n: root with prefix', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}/de`);
     expect(page.url()).toEqual(`http://localhost:${port}/de`);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -736,7 +736,7 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
 
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'de' });
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -768,7 +768,7 @@ test('i18n: route with prefix', async ({}, testInfo) => {
         |> property('request.res.responseUrl'),
     ).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -800,7 +800,7 @@ test('i18n: route without prefix', async ({}, testInfo) => {
         |> property('request.res.responseUrl'),
     ).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -840,7 +840,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
       expect(link).toHaveAttribute('href', '/bar'),
     ]);
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -913,7 +913,7 @@ test('i18n: works', async ({ page }, testInfo) => {
     await expect(foo).toHaveText('Hello world');
     await expect(html).toHaveAttribute('style', 'background:red');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -948,7 +948,7 @@ test('locale link', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('a')).toHaveAttribute('href', '/en/foo');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -978,7 +978,7 @@ test('name', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await page.waitForFunction(() => document.title === 'Test-App');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1012,7 +1012,7 @@ test('name and title', async ({ page }, testInfo) => {
       () => document.title === 'Test-App: This is the ultimate app!',
     );
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1047,7 +1047,7 @@ test('ogImage', async ({ page }, testInfo) => {
       'https://example.com/og-image',
     );
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1082,7 +1082,7 @@ test('page with title', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}/foo`);
     await page.waitForFunction(() => document.title === 'Foo page | Test-App');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1109,7 +1109,7 @@ test('port', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toBeAttached();
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1150,7 +1150,7 @@ test('request body', async ({ page }, testInfo) => {
     await page.locator('button').click();
     await expect(page.locator('form')).toContainClass('sent');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1187,7 +1187,7 @@ test('router config', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo.is-active')).toBeAttached();
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1225,7 +1225,7 @@ test('scoped style in production', async ({ page }, testInfo) => {
         .evaluate(el => getComputedStyle(el).backgroundColor),
     ).toEqual('rgb(255, 0, 0)');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1269,7 +1269,7 @@ test('sitemap', async ({}, testInfo) => {
       }),
     ).toMatchSnapshot();
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1307,7 +1307,7 @@ test('svg inline', async ({ page }, testInfo) => {
     await expect(icon).toBeAttached();
     expect(await icon.evaluate(el => el.tagName)).toEqual('svg');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1350,7 +1350,7 @@ test('svg url', async ({ page }, testInfo) => {
       "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20/%3e",
     );
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1385,7 +1385,7 @@ test('userScalable', async ({ page }, testInfo) => {
       }),
     ).toBeAttached();
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
@@ -1411,6 +1411,6 @@ test('valid', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });

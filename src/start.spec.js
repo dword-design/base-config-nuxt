@@ -4,9 +4,9 @@ import { expect, test } from '@playwright/test';
 import getPort from 'get-port';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
+import kill from 'tree-kill-promise';
 
 import config from './index.js';
-import killAndWait from './kill-and-wait.js';
 
 test('valid', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
@@ -30,6 +30,6 @@ test('valid', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });

@@ -2,9 +2,7 @@
   "depcheckConfig": {
     "ignoreMatches": [
       "playwright",
-      "playwright-chromium",
-      "stylelint",
-      "@nuxtjs/stylelint-module"
+      "playwright-chromium"
     ]
   },
   "eslintConfig": "import config from '@dword-design/eslint-config';\nimport { defineConfig, globalIgnores } from 'eslint/config';\n\nexport default defineConfig([globalIgnores(['eslint.config.js']),config,{ rules: { 'import/no-unresolved': ['error', { ignore: ['#imports'] }] } }]);\n",

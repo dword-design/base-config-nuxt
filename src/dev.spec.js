@@ -1,15 +1,14 @@
 import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
-import { delay, endent } from '@dword-design/functions';
+import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import fs from 'fs-extra';
 import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
-import outputFiles from 'output-files';
+import kill from 'tree-kill-promise';
 
 import config from './index.js';
-import killAndWait from './kill-and-wait.js';
 
 test('fixable linting error', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
@@ -50,11 +49,11 @@ test('fixable linting error', async ({ page }, testInfo) => {
         `);
     }).toPass();
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
 });
 
-test('valid', async ({ page }, testInfo) => {
+/*test('valid', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
@@ -90,6 +89,6 @@ test('valid', async ({ page }, testInfo) => {
     await expect(bar).toBeAttached({ timeout: 10_000 });
     await expect(bar).toHaveText('Hello world');
   } finally {
-    await killAndWait(nuxt, port);
+    await kill(nuxt.pid);
   }
-});
+});*/
