@@ -4,8 +4,6 @@ import { expect, test } from '@playwright/test';
 import { execaCommand } from 'execa';
 import outputFiles from 'output-files';
 
-import config from './index.js';
-
 const tests = {
   definePageMeta: {
     filename: 'pages/index.vue',
@@ -13,6 +11,17 @@ const tests = {
       'pages/index.vue': endent`
         <script setup>
         definePageMeta({ foo: 'bar' });
+        </script>\n
+      `,
+    },
+  },
+  'virtual import': {
+    config: { virtualImports: ['#auth'] },
+    filename: 'pages/index.vue',
+    files: {
+      'pages/index.vue': endent`
+        <script setup>
+        import '#auth';
         </script>\n
       `,
     },
@@ -66,12 +75,12 @@ const tests = {
 };
 
 for (const [name, _testConfig] of Object.entries(tests)) {
-  const testConfig = { error: '', filename: 'pages/index.vue', ..._testConfig };
+  const testConfig = { error: '', filename: 'pages/index.vue', config: {}, ..._testConfig };
 
   test(name, async ({}, testInfo) => {
     const cwd = testInfo.outputPath();
     await outputFiles(cwd, testConfig.files);
-    const base = new Base(config, { cwd });
+    const base = new Base({ name: '../../src/index.js', ...testConfig.config }, { cwd });
     await base.prepare();
     await execaCommand('nuxi prepare', { cwd });
 

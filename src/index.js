@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module';
 import P from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { pick } from 'lodash-es';
 
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import { endent as javascript } from '@dword-design/functions';
@@ -11,7 +12,7 @@ import outputFiles from 'output-files';
 import analyze from './analyze.js';
 import build from './build.js';
 import dev from './dev.js';
-import eslintConfig from './eslint-config.js';
+import getEslintConfig from './get-eslint-config.js';
 import getDepcheckSpecial from './get-depcheck-special.js';
 import lint from './lint.js';
 import prepublishOnly from './prepublish-only.js';
@@ -21,7 +22,7 @@ const __dirname = P.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
 const isInNodeModules = __dirname.split(P.sep).includes('node_modules');
 
-export default function () {
+export default function (config) {
   return {
     allowedMatches: [
       '.stylelintrc.json',
@@ -62,7 +63,7 @@ export default function () {
       'dist',
       'nuxt.config.js',
     ],
-    eslintConfig,
+    eslintConfig: getEslintConfig(pick(config, ['virtualImports'])),
     gitignore: [
       '/.nuxt',
       '/.output',
