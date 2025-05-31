@@ -2,37 +2,33 @@ import P from 'node:path';
 
 import { Base } from '@dword-design/base';
 import { endent } from '@dword-design/functions';
-import tester from '@dword-design/tester';
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import { expect, test } from '@playwright/test';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
 
-import self from './build.js';
 import config from './index.js';
 
-export default tester(
-  {
-    cli: async () => {
-      await outputFiles({
-        model: {
-          'cli.js': endent`
-            #!/usr/bin/env node
+test('cli', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-            import foo from './foo.js'
+  await outputFiles(cwd, {
+    model: {
+      'cli.js': endent`
+        #!/usr/bin/env node
 
-            console.log(foo)
-          `,
-          'foo.js': "export default 'foo'",
-        },
-      });
+        import foo from './foo.js'
 
-      await new Base(config).prepare();
-      await self();
-      await fs.chmod(P.join('dist', 'cli.js'), '755');
-      const output = await execaCommand('./dist/cli.js', { all: true });
-      expect(output.all).toMatch(/^foo$/m);
+        console.log(foo)
+      `,
+      'foo.js': "export default 'foo'",
     },
-  },
-  [testerPluginTmpDir()],
-);
+  });
+
+  const base = new Base(config, { cwd });
+  await base.prepare();
+  await base.run('build');
+  await fs.chmod(P.join(cwd, 'dist', 'cli.js'), '755');
+  const { stdout } = await execaCommand('./dist/cli.js', { cwd });
+  expect(stdout).toMatch(/^foo$/m);
+});

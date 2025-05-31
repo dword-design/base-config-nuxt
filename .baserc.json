@@ -1,10 +1,12 @@
 {
   "depcheckConfig": {
     "ignoreMatches": [
+      "playwright",
       "playwright-chromium"
     ]
   },
   "eslintConfig": "import config from '@dword-design/eslint-config';\nimport { defineConfig, globalIgnores } from 'eslint/config';\n\nexport default defineConfig([globalIgnores(['eslint.config.js']),config,{ rules: { 'import/no-unresolved': ['error', { ignore: ['#imports'] }] } }]);\n",
   "macos": false,
-  "name": "@dword-design/node"
+  "name": "@dword-design/node",
+  "testRunner": "playwright"
 }

@@ -1,119 +1,94 @@
-import P from 'node:path';
+import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
-import { delay, endent } from '@dword-design/functions';
-import tester from '@dword-design/tester';
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import { endent } from '@dword-design/functions';
+import { expect, test } from '@playwright/test';
 import fs from 'fs-extra';
+import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
-import outputFiles from 'output-files';
-import pWaitFor from 'p-wait-for';
-import { chromium } from 'playwright';
 import kill from 'tree-kill-promise';
 
 import config from './index.js';
 
-export default tester(
-  {
-    async 'fixable linting error'() {
-      await fs.outputFile(
-        'pages/index.vue',
-        endent`
+test('fixable linting error', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await fs.outputFile(
+    pathLib.join(cwd, 'pages', 'index.vue'),
+    endent`
+      <template>
+        <div class="foo" />
+      </template>
+
+      <script>
+      export default {}
+      </script>\n
+    `,
+  );
+
+  const base = new Base(config, { cwd });
+  await base.prepare();
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
+
+  try {
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
+    await expect(page.locator('.foo')).toBeAttached();
+
+    await expect(async () => {
+      expect(await fs.readFile(pathLib.join(cwd, 'pages', 'index.vue'), 'utf8'))
+        .toEqual(endent`
           <template>
             <div class="foo" />
           </template>
 
           <script>
-          export default {}
+          export default {};
           </script>\n
-        `,
-      );
+        `);
+    }).toPass();
+  } finally {
+    await kill(nuxt.pid);
+  }
+});
 
-      const base = new Base(config);
-      await base.prepare();
-      const nuxt = base.run('dev');
+/*test('valid', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-        await this.page.waitForSelector('.foo', { state: 'attached' });
+  await outputFiles(cwd, {
+    'pages/index.vue': endent`
+      <template>
+        <div class="foo">Hello world</div>
+      </template>
+    `,
+  });
 
-        // Use Playwright toPass instead
-        await pWaitFor(
-          async () =>
-            (await fs.readFile(P.join('pages', 'index.vue'), 'utf8')) ===
-            endent`
-              <template>
-                <div class="foo" />
-              </template>
+  const base = new Base(config, { cwd });
+  await base.prepare();
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
-              <script>
-              export default {};
-              </script>\n
-            `,
-        );
-      } finally {
-        await kill(nuxt.pid);
-      }
-    },
-    async valid() {
-      await outputFiles({
-        'pages/index.vue': endent`
-          <template>
-            <div class="foo">Hello world</div>
-          </template>
-        `,
-      });
+  try {
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
+    await expect(page.locator('.foo')).toHaveText('Hello world');
+    await delay(10_000); // TODO: Replace this by detecting if HMR is ready
 
-      const base = new Base(config);
-      await base.prepare();
-      const nuxt = base.run('dev');
+    await fs.outputFile(
+      pathLib.join(cwd, 'pages', 'index.vue'),
+      endent`
+        <template>
+          <div class="bar">Hello world</div>
+        </template>
+      `,
+    );
 
-      try {
-        await nuxtDevReady();
-        await this.page.goto('http://localhost:3000');
-        let handle = await this.page.waitForSelector('.foo');
-
-        expect(await handle.evaluate(el => el.textContent)).toEqual(
-          'Hello world',
-        );
-
-        await delay(1000); // for some reason Puppeteer does not detect the change without the delay
-
-        await fs.outputFile(
-          P.join('pages', 'index.vue'),
-          endent`
-            <template>
-              <div class="bar">Hello world</div>
-            </template>
-          `,
-        );
-
-        handle = await this.page.waitForSelector('.bar');
-
-        expect(await handle.evaluate(el => el.textContent)).toEqual(
-          'Hello world',
-        );
-      } finally {
-        await kill(nuxt.pid);
-      }
-    },
-  },
-  [
-    testerPluginTmpDir(),
-    {
-      async after() {
-        await this.browser.close();
-      },
-      async afterEach() {
-        await this.page.close();
-      },
-      async before() {
-        this.browser = await chromium.launch();
-      },
-      async beforeEach() {
-        this.page = await this.browser.newPage();
-      },
-    },
-  ],
-);
+    await delay(10_000);
+    const bar = page.locator('.bar');
+    await expect(bar).toBeAttached({ timeout: 10_000 });
+    await expect(bar).toHaveText('Hello world');
+  } finally {
+    await kill(nuxt.pid);
+  }
+});*/

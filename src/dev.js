@@ -1,13 +1,19 @@
-import { createRequire } from 'node:module';
+import dotenv from '@dword-design/dotenv-json-extended';
+import { execaCommand } from 'execa';
 
-import { execa } from 'execa';
+export default function (options) {
+  options = {
+    env: {},
+    log: process.env.NODE_ENV !== 'test',
+    stderr: 'inherit',
+    ...options,
+  };
 
-const resolver = createRequire(import.meta.url);
-const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
-
-export default (options = {}) => {
-  options = { log: process.env.NODE_ENV !== 'test', ...options };
-  return execa(nuxtWrapper, ['dev'], {
-    [options.log ? 'stdio' : 'stderr']: 'inherit',
+  return execaCommand('nuxt dev', {
+    ...(options.log && { stdout: 'inherit' }),
+    cwd: this.cwd,
+    env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
+    reject: process.env.NODE_ENV !== 'test',
+    stderr: options.stderr,
   });
-};
+}

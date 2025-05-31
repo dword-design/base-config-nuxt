@@ -1,38 +1,40 @@
-import { createRequire } from 'node:module';
+import pathLib from 'node:path';
 
-import { execa } from 'execa';
+import dotenv from '@dword-design/dotenv-json-extended';
+import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 
-const resolver = createRequire(import.meta.url);
-const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
+export default async function (options) {
+  options = {
+    env: {},
+    log: process.env.NODE_ENV !== 'test',
+    stderr: 'inherit',
+    ...options,
+  };
 
-export default async (options = {}) => {
-  options = { log: process.env.NODE_ENV !== 'test', ...options };
-
-  const nuxt = await execa(nuxtWrapper, ['build'], {
-    ...(options.log ? { stdio: 'inherit' } : {}),
+  const nuxt = await execaCommand('nuxt build', {
+    ...(options.log && { stdout: 'inherit' }),
+    stderr: options.stderr,
     ...(process.env.NODE_ENV === 'test'
       ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
       : {}),
+    cwd: this.cwd,
+    env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
   });
 
-  if (await fs.exists('model')) {
-    await fs.remove('dist');
+  if (await fs.exists(pathLib.join(this.cwd, 'model'))) {
+    await fs.remove(pathLib.join(this.cwd, 'dist'));
 
-    await execa(
-      'babel',
-      [
-        '--out-dir',
-        'dist',
-        '--copy-files',
-        '--no-copy-ignored',
-        '--ignore',
-        '**/*.spec.js',
-        'model',
-      ],
-      ...(options.log ? [{ stdio: 'inherit' }] : []),
+    await execaCommand(
+      'babel --out-dir dist --copy-files --no-copy-ignored --ignore **/*.spec.js model',
+      {
+        ...(options.log && { stdout: 'inherit' }),
+        cwd: this.cwd,
+        env: options.env,
+        stderr: options.stderr,
+      },
     );
   }
 
   return nuxt;
-};
+}
