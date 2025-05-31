@@ -7,7 +7,7 @@ import requirePackageName from 'require-package-name';
 
 export default ({ cwd = '.' }) =>
   path => {
-    if (pathLib.basename(path) === 'config.js') {
+    if (pathLib.basename(path) === 'config.js') { // TODO: Check full path including cwd so that we check config.js at project root
       const jitiInstance = createJiti(pathLib.resolve(cwd), {
         esmResolve: true,
         interopDefault: true,
