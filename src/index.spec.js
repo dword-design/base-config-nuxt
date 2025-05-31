@@ -46,8 +46,7 @@ test('aliases', async ({ page }, testInfo) => {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
     const foo = page.locator('.foo');
-    await expect(foo).toBeAttached();
-    expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
+    await expect(foo).toHaveText('Hello world');
   } finally {
     await killAndWait(nuxt, port);
   }
@@ -118,9 +117,7 @@ test('async modules', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    const foo = page.locator('.foo');
-    await expect(foo).toBeAttached();
-    expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
+    await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
     await killAndWait(nuxt, port);
   }
@@ -206,10 +203,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-
-    expect(
-      await page.evaluate(() => document.body.classList.contains('foo')),
-    ).toEqual(true);
+    await expect(page.locator('body')).toContainClass('foo');
   } finally {
     await killAndWait(nuxt, port);
   }
@@ -343,9 +337,7 @@ test('do not transpile other language than js in vue', async ({
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    const foo = page.locator('.foo');
-    await expect(foo).toBeAttached();
-    expect(await foo.evaluate(el => el.textContent)).toEqual('2');
+    await expect(page.locator('.foo')).toHaveText('2');
   } finally {
     await killAndWait(nuxt, port);
   }
@@ -378,7 +370,7 @@ test('dotenv: config', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    expect(await page.evaluate(() => document.title)).toEqual('Bar');
+    await expect(page).toHaveTitle('Bar');
   } finally {
     await killAndWait(nuxt, port);
   }
@@ -432,9 +424,7 @@ test('global components', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    const foo = page.locator('.foo');
-    await expect(foo).toBeAttached();
-    expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
+    await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
     await killAndWait(nuxt, port);
   }
@@ -484,7 +474,6 @@ test('head link', async ({ page }, testInfo) => {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
     const link = page.locator('link[rel=alternate]');
-    await expect(link).toBeAttached();
 
     await Promise.all([
       expect(link).toHaveAttribute('rel', 'alternate'),
@@ -685,9 +674,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    const foo = page.locator('.foo');
-    await expect(foo).toBeAttached();
-    expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
+    await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
     await killAndWait(nuxt, port);
   }
@@ -923,7 +910,7 @@ test('i18n: works', async ({ page }, testInfo) => {
       ).toBeAttached(),
     ]);
 
-    expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
+    await expect(foo).toHaveText('Hello world');
     await expect(html).toHaveAttribute('style', 'background:red');
   } finally {
     await killAndWait(nuxt, port);
@@ -1422,9 +1409,7 @@ test('valid', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    const foo = page.locator('.foo');
-    await expect(foo).toBeAttached();
-    expect(await foo.evaluate(div => div.textContent)).toEqual('Hello world');
+    await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
     await killAndWait(nuxt, port);
   }

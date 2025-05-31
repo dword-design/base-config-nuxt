@@ -1,9 +1,5 @@
-import { createRequire } from 'node:module';
-
-import { execa } from 'execa';
-
-const resolver = createRequire(import.meta.url);
-const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
+import dotenv from '@dword-design/dotenv-json-extended';
+import { execaCommand } from 'execa';
 
 export default function (options) {
   options = {
@@ -13,10 +9,10 @@ export default function (options) {
     ...options,
   };
 
-  return execa(nuxtWrapper, ['dev'], {
+  return execaCommand('nuxt dev', {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
-    env: options.env,
+    env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
     reject: process.env.NODE_ENV !== 'test',
     stderr: options.stderr,
   });

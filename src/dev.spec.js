@@ -73,9 +73,7 @@ test('valid', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    const foo = page.locator('.foo');
-    await expect(foo).toBeAttached();
-    expect(await foo.evaluate(el => el.textContent)).toEqual('Hello world');
+    await expect(page.locator('.foo')).toHaveText('Hello world');
     await delay(10_000); // TODO: Replace this by detecting if HMR is ready
 
     await fs.outputFile(
@@ -90,7 +88,7 @@ test('valid', async ({ page }, testInfo) => {
     await delay(10_000);
     const bar = page.locator('.bar');
     await expect(bar).toBeAttached({ timeout: 10_000 });
-    expect(await bar.evaluate(el => el.textContent)).toEqual('Hello world');
+    await expect(bar).toHaveText('Hello world');
   } finally {
     await killAndWait(nuxt, port);
   }
