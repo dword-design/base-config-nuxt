@@ -28,12 +28,12 @@ test('valid', async ({ page }, testInfo) => {
   const nuxt = base.run('start', { env: { PORT: port } });
 
   try {
-    console.log('waiting for port')
+    console.log('waiting for port');
     await portReady(port);
-    console.log('port ready')
+    console.log('port ready');
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('Hello world');
-    console.log('test done')
+    console.log('test done');
   } finally {
     await killAndWait(nuxt, port);
   }
