@@ -17,10 +17,12 @@ export default async function (options) {
   });
 
   await execaCommand(
-    'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}', {
-    ...(options.log && { stdout: 'inherit' }),
-    cwd: this.cwd,
-    env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
-    stderr: options.stderr,
-  });
+    'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
+    {
+      ...(options.log && { stdout: 'inherit' }),
+      cwd: this.cwd,
+      env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
+      stderr: options.stderr,
+    },
+  );
 }
