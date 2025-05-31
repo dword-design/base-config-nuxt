@@ -376,28 +376,40 @@ test('dotenv: config', async ({ page }, testInfo) => {
   }
 });
 
-test('dotenv: module', async ({}, testInfo) => {
+test('dotenv: module', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'bar' }),
-    'modules/foo.js': endent`
-      import { expect } from '${packageName`expect`}'
-
-      export default () => expect(process.env.FOO).toEqual('bar')
+    'config.js': endent`
+      export default {
+        runtimeConfig: { public: { foo: process.env.FOO } },
+      };
     `,
-    'package.json': JSON.stringify({ dependencies: { expect: '*' } }),
     'pages/index.vue': endent`
       <template>
-        <div>Hello world</div>
+        <div :class="foo" />
       </template>
+
+      <script setup>
+      const { public: { foo } } = useRuntimeConfig();
+      </script>
     `,
   });
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  await base.run('prepublishOnly');
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
+
+  try {
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
+    await expect(page.locator('.bar')).toBeAttached();
+  } finally {
+    await kill(nuxt.pid);
+  }
 });
 
 test('global components', async ({ page }, testInfo) => {

@@ -96,9 +96,6 @@ importers:
       depcheck:
         specifier: ^1.4.7
         version: 1.4.7
-      expect:
-        specifier: ^29.7.0
-        version: 29.7.0
       get-port:
         specifier: ^7.1.0
         version: 7.1.0
