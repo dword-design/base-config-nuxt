@@ -61,7 +61,7 @@ const tests = {
       `,
     },
   },
-  'page filename with camelCase': {
+  'page and filename with camelCase': {
     filename: 'pages/[paramId].vue',
     files: {
       'pages/[paramId].vue': endent`
@@ -69,6 +69,13 @@ const tests = {
           <div />
         </template>\n
       `,
+    },
+  },
+  'server api filename with camelCase': {
+    filename: 'server/api/[paramId].get.js',
+    files: {
+      'server/api/[paramId].get.js':
+        "export default defineEventHandler(() => '');\n",
     },
   },
   'virtual import': {

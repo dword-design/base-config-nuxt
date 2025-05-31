@@ -21,7 +21,7 @@ export default ({ virtualImports = [] } = {}) => endent`
         : ''
     }
     {
-      files: ['**/pages/**/*.{vue,js,ts}'],
+      files: ['**/pages/**/*.{vue,js,ts}', 'server/api/**/*.{js,ts}'],
       rules: {
         'unicorn/filename-case': 'off',
       },
