@@ -1,9 +1,5 @@
-import { createRequire } from 'node:module';
-
-import { execa, execaCommand } from 'execa';
-
-const resolver = createRequire(import.meta.url);
-const nuxtWrapper = resolver.resolve('./nuxt-wrapper.js');
+import dotenv from '@dword-design/dotenv-json-extended';
+import { execaCommand } from 'execa';
 
 export default async function (options) {
   options = {
@@ -13,20 +9,10 @@ export default async function (options) {
     ...options,
   };
 
-  await execa(nuxtWrapper, ['prepare'], {
+  await execaCommand('nuxi prepare', {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
-    env: options.env,
+    env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
     stderr: options.stderr,
   });
-
-  await execaCommand(
-    'stylelint --fix --allow-empty-input --ignore-path .gitignore **/*.{css,scss,vue}',
-    {
-      ...(options.log && { stdout: 'inherit' }),
-      cwd: this.cwd,
-      env: options.env,
-      stderr: options.stderr,
-    },
-  );
 }
