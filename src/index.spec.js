@@ -16,7 +16,7 @@ import config from './index.js';
 import killAndWait from './kill-and-wait.js';
 
 test('aliases', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'model/foo.js': "export default 'Hello world'",
@@ -53,7 +53,7 @@ test('aliases', async ({ page }, testInfo) => {
 });
 
 test('api', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'server', 'api', 'foo.get.js'),
@@ -80,7 +80,7 @@ test('api', async ({}, testInfo) => {
 });
 
 test('async modules', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'modules/foo': {
@@ -124,7 +124,7 @@ test('async modules', async ({ page }, testInfo) => {
 });
 
 test('basic auth', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({
@@ -174,7 +174,7 @@ test('basic auth', async ({}, testInfo) => {
 });
 
 test('bodyAttrs', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -210,7 +210,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
 });
 
 test('css', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'assets/style.scss': endent`
@@ -252,7 +252,7 @@ test('css', async ({ page }, testInfo) => {
 });
 
 test('css modules', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'pages/index.vue': endent`
@@ -288,7 +288,7 @@ test('css modules', async ({ page }, testInfo) => {
 });
 
 test('do not import image urls in production', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'pages/index.vue': endent`
@@ -314,7 +314,7 @@ test('do not import image urls in production', async ({}, testInfo) => {
 test('do not transpile other language than js in vue', async ({
   page,
 }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),
@@ -344,7 +344,7 @@ test('do not transpile other language than js in vue', async ({
 });
 
 test('dotenv: config', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     '.env.json': JSON.stringify({ foo: 'Foo' }),
@@ -377,7 +377,7 @@ test('dotenv: config', async ({ page }, testInfo) => {
 });
 
 test('dotenv: module', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
@@ -401,7 +401,7 @@ test('dotenv: module', async ({}, testInfo) => {
 });
 
 test('global components', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'components/foo.vue': endent`
@@ -431,7 +431,7 @@ test('global components', async ({ page }, testInfo) => {
 });
 
 test('head in module', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'modules', 'mod.js'),
@@ -444,7 +444,7 @@ test('head in module', async ({}, testInfo) => {
 });
 
 test('head link', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -487,7 +487,7 @@ test('head link', async ({ page }, testInfo) => {
 });
 
 test('hexrgba', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'assets/style.css': endent`
@@ -526,7 +526,7 @@ test('hexrgba', async ({ page }, testInfo) => {
 });
 
 test('htmlAttrs', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -562,7 +562,7 @@ test('htmlAttrs', async ({ page }, testInfo) => {
 });
 
 test('i18n: browser language changed', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -600,7 +600,7 @@ test('i18n: browser language changed', async ({}, testInfo) => {
 });
 
 test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
   const port = await getPort();
 
   await outputFiles(cwd, {
@@ -644,7 +644,7 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
 });
 
 test('i18n: middleware', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -681,7 +681,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
 });
 
 test('i18n: root with prefix', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -707,7 +707,7 @@ test('i18n: root with prefix', async ({ page }, testInfo) => {
 });
 
 test('i18n: root without prefix', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -741,7 +741,7 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
 });
 
 test('i18n: route with prefix', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -773,7 +773,7 @@ test('i18n: route with prefix', async ({}, testInfo) => {
 });
 
 test('i18n: route without prefix', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -805,7 +805,7 @@ test('i18n: route without prefix', async ({}, testInfo) => {
 });
 
 test('i18n: single locale', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'i18n/de.json': JSON.stringify({ foo: 'bar' }),
@@ -845,7 +845,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
 });
 
 test('i18n: works', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
   const port = await getPort();
 
   await outputFiles(cwd, {
@@ -918,7 +918,7 @@ test('i18n: works', async ({ page }, testInfo) => {
 });
 
 test('locale link', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
@@ -953,7 +953,7 @@ test('locale link', async ({ page }, testInfo) => {
 });
 
 test('name', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -983,7 +983,7 @@ test('name', async ({ page }, testInfo) => {
 });
 
 test('name and title', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -1017,7 +1017,7 @@ test('name and title', async ({ page }, testInfo) => {
 });
 
 test('ogImage', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -1052,7 +1052,7 @@ test('ogImage', async ({ page }, testInfo) => {
 });
 
 test('page with title', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -1087,7 +1087,7 @@ test('page with title', async ({ page }, testInfo) => {
 });
 
 test('port', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
   const port = await getPort();
 
   await outputFiles(cwd, {
@@ -1114,7 +1114,7 @@ test('port', async ({ page }, testInfo) => {
 });
 
 test('request body', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'package.json': JSON.stringify({
@@ -1155,7 +1155,7 @@ test('request body', async ({ page }, testInfo) => {
 });
 
 test('router config', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -1192,7 +1192,7 @@ test('router config', async ({ page }, testInfo) => {
 });
 
 test('scoped style in production', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),
@@ -1230,7 +1230,7 @@ test('scoped style in production', async ({ page }, testInfo) => {
 });
 
 test('sitemap', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -1274,7 +1274,7 @@ test('sitemap', async ({}, testInfo) => {
 });
 
 test('svg inline', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'assets/icon.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
@@ -1312,7 +1312,7 @@ test('svg inline', async ({ page }, testInfo) => {
 });
 
 test('svg url', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'assets/image.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
@@ -1355,7 +1355,7 @@ test('svg url', async ({ page }, testInfo) => {
 });
 
 test('userScalable', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -1390,7 +1390,7 @@ test('userScalable', async ({ page }, testInfo) => {
 });
 
 test('valid', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),

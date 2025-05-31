@@ -10,7 +10,7 @@ import outputFiles from 'output-files';
 import config from './index.js';
 
 test('cli', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     model: {

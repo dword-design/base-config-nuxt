@@ -10,7 +10,7 @@ import outputFiles from 'output-files';
 import config from './index.js';
 
 test('cli', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     model: {
@@ -34,7 +34,7 @@ test('cli', async ({}, testInfo) => {
 });
 
 test('fixable linting error', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),
@@ -67,7 +67,7 @@ test('fixable linting error', async ({}, testInfo) => {
 });
 
 test('linting error in cli', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'model', 'cli.js'),

@@ -9,7 +9,7 @@ import outputFiles from 'output-files';
 import config from './index.js';
 
 test('aliases', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'model/foo.js': "export default 'bar'",
@@ -36,7 +36,7 @@ test('aliases', async ({}, testInfo) => {
 });
 
 test('dependency inside vue file', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'node_modules/foo/index.js': '',
@@ -65,7 +65,7 @@ test('dependency inside vue file', async ({}, testInfo) => {
 });
 
 test('external modules', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.js': endent`
@@ -85,7 +85,7 @@ test('external modules', async ({}, testInfo) => {
 });
 
 test('linting error in js file', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'model/foo.js': 'const foo = 1',
@@ -111,7 +111,7 @@ test('linting error in js file', async ({}, testInfo) => {
 });
 
 test('linting error in vue file', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),
@@ -131,7 +131,7 @@ test('linting error in vue file', async ({}, testInfo) => {
 });
 
 test('valid', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),

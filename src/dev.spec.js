@@ -12,7 +12,7 @@ import config from './index.js';
 import killAndWait from './kill-and-wait.js';
 
 test('fixable linting error', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await fs.outputFile(
     pathLib.join(cwd, 'pages', 'index.vue'),
@@ -55,7 +55,7 @@ test('fixable linting error', async ({ page }, testInfo) => {
 });
 
 test('valid', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'pages/index.vue': endent`

@@ -9,7 +9,7 @@ import config from './index.js';
 import killAndWait from './kill-and-wait.js';
 
 test('valid', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'pages/index.vue': endent`

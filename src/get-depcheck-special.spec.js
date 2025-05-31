@@ -115,7 +115,7 @@ for (const [name, _testConfig] of Object.entries(tests)) {
   const testConfig = { dependency: 'foo', fail: false, ..._testConfig };
 
   test(name, async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+    const cwd = testInfo.outputPath();
     await outputFiles(cwd, testConfig.files);
 
     const result = await depcheck(cwd, {
