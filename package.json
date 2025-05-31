@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@dword-design/depcheck-parser-sass": "^4.0.4",
-    "@dword-design/dotenv-json-extended": "^2.0.25",
+    "@dword-design/dotenv-json-extended": "^3.0.1",
     "@dword-design/functions": "^6.0.2",
     "@dword-design/jiti-babel-transform": "^2.0.0",
     "@dword-design/stylelint-config": "^4.0.2",

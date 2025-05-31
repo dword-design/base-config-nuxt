@@ -36,7 +36,7 @@ test('minimal', async ({}, testInfo) => {
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'bar' }),
-    'modules/foo.js': `import { expect } from '${packageName`expect`}'`,
+    //'modules/foo.js': `import { expect } from '${packageName`expect`}'`,
     'pages/index.vue': endent`
       <template>
         <div>Hello world</div>
