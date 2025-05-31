@@ -1,3 +1,11 @@
+## [6.2.12](https://github.com/dword-design/base-config-nuxt/compare/v6.2.11...v6.2.12) (2025-05-31)
+
+
+### Bug Fixes
+
+* foo ([2a922fa](https://github.com/dword-design/base-config-nuxt/commit/2a922fa55f20449f61c8a76e103c30e66ed94b64))
+* remove dotenv from lint ([99e9fa2](https://github.com/dword-design/base-config-nuxt/commit/99e9fa23e4d28d58ef698b62c2d4d888a38d7d58))
+
 ## [6.2.11](https://github.com/dword-design/base-config-nuxt/compare/v6.2.10...v6.2.11) (2025-05-31)
 
 
