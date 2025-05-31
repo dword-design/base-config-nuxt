@@ -43,6 +43,15 @@ export default {
       { enabled: !!isBasicAuthEnabled },
     ],
     packageName`@nuxt/eslint`,
+    [
+      packageName`@nuxtjs/stylelint-module`,
+      {
+        allowEmptyInput: true,
+        failOnWarning: true,
+        fix: true,
+        lintOnStart: false,
+      },
+    ],
     resolver.resolve('./manually-installed-modules/i18n/index.js'),
   ],
   plugins: [resolver.resolve('./plugins/title.js')],
