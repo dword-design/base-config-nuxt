@@ -66,7 +66,7 @@ export default function (config) {
     ],
     eslintConfig: getEslintConfig(pick(config, ['virtualImports'])),
     gitignore: [
-      './.eslintcache',
+      '/.eslintcache',
       '/.nuxt',
       '/.output',
       '/.stylelintcache',
