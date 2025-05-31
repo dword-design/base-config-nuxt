@@ -9,15 +9,22 @@ export default ({ virtualImports = [] } = {}) => endent`
   export default withNuxt(
     globalIgnores(['eslint.config.js']),
     config,
-    ${virtualImports.length > 0
-      ? endent`
-        {
-          rules: {
-            'import/no-unresolved': ['error', { ignore: [${virtualImports.map(_import => `'${_import}'`).join(', ')}] }],
+    ${
+      virtualImports.length > 0
+        ? endent`
+          {
+            rules: {
+              'import/no-unresolved': ['error', { ignore: [${virtualImports.map(_import => `'${_import}'`).join(', ')}] }],
+            },
           },
-        },
-      `
-      : ''
+        `
+        : ''
     }
+    {
+      files: ['**/pages/**/*.{vue,js,ts}'],
+      rules: {
+        'unicorn/filename-case': 'off',
+      },
+    },
   );
 `;

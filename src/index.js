@@ -1,19 +1,19 @@
 import { createRequire } from 'node:module';
 import P from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { pick } from 'lodash-es';
 
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import { endent as javascript } from '@dword-design/functions';
 import packageName from 'depcheck-package-name';
 import depcheckParserVue from 'depcheck-parser-vue';
+import { pick } from 'lodash-es';
 import outputFiles from 'output-files';
 
 import analyze from './analyze.js';
 import build from './build.js';
 import dev from './dev.js';
-import getEslintConfig from './get-eslint-config.js';
 import getDepcheckSpecial from './get-depcheck-special.js';
+import getEslintConfig from './get-eslint-config.js';
 import lint from './lint.js';
 import prepublishOnly from './prepublish-only.js';
 import start from './start.js';

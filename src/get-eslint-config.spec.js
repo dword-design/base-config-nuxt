@@ -15,17 +15,6 @@ const tests = {
       `,
     },
   },
-  'virtual import': {
-    config: { virtualImports: ['#auth'] },
-    filename: 'pages/index.vue',
-    files: {
-      'pages/index.vue': endent`
-        <script setup>
-        import '#auth';
-        </script>\n
-      `,
-    },
-  },
   'definePageMeta in other pages folder': {
     error: "error  'definePageMeta' is not defined  no-undef",
     filename: 'foo/pages/index.vue',
@@ -72,15 +61,46 @@ const tests = {
       `,
     },
   },
+  'page filename with camelCase': {
+    filename: 'pages/[paramId].vue',
+    files: {
+      'pages/[paramId].vue': endent`
+        <template>
+          <div />
+        </template>\n
+      `,
+    },
+  },
+  'virtual import': {
+    config: { virtualImports: ['#auth'] },
+    filename: 'pages/index.vue',
+    files: {
+      'pages/index.vue': endent`
+        <script setup>
+        import '#auth';
+        </script>\n
+      `,
+    },
+  },
 };
 
 for (const [name, _testConfig] of Object.entries(tests)) {
-  const testConfig = { error: '', filename: 'pages/index.vue', config: {}, ..._testConfig };
+  const testConfig = {
+    config: {},
+    error: '',
+    filename: 'pages/index.vue',
+    ..._testConfig,
+  };
 
   test(name, async ({}, testInfo) => {
     const cwd = testInfo.outputPath();
     await outputFiles(cwd, testConfig.files);
-    const base = new Base({ name: '../../src/index.js', ...testConfig.config }, { cwd });
+
+    const base = new Base(
+      { name: '../../src/index.js', ...testConfig.config },
+      { cwd },
+    );
+
     await base.prepare();
     await execaCommand('nuxi prepare', { cwd });
 
