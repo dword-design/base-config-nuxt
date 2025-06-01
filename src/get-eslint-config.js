@@ -1,13 +1,13 @@
 import { endent } from '@dword-design/functions';
 
-export default ({ virtualImports = [] } = {}) => endent`
+export default ({ virtualImports = [], ignore = [] } = {}) => endent`
   import config from '@dword-design/eslint-config';
   import { globalIgnores } from 'eslint/config';
 
   import withNuxt from './.nuxt/eslint.config.mjs';
 
   export default withNuxt(
-    globalIgnores(['eslint.config.js']),
+    globalIgnores([${['eslint.config.js', ...ignore].map(pattern => `'${pattern}'`).join(', ')}]),
     config,
     ${
       virtualImports.length > 0
