@@ -1,3 +1,11 @@
+## [6.2.13](https://github.com/dword-design/base-config-nuxt/compare/v6.2.12...v6.2.13) (2025-06-01)
+
+
+### Bug Fixes
+
+* add ignores param for eslint ([6638840](https://github.com/dword-design/base-config-nuxt/commit/6638840ff31227d8881bcd3ebb8597e16c345b88))
+* foo ([dbf1875](https://github.com/dword-design/base-config-nuxt/commit/dbf187547175d1389417a923c145e98d0b25abef))
+
 ## [6.2.12](https://github.com/dword-design/base-config-nuxt/compare/v6.2.11...v6.2.12) (2025-05-31)
 
 
