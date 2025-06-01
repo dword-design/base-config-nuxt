@@ -108,3 +108,5 @@ export default function (config) {
     useJobMatrix: true,
   };
 }
+
+export { default as getEslintConfig } from './get-eslint-config.js';
