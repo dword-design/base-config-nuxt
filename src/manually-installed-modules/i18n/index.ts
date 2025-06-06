@@ -55,7 +55,7 @@ export default defineNuxtModule({
       ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }),
     });
 
-    addPlugin(resolver.resolve('./plugin.js'), { append: true });
+    addPlugin(resolver.resolve('./plugin.ts'), { append: true });
     await installModule(resolver.resolve('../locale-link/index.ts'));
   },
 });

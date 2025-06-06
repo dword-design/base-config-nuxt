@@ -3,7 +3,6 @@ import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config';
 import i18nModule from './manually-installed-modules/i18n';
-import titlePlugin from './plugins/title';
 
 const isBasicAuthEnabled =
   process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
@@ -20,6 +19,10 @@ export default {
           ? [{ content: config.ogImage, hid: 'og:image', name: 'og:image' }]
           : []),
       ],
+      titleTemplate: pageTitle =>
+        pageTitle
+          ? `${pageTitle} | ${config.name}`
+          : `${config.name}${config.title ? `: ${config.title}` : ''}`,
     },
   },
   devtools: { enabled: true },
@@ -52,10 +55,8 @@ export default {
     ],
     i18nModule,
   ],
-  plugins: [titlePlugin],
   router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {
-    public: { name: config.name, title: config.title },
     ...(isBasicAuthEnabled && {
       basicAuth: {
         pairs: {
