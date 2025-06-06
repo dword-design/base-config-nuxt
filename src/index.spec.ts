@@ -1,10 +1,10 @@
 import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
-import { endent, property } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import axios from 'axios';
 import packageName from 'depcheck-package-name';
+import endent from 'endent';
 import fs from 'fs-extra';
 import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
@@ -13,13 +13,13 @@ import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
 
-import config from './index.js';
+import config from '.';
 
 test('aliases', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'model/foo.js': "export default 'Hello world'",
+    'model/foo.ts': "export default 'Hello world'",
     'pages/index.vue': endent`
       <template>
         <div class="foo">{{ foo }}</div>
@@ -56,7 +56,7 @@ test('api', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'server', 'api', 'foo.get.js'),
+    pathLib.join(cwd, 'server', 'api', 'foo.get.ts'),
     "export default defineEventHandler(() => ({ foo: 'bar' }))",
   );
 
@@ -68,10 +68,9 @@ test('api', async ({}, testInfo) => {
   try {
     await nuxtDevReady(port);
 
-    const result =
-      axios.get(`http://localhost:${port}/api/foo`)
-      |> await
-      |> property('data');
+    const { data: result } = await axios.get(
+      `http://localhost:${port}/api/foo`,
+    );
 
     expect(result).toEqual({ foo: 'bar' });
   } finally {
@@ -84,18 +83,18 @@ test('async modules', async ({ page }, testInfo) => {
 
   await outputFiles(cwd, {
     'modules/foo': {
-      'index.js': endent`
-        import { delay } from '@dword-design/functions'
+      'index.ts': endent`
+        import delay from '${packageName`delay`}'
         import { addPlugin, createResolver } from '@nuxt/kit'
 
         const resolver = createResolver(import.meta.url)
 
         export default async function () {
-          await delay(100)
-          addPlugin(resolver.resolve('./plugin'), { append: true })
+          await delay(100);
+          addPlugin(resolver.resolve('./plugin'), { append: true });
         }
       `,
-      'plugin.js':
+      'plugin.ts':
         "export default defineNuxtPlugin(() => ({ provide: { foo: 'Hello world' } }))",
     },
     'pages/index.vue': endent`
@@ -140,7 +139,7 @@ test('basic auth', async ({}, testInfo) => {
         <div />
       </template>
     `,
-    'server/api/foo.get.js': "export default defineEventHandler(() => 'foo')",
+    'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
   });
 
   const base = new Base(config, { cwd });
@@ -177,7 +176,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         app: {
           head: {
@@ -218,7 +217,7 @@ test('css', async ({ page }, testInfo) => {
         background: red;
       }
     `,
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         css: [
           '@/assets/style.scss',
@@ -350,7 +349,7 @@ test('dotenv: config', async ({ page }, testInfo) => {
     '.env.json': JSON.stringify({ foo: 'Foo' }),
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'Bar' }),
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         name: process.env.FOO,
       }
@@ -382,7 +381,7 @@ test('dotenv: module', async ({ page }, testInfo) => {
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'bar' }),
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         runtimeConfig: { public: { foo: process.env.FOO } },
       };
@@ -446,7 +445,7 @@ test('head in module', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'modules', 'mod.js'),
+    pathLib.join(cwd, 'modules', 'mod.ts'),
     "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
   );
 
@@ -459,7 +458,7 @@ test('head link', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         app: {
           head: {
@@ -507,7 +506,7 @@ test('hexrgba', async ({ page }, testInfo) => {
         background: rgba(#fff, .5);
       }
     `,
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         css: ['@/assets/style.css'],
       }
@@ -541,7 +540,7 @@ test('htmlAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         app: {
           head: {
@@ -593,19 +592,23 @@ test('i18n: browser language changed', async ({}, testInfo) => {
   try {
     await nuxtDevReady(port);
 
-    expect(
-      axios.get(`http://localhost:${port}`)
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/en`);
+    const {
+      request: {
+        res: { responseUrl: defaultResponseUrl },
+      },
+    } = await axios.get(`http://localhost:${port}`);
 
-    expect(
-      axios.get(`http://localhost:${port}`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de`);
+    expect(defaultResponseUrl).toEqual(`http://localhost:${port}/en`);
+
+    const {
+      request: {
+        res: { responseUrl: deResponseUrl },
+      },
+    } = await axios.get(`http://localhost:${port}`, {
+      headers: { 'Accept-Language': 'de' },
+    });
+
+    expect(deResponseUrl).toEqual(`http://localhost:${port}/de`);
   } finally {
     await kill(nuxt.pid);
   }
@@ -659,7 +662,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         router: {
           middleware: ['foo']
@@ -670,7 +673,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
       'de.json': JSON.stringify({}, undefined, 2),
       'en.json': JSON.stringify({}, undefined, 2),
     },
-    'middleware/foo.js': 'export default () => {}',
+    'middleware/foo.ts': 'export default () => {}',
     'pages/index.vue': endent`
       <template>
         <div class="foo">Hello world</div>
@@ -738,14 +741,15 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
 
-    expect(
-      axios.get(`http://localhost:${port}`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de`);
+    const {
+      request: {
+        res: { responseUrl },
+      },
+    } = await axios.get(`http://localhost:${port}`, {
+      headers: { 'Accept-Language': 'de' },
+    });
 
+    expect(responseUrl).toEqual(`http://localhost:${port}/de`);
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'de' });
   } finally {
     await kill(nuxt.pid);
@@ -772,13 +776,15 @@ test('i18n: route with prefix', async ({}, testInfo) => {
   try {
     await nuxtDevReady(port);
 
-    expect(
-      axios.get(`http://localhost:${port}/de/foo`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de/foo`);
+    const {
+      request: {
+        res: { responseUrl },
+      },
+    } = await axios.get(`http://localhost:${port}/de/foo`, {
+      headers: { 'Accept-Language': 'de' },
+    });
+
+    expect(responseUrl).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
     await kill(nuxt.pid);
   }
@@ -804,13 +810,15 @@ test('i18n: route without prefix', async ({}, testInfo) => {
   try {
     await nuxtDevReady(port);
 
-    expect(
-      axios.get(`http://localhost:${port}/foo`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de/foo`);
+    const {
+      request: {
+        res: { responseUrl },
+      },
+    } = await axios.get(`http://localhost:${port}/foo`, {
+      headers: { 'Accept-Language': 'de' },
+    });
+
+    expect(responseUrl).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
     await kill(nuxt.pid);
   }
@@ -863,7 +871,7 @@ test('i18n: works', async ({ page }, testInfo) => {
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ baseUrl: `http://localhost:${port}` }),
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         app: {
           head: {
@@ -968,7 +976,7 @@ test('name', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         name: 'Test-App',
       }
@@ -998,7 +1006,7 @@ test('name and title', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         name: 'Test-App',
         title: 'This is the ultimate app!',
@@ -1032,7 +1040,7 @@ test('ogImage', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         ogImage: 'https://example.com/og-image',
       }
@@ -1067,7 +1075,7 @@ test('page with title', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         name: 'Test-App',
         title: 'This is the ultimate app!',
@@ -1129,10 +1137,6 @@ test('request body', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'package.json': JSON.stringify({
-      dependencies: { '@dword-design/functions': '*', h3: '*' },
-      type: 'module',
-    }),
     'pages/index.vue': endent`
       <template>
         <form method="POST" :class="{ sent }">
@@ -1141,7 +1145,6 @@ test('request body', async ({ page }, testInfo) => {
       </template>
 
       <script setup>
-      import { property } from '@dword-design/functions';
       import { getMethod, readBody } from 'h3';
 
       const event = useRequestEvent();
@@ -1170,7 +1173,7 @@ test('router config', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         router: {
           options: {
@@ -1245,7 +1248,7 @@ test('sitemap', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         modules: [
           ['${packageName`@nuxtjs/sitemap`}', { credits: false }],
@@ -1370,7 +1373,7 @@ test('userScalable', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         userScalable: false,
       }

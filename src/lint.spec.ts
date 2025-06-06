@@ -4,7 +4,7 @@ import { Base } from '@dword-design/base';
 import { expect, test } from '@playwright/test';
 import fs from 'fs-extra';
 
-import config from './index.js';
+import config from '.';
 
 test('css error', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();

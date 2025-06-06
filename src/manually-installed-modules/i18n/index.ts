@@ -56,6 +56,6 @@ export default defineNuxtModule({
     });
 
     addPlugin(resolver.resolve('./plugin.js'), { append: true });
-    await installModule(resolver.resolve('../locale-link/index.js'));
+    await installModule(resolver.resolve('../locale-link/index.ts'));
   },
 });

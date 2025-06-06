@@ -1,11 +1,9 @@
-import { createRequire } from 'node:module';
-
 import packageName from 'depcheck-package-name';
 import viteSvgLoader from 'vite-svg-loader';
 
-import config from './config.js';
-
-const resolver = createRequire(import.meta.url);
+import config from './config';
+import i18nModule from './manually-installed-modules/i18n';
+import titlePlugin from './plugins/title';
 
 const isBasicAuthEnabled =
   process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
@@ -52,9 +50,9 @@ export default {
         lintOnStart: false,
       },
     ],
-    resolver.resolve('./manually-installed-modules/i18n/index.js'),
+    i18nModule,
   ],
-  plugins: [resolver.resolve('./plugins/title.js')],
+  plugins: [titlePlugin],
   router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {
     public: { name: config.name, title: config.title },
@@ -71,5 +69,5 @@ export default {
     plugins: [viteSvgLoader()],
     vue: { template: { transformAssetUrls: false } },
   },
-  watch: ['config.js'],
+  watch: ['config.ts'],
 };

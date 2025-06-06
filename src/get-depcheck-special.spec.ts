@@ -1,14 +1,14 @@
-import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import depcheck from 'depcheck';
+import endent from 'endent';
 import outputFiles from 'output-files';
 
-import self from './get-depcheck-special.js';
+import self from './get-depcheck-special';
 
 const tests = {
   'array syntax': {
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           modules: [
             ['foo', { bar: 'baz' }],
@@ -17,19 +17,9 @@ const tests = {
       `,
     },
   },
-  'babel feature': {
-    files: {
-      'config.js': endent`
-        export default {
-          modules: ['foo'],
-          foo: 1 |> x => x * 2,
-        }
-      `,
-    },
-  },
   buildModules: {
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           buildModules: [
             'foo',
@@ -40,7 +30,7 @@ const tests = {
   },
   function: {
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           modules: [
             'foo',
@@ -52,7 +42,7 @@ const tests = {
   },
   modules: {
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           modules: [
             'foo',
@@ -64,10 +54,10 @@ const tests = {
   'relative path': {
     fail: true,
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           modules: [
-            './modules/foo.js',
+            './modules/foo.ts',
           ],
         }
       `,
@@ -76,7 +66,7 @@ const tests = {
   scoped: {
     dependency: '@name/foo',
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           modules: [
             '@name/foo',
@@ -88,7 +78,7 @@ const tests = {
   'scoped and subpath': {
     dependency: '@name/foo',
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           modules: [
             '@name/foo/bar',
@@ -99,7 +89,7 @@ const tests = {
   },
   subpath: {
     files: {
-      'config.js': endent`
+      'config.ts': endent`
         export default {
           modules: [
             'foo/bar',
