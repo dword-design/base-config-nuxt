@@ -8,5 +8,5 @@ export default defineConfig({
 
   timeout: 100_000,
   fullyParallel: true,
-  retries: 2,
+  retries: 2, // TODO: Get rid of retries
 });
