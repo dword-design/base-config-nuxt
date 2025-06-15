@@ -1,3 +1,10 @@
+## [7.0.1](https://github.com/dword-design/base-config-nuxt/compare/v7.0.0...v7.0.1) (2025-06-15)
+
+
+### Bug Fixes
+
+* fix tailwind ([1f65606](https://github.com/dword-design/base-config-nuxt/commit/1f65606f1ea6341c6fb79f4ee09573813779010d))
+
 # [7.0.0](https://github.com/dword-design/base-config-nuxt/compare/v6.2.14...v7.0.0) (2025-06-15)
 
 
