@@ -102,7 +102,7 @@ test('async modules', async ({ page }, testInfo) => {
         <div class="foo">{{ $foo }}</div>
       </template>
 
-      <script setup>
+      <script setup lang="ts">
       const { $foo } = useNuxtApp()
       </script>
     `,
@@ -323,7 +323,7 @@ test('do not transpile other language than js in vue', async ({
       </template>
 
       <script setup lang="ts">
-      const foo: number = 2
+      const foo: number = 2;
       </script>
     `,
   );
@@ -391,7 +391,7 @@ test('dotenv: module', async ({ page }, testInfo) => {
         <div :class="foo" />
       </template>
 
-      <script setup>
+      <script setup lang="ts">
       const { public: { foo } } = useRuntimeConfig();
       </script>
     `,
@@ -712,17 +712,26 @@ test('request body', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'package.json': JSON.stringify({ peerDependencies: { h3: '*' } }),
     'pages/index.vue': endent`
       <template>
         <form method="POST" :class="{ sent }">
-          <button name="submit" type="submit">Send</button>
+          <button class="submit-button" name="submit" type="submit">Send</button>
         </form>
       </template>
 
-      <script setup>
+      <script setup lang="ts">
+      import { getMethod, readBody } from 'h3';
+
       const event = useRequestEvent();
 
-      const sent = event && getMethod(event) === 'POST' && (await readBody(event)).submit !== undefined;
+      const sent = await (async () => {
+        if (!event || getMethod(event) !== 'POST') {
+          return false;
+        }
+        const { submit } = await readBody(event);
+        return submit !== undefined;
+      })();
       </script>
     `,
   });
@@ -730,12 +739,14 @@ test('request body', async ({ page }, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
+
   const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-    await page.locator('button').click();
+    await page.locator('.submit-button').click();
+    await new Promise(resolve => setTimeout(resolve, 20_000));
     await expect(page.locator('form')).toContainClass('sent');
   } finally {
     await kill(nuxt.pid);
