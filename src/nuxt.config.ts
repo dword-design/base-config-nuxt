@@ -70,5 +70,4 @@ export default {
     plugins: [viteSvgLoader()],
     vue: { template: { transformAssetUrls: false } },
   },
-  watch: ['config.ts'],
 };

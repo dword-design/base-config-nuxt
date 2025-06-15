@@ -115,8 +115,8 @@ importers:
         specifier: ^7.1.0
         version: 7.1.0
       nuxt-dev-ready:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^4.0.0
+        version: 4.0.0
       playwright:
         specifier: ^1.53.0
         version: 1.53.0
@@ -842,17 +842,17 @@ packages:
   '@dword-design/functions@4.1.7':
     resolution: {integrity: sha512-kc7bzBKZasf0icxKldgB7dkpd1mcEQkPz8c0BP5Wuxy63bMYs+kNWbywFT+xNBWDT6N9cdTczHwBuVBgc8ZU0A==}
     engines: {node: '>=14'}
-    deprecated: Use lodash and dedent
+    deprecated: Use lodash and endent
 
   '@dword-design/functions@5.0.27':
     resolution: {integrity: sha512-16A97RKtn21xLWI7Y7VhFz4WCWui+TLit/J5/l77BDpWmPi2LzgjQzDbafDDw7OUeY6GEAi/M4jdbuQhsIbSEg==}
     engines: {node: '>=14'}
-    deprecated: Use lodash and dedent
+    deprecated: Use lodash and endent
 
   '@dword-design/functions@6.0.2':
     resolution: {integrity: sha512-bX8MqBkzGaYEIlGAdc3hLiHO3Gia1L/sguymbQkp07yB611ZZW4Y0lTGJxWAemJEggEVM5jr1IL4vvAUmQX8VA==}
     engines: {node: '>=18'}
-    deprecated: Use lodash and dedent
+    deprecated: Use lodash and endent
 
   '@dword-design/jiti-babel-transform@2.0.0':
     resolution: {integrity: sha512-sT4TsdN6Id9k0ceZZjznmdIqdk94ZPHI21Pv0v6DeXqWRDxW0BoDVAqTbMjStSPV6n5i4AYRpwLBFN3hxYL2Lw==}
@@ -5508,8 +5508,8 @@ packages:
   nuxt-basic-authentication-module@0.2.1:
     resolution: {integrity: sha512-xjKC7pjORo093L6BbiJif7ZXnZxXKPo52LT2zyganz1OTCOMlJyDq/R6H8bpRduYETKJPmqMWeYT7eDLcIobNw==}
 
-  nuxt-dev-ready@3.0.0:
-    resolution: {integrity: sha512-7F+zTD0I/a7QZPUpnFq4WWt8TbMYUYRjQTKBnFLayIYqx6a5k8w61n9aS3gafHwRGBEX00mPv7ggn0n3b004Cg==}
+  nuxt-dev-ready@4.0.0:
+    resolution: {integrity: sha512-+1E1yayKC5+Xolgba+80qdWFR+spkQZu78hue2HvjDRvKjEFIDseTQ8+ROmhvOVHI45TW3hBBJmGrBEOv7uOAg==}
     engines: {node: '>=18'}
 
   nuxt-site-config-kit@3.2.0:
@@ -13861,7 +13861,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  nuxt-dev-ready@3.0.0:
+  nuxt-dev-ready@4.0.0:
     dependencies:
       axios: 1.10.0
       p-wait-for: 5.0.2
