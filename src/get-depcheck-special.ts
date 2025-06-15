@@ -8,7 +8,6 @@ export default ({ cwd = '.' }) =>
     if (pathLib.basename(path) === 'config.ts') {
       // TODO: Check full path including cwd so that we check config.ts at project root
       const jiti = createJiti(pathLib.resolve(cwd));
-
       const config = await jiti.import('./config.ts', { default: true });
 
       const modules = [
