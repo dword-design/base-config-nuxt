@@ -1,3 +1,10 @@
+## [7.0.3](https://github.com/dword-design/base-config-nuxt/compare/v7.0.2...v7.0.3) (2025-06-15)
+
+
+### Bug Fixes
+
+* use new jiti import ([06bc7a3](https://github.com/dword-design/base-config-nuxt/commit/06bc7a3e21f413347d3412e395e58b83f4ada1a7))
+
 ## [7.0.2](https://github.com/dword-design/base-config-nuxt/compare/v7.0.1...v7.0.2) (2025-06-15)
 
 
