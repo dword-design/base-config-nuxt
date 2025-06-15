@@ -58,6 +58,7 @@ export default function (config) {
     editorIgnore: [
       '.eslintcache',
       '.stylelintcache',
+      '.stylelintignore',
       '.stylelintrc.json',
       '.nuxt',
       '.output',
@@ -90,6 +91,7 @@ export default function (config) {
             .join('/')}`;
 
       await outputFiles(this.cwd, {
+        '.stylelintignore': '/.nuxt\n', // For Tailwind directives inside .nuxt folder
         '.stylelintrc.json': `${JSON.stringify(
           { extends: packageName`@dword-design/stylelint-config` },
           undefined,

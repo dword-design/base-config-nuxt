@@ -1011,3 +1011,36 @@ test('valid', async ({ page }, testInfo) => {
     await kill(nuxt.pid);
   }
 });
+
+test('tailwind .nuxt folder stylelint', async ({ page }, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await outputFiles(cwd, {
+    'app.vue': endent`
+      <template>
+        <div class="foo text-gray-500" />
+      </template>
+    `,
+    'config.ts': `export default defineNuxtConfig({ modules: ['${packageName`@nuxtjs/tailwindcss`}'] })`,
+  });
+
+  const base = new Base(config, { cwd });
+  await base.prepare();
+  const port = await getPort();
+
+  const nuxt = base.run('dev', {
+    env: { NODE_ENV: '', PORT: port },
+    log: true,
+  });
+
+  try {
+    await nuxtDevReady(port);
+    await page.goto(`http://localhost:${port}`);
+
+    expect(
+      await page.locator('.foo').evaluate(el => getComputedStyle(el).color),
+    ).toEqual('oklch(0.551 0.027 264.364)');
+  } finally {
+    await kill(nuxt.pid);
+  }
+});

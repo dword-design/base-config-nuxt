@@ -60,6 +60,7 @@
   "devDependencies": {
     "@dword-design/base": "^13.0.7",
     "@nuxtjs/sitemap": "^7.4.0",
+    "@nuxtjs/tailwindcss": "7.0.0-beta.0",
     "@playwright/test": "^1.53.0",
     "axios": "^1.10.0",
     "delay": "^6.0.0",
