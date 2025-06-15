@@ -720,8 +720,6 @@ test('request body', async ({ page }, testInfo) => {
       </template>
 
       <script setup>
-      import { getMethod, readBody } from 'h3';
-
       const event = useRequestEvent();
 
       const sent = event && getMethod(event) === 'POST' && (await readBody(event)).submit !== undefined;
