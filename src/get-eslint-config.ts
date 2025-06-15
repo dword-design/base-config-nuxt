@@ -8,11 +8,10 @@ export default ({ virtualImports = [], ignore = [] } = {}) => endent`
 
   export default withNuxt(
     globalIgnores([${['eslint.config.ts', ...ignore].map(pattern => `'${pattern}'`).join(', ')}]),
-    config,
-    ${
+    config,${
       virtualImports.length > 0
         ? endent`
-          {
+          \n{
             rules: {
               'import-x/no-unresolved': ['error', { ignore: [${virtualImports.map(_import => `'${_import}'`).join(', ')}] }],
             },

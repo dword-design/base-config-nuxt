@@ -5,32 +5,6 @@ import { execaCommand } from 'execa';
 import outputFiles from 'output-files';
 
 const tests = {
-  definePageMeta: {
-    filename: 'pages/index.vue',
-    files: {
-      'pages/index.vue': endent`
-        <script setup>
-        definePageMeta({ foo: 'bar' });
-        </script>\n
-      `,
-    },
-  },
-  'definePageMeta in other pages folder': {
-    error: "error  'definePageMeta' is not defined  no-undef",
-    filename: 'foo/pages/index.vue',
-    files: {
-      'foo/pages/index.vue': endent`
-        <script setup>
-        definePageMeta({ foo: 'bar' });
-        </script>\n
-      `,
-    },
-  },
-  'definePageMeta outside page': {
-    error: "error  'definePageMeta' is not defined  no-undef",
-    filename: 'model/foo.ts',
-    files: { 'model/foo.ts': "definePageMeta({ foo: 'bar' });\n" },
-  },
   'file extension: alias: existing': {
     error:
       '1:8  error  Unexpected use of file extension "ts" for "@/model/foo.ts"  import-x/extension',

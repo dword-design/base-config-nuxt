@@ -1,6 +1,5 @@
 import pathLib from 'node:path';
 
-import jitiBabelTransform from '@dword-design/jiti-babel-transform';
 import { createJiti } from 'jiti';
 import requirePackageName from 'require-package-name';
 
@@ -10,7 +9,6 @@ export default ({ cwd = '.' }) =>
       // TODO: Check full path including cwd so that we check config.ts at project root
       const jitiInstance = createJiti(pathLib.resolve(cwd), {
         interopDefault: true,
-        transform: jitiBabelTransform,
       });
 
       const config = jitiInstance('./config.ts');
