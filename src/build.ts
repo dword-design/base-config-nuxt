@@ -1,9 +1,7 @@
-import pathLib from 'node:path';
-
 import dotenv from '@dword-design/dotenv-json-extended';
-import packageName from 'depcheck-package-name';
 import { execaCommand } from 'execa';
-import fs from 'fs-extra';
+
+import resolveAliases from './resolve-aliases';
 
 export default async function (options) {
   options = {
@@ -23,38 +21,15 @@ export default async function (options) {
     env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
   });
 
-  const hasFiles = await execaCommand('tsc model --listFilesOnly', {
-    cwd: this.cwd,
-  })
-    .then(() => true)
-    .catch(() => false);
-
-  if (hasFiles) {
-    await execaCommand('tsc', {
+  await execaCommand(
+    'mkdist --src=model --declaration --ext=js --pattern=** --pattern=!**/*.spec.ts --pattern=!**/*-snapshots',
+    {
       ...(options.log && { stdout: 'inherit' }),
       cwd: this.cwd,
       stderr: options.stderr,
-    });
+    },
+  );
 
-    await fs.outputFile(
-      pathLib.join(this.cwd, 'babel.config.json'),
-      `${JSON.stringify({
-        plugins: [
-          [
-            packageName`babel-plugin-module-resolver`,
-            { alias: { '@/model': './dist' } },
-          ],
-          packageName`babel-plugin-add-import-extension`,
-        ],
-      })}\n`,
-    );
-
-    try {
-      await execaCommand('babel dist --out-dir dist', { cwd: this.cwd });
-    } finally {
-      await fs.remove(pathLib.join(this.cwd, 'babel.config.json'));
-    }
-  }
-
+  await resolveAliases({ cwd: this.cwd });
   return nuxt;
 }

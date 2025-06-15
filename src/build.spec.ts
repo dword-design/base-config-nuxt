@@ -27,7 +27,7 @@ test('cli', async ({}, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  await base.run('build', { log: true });
+  await base.run('build');
   await fs.chmod(P.join(cwd, 'dist', 'cli.js'), '755');
   const { stdout } = await execaCommand('./dist/cli.js', { cwd });
   expect(stdout).toMatch(/^foo$/m);

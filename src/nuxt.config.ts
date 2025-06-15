@@ -2,7 +2,6 @@ import packageName from 'depcheck-package-name';
 import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config';
-import i18nModule from './manually-installed-modules/i18n';
 
 const isBasicAuthEnabled =
   process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
@@ -19,16 +18,10 @@ export default {
           ? [{ content: config.ogImage, hid: 'og:image', name: 'og:image' }]
           : []),
       ],
-      titleTemplate: pageTitle =>
-        pageTitle
-          ? `${pageTitle} | ${config.name}`
-          : `${config.name}${config.title ? `: ${config.title}` : ''}`,
     },
   },
   devtools: { enabled: true },
   eslint: { checker: { fix: true }, config: { standalone: false } },
-  i18n: { bundle: { optimizeTranslationDirective: false } },
-  // @nuxtjs/i18n only checks global options, not inline options, so it needs to be declared here.
   modules: [
     (options, nuxt) => {
       if (!config.userScalable) {
@@ -53,7 +46,14 @@ export default {
         lintOnStart: false,
       },
     ],
-    i18nModule,
+    [
+      packageName`@dword-design/nuxt-page-title`,
+      { description: config.title, name: config.name },
+    ],
+    [
+      packageName`@dword-design/nuxt-i18n`,
+      { ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }) },
+    ],
   ],
   router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {

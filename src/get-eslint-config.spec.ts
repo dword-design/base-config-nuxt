@@ -28,10 +28,12 @@ const tests = {
   },
   'definePageMeta outside page': {
     error: "error  'definePageMeta' is not defined  no-undef",
-    filename: 'plugins/foo.ts',
-    files: { 'plugins/foo.ts': "definePageMeta({ foo: 'bar' });\n" },
+    filename: 'model/foo.ts',
+    files: { 'model/foo.ts': "definePageMeta({ foo: 'bar' });\n" },
   },
   'file extension: alias: existing': {
+    error:
+      '1:8  error  Unexpected use of file extension "ts" for "@/model/foo.ts"  import-x/extension',
     filename: 'server/api/foo.ts',
     files: {
       'model/foo.ts': '',
@@ -39,8 +41,6 @@ const tests = {
     },
   },
   'file extension: alias: missing': {
-    error:
-      '1:8  error  Missing file extension "js" for "@/model/foo"  import/extensions',
     filename: 'server/api/foo.ts',
     files: {
       'model/foo.ts': '',

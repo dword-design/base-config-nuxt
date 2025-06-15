@@ -1,10 +1,11 @@
 import pathLib from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const moduleUrl = pathToFileURL(pathLib.join(process.cwd(), 'config.ts')).href;
+const modulePath = pathLib.join(process.cwd(), 'config.ts');
+const moduleUrl = pathToFileURL(modulePath).href;
 
 const { default: config } = await import(moduleUrl).catch(error => {
-  if (error.code === 'ERR_MODULE_NOT_FOUND' && error.url === moduleUrl) {
+  if (error.message.startsWith(`Cannot find module '${modulePath}'`)) {
     return { default: {} };
   } else {
     throw error;

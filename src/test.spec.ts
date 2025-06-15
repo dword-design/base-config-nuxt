@@ -97,7 +97,7 @@ test('linting error in vue file', async ({}, testInfo) => {
   await base.prepare();
 
   await expect(base.test()).rejects.toThrow(
-    'Parsing error: Missing semicolon. (2:3)',
+    'Parsing error: Unexpected keyword or identifier',
   );
 });
 

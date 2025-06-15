@@ -5,7 +5,6 @@
       "playwright-chromium"
     ]
   },
-  "eslintConfig": "import config from '@dword-design/eslint-config';\nimport { defineConfig, globalIgnores } from 'eslint/config';\n\nexport default defineConfig([globalIgnores(['eslint.config.ts']),config,{ rules: { 'import-x/no-unresolved': ['error', { ignore: ['#imports'] }] } }]);\n",
   "macos": false,
   "name": "@dword-design/node"
 }
