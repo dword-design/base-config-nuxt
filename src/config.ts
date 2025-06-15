@@ -1,15 +1,14 @@
-import pathLib from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { createJiti } from 'jiti';
 
-const modulePath = pathLib.join(process.cwd(), 'config.ts');
-const moduleUrl = pathToFileURL(modulePath).href;
+const jiti = createJiti(process.cwd(), { interopDefault: true });
+let config = {};
 
-const { default: config } = await import(moduleUrl).catch(error => {
-  if (error.message.startsWith(`Cannot find module '${modulePath}'`)) {
-    return { default: {} };
-  } else {
+try {
+  config = jiti('./config.ts');
+} catch (error) {
+  if (!error.message.startsWith(`Cannot find module './config.ts'`)) {
     throw error;
   }
-});
+}
 
 export default { name: 'Vue app', userScalable: true, ...config };
