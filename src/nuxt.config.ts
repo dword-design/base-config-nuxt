@@ -1,11 +1,7 @@
-import { createRequire } from 'node:module';
-
 import packageName from 'depcheck-package-name';
 import viteSvgLoader from 'vite-svg-loader';
 
-import config from './config.js';
-
-const resolver = createRequire(import.meta.url);
+import config from './config';
 
 const isBasicAuthEnabled =
   process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
@@ -26,8 +22,6 @@ export default {
   },
   devtools: { enabled: true },
   eslint: { checker: { fix: true }, config: { standalone: false } },
-  i18n: { bundle: { optimizeTranslationDirective: false } },
-  // @nuxtjs/i18n only checks global options, not inline options, so it needs to be declared here.
   modules: [
     (options, nuxt) => {
       if (!config.userScalable) {
@@ -52,12 +46,17 @@ export default {
         lintOnStart: false,
       },
     ],
-    resolver.resolve('./manually-installed-modules/i18n/index.js'),
+    [
+      packageName`@dword-design/nuxt-page-title`,
+      { description: config.title, name: config.name },
+    ],
+    [
+      packageName`@dword-design/nuxt-i18n`,
+      { ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }) },
+    ],
   ],
-  plugins: [resolver.resolve('./plugins/title.js')],
   router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {
-    public: { name: config.name, title: config.title },
     ...(isBasicAuthEnabled && {
       basicAuth: {
         pairs: {
@@ -71,5 +70,4 @@ export default {
     plugins: [viteSvgLoader()],
     vue: { template: { transformAssetUrls: false } },
   },
-  watch: ['config.js'],
 };

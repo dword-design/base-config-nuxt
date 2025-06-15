@@ -1,14 +1,14 @@
 import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
-import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
+import endent from 'endent';
 import fs from 'fs-extra';
 import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
 import kill from 'tree-kill-promise';
 
-import config from './index.js';
+import config from '.';
 
 test('fixable linting error', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();

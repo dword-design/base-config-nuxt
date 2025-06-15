@@ -1,10 +1,10 @@
 import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
-import { endent, property } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
 import axios from 'axios';
 import packageName from 'depcheck-package-name';
+import endent from 'endent';
 import fs from 'fs-extra';
 import getPort from 'get-port';
 import nuxtDevReady from 'nuxt-dev-ready';
@@ -13,13 +13,13 @@ import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 import xmlFormatter from 'xml-formatter';
 
-import config from './index.js';
+import config from '.';
 
 test('aliases', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'model/foo.js': "export default 'Hello world'",
+    'model/foo.ts': "export default 'Hello world'",
     'pages/index.vue': endent`
       <template>
         <div class="foo">{{ foo }}</div>
@@ -56,7 +56,7 @@ test('api', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'server', 'api', 'foo.get.js'),
+    pathLib.join(cwd, 'server', 'api', 'foo.get.ts'),
     "export default defineEventHandler(() => ({ foo: 'bar' }))",
   );
 
@@ -68,10 +68,9 @@ test('api', async ({}, testInfo) => {
   try {
     await nuxtDevReady(port);
 
-    const result =
-      axios.get(`http://localhost:${port}/api/foo`)
-      |> await
-      |> property('data');
+    const { data: result } = await axios.get(
+      `http://localhost:${port}/api/foo`,
+    );
 
     expect(result).toEqual({ foo: 'bar' });
   } finally {
@@ -84,18 +83,18 @@ test('async modules', async ({ page }, testInfo) => {
 
   await outputFiles(cwd, {
     'modules/foo': {
-      'index.js': endent`
-        import { delay } from '@dword-design/functions'
+      'index.ts': endent`
+        import delay from '${packageName`delay`}'
         import { addPlugin, createResolver } from '@nuxt/kit'
 
         const resolver = createResolver(import.meta.url)
 
         export default async function () {
-          await delay(100)
-          addPlugin(resolver.resolve('./plugin'), { append: true })
+          await delay(100);
+          addPlugin(resolver.resolve('./plugin'), { append: true });
         }
       `,
-      'plugin.js':
+      'plugin.ts':
         "export default defineNuxtPlugin(() => ({ provide: { foo: 'Hello world' } }))",
     },
     'pages/index.vue': endent`
@@ -140,7 +139,7 @@ test('basic auth', async ({}, testInfo) => {
         <div />
       </template>
     `,
-    'server/api/foo.get.js': "export default defineEventHandler(() => 'foo')",
+    'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
   });
 
   const base = new Base(config, { cwd });
@@ -177,7 +176,7 @@ test('bodyAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         app: {
           head: {
@@ -218,7 +217,7 @@ test('css', async ({ page }, testInfo) => {
         background: red;
       }
     `,
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         css: [
           '@/assets/style.scss',
@@ -350,7 +349,7 @@ test('dotenv: config', async ({ page }, testInfo) => {
     '.env.json': JSON.stringify({ foo: 'Foo' }),
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'Bar' }),
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         name: process.env.FOO,
       }
@@ -382,7 +381,7 @@ test('dotenv: module', async ({ page }, testInfo) => {
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'bar' }),
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         runtimeConfig: { public: { foo: process.env.FOO } },
       };
@@ -446,7 +445,7 @@ test('head in module', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'modules', 'mod.js'),
+    pathLib.join(cwd, 'modules', 'mod.ts'),
     "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
   );
 
@@ -459,7 +458,7 @@ test('head link', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         app: {
           head: {
@@ -507,7 +506,7 @@ test('hexrgba', async ({ page }, testInfo) => {
         background: rgba(#fff, .5);
       }
     `,
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         css: ['@/assets/style.css'],
       }
@@ -541,7 +540,7 @@ test('htmlAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         app: {
           head: {
@@ -573,366 +572,13 @@ test('htmlAttrs', async ({ page }, testInfo) => {
   }
 });
 
-test('i18n: browser language changed', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-
-    expect(
-      axios.get(`http://localhost:${port}`)
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/en`);
-
-    expect(
-      axios.get(`http://localhost:${port}`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de`);
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
+test('i18n', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
   const port = await getPort();
 
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ baseUrl: `http://localhost:${port}` }),
-    i18n: { 'en.json': JSON.stringify({ foo: 'Hello world' }) },
-    pages: {
-      'foo.vue': endent`
-        <template>
-          <div />
-        </template>
-      `,
-      'index.vue': endent`
-        <template>
-          <div />
-        </template>
-      `,
-    },
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-
-    await expect(
-      page.locator(`link[rel=canonical][href="http://localhost:${port}"]`),
-    ).toBeAttached();
-
-    await page.goto(`http://localhost:${port}/foo`);
-
-    await expect(
-      page.locator(`link[rel=canonical][href="http://localhost:${port}/foo"]`),
-    ).toBeAttached();
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: middleware', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'config.js': endent`
-      export default {
-        router: {
-          middleware: ['foo']
-        }
-      }
-    `,
-    i18n: {
-      'de.json': JSON.stringify({}, undefined, 2),
-      'en.json': JSON.stringify({}, undefined, 2),
-    },
-    'middleware/foo.js': 'export default () => {}',
-    'pages/index.vue': endent`
-      <template>
-        <div class="foo">Hello world</div>
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-    await expect(page.locator('.foo')).toHaveText('Hello world');
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: root with prefix', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}/de`);
-    expect(page.url()).toEqual(`http://localhost:${port}/de`);
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: root without prefix', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-
-    expect(
-      axios.get(`http://localhost:${port}`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de`);
-
-    await page.setExtraHTTPHeaders({ 'Accept-Language': 'de' });
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: route with prefix', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'pages/foo.vue': endent`
-      <template>
-        <div />
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-
-    expect(
-      axios.get(`http://localhost:${port}/de/foo`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de/foo`);
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: route without prefix', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'pages/foo.vue': endent`
-      <template>
-        <div />
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-
-    expect(
-      axios.get(`http://localhost:${port}/foo`, {
-        headers: { 'Accept-Language': 'de' },
-      })
-        |> await
-        |> property('request.res.responseUrl'),
-    ).toEqual(`http://localhost:${port}/de/foo`);
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: single locale', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'i18n/de.json': JSON.stringify({ foo: 'bar' }),
-    pages: {
-      'bar.vue': endent`
-        <template>
-          <div class="bar" />
-        </template>
-      `,
-      'index.vue': endent`
-        <template>
-          <nuxt-locale-link :to="{ name: 'bar' }" class="foo">{{ $t('foo') }}</nuxt-locale-link>
-        </template>
-      `,
-    },
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.setExtraHTTPHeaders({ 'Accept-Language': 'en' });
-    await page.goto(`http://localhost:${port}`);
-    await expect(page).toHaveURL(`http://localhost:${port}`);
-    const link = page.locator('.foo');
-
-    await Promise.all([
-      expect(link).toHaveText('bar'),
-      expect(link).toHaveAttribute('href', '/bar'),
-    ]);
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('i18n: works', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-  const port = await getPort();
-
-  await outputFiles(cwd, {
-    '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
-    '.test.env.json': JSON.stringify({ baseUrl: `http://localhost:${port}` }),
-    'config.js': endent`
-      export default {
-        app: {
-          head: {
-            htmlAttrs: { style: 'background: red' },
-            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-          },
-        },
-      }
-    `,
-    i18n: {
-      'de.json': JSON.stringify({ foo: 'Hallo Welt' }),
-      'en.json': JSON.stringify({ foo: 'Hello world' }),
-    },
-    'pages/index.vue': endent`
-      <template>
-        <div class="foo">{{ $t('foo') }}</div>
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-    expect(page.url()).toEqual(`http://localhost:${port}/en`);
-    const foo = page.locator('.foo');
-    const html = page.locator('html[lang=en]');
-
-    await Promise.all([
-      expect(foo).toBeAttached(),
-      expect(html).toBeAttached(),
-      expect(
-        page.locator(`link[rel=canonical][href="http://localhost:${port}/en"]`),
-      ).toBeAttached(),
-      expect(
-        page
-          .locator(
-            `link[rel=alternate][href="http://localhost:${port}/de"][hreflang=de]`,
-          )
-          .first(), // TODO: Fix duplicated link tags
-      ).toBeAttached(),
-      expect(
-        page
-          .locator(
-            `link[rel=alternate][href="http://localhost:${port}/en"][hreflang=en]`,
-          )
-          .first(), // TODO: Fix duplicated link tags
-      ).toBeAttached(),
-      expect(
-        page.locator(
-          'link[rel=icon][type="image/x-icon"][href="/favicon.ico"]',
-        ),
-      ).toBeAttached(),
-    ]);
-
-    await expect(foo).toHaveText('Hello world');
-    await expect(html).toHaveAttribute('style', 'background:red');
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('locale link', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
     pages: {
       'foo.vue': endent`
@@ -952,53 +598,28 @@ test('locale link', async ({ page }, testInfo) => {
 
   const base = new Base(config, { cwd });
   await base.prepare();
-  const port = await getPort();
   const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
+
+    await expect(page.locator('link[rel=canonical]')).toHaveAttribute(
+      'href',
+      `http://localhost:${port}/en`,
+    );
+
     await expect(page.locator('a')).toHaveAttribute('href', '/en/foo');
   } finally {
     await kill(nuxt.pid);
   }
 });
 
-test('name', async ({ page }, testInfo) => {
+test('page title', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
-      export default {
-        name: 'Test-App',
-      }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div>Hello world</div>
-      </template>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-    await page.waitForFunction(() => document.title === 'Test-App');
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('name and title', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         name: 'Test-App',
         title: 'This is the ultimate app!',
@@ -1019,10 +640,7 @@ test('name and title', async ({ page }, testInfo) => {
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
-
-    await page.waitForFunction(
-      () => document.title === 'Test-App: This is the ultimate app!',
-    );
+    await expect(page).toHaveTitle('Test-App: This is the ultimate app!');
   } finally {
     await kill(nuxt.pid);
   }
@@ -1032,7 +650,7 @@ test('ogImage', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         ogImage: 'https://example.com/og-image',
       }
@@ -1058,41 +676,6 @@ test('ogImage', async ({ page }, testInfo) => {
     expect(await meta.evaluate(meta => meta.content)).toEqual(
       'https://example.com/og-image',
     );
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('page with title', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'config.js': endent`
-      export default {
-        name: 'Test-App',
-        title: 'This is the ultimate app!',
-      }
-    `,
-    'pages/foo.vue': endent`
-      <template>
-        <div>Hello world</div>
-      </template>
-
-      <script setup>
-      useHead({ title: 'Foo page' })
-      </script>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}/foo`);
-    await page.waitForFunction(() => document.title === 'Foo page | Test-App');
   } finally {
     await kill(nuxt.pid);
   }
@@ -1129,10 +712,6 @@ test('request body', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'package.json': JSON.stringify({
-      dependencies: { '@dword-design/functions': '*', h3: '*' },
-      type: 'module',
-    }),
     'pages/index.vue': endent`
       <template>
         <form method="POST" :class="{ sent }">
@@ -1141,7 +720,6 @@ test('request body', async ({ page }, testInfo) => {
       </template>
 
       <script setup>
-      import { property } from '@dword-design/functions';
       import { getMethod, readBody } from 'h3';
 
       const event = useRequestEvent();
@@ -1170,7 +748,7 @@ test('router config', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         router: {
           options: {
@@ -1245,7 +823,7 @@ test('sitemap', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         modules: [
           ['${packageName`@nuxtjs/sitemap`}', { credits: false }],
@@ -1370,7 +948,7 @@ test('userScalable', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'config.js': endent`
+    'config.ts': endent`
       export default {
         userScalable: false,
       }

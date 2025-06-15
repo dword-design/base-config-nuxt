@@ -1,12 +1,12 @@
 import { Base } from '@dword-design/base';
-import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
+import endent from 'endent';
 import getPort from 'get-port';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
 
-import config from './index.js';
+import config from '.';
 
 test('valid', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();

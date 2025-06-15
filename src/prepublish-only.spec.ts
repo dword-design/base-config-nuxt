@@ -1,27 +1,27 @@
 import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
-import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
+import endent from 'endent';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
 
-import config from './index.js';
+import config from '.';
 
 test('cli', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     model: {
-      'cli.js': endent`
+      'cli.ts': endent`
         #!/usr/bin/env node
 
-        import foo from './foo.js'
+        import foo from './foo'
 
         console.log(foo)
       `,
-      'foo.js': "export default 'foo'",
+      'foo.ts': "export default 'foo'",
     },
   });
 
@@ -70,7 +70,7 @@ test('linting error in cli', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'model', 'cli.js'),
+    pathLib.join(cwd, 'model', 'cli.ts'),
     endent`
       #!/usr/bin/env node
 

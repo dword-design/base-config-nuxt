@@ -7,7 +7,12 @@
   "author": "Sebastian Landwehr <info@sebastianlandwehr.com>",
   "type": "module",
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "import": {
+        "default": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      }
+    },
     "./config": "./dist/config.js",
     "./nuxt.config": "./dist/nuxt.config.js"
   },
@@ -26,46 +31,50 @@
     "test": "base test"
   },
   "dependencies": {
+    "@babel/core": "^7.27.4",
     "@dword-design/depcheck-parser-sass": "^4.0.4",
-    "@dword-design/dotenv-json-extended": "^3.0.1",
-    "@dword-design/functions": "^6.0.2",
-    "@dword-design/jiti-babel-transform": "^2.0.0",
+    "@dword-design/dotenv-json-extended": "^3.0.3",
+    "@dword-design/nuxt-i18n": "^1.0.1",
+    "@dword-design/nuxt-page-title": "^1.0.0",
     "@dword-design/stylelint-config": "^4.0.2",
     "@nuxt/eslint": "^1.4.1",
-    "@nuxt/kit": "^3.17.4",
-    "@nuxtjs/i18n": "^9.5.4",
     "@nuxtjs/stylelint-module": "^5.2.1",
+    "babel-plugin-add-import-extension": "^1.6.0",
+    "babel-plugin-module-resolver": "^5.0.2",
     "depcheck-package-name": "^3.0.1",
     "depcheck-parser-vue": "^5.0.0",
+    "endent": "npm:@dword-design/endent@^1.4.1",
     "execa": "^9.6.0",
     "fs-extra": "^11.3.0",
     "globby": "^14.1.0",
     "jiti": "^2.4.2",
     "lodash-es": "^4.17.21",
-    "nuxt": "^3.17.4",
+    "nuxt": "^3.17.5",
     "nuxt-basic-authentication-module": "^0.2.1",
     "output-files": "^2.0.32",
     "require-package-name": "^2.0.1",
-    "stylelint": "^16.19.1",
+    "stylelint": "^16.20.0",
     "vite-plugin-eslint2": "^5.0.3",
     "vite-svg-loader": "^5.1.0"
   },
   "devDependencies": {
-    "@dword-design/base": "^12.0.18",
-    "@nuxtjs/sitemap": "^7.3.0",
-    "@playwright/test": "^1.52.0",
-    "axios": "^1.9.0",
+    "@dword-design/base": "^13.0.7",
+    "@nuxtjs/sitemap": "^7.4.0",
+    "@playwright/test": "^1.53.0",
+    "axios": "^1.10.0",
+    "delay": "^6.0.0",
     "depcheck": "^1.4.7",
     "get-port": "^7.1.0",
-    "nuxt-dev-ready": "^3.0.0",
-    "playwright": "^1.52.0",
-    "playwright-chromium": "^1.52.0",
+    "nuxt-dev-ready": "^4.0.0",
+    "playwright": "^1.53.0",
+    "playwright-chromium": "^1.53.0",
     "port-ready": "^0.1.0",
     "tree-kill-promise": "^3.0.14",
     "xml-formatter": "^3.6.6"
   },
   "peerDependencies": {
-    "h3": "*"
+    "h3": "*",
+    "unhead": "*"
   },
   "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677",
   "engines": {

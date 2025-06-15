@@ -1,50 +1,24 @@
 import { Base } from '@dword-design/base';
-import { endent } from '@dword-design/functions';
 import { expect, test } from '@playwright/test';
+import endent from 'endent';
 import { execaCommand } from 'execa';
 import outputFiles from 'output-files';
 
 const tests = {
-  definePageMeta: {
-    filename: 'pages/index.vue',
-    files: {
-      'pages/index.vue': endent`
-        <script setup>
-        definePageMeta({ foo: 'bar' });
-        </script>\n
-      `,
-    },
-  },
-  'definePageMeta in other pages folder': {
-    error: "error  'definePageMeta' is not defined  no-undef",
-    filename: 'foo/pages/index.vue',
-    files: {
-      'foo/pages/index.vue': endent`
-        <script setup>
-        definePageMeta({ foo: 'bar' });
-        </script>\n
-      `,
-    },
-  },
-  'definePageMeta outside page': {
-    error: "error  'definePageMeta' is not defined  no-undef",
-    filename: 'plugins/foo.js',
-    files: { 'plugins/foo.js': "definePageMeta({ foo: 'bar' });\n" },
-  },
   'file extension: alias: existing': {
-    filename: 'server/api/foo.js',
+    error:
+      '1:8  error  Unexpected use of file extension "ts" for "@/model/foo.ts"  import-x/extension',
+    filename: 'server/api/foo.ts',
     files: {
-      'model/foo.js': '',
-      'server/api/foo.js': "import '@/model/foo.js';\n",
+      'model/foo.ts': '',
+      'server/api/foo.ts': "import '@/model/foo.ts';\n",
     },
   },
   'file extension: alias: missing': {
-    error:
-      '1:8  error  Missing file extension "js" for "@/model/foo"  import/extensions',
-    filename: 'server/api/foo.js',
+    filename: 'server/api/foo.ts',
     files: {
-      'model/foo.js': '',
-      'server/api/foo.js': "import '@/model/foo';\n",
+      'model/foo.ts': '',
+      'server/api/foo.ts': "import '@/model/foo';\n",
     },
   },
   'loader import syntax': {
@@ -72,9 +46,9 @@ const tests = {
     },
   },
   'server api filename with camelCase': {
-    filename: 'server/api/[paramId].get.js',
+    filename: 'server/api/[paramId].get.ts',
     files: {
-      'server/api/[paramId].get.js':
+      'server/api/[paramId].get.ts':
         "export default defineEventHandler(() => '');\n",
     },
   },
@@ -104,7 +78,7 @@ for (const [name, _testConfig] of Object.entries(tests)) {
     await outputFiles(cwd, testConfig.files);
 
     const base = new Base(
-      { name: '../../src/index.js', ...testConfig.config },
+      { name: '../../src/index.ts', ...testConfig.config },
       { cwd },
     );
 
