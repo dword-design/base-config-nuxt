@@ -25,6 +25,7 @@ const isInNodeModules = __dirname.split(P.sep).includes('node_modules');
 export default function (config) {
   return {
     allowedMatches: [
+      '.stylelintignore',
       '.stylelintrc.json',
       'server/api/**/*.ts',
       'server/plugins/**/*.ts',
