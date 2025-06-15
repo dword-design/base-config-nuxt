@@ -1,3 +1,21 @@
+# [7.0.0](https://github.com/dword-design/base-config-nuxt/compare/v6.2.14...v7.0.0) (2025-06-15)
+
+
+### Bug Fixes
+
+* foo ([4d9c997](https://github.com/dword-design/base-config-nuxt/commit/4d9c997d14b1af7d12cfcbbed3d08798cdf7f507))
+* foo ([774827a](https://github.com/dword-design/base-config-nuxt/commit/774827a6c353b5a71792c51487eaef675df8a506))
+* foo ([030d09e](https://github.com/dword-design/base-config-nuxt/commit/030d09e0703ff181a2acfb11d5608f556196900a))
+* foo ([359c4e3](https://github.com/dword-design/base-config-nuxt/commit/359c4e31ec2e3617de7ce383513005e14bcb7218))
+* foo ([e04051d](https://github.com/dword-design/base-config-nuxt/commit/e04051da54b8a3e6898959b98cfcb51f732d5824))
+* foo ([345d5f7](https://github.com/dword-design/base-config-nuxt/commit/345d5f767a3e2a1d8cce62500c5ebdedd59b0011))
+* typescript ([#298](https://github.com/dword-design/base-config-nuxt/issues/298)) ([1edf09b](https://github.com/dword-design/base-config-nuxt/commit/1edf09ba0d738fbe8d209d1b5a4b95d2a2f73edb))
+
+
+### BREAKING CHANGES
+
+* typescript
+
 ## [6.2.14](https://github.com/dword-design/base-config-nuxt/compare/v6.2.13...v6.2.14) (2025-06-15)
 
 
