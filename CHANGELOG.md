@@ -1,3 +1,10 @@
+## [6.2.14](https://github.com/dword-design/base-config-nuxt/compare/v6.2.13...v6.2.14) (2025-06-15)
+
+
+### Bug Fixes
+
+* parallel tests ([#295](https://github.com/dword-design/base-config-nuxt/issues/295)) ([fad77bb](https://github.com/dword-design/base-config-nuxt/commit/fad77bbd473ad1762ee0812095af0835cde9f3f9))
+
 ## [6.2.13](https://github.com/dword-design/base-config-nuxt/compare/v6.2.12...v6.2.13) (2025-06-01)
 
 
