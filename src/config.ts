@@ -1,7 +1,7 @@
 import { createJiti } from 'jiti';
 
 /**
- * For some reason when using a dynamic import, the config.ts file will sometimes stay
+ * TODO: For some reason when using a dynamic import, the config.ts file will sometimes stay
  * or be regenerated into the Playwright test output directory.
  * 
 import pathLib from 'node:path';
