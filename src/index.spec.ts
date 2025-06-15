@@ -739,14 +739,12 @@ test('request body', async ({ page }, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
-
   const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
     await nuxtDevReady(port);
     await page.goto(`http://localhost:${port}`);
     await page.locator('.submit-button').click();
-    await new Promise(resolve => setTimeout(resolve, 20_000));
     await expect(page.locator('form')).toContainClass('sent');
   } finally {
     await kill(nuxt.pid);
