@@ -3,6 +3,7 @@ import P from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
+import depcheck from 'depcheck';
 import packageName from 'depcheck-package-name';
 import javascript from 'endent';
 import { pick } from 'lodash-es';
@@ -49,7 +50,10 @@ export default function (config) {
     ],
     commands: { analyze, build, dev, prepublishOnly, start },
     depcheckConfig: {
-      parsers: { '**/*.scss': depcheckParserSass },
+      parsers: {
+        '**/*.scss': depcheckParserSass,
+        '**/*.vue': depcheck.parser.vue,
+      },
       specials: [getDepcheckSpecial({ cwd: this.cwd })],
     },
     editorIgnore: [

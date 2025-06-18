@@ -38,6 +38,9 @@ importers:
       babel-plugin-module-resolver:
         specifier: ^5.0.2
         version: 5.0.2
+      depcheck:
+        specifier: ^1.4.7
+        version: 1.4.7
       depcheck-package-name:
         specifier: ^3.0.1
         version: 3.0.1
@@ -99,9 +102,6 @@ importers:
       delay:
         specifier: ^6.0.0
         version: 6.0.0
-      depcheck:
-        specifier: ^1.4.7
-        version: 1.4.7
       get-port:
         specifier: ^7.1.0
         version: 7.1.0
