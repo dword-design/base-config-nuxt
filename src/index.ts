@@ -109,9 +109,9 @@ export default function (config) {
       });
     },
     useJobMatrix: true,
+    "hasTypescriptConfigRootAlias": false,
+    "typescriptConfig": { "extends": "./.nuxt/tsconfig.json" },
   };
-  "hasTypescriptConfigRootAlias": false,
-  "typescriptConfig": { "extends": "./.nuxt/tsconfig.json" },
 }
 
 export { default as getEslintConfig } from './get-eslint-config';
