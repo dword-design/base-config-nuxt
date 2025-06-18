@@ -1,3 +1,10 @@
+## [7.0.5](https://github.com/dword-design/base-config-nuxt/compare/v7.0.4...v7.0.5) (2025-06-18)
+
+
+### Bug Fixes
+
+* remove depcheckparser-vue ([41ed540](https://github.com/dword-design/base-config-nuxt/commit/41ed5407640e8e69099ca13ecf662d745b40a37c))
+
 ## [7.0.4](https://github.com/dword-design/base-config-nuxt/compare/v7.0.3...v7.0.4) (2025-06-18)
 
 
