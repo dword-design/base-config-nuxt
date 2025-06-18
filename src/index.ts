@@ -75,6 +75,7 @@ export default function (config) {
       '/dist',
       '/nuxt.config.ts',
     ],
+    hasTypescriptConfigRootAlias: false,
     lint,
     npmPublish: true,
     packageConfig: { main: 'dist/index.js' },
@@ -108,9 +109,8 @@ export default function (config) {
         `,
       });
     },
+    typescriptConfig: { extends: './.nuxt/tsconfig.json' },
     useJobMatrix: true,
-    "hasTypescriptConfigRootAlias": false,
-    "typescriptConfig": { "extends": "./.nuxt/tsconfig.json" },
   };
 }
 
