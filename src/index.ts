@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url';
 
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import packageName from 'depcheck-package-name';
-import depcheckParserVue from 'depcheck-parser-vue';
 import javascript from 'endent';
 import { pick } from 'lodash-es';
 import outputFiles from 'output-files';
@@ -50,10 +49,7 @@ export default function (config) {
     ],
     commands: { analyze, build, dev, prepublishOnly, start },
     depcheckConfig: {
-      parsers: {
-        '**/*.scss': depcheckParserSass,
-        '**/*.vue': depcheckParserVue,
-      },
+      parsers: { '**/*.scss': depcheckParserSass },
       specials: [getDepcheckSpecial({ cwd: this.cwd })],
     },
     editorIgnore: [
