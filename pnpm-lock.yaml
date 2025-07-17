@@ -5000,8 +5000,8 @@ packages:
     resolution: {integrity: sha512-pDjaLs54bftlqyCT7KRC9FfbAURfKVcQFnNNe5qp4RLEOpNGiGjdNTUgMsYKFqZd75WhI0tYxQMIbgnpDptPCw==}
     engines: {node: '>=14'}
 
-  make-cli@4.0.6:
-    resolution: {integrity: sha512-PF/bFDfDrVfJSpSfg/JYYKl8WRaqJ5T16uZZ1a7hX14BW74JiKInGPLd/ihmLIgHkjb2fu5YTL1gwOIaWh828g==}
+  make-cli@4.0.7:
+    resolution: {integrity: sha512-mAixMdufA5bQRUYhIk3t9sYRELH7dLXxrlvDsy6vNDz8Y9V4ypQsx6AJzvSy1KMsUiJvOJrcUPG+3j5jfQkymQ==}
     engines: {node: '>=18'}
 
   make-dir@4.0.0:
@@ -8047,7 +8047,7 @@ snapshots:
       is-ci: 3.0.1
       jiti: 2.4.2
       lodash-es: 4.17.21
-      make-cli: 4.0.6
+      make-cli: 4.0.7
       output-files: 3.0.0
       package-name-regex: 4.0.3
       parse-git-config: '@dword-design/parse-git-config@0.0.1'
@@ -13094,7 +13094,7 @@ snapshots:
       '@dword-design/functions': 4.1.7
       commander: 9.5.0
 
-  make-cli@4.0.6:
+  make-cli@4.0.7:
     dependencies:
       '@dword-design/defu': 1.0.3
       commander: 12.1.0
