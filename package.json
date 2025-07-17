@@ -42,7 +42,7 @@
     "babel-plugin-add-import-extension": "^1.6.0",
     "babel-plugin-module-resolver": "^5.0.2",
     "depcheck": "^1.4.7",
-    "depcheck-package-name": "^3.0.1",
+    "depcheck-package-name": "^4.0.0",
     "endent": "npm:@dword-design/endent@^1.4.1",
     "execa": "^9.6.0",
     "fs-extra": "^11.3.0",
