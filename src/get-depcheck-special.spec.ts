@@ -1,11 +1,14 @@
 import { expect, test } from '@playwright/test';
 import depcheck from 'depcheck';
 import endent from 'endent';
+import type { Files } from 'output-files';
 import outputFiles from 'output-files';
 
 import self from './get-depcheck-special';
 
-const tests = {
+type TestConfig = { files?: Files; dependency?: string; fail?: boolean };
+
+const tests: Record<string, TestConfig> = {
   'array syntax': {
     files: {
       'config.ts': endent`
