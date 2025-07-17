@@ -1,9 +1,10 @@
+import type { CommandOptionsInput } from '@dword-design/base';
 import dotenv from '@dword-design/dotenv-json-extended';
 import { execaCommand } from 'execa';
 
 import resolveAliases from './resolve-aliases';
 
-export default async function (options) {
+export default async function (options: CommandOptionsInput) {
   options = {
     env: {},
     log: process.env.NODE_ENV !== 'test',

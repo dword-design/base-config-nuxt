@@ -1,6 +1,7 @@
+import type { CommandOptionsInput } from '@dword-design/base';
 import { execaCommand } from 'execa';
 
-export default async function (options) {
+export default async function (options: CommandOptionsInput) {
   options = {
     log: process.env.NODE_ENV !== 'test',
     stderr: 'inherit',

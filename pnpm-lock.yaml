@@ -42,11 +42,11 @@ importers:
         specifier: ^1.4.7
         version: 1.4.7
       depcheck-package-name:
-        specifier: ^3.0.1
-        version: 3.0.1
+        specifier: ^4.0.0
+        version: 4.0.0
       endent:
         specifier: npm:@dword-design/endent@^1.4.1
-        version: '@dword-design/endent@1.4.1'
+        version: '@dword-design/endent@1.4.7'
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -85,8 +85,8 @@ importers:
         version: 5.1.0(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@dword-design/base':
-        specifier: ^14.0.2
-        version: 14.0.2(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))
+        specifier: ^14.0.5
+        version: 14.0.5(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))
       '@nuxtjs/sitemap':
         specifier: ^7.4.3
         version: 7.4.3(h3@1.15.3)(magicast@0.3.5)(vite@6.3.5(@types/node@24.0.14)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
@@ -96,6 +96,9 @@ importers:
       '@playwright/test':
         specifier: ^1.54.1
         version: 1.54.1
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
       axios:
         specifier: ^1.10.0
         version: 1.10.0
@@ -409,8 +412,8 @@ packages:
     resolution: {integrity: sha512-xHQRK7/3ARa+Xs8n4M8EW/8buDUclvm8+05JN6cOorkONAj7QgPbn452TY6xhuT8d8R9OUivzNgUHGabgEfwUA==}
     engines: {node: '>=18'}
 
-  '@dword-design/base@14.0.2':
-    resolution: {integrity: sha512-mlWFOgIbH1zBKGQh1E1K4Q2HTLIdBUSlZSMh0yqcEy/SaVZ4ebCuMdLTfmcNZz3Ue+QYvbtMGTG6Xj9dkpUf9w==}
+  '@dword-design/base@14.0.5':
+    resolution: {integrity: sha512-hVEetE8FPtjwRcx+zpKhGStecYwjHrtWExW6XuR9rhbnVlY4Laq4ArAVM8aA/rf7ulW0U265a1L+L6ek2TgJXw==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -439,8 +442,8 @@ packages:
     resolution: {integrity: sha512-782zePMQy3M5gfod3xaew8P9ihzpn9jtz/dW26JsqRVYpAz0uY4r22spNdbPpUD0xE24OAtPXoD8OuHhVfWiQg==}
     engines: {node: '>=20'}
 
-  '@dword-design/endent@1.4.1':
-    resolution: {integrity: sha512-e2sCTzth5kyRdM0o+yEb5wBVzUdJL8Y6HblRGRV0Bif0knf1ZjRLhUjdCrqM+Muirb68X/xJzgdRDJVmLqgXGA==}
+  '@dword-design/endent@1.4.7':
+    resolution: {integrity: sha512-yK1ivALMq9Eys6O9SgO+jBpRbQBLruFL2FvWMWPcoqiY1hPDHleY02Vir6jN6j7tDiMog3tjVtqKb4eWXdKo1w==}
 
   '@dword-design/eslint-config@7.0.7':
     resolution: {integrity: sha512-Se1OTd/dxnVJf/gK/4mestD9uGBOMaIvvHNFeCP3dWqrKEIV+ruDLJEWXFvNwM8S/5gCe2Uk8O+gU3t1og79kQ==}
@@ -1935,6 +1938,9 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
+  '@types/fs-extra@11.0.4':
+    resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
+
   '@types/istanbul-lib-coverage@2.0.6':
     resolution: {integrity: sha512-2QF/t/auWm0lsy8XtKVPG19v3sSOQlJe/YHZgfjb/KBBHOGSV+J2q/S671rcq9uTBrLAXmZpqJiaQbMT+zNU1w==}
 
@@ -1946,6 +1952,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/jsonfile@6.1.4':
+    resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
 
   '@types/minimatch@3.0.5':
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
@@ -3199,6 +3208,10 @@ packages:
   depcheck-package-name@3.0.1:
     resolution: {integrity: sha512-7rR+VPs0wZCOgAyNe4klyXc+93cXl62pQ4akwHcnQQypdqDC18cy3LNLXmgu8geb3on8pgcxOhfbQ66+yLaNoQ==}
     engines: {node: '>=14'}
+
+  depcheck-package-name@4.0.0:
+    resolution: {integrity: sha512-/TtBVQmTZB0fOew8FElr9xsyff+2QTRUW+6lV5HPAKh/QFeoJeBlm7Bon+iIW4v/drfqAdoe91s6KCkQhOa3yw==}
+    engines: {node: '>=20'}
 
   depcheck@1.4.7:
     resolution: {integrity: sha512-1lklS/bV5chOxwNKA/2XUUk/hPORp8zihZsXflr8x0kLwmcZ9Y9BsS6Hs3ssvA+2wUVbG0U2Ciqvm1SokNjPkA==}
@@ -8012,7 +8025,7 @@ snapshots:
       - sass
       - supports-color
 
-  '@dword-design/base@14.0.2(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))':
+  '@dword-design/base@14.0.5(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))':
     dependencies:
       '@commitlint/cli': 18.6.1(@types/node@24.0.14)(typescript@5.8.3)
       '@commitlint/config-conventional': 18.6.3
@@ -8034,7 +8047,7 @@ snapshots:
       depcheck-detector-execa: 4.0.3
       depcheck-detector-package-name: 3.0.4
       depcheck-package-name: 3.0.1
-      endent: '@dword-design/endent@1.4.1'
+      endent: '@dword-design/endent@1.4.7'
       eslint: 9.31.0(jiti@2.4.2)
       execa: 9.6.0
       find-up: 7.0.0
@@ -8135,9 +8148,9 @@ snapshots:
       fs-extra: 11.3.0
       map-obj: 5.0.2
 
-  '@dword-design/endent@1.4.1':
+  '@dword-design/endent@1.4.7':
     dependencies:
-      '@dword-design/dedent': 0.7.0
+      dedent: '@dword-design/dedent@0.7.0'
       fast-json-parse: 1.0.3
       objectorarray: 1.0.5
 
@@ -8211,21 +8224,21 @@ snapshots:
 
   '@dword-design/functions@4.1.7':
     dependencies:
-      '@dword-design/endent': 1.4.1
+      '@dword-design/endent': 1.4.7
       delay: 5.0.0
       lodash: 4.17.21
       tinycolor2: 1.6.0
 
   '@dword-design/functions@5.0.27':
     dependencies:
-      '@dword-design/endent': 1.4.1
+      '@dword-design/endent': 1.4.7
       delay: 5.0.0
       lodash: 4.17.21
       tinycolor2: 1.6.0
 
   '@dword-design/functions@6.0.2':
     dependencies:
-      '@dword-design/endent': 1.4.1
+      '@dword-design/endent': 1.4.7
       delay: 6.0.0
       lodash: 4.17.21
       tinycolor2: 1.6.0
@@ -9836,6 +9849,11 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
+  '@types/fs-extra@11.0.4':
+    dependencies:
+      '@types/jsonfile': 6.1.4
+      '@types/node': 24.0.14
+
   '@types/istanbul-lib-coverage@2.0.6': {}
 
   '@types/istanbul-lib-report@3.0.3':
@@ -9847,6 +9865,10 @@ snapshots:
       '@types/istanbul-lib-report': 3.0.3
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/jsonfile@6.1.4':
+    dependencies:
+      '@types/node': 24.0.14
 
   '@types/minimatch@3.0.5': {}
 
@@ -11203,6 +11225,10 @@ snapshots:
   depcheck-detector-package-name@3.0.4: {}
 
   depcheck-package-name@3.0.1:
+    dependencies:
+      tagged-template-noop: 2.1.1
+
+  depcheck-package-name@4.0.0:
     dependencies:
       tagged-template-noop: 2.1.1
 
