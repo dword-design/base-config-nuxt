@@ -20,17 +20,6 @@ const tests: Record<string, TestConfig> = {
       `,
     },
   },
-  buildModules: {
-    files: {
-      'config.ts': endent`
-        export default {
-          buildModules: [
-            'foo',
-          ],
-        }
-      `,
-    },
-  },
   function: {
     files: {
       'config.ts': endent`
