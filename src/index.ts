@@ -2,6 +2,8 @@ import { createRequire } from 'node:module';
 import P from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import type { Config } from '@dword-design/base';
+import { defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
 import packageName from 'depcheck-package-name';
@@ -22,7 +24,9 @@ const __dirname = P.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
 const isInNodeModules = __dirname.split(P.sep).includes('node_modules');
 
-export default function (config) {
+type ConfigNuxt = Config & { virtualImports?: string[] };
+
+export default defineBaseConfig(function (config: ConfigNuxt) {
   return {
     allowedMatches: [
       '.stylelintignore',
@@ -112,6 +116,6 @@ export default function (config) {
     typescriptConfig: { extends: './.nuxt/tsconfig.json' },
     useJobMatrix: true,
   };
-}
+});
 
 export { default as getEslintConfig } from './get-eslint-config';

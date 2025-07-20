@@ -5,7 +5,7 @@ import type { NuxtConfig } from 'nuxt/schema';
 import requirePackageName from 'require-package-name';
 
 export default ({ cwd = '.' }) =>
-  async path => {
+  async (path: string) => {
     if (pathLib.basename(path) === 'config.ts') {
       // TODO: Check full path including cwd so that we check config.ts at project root
       const jiti = createJiti(pathLib.resolve(cwd));

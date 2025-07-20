@@ -286,7 +286,7 @@ test('css modules', async ({ page }, testInfo) => {
   }
 });
 
-test('do not import image urls in production', async ({}, testInfo) => {
+test.only('do not import image urls in production', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {

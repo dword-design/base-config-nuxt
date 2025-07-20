@@ -11,9 +11,12 @@ importers:
       '@babel/core':
         specifier: ^7.28.0
         version: 7.28.0
+      '@dword-design/base':
+        specifier: ^14.1.2
+        version: 14.1.2(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))
       '@dword-design/depcheck-parser-sass':
-        specifier: ^4.0.4
-        version: 4.0.4
+        specifier: ^5.0.0
+        version: 5.0.0
       '@dword-design/dotenv-json-extended':
         specifier: ^4.0.0
         version: 4.0.0
@@ -84,9 +87,6 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(vue@3.5.17(typescript@5.8.3))
     devDependencies:
-      '@dword-design/base':
-        specifier: ^14.0.6
-        version: 14.0.6(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))
       '@nuxtjs/sitemap':
         specifier: ^7.4.3
         version: 7.4.3(h3@1.15.3)(magicast@0.3.5)(vite@6.3.5(@types/node@24.0.14)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
@@ -96,9 +96,15 @@ importers:
       '@playwright/test':
         specifier: ^1.54.1
         version: 1.54.1
+      '@types/babel__core':
+        specifier: ^7.20.5
+        version: 7.20.5
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       axios:
         specifier: ^1.10.0
         version: 1.10.0
@@ -121,8 +127,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       tree-kill-promise:
-        specifier: ^3.0.14
-        version: 3.0.14
+        specifier: ^4.0.0
+        version: 4.0.0
       xml-formatter:
         specifier: ^3.6.6
         version: 3.6.6
@@ -412,8 +418,8 @@ packages:
     resolution: {integrity: sha512-xHQRK7/3ARa+Xs8n4M8EW/8buDUclvm8+05JN6cOorkONAj7QgPbn452TY6xhuT8d8R9OUivzNgUHGabgEfwUA==}
     engines: {node: '>=18'}
 
-  '@dword-design/base@14.0.6':
-    resolution: {integrity: sha512-K0TRsQtbken4eOkGOrK2exmcjDqcWtWjRRGAE0Mj9p6zgI4lMG1kUPgsLMj4iLCr3eboHM1em0HM9JGbwvVxbw==}
+  '@dword-design/base@14.1.2':
+    resolution: {integrity: sha512-0nkLor0RF/I/MqtjdMm2LevPYTI/87NflY/eP9i/opGzs/9/IG2WPJ2Wt2WcHRZEjn7pEguel2yB8QMThNRtaA==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -432,6 +438,10 @@ packages:
   '@dword-design/depcheck-parser-sass@4.0.4':
     resolution: {integrity: sha512-liMT6tgQ/YfhNgW6rigOaY0XqfNMMFb+DCwEeLtfBdTJhMUEHwBb8UsChw8uwrxMSQW/YsabfnDsT897pBmBlg==}
     engines: {node: '>=16'}
+
+  '@dword-design/depcheck-parser-sass@5.0.0':
+    resolution: {integrity: sha512-WXVEIWxgS3G4kXhb1IgU9i+cJO7kkx6qAwibeqsnjzuFQaIfzQlHvbPyoU3DPc6SvRYREQdzNB1CFg9MC79abw==}
+    engines: {node: '>=20'}
 
   '@dword-design/depcheck@0.0.7':
     resolution: {integrity: sha512-WoVDnuaohxINpx8g9ZdkhmxvU1etVzfNfpDNgi/LlS6Sk8ef8wciF1GQ3aDuX2+BlEUZJALKyqebqoOrxCUfOA==}
@@ -1926,6 +1936,18 @@ packages:
   '@tybys/wasm-util@0.10.0':
     resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
 
+  '@types/babel__core@7.20.5':
+    resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
+
+  '@types/babel__generator@7.27.0':
+    resolution: {integrity: sha512-ufFd2Xi92OAVPYsy+P4n7/U7e68fex0+Ee8gSG9KX7eo084CWiQ4sdxktvdl0bOPupXtVJPY19zk6EwWqUQ8lg==}
+
+  '@types/babel__template@7.4.4':
+    resolution: {integrity: sha512-h/NUaSyG5EyxBIp8YRxo4RMe2/qQgvyowRwVMzhYhBCONbW8PUsg4lkFMrhgZhUe5z3L3MiLDuvyJ/CaPa2A8A==}
+
+  '@types/babel__traverse@7.20.7':
+    resolution: {integrity: sha512-dkO5fhS7+/oos4ciWxyEyjWe48zmG6wbCheo/G2ZnHx4fs3EU6YC6UM8rk56gAjNJ9P3MTH2jo5jb92/K6wbng==}
+
   '@types/conventional-commits-parser@5.0.1':
     resolution: {integrity: sha512-7uz5EHdzz2TqoMfV7ee61Egf5y6NkcO4FB/1iCCQnbeiI1F3xzv3vK5dBCXUCLQgGYS+mUeigK1iKQzvED+QnQ==}
 
@@ -1955,6 +1977,12 @@ packages:
 
   '@types/jsonfile@6.1.4':
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
+
+  '@types/lodash@4.17.20':
+    resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
 
   '@types/minimatch@3.0.5':
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
@@ -5013,8 +5041,8 @@ packages:
     resolution: {integrity: sha512-pDjaLs54bftlqyCT7KRC9FfbAURfKVcQFnNNe5qp4RLEOpNGiGjdNTUgMsYKFqZd75WhI0tYxQMIbgnpDptPCw==}
     engines: {node: '>=14'}
 
-  make-cli@4.0.7:
-    resolution: {integrity: sha512-mAixMdufA5bQRUYhIk3t9sYRELH7dLXxrlvDsy6vNDz8Y9V4ypQsx6AJzvSy1KMsUiJvOJrcUPG+3j5jfQkymQ==}
+  make-cli@4.0.8:
+    resolution: {integrity: sha512-h+kzzkOlv7hFf9c4c6MhrFRix+ii1NNFaTyQJbR4aol84hFeepgicTlJLEfkFKGAIjlFbfNM1pL3iWK1aIRtRQ==}
     engines: {node: '>=18'}
 
   make-dir@4.0.0:
@@ -6950,9 +6978,9 @@ packages:
     resolution: {integrity: sha512-aXJDbk6SnumuaZSANd21XAo15ucCDE38H4fkqiGsc3MhCK+wOlZvLP9cB/TvpHT0mOyWgC4Z8EwRlzqYSUzdsA==}
     engines: {node: '>= 0.4'}
 
-  tree-kill-promise@3.0.14:
-    resolution: {integrity: sha512-HMWDVJq3oby7uxA2AKVThX5fKkF7GPT3FhjNb75tG/6P4tQBtIhElaSucFHFMlBV5f3e+KPqIlHsJVZjueKX/A==}
-    engines: {node: '>=14'}
+  tree-kill-promise@4.0.0:
+    resolution: {integrity: sha512-k6PxcH/5e+dJiTyw3KUO0Pfxav4H10M+JMFgssaWqnTweAP5oVRNuWbWoYJgowbRdi46yXV9YvyVnDwGGvSCvw==}
+    engines: {node: '>=20'}
 
   tree-kill@1.2.2:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
@@ -8025,7 +8053,7 @@ snapshots:
       - sass
       - supports-color
 
-  '@dword-design/base@14.0.6(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))':
+  '@dword-design/base@14.1.2(@types/eslint@9.6.1)(@types/node@24.0.14)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))':
     dependencies:
       '@commitlint/cli': 18.6.1(@types/node@24.0.14)(typescript@5.8.3)
       '@commitlint/config-conventional': 18.6.3
@@ -8060,7 +8088,7 @@ snapshots:
       is-ci: 3.0.1
       jiti: 2.4.2
       lodash-es: 4.17.21
-      make-cli: 4.0.7
+      make-cli: 4.0.8
       output-files: 3.0.0
       package-name-regex: 4.0.3
       parse-git-config: '@dword-design/parse-git-config@0.0.1'
@@ -8111,6 +8139,13 @@ snapshots:
       '@dword-design/functions': 5.0.27
       enhanced-resolve: 5.18.2
       get-package-name: 2.2.0
+      sass: 1.62.1
+
+  '@dword-design/depcheck-parser-sass@5.0.0':
+    dependencies:
+      enhanced-resolve: 5.18.2
+      get-package-name: 2.2.0
+      lodash-es: 4.17.21
       sass: 1.62.1
 
   '@dword-design/depcheck@0.0.7':
@@ -9832,6 +9867,27 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@types/babel__core@7.20.5':
+    dependencies:
+      '@babel/parser': 7.28.0
+      '@babel/types': 7.28.1
+      '@types/babel__generator': 7.27.0
+      '@types/babel__template': 7.4.4
+      '@types/babel__traverse': 7.20.7
+
+  '@types/babel__generator@7.27.0':
+    dependencies:
+      '@babel/types': 7.28.1
+
+  '@types/babel__template@7.4.4':
+    dependencies:
+      '@babel/parser': 7.28.0
+      '@babel/types': 7.28.1
+
+  '@types/babel__traverse@7.20.7':
+    dependencies:
+      '@babel/types': 7.28.1
+
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
       '@types/node': 24.0.14
@@ -9869,6 +9925,12 @@ snapshots:
   '@types/jsonfile@6.1.4':
     dependencies:
       '@types/node': 24.0.14
+
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.20
+
+  '@types/lodash@4.17.20': {}
 
   '@types/minimatch@3.0.5': {}
 
@@ -13120,7 +13182,7 @@ snapshots:
       '@dword-design/functions': 4.1.7
       commander: 9.5.0
 
-  make-cli@4.0.7:
+  make-cli@4.0.8:
     dependencies:
       '@dword-design/defu': 1.0.3
       commander: 12.1.0
@@ -15253,7 +15315,7 @@ snapshots:
 
   traverse@0.6.8: {}
 
-  tree-kill-promise@3.0.14:
+  tree-kill-promise@4.0.0:
     dependencies:
       tree-kill: 1.2.2
 

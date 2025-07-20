@@ -3,6 +3,7 @@ import depcheck from 'depcheck';
 import endent from 'endent';
 import type { Files } from 'output-files';
 import outputFiles from 'output-files';
+import defu from '@dword-design/defu';
 
 import self from './get-depcheck-special';
 
@@ -94,7 +95,7 @@ const tests: Record<string, TestConfig> = {
 };
 
 for (const [name, _testConfig] of Object.entries(tests)) {
-  const testConfig = { dependency: 'foo', fail: false, ..._testConfig };
+  const testConfig = defu(_testConfig, { dependency: 'foo', fail: false, files: {} });
 
   test(name, async ({}, testInfo) => {
     const cwd = testInfo.outputPath();

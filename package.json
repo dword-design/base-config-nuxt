@@ -28,11 +28,14 @@
     "lint": "base lint",
     "prepare": "base prepare",
     "prepublishOnly": "base prepublishOnly",
-    "test": "base test"
+    "test": "base test",
+    "typecheck": "base typecheck",
+    "verify": "base verify"
   },
   "dependencies": {
     "@babel/core": "^7.28.0",
-    "@dword-design/depcheck-parser-sass": "^4.0.4",
+    "@dword-design/base": "^14.1.2",
+    "@dword-design/depcheck-parser-sass": "^5.0.0",
     "@dword-design/dotenv-json-extended": "^4.0.0",
     "@dword-design/nuxt-i18n": "^1.0.1",
     "@dword-design/nuxt-page-title": "^1.0.0",
@@ -58,11 +61,12 @@
     "vite-svg-loader": "^5.1.0"
   },
   "devDependencies": {
-    "@dword-design/base": "^14.0.6",
     "@nuxtjs/sitemap": "^7.4.3",
     "@nuxtjs/tailwindcss": "7.0.0-beta.0",
     "@playwright/test": "^1.54.1",
+    "@types/babel__core": "^7.20.5",
     "@types/fs-extra": "^11.0.4",
+    "@types/lodash-es": "^4.17.12",
     "axios": "^1.10.0",
     "delay": "^6.0.0",
     "get-port": "^7.1.0",
@@ -70,7 +74,7 @@
     "playwright": "^1.54.1",
     "playwright-chromium": "^1.54.1",
     "port-ready": "^0.1.0",
-    "tree-kill-promise": "^3.0.14",
+    "tree-kill-promise": "^4.0.0",
     "xml-formatter": "^3.6.6"
   },
   "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677",

@@ -1,8 +1,8 @@
-import type { CommandOptionsInput } from '@dword-design/base';
+import type { Base, PartialCommandOptions } from '@dword-design/base';
 import dotenv from '@dword-design/dotenv-json-extended';
 import { execaCommand } from 'execa';
 
-export default function (options: CommandOptionsInput) {
+export default function (this: Base, options: PartialCommandOptions = {}) {
   options = {
     env: {},
     log: process.env.NODE_ENV !== 'test',

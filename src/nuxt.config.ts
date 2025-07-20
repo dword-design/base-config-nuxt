@@ -1,5 +1,6 @@
 import packageName from 'depcheck-package-name';
 import viteSvgLoader from 'vite-svg-loader';
+import { defineNuxtModule } from '@nuxt/kit';
 
 import config from './config';
 
@@ -23,15 +24,16 @@ export default {
   devtools: { enabled: true },
   eslint: { checker: { fix: true }, config: { standalone: false } },
   modules: [
-    (options, nuxt) => {
+    defineNuxtModule({
+      setup: (options, nuxt) => {
       if (!config.userScalable) {
         const viewportMeta = nuxt.options.app.head.meta.find(
           meta => meta.name === 'viewport',
         );
 
         viewportMeta.content += ', user-scalable=0';
-      }
-    },
+      } }
+    }),
     [
       packageName`nuxt-basic-authentication-module`,
       { enabled: !!isBasicAuthEnabled },
