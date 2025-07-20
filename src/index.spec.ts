@@ -52,7 +52,7 @@ test('aliases', async ({ page }, testInfo) => {
   }
 });
 
-test.only('api', async ({}, testInfo) => {
+test('api', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
