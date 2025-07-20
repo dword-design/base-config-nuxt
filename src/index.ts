@@ -113,7 +113,7 @@ export default defineBaseConfig(function (config: ConfigNuxt) {
         `,
       });
     },
-    typescriptConfig: { extends: './.nuxt/tsconfig.json' },
+    typescriptConfig: { extends: './.nuxt/tsconfig.json', compilerOptions: { declaration: false } },
     useJobMatrix: true,
   };
 });
