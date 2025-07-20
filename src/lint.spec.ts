@@ -2,8 +2,8 @@ import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
 import { expect, test } from '@playwright/test';
-import fs from 'fs-extra';
 import endent from 'endent';
+import fs from 'fs-extra';
 import outputFiles from 'output-files';
 
 import config from '.';

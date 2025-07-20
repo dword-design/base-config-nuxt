@@ -23,7 +23,6 @@ import start from './start';
 const __dirname = pathLib.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
 const isInNodeModules = __dirname.split(pathLib.sep).includes('node_modules');
-
 type ConfigNuxt = Config & { virtualImports?: string[] };
 
 export default defineBaseConfig(function (config: ConfigNuxt) {
@@ -86,13 +85,21 @@ export default defineBaseConfig(function (config: ConfigNuxt) {
     prepare: async () => {
       const configPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/config'
-        : `./${pathLib.relative(this.cwd, resolver.resolve('./config').slice(0, -'.ts'.length))
+        : `./${pathLib
+            .relative(
+              this.cwd,
+              resolver.resolve('./config').slice(0, -'.ts'.length),
+            )
             .split(pathLib.sep)
             .join('/')}`;
 
       const parentConfigPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/nuxt.config'
-        : `./${pathLib.relative(this.cwd, resolver.resolve('./nuxt.config').slice(0, -'.ts'.length))
+        : `./${pathLib
+            .relative(
+              this.cwd,
+              resolver.resolve('./nuxt.config').slice(0, -'.ts'.length),
+            )
             .split(pathLib.sep)
             .join('/')}`;
 
@@ -113,7 +120,12 @@ export default defineBaseConfig(function (config: ConfigNuxt) {
         `,
       });
     },
-    typescriptConfig: { extends: './.nuxt/tsconfig.json', compilerOptions: { declaration: false } },
+    typescriptConfig: {
+      compilerOptions: {
+        declaration: false, // TypeScript errors that declaration cannot be generated for private router types. Comes from the Nuxt-generated TypeScript config.
+      },
+      extends: './.nuxt/tsconfig.json',
+    },
     useJobMatrix: true,
   };
 });

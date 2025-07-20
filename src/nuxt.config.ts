@@ -1,7 +1,7 @@
-import packageName from 'depcheck-package-name';
-import viteSvgLoader from 'vite-svg-loader';
 import { defineNuxtModule } from '@nuxt/kit';
+import packageName from 'depcheck-package-name';
 import ts from 'typescript';
+import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config';
 
@@ -14,9 +14,6 @@ const { config: typescriptConfig } = ts.readConfigFile(
 );
 
 export default {
-  typescript: {
-    strict: !!typescriptConfig.compilerOptions.strict,
-  },
   app: {
     head: {
       meta: [
@@ -35,13 +32,14 @@ export default {
   modules: [
     defineNuxtModule({
       setup: (options, nuxt) => {
-      if (!config.userScalable) {
-        const viewportMeta = nuxt.options.app.head.meta.find(
-          meta => meta.name === 'viewport',
-        );
+        if (!config.userScalable) {
+          const viewportMeta = nuxt.options.app.head.meta.find(
+            meta => meta.name === 'viewport',
+          );
 
-        viewportMeta.content += ', user-scalable=0';
-      } }
+          viewportMeta.content += ', user-scalable=0';
+        }
+      },
     }),
     [
       packageName`nuxt-basic-authentication-module`,
@@ -76,6 +74,7 @@ export default {
       },
     }),
   },
+  typescript: { strict: !!typescriptConfig.compilerOptions.strict },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
     plugins: [viteSvgLoader()],

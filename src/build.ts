@@ -4,7 +4,10 @@ import { execaCommand } from 'execa';
 
 import resolveAliases from './resolve-aliases';
 
-export default async function (this: Base, options: PartialCommandOptions = {}) {
+export default async function (
+  this: Base,
+  options: PartialCommandOptions = {},
+) {
   options = {
     env: {},
     log: process.env.NODE_ENV !== 'test',
