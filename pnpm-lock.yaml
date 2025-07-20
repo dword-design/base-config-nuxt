@@ -12,8 +12,8 @@ importers:
         specifier: ^7.27.4
         version: 7.27.4
       '@dword-design/depcheck-parser-sass':
-        specifier: ^4.0.4
-        version: 4.0.4
+        specifier: ^5.0.0
+        version: 5.0.0
       '@dword-design/dotenv-json-extended':
         specifier: ^3.0.3
         version: 3.0.3
@@ -421,6 +421,10 @@ packages:
   '@dword-design/depcheck-parser-sass@4.0.4':
     resolution: {integrity: sha512-liMT6tgQ/YfhNgW6rigOaY0XqfNMMFb+DCwEeLtfBdTJhMUEHwBb8UsChw8uwrxMSQW/YsabfnDsT897pBmBlg==}
     engines: {node: '>=16'}
+
+  '@dword-design/depcheck-parser-sass@5.0.0':
+    resolution: {integrity: sha512-WXVEIWxgS3G4kXhb1IgU9i+cJO7kkx6qAwibeqsnjzuFQaIfzQlHvbPyoU3DPc6SvRYREQdzNB1CFg9MC79abw==}
+    engines: {node: '>=20'}
 
   '@dword-design/depcheck@0.0.7':
     resolution: {integrity: sha512-WoVDnuaohxINpx8g9ZdkhmxvU1etVzfNfpDNgi/LlS6Sk8ef8wciF1GQ3aDuX2+BlEUZJALKyqebqoOrxCUfOA==}
@@ -7874,6 +7878,13 @@ snapshots:
       '@dword-design/functions': 5.0.27
       enhanced-resolve: 5.18.1
       get-package-name: 2.2.0
+      sass: 1.62.1
+
+  '@dword-design/depcheck-parser-sass@5.0.0':
+    dependencies:
+      enhanced-resolve: 5.18.1
+      get-package-name: 2.2.0
+      lodash-es: 4.17.21
       sass: 1.62.1
 
   '@dword-design/depcheck@0.0.7':

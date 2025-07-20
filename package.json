@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.27.4",
-    "@dword-design/depcheck-parser-sass": "^4.0.4",
+    "@dword-design/depcheck-parser-sass": "^5.0.0",
     "@dword-design/dotenv-json-extended": "^3.0.3",
     "@dword-design/nuxt-i18n": "^1.0.1",
     "@dword-design/nuxt-page-title": "^1.0.0",
