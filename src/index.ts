@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module';
-import P from 'node:path';
+import pathLib from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import type { Config } from '@dword-design/base';
@@ -20,9 +20,9 @@ import lint from './lint';
 import prepublishOnly from './prepublish-only';
 import start from './start';
 
-const __dirname = P.dirname(fileURLToPath(import.meta.url));
+const __dirname = pathLib.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
-const isInNodeModules = __dirname.split(P.sep).includes('node_modules');
+const isInNodeModules = __dirname.split(pathLib.sep).includes('node_modules');
 
 type ConfigNuxt = Config & { virtualImports?: string[] };
 
@@ -86,14 +86,14 @@ export default defineBaseConfig(function (config: ConfigNuxt) {
     prepare: async () => {
       const configPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/config'
-        : `./${P.relative(this.cwd, resolver.resolve('./config'))
-            .split(P.sep)
+        : `./${pathLib.relative(this.cwd, resolver.resolve('./config').slice(0, -'.ts'.length))
+            .split(pathLib.sep)
             .join('/')}`;
 
       const parentConfigPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/nuxt.config'
-        : `./${P.relative(this.cwd, resolver.resolve('./nuxt.config'))
-            .split(P.sep)
+        : `./${pathLib.relative(this.cwd, resolver.resolve('./nuxt.config').slice(0, -'.ts'.length))
+            .split(pathLib.sep)
             .join('/')}`;
 
       await outputFiles(this.cwd, {

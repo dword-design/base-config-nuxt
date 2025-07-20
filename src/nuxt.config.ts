@@ -1,13 +1,22 @@
 import packageName from 'depcheck-package-name';
 import viteSvgLoader from 'vite-svg-loader';
 import { defineNuxtModule } from '@nuxt/kit';
+import ts from 'typescript';
 
 import config from './config';
 
 const isBasicAuthEnabled =
   process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
 
+const { config: typescriptConfig } = ts.readConfigFile(
+  'tsconfig.json',
+  ts.sys.readFile,
+);
+
 export default {
+  typescript: {
+    strict: !!typescriptConfig.compilerOptions.strict,
+  },
   app: {
     head: {
       meta: [
