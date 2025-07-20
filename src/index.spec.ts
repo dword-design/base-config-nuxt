@@ -673,9 +673,9 @@ test('ogImage', async ({ page }, testInfo) => {
     const meta = page.locator(String.raw`meta[name=og\:image]`);
     await expect(meta).toBeAttached();
 
-    expect(await meta.evaluate(meta => meta.content)).toEqual(
-      'https://example.com/og-image',
-    );
+    expect(
+      await meta.evaluate(meta => (meta as HTMLMetaElement).content),
+    ).toEqual('https://example.com/og-image');
   } finally {
     await kill(nuxt.pid);
   }
@@ -977,9 +977,7 @@ test('userScalable', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
 
     await expect(
-      page.locator(String.raw`meta[name=viewport][content$=user-scalable\=0]`, {
-        state: 'attached',
-      }),
+      page.locator(String.raw`meta[name=viewport][content$=user-scalable\=0]`),
     ).toBeAttached();
   } finally {
     await kill(nuxt.pid);

@@ -1,10 +1,17 @@
+import { defineNuxtModule } from '@nuxt/kit';
 import packageName from 'depcheck-package-name';
+import ts from 'typescript';
 import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config';
 
 const isBasicAuthEnabled =
   process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
+
+const { config: typescriptConfig } = ts.readConfigFile(
+  'tsconfig.json',
+  ts.sys.readFile,
+);
 
 export default {
   app: {
@@ -23,15 +30,17 @@ export default {
   devtools: { enabled: true },
   eslint: { checker: { fix: true }, config: { standalone: false } },
   modules: [
-    (options, nuxt) => {
-      if (!config.userScalable) {
-        const viewportMeta = nuxt.options.app.head.meta.find(
-          meta => meta.name === 'viewport',
-        );
+    defineNuxtModule({
+      setup: (options, nuxt) => {
+        if (!config.userScalable) {
+          const viewportMeta = nuxt.options.app.head.meta.find(
+            meta => meta.name === 'viewport',
+          );
 
-        viewportMeta.content += ', user-scalable=0';
-      }
-    },
+          viewportMeta.content += ', user-scalable=0';
+        }
+      },
+    }),
     [
       packageName`nuxt-basic-authentication-module`,
       { enabled: !!isBasicAuthEnabled },
@@ -65,6 +74,7 @@ export default {
       },
     }),
   },
+  typescript: { strict: !!typescriptConfig.compilerOptions.strict },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
     plugins: [viteSvgLoader()],

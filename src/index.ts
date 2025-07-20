@@ -1,7 +1,9 @@
 import { createRequire } from 'node:module';
-import P from 'node:path';
+import pathLib from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import type { Config } from '@dword-design/base';
+import { defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
 import packageName from 'depcheck-package-name';
@@ -18,11 +20,12 @@ import lint from './lint';
 import prepublishOnly from './prepublish-only';
 import start from './start';
 
-const __dirname = P.dirname(fileURLToPath(import.meta.url));
+const __dirname = pathLib.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
-const isInNodeModules = __dirname.split(P.sep).includes('node_modules');
+const isInNodeModules = __dirname.split(pathLib.sep).includes('node_modules');
+type ConfigNuxt = Config & { virtualImports?: string[] };
 
-export default function (config) {
+export default defineBaseConfig(function (config: ConfigNuxt) {
   return {
     allowedMatches: [
       '.stylelintignore',
@@ -82,14 +85,22 @@ export default function (config) {
     prepare: async () => {
       const configPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/config'
-        : `./${P.relative(this.cwd, resolver.resolve('./config'))
-            .split(P.sep)
+        : `./${pathLib
+            .relative(
+              this.cwd,
+              resolver.resolve('./config').slice(0, -'.ts'.length),
+            )
+            .split(pathLib.sep)
             .join('/')}`;
 
       const parentConfigPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/nuxt.config'
-        : `./${P.relative(this.cwd, resolver.resolve('./nuxt.config'))
-            .split(P.sep)
+        : `./${pathLib
+            .relative(
+              this.cwd,
+              resolver.resolve('./nuxt.config').slice(0, -'.ts'.length),
+            )
+            .split(pathLib.sep)
             .join('/')}`;
 
       await outputFiles(this.cwd, {
@@ -109,9 +120,14 @@ export default function (config) {
         `,
       });
     },
-    typescriptConfig: { extends: './.nuxt/tsconfig.json' },
+    typescriptConfig: {
+      compilerOptions: {
+        declaration: false, // TypeScript errors that declaration cannot be generated for private router types. Comes from the Nuxt-generated TypeScript config.
+      },
+      extends: './.nuxt/tsconfig.json',
+    },
     useJobMatrix: true,
   };
-}
+});
 
 export { default as getEslintConfig } from './get-eslint-config';
