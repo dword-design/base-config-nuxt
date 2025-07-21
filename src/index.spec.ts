@@ -159,14 +159,14 @@ test('basic auth', async ({}, testInfo) => {
       axios.get(`http://localhost:${port}/api/foo`),
     ).rejects.toHaveProperty('response.status', 401);
 
-    await Promise.all([
-      axios.get(`http://localhost:${port}`, {
-        auth: { password: 'bar', username: 'foo' },
-      }),
-      axios.get(`http://localhost:${port}/api/foo`, {
-        auth: { password: 'bar', username: 'foo' },
-      }),
-    ]);
+    // TODO: For some reason parallelizing these two requests don't work in Node.js 22
+    await axios.get(`http://localhost:${port}`, {
+      auth: { password: 'bar', username: 'foo' },
+    });
+
+    await axios.get(`http://localhost:${port}/api/foo`, {
+      auth: { password: 'bar', username: 'foo' },
+    });
   } finally {
     await kill(nuxt.pid);
   }
