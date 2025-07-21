@@ -37,7 +37,7 @@ importers:
         version: 4.0.0(magicast@0.3.5)
       '@nuxtjs/stylelint-module':
         specifier: ^5.2.1
-        version: 5.2.1(magicast@0.3.5)(postcss@8.5.6)(rollup@4.45.1)(stylelint@16.22.0(typescript@5.8.3))(vite@6.3.5(@types/node@24.0.15)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.99.9(esbuild@0.25.8))
+        version: 5.2.1(magicast@0.3.5)(postcss@8.5.6)(rollup@4.45.1)(stylelint@16.22.0(typescript@5.8.3))(vite@6.3.5(@types/node@24.0.15)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.100.2(esbuild@0.25.8))
       babel-plugin-add-import-extension:
         specifier: ^1.6.0
         version: 1.6.0(@babel/core@7.28.0)
@@ -125,7 +125,7 @@ importers:
         version: 7.1.0
       nuxt-dev-ready:
         specifier: ^5.0.0
-        version: 5.0.0
+        version: 5.0.1
       playwright:
         specifier: ^1.54.1
         version: 1.54.1
@@ -2379,6 +2379,12 @@ packages:
     resolution: {integrity: sha512-n02Vykv5uA3eHGM/Z2dQrcD56kL8TyDb2p1+0P83PClMnC/nc+anbQRhIOWnSq4Ke/KvDPrY3C9hDtC/A3eHnQ==}
     peerDependencies:
       acorn: ^8
+
+  acorn-import-phases@1.0.4:
+    resolution: {integrity: sha512-wKmbr/DDiIXzEOiWrTTUcDm24kQ2vGfZQvM2fwg2vXqR5uW6aapr7ObPtj1th32b9u90/Pf4AItvdTh42fBmVQ==}
+    engines: {node: '>=10.13.0'}
+    peerDependencies:
+      acorn: ^8.14.0
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -5469,8 +5475,8 @@ packages:
   nuxt-basic-authentication-module@0.2.1:
     resolution: {integrity: sha512-xjKC7pjORo093L6BbiJif7ZXnZxXKPo52LT2zyganz1OTCOMlJyDq/R6H8bpRduYETKJPmqMWeYT7eDLcIobNw==}
 
-  nuxt-dev-ready@5.0.0:
-    resolution: {integrity: sha512-rMu1VR1gKtpeVoNPYeEBZ8p9raWJl1ODN0vTNHHz4PJML5U6CE5KCYV4EaZvUTfwA+2JvMQtuUDvxuP6ij2XHw==}
+  nuxt-dev-ready@5.0.1:
+    resolution: {integrity: sha512-gC4kYDoTqITfpzUXsIj28IPuMXlVDHgn6uaob5Jid0uB8hLg/JDmeA7HkJ8Ayje07wJsP6DtF6yhqRi4YoX5tQ==}
     engines: {node: '>=20'}
 
   nuxt-site-config-kit@3.2.2:
@@ -7443,8 +7449,8 @@ packages:
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
-  webpack@5.99.9:
-    resolution: {integrity: sha512-brOPwM3JnmOa+7kd3NsmOUOwbDAj8FT9xDsG3IW0MgbN9yZV7Oi/s/+MNQ/EcSMqw7qfoRyXPoeEWT8zLVdVGg==}
+  webpack@5.100.2:
+    resolution: {integrity: sha512-QaNKAvGCDRh3wW1dsDjeMdDXwZm2vqq3zn6Pvq4rHOEOGSaUMgOOjG2Y9ZbIGzpfkJk9ZYTHpDqgDfeBDcnLaw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -9133,7 +9139,7 @@ snapshots:
 
   '@nuxt/telemetry@2.6.6(magicast@0.3.5)':
     dependencies:
-      '@nuxt/kit': 3.17.7(magicast@0.3.5)
+      '@nuxt/kit': 3.17.5(magicast@0.3.5)
       citty: 0.1.6
       consola: 3.4.2
       destr: 2.0.5
@@ -9269,13 +9275,13 @@ snapshots:
       - vite
       - vue
 
-  '@nuxtjs/stylelint-module@5.2.1(magicast@0.3.5)(postcss@8.5.6)(rollup@4.45.1)(stylelint@16.22.0(typescript@5.8.3))(vite@6.3.5(@types/node@24.0.15)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.99.9(esbuild@0.25.8))':
+  '@nuxtjs/stylelint-module@5.2.1(magicast@0.3.5)(postcss@8.5.6)(rollup@4.45.1)(stylelint@16.22.0(typescript@5.8.3))(vite@6.3.5(@types/node@24.0.15)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.100.2(esbuild@0.25.8))':
     dependencies:
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
       chokidar: 4.0.3
       pathe: 2.0.3
       stylelint: 16.22.0(typescript@5.8.3)
-      stylelint-webpack-plugin: 5.0.1(stylelint@16.22.0(typescript@5.8.3))(webpack@5.99.9(esbuild@0.25.8))
+      stylelint-webpack-plugin: 5.0.1(stylelint@16.22.0(typescript@5.8.3))(webpack@5.100.2(esbuild@0.25.8))
       vite-plugin-stylelint: 6.0.2(postcss@8.5.6)(rollup@4.45.1)(stylelint@16.22.0(typescript@5.8.3))(vite@6.3.5(@types/node@24.0.15)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
     transitivePeerDependencies:
       - '@types/stylelint'
@@ -10459,6 +10465,10 @@ snapshots:
       event-target-shim: 5.0.1
 
   acorn-import-attributes@1.9.5(acorn@8.15.0):
+    dependencies:
+      acorn: 8.15.0
+
+  acorn-import-phases@1.0.4(acorn@8.15.0):
     dependencies:
       acorn: 8.15.0
 
@@ -13620,7 +13630,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  nuxt-dev-ready@5.0.0:
+  nuxt-dev-ready@5.0.1:
     dependencies:
       axios: 1.10.0
       p-wait-for: 5.0.2
@@ -15093,7 +15103,7 @@ snapshots:
     dependencies:
       stylelint: 16.22.0(typescript@5.8.3)
 
-  stylelint-webpack-plugin@5.0.1(stylelint@16.22.0(typescript@5.8.3))(webpack@5.99.9(esbuild@0.25.8)):
+  stylelint-webpack-plugin@5.0.1(stylelint@16.22.0(typescript@5.8.3))(webpack@5.100.2(esbuild@0.25.8)):
     dependencies:
       globby: 11.1.0
       jest-worker: 29.7.0
@@ -15101,7 +15111,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 4.3.2
       stylelint: 16.22.0(typescript@5.8.3)
-      webpack: 5.99.9(esbuild@0.25.8)
+      webpack: 5.100.2(esbuild@0.25.8)
 
   stylelint@16.22.0(typescript@5.8.3):
     dependencies:
@@ -15238,14 +15248,14 @@ snapshots:
       type-fest: 2.19.0
       unique-string: 3.0.0
 
-  terser-webpack-plugin@5.3.14(esbuild@0.25.8)(webpack@5.99.9(esbuild@0.25.8)):
+  terser-webpack-plugin@5.3.14(esbuild@0.25.8)(webpack@5.100.2(esbuild@0.25.8)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.29
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
       terser: 5.43.1
-      webpack: 5.99.9(esbuild@0.25.8)
+      webpack: 5.100.2(esbuild@0.25.8)
     optionalDependencies:
       esbuild: 0.25.8
 
@@ -15772,7 +15782,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.99.9(esbuild@0.25.8):
+  webpack@5.100.2(esbuild@0.25.8):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -15781,6 +15791,7 @@ snapshots:
       '@webassemblyjs/wasm-edit': 1.14.1
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.15.0
+      acorn-import-phases: 1.0.4(acorn@8.15.0)
       browserslist: 4.25.1
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.18.2
@@ -15795,7 +15806,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.2
       tapable: 2.2.2
-      terser-webpack-plugin: 5.3.14(esbuild@0.25.8)(webpack@5.99.9(esbuild@0.25.8))
+      terser-webpack-plugin: 5.3.14(esbuild@0.25.8)(webpack@5.100.2(esbuild@0.25.8))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
