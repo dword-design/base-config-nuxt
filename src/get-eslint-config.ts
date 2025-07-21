@@ -1,6 +1,8 @@
 import endent from 'endent';
 
-export default ({ virtualImports = [], ignore = [] } = {}) => endent`
+type Options = { virtualImports?: string[]; ignore?: string[] };
+
+export default ({ virtualImports = [], ignore = [] }: Options = {}) => endent`
   import config from '@dword-design/eslint-config';
   import { globalIgnores } from 'eslint/config';
 

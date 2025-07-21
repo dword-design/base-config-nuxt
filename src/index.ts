@@ -2,7 +2,7 @@ import { createRequire } from 'node:module';
 import pathLib from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { Config } from '@dword-design/base';
+import type { Base, Config } from '@dword-design/base';
 import { defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
@@ -19,6 +19,7 @@ import getEslintConfig from './get-eslint-config';
 import lint from './lint';
 import prepublishOnly from './prepublish-only';
 import start from './start';
+import typecheck from './typecheck';
 
 const __dirname = pathLib.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
@@ -26,7 +27,7 @@ const isInNodeModules = __dirname.split(pathLib.sep).includes('node_modules');
 
 type ConfigNuxt = Config & { virtualImports?: string[] };
 
-export default defineBaseConfig(function (config: ConfigNuxt) {
+export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
   return {
     allowedMatches: [
       '.stylelintignore',
@@ -121,6 +122,7 @@ export default defineBaseConfig(function (config: ConfigNuxt) {
         `,
       });
     },
+    typecheck,
     typescriptConfig: {
       compilerOptions: {
         declaration: false, // TypeScript errors that declaration cannot be generated for private router types. Comes from the Nuxt-generated TypeScript config.

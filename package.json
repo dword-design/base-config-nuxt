@@ -1,6 +1,6 @@
 {
   "name": "@dword-design/base-config-nuxt",
-  "version": "8.0.0",
+  "version": "8.0.2",
   "repository": "dword-design/base-config-nuxt",
   "funding": "https://github.com/sponsors/dword-design",
   "license": "MIT",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.28.0",
-    "@dword-design/base": "^15.0.0",
+    "@dword-design/base": "^15.1.0",
     "@dword-design/depcheck-parser-sass": "^5.0.0",
     "@dword-design/dotenv-json-extended": "^4.0.1",
     "@dword-design/nuxt-i18n": "^1.0.1",

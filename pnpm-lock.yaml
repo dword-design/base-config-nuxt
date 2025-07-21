@@ -12,8 +12,8 @@ importers:
         specifier: ^7.28.0
         version: 7.28.0
       '@dword-design/base':
-        specifier: ^15.0.0
-        version: 15.1.0(@types/eslint@9.6.1)(@types/node@24.0.15)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.8)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))
+        specifier: ^15.1.0
+        version: 15.1.1(@types/eslint@9.6.1)(@types/node@24.0.15)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.8)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))
       '@dword-design/depcheck-parser-sass':
         specifier: ^5.0.0
         version: 5.0.0
@@ -280,8 +280,9 @@ packages:
     resolution: {integrity: sha512-x0LvFTekgSX+83TI28Y9wYPUfzrnl2aT5+5QLnO6v7mSJYtEEevuDRN0F0uSHRk1G1IWZC43o00Y0xDDrpBGPQ==}
     engines: {node: '>=6.9.0'}
 
-  '@bcoe/v8-coverage@0.2.3':
-    resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+  '@bcoe/v8-coverage@1.0.2':
+    resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
+    engines: {node: '>=18'}
 
   '@clack/core@0.5.0':
     resolution: {integrity: sha512-p3y0FIOwaYRUPRcMO7+dlmLh8PSRcrjuTndsiA0WAFbWES0mLZlrjVoBRZ9DzkPFJZG6KGkJmoEAY0ZcVWTkow==}
@@ -427,8 +428,8 @@ packages:
     resolution: {integrity: sha512-LQ3tETmNv9cGP0YfJQ0R65/+UxtxcFfojx7Sj5Umn9g6nqHQmaSLvKDP8yngF5TCAmthBu71KUQlQJVnsyo8yQ==}
     engines: {node: '>=20'}
 
-  '@dword-design/base@15.1.0':
-    resolution: {integrity: sha512-PrXGhNgrVP3qRtfbkswBCn+3WongaqbmfYmNCF/bH+vwG0mxJ1LLd8EIUwXavS4nC27U3YHOUPN5Ekaj4MI1aA==}
+  '@dword-design/base@15.1.1':
+    resolution: {integrity: sha512-/36h3j5enp51lRb3y+ruF6+mj/6WQvGDU09xal9DqpP67I34jDj697hfmwAxd/9oZTai/E2kEKbKNvi9SvDpkQ==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -2697,10 +2698,15 @@ packages:
       magicast:
         optional: true
 
-  c8@9.1.0:
-    resolution: {integrity: sha512-mBWcT5iqNir1zIkzSPyI3NCR9EZCVI3WUD+AVO17MVWTSFNyUueXE82qTeampNtTr+ilN/5Ua3j24LgbCKjDVg==}
-    engines: {node: '>=14.14.0'}
+  c8@10.1.3:
+    resolution: {integrity: sha512-LvcyrOAaOnrrlMpW22n690PUvxiq4Uf9WMhQwNJ9vgagkL/ph1+D4uvjvDA5XCbykrc0sx+ay6pVi9YZ1GnhyA==}
+    engines: {node: '>=18'}
     hasBin: true
+    peerDependencies:
+      monocart-coverage-reports: ^2
+    peerDependenciesMeta:
+      monocart-coverage-reports:
+        optional: true
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -6922,9 +6928,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  test-exclude@6.0.0:
-    resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
-    engines: {node: '>=8'}
+  test-exclude@7.0.1:
+    resolution: {integrity: sha512-pFYqmTw68LXVjeWJMST4+borgQP2AyMNbg1BpZh9LbyhUeNkeaPF9gzfPGUAnSMV3qPYdWUwDIjjCLiSDOl7vg==}
+    engines: {node: '>=18'}
 
   text-decoder@1.2.3:
     resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
@@ -7845,7 +7851,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@bcoe/v8-coverage@0.2.3': {}
+  '@bcoe/v8-coverage@1.0.2': {}
 
   '@clack/core@0.5.0':
     dependencies:
@@ -8073,7 +8079,7 @@ snapshots:
       - sass
       - supports-color
 
-  '@dword-design/base@15.1.0(@types/eslint@9.6.1)(@types/node@24.0.15)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.8)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))':
+  '@dword-design/base@15.1.1(@types/eslint@9.6.1)(@types/node@24.0.15)(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-core@3.5.17)(esbuild@0.25.8)(vue-eslint-parser@10.2.0(eslint@9.31.0(jiti@2.4.2)))':
     dependencies:
       '@commitlint/cli': 18.6.1(@types/node@24.0.15)(typescript@5.8.3)
       '@commitlint/config-conventional': 18.6.3
@@ -8085,7 +8091,7 @@ snapshots:
       '@semantic-release/changelog': 6.0.3(semantic-release@22.0.12(typescript@5.8.3))
       '@semantic-release/git': 10.0.1(semantic-release@22.0.12(typescript@5.8.3))
       ajv: 8.17.1
-      c8: 9.1.0
+      c8: 10.1.3
       change-case: 5.4.4
       commitizen: 4.3.1(@types/node@24.0.15)(typescript@5.8.3)
       cosmiconfig: 9.0.0(typescript@5.8.3)
@@ -8104,7 +8110,7 @@ snapshots:
       globby: 14.1.0
       hosted-git-info: 8.1.0
       husky: 8.0.3
-      ignore: 5.3.2
+      ignore: 7.0.5
       is-ci: 4.1.0
       jiti: 2.4.2
       lodash-es: 4.17.21
@@ -8136,6 +8142,7 @@ snapshots:
       - esbuild
       - eslint-import-resolver-node
       - eslint-plugin-import
+      - monocart-coverage-reports
       - sass
       - supports-color
       - vue-eslint-parser
@@ -10791,16 +10798,16 @@ snapshots:
     optionalDependencies:
       magicast: 0.3.5
 
-  c8@9.1.0:
+  c8@10.1.3:
     dependencies:
-      '@bcoe/v8-coverage': 0.2.3
+      '@bcoe/v8-coverage': 1.0.2
       '@istanbuljs/schema': 0.1.3
       find-up: 5.0.0
       foreground-child: 3.3.1
       istanbul-lib-coverage: 3.2.2
       istanbul-lib-report: 3.0.1
       istanbul-reports: 3.1.7
-      test-exclude: 6.0.0
+      test-exclude: 7.0.1
       v8-to-istanbul: 9.3.0
       yargs: 17.7.2
       yargs-parser: 21.1.1
@@ -15307,11 +15314,11 @@ snapshots:
       commander: 2.20.3
       source-map-support: 0.5.21
 
-  test-exclude@6.0.0:
+  test-exclude@7.0.1:
     dependencies:
       '@istanbuljs/schema': 0.1.3
-      glob: 7.2.3
-      minimatch: 3.1.2
+      glob: 10.4.5
+      minimatch: 9.0.5
 
   text-decoder@1.2.3:
     dependencies:
