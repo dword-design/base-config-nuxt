@@ -1,3 +1,10 @@
+## [8.0.2](https://github.com/dword-design/base-config-nuxt/compare/v8.0.1...v8.0.2) (2025-07-21)
+
+
+### Bug Fixes
+
+* type annotations ([54fc410](https://github.com/dword-design/base-config-nuxt/commit/54fc4107001a1557f282c7e97b62386e90d9e864))
+
 ## [8.0.1](https://github.com/dword-design/base-config-nuxt/compare/v8.0.0...v8.0.1) (2025-07-21)
 
 
