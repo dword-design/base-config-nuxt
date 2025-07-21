@@ -23,6 +23,7 @@ import start from './start';
 const __dirname = pathLib.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
 const isInNodeModules = __dirname.split(pathLib.sep).includes('node_modules');
+
 type ConfigNuxt = Config & { virtualImports?: string[] };
 
 export default defineBaseConfig(function (config: ConfigNuxt) {

@@ -122,7 +122,7 @@ test('async modules', async ({ page }, testInfo) => {
   }
 });
 
-test.only('basic auth', async ({}, testInfo) => {
+test('basic auth', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {

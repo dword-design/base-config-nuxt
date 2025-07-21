@@ -4,7 +4,6 @@ declare module 'port-ready' {
     port: number;
     timeout?: number;
   }
-
   function portReady(port: number): Promise<number>;
   function portReady(options: PortReadyOptions): Promise<number>;
 

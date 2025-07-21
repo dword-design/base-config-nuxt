@@ -5,7 +5,6 @@ declare module 'require-package-name' {
    * @returns The package name or null if not found
    */
   function requirePackageName(str: string): string | null;
-
   namespace requirePackageName {
     /**
      * Extract base package name (without scope) from a require/import string
