@@ -1,3 +1,18 @@
+# [8.0.0](https://github.com/dword-design/base-config-nuxt/compare/v7.0.6...v8.0.0) (2025-07-21)
+
+
+### Bug Fixes
+
+* foo ([90f57c5](https://github.com/dword-design/base-config-nuxt/commit/90f57c54fb8175c048b7efeff65b35df7114c6e3))
+* foo ([bc68143](https://github.com/dword-design/base-config-nuxt/commit/bc681439dc4332c66c3aaccf34874d685a581c0c))
+* lock file maintenance ([#296](https://github.com/dword-design/base-config-nuxt/issues/296)) ([3d05512](https://github.com/dword-design/base-config-nuxt/commit/3d05512aed794acd687474fc3cb03b4c0d5ca8ff))
+
+
+### BREAKING CHANGES
+
+* node.js >= 20
+* drop TEST_ prefix for env variables
+
 ## [7.0.6](https://github.com/dword-design/base-config-nuxt/compare/v7.0.5...v7.0.6) (2025-06-18)
 
 
