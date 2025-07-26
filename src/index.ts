@@ -50,6 +50,7 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       'pages',
       'plugins',
       'public',
+      'shared',
       'store',
       'types',
     ],
