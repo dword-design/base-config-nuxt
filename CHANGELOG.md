@@ -1,3 +1,10 @@
+## [8.0.4](https://github.com/dword-design/base-config-nuxt/compare/v8.0.3...v8.0.4) (2025-07-26)
+
+
+### Bug Fixes
+
+* add shared folder to known files ([8ca2007](https://github.com/dword-design/base-config-nuxt/commit/8ca2007856509f1488fafacdda712a7b531d7d8d))
+
 ## [8.0.3](https://github.com/dword-design/base-config-nuxt/compare/v8.0.2...v8.0.3) (2025-07-21)
 
 
