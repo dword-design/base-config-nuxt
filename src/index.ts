@@ -7,6 +7,7 @@ import { defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
 import packageName from 'depcheck-package-name';
+import binName from 'depcheck-bin-name';
 import javascript from 'endent';
 import { pick } from 'lodash-es';
 import outputFiles from 'output-files';
@@ -62,6 +63,7 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       },
       specials: [getDepcheckSpecial({ cwd: this.cwd })],
     },
+    lintStagedConfig: { '.{css,scss,vue}': `${binName`stylelint`} --fix` },
     editorIgnore: [
       '.eslintcache',
       '.stylelintcache',
