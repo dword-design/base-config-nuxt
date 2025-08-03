@@ -1,3 +1,10 @@
+# [8.1.0](https://github.com/dword-design/base-config-nuxt/compare/v8.0.4...v8.1.0) (2025-08-03)
+
+
+### Features
+
+* lint-staged ([342c4d9](https://github.com/dword-design/base-config-nuxt/commit/342c4d929a7f806afa9445bb6b90e192ffb3dce1))
+
 ## [8.0.4](https://github.com/dword-design/base-config-nuxt/compare/v8.0.3...v8.0.4) (2025-07-26)
 
 
