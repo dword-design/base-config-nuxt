@@ -9,7 +9,7 @@ export default ({ virtualImports = [], ignore = [] }: Options = {}) => endent`
   import withNuxt from './.nuxt/eslint.config.mjs';
 
   export default withNuxt(
-    globalIgnores([${['eslint.config.ts', ...ignore].map(pattern => `'${pattern}'`).join(', ')}]),
+    globalIgnores([${['eslint.config.ts', 'eslint.lint-staged.config.ts', ...ignore].map(pattern => `'${pattern}'`).join(', ')}]),
     config,${
       virtualImports.length > 0
         ? endent`

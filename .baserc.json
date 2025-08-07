@@ -1,9 +1,6 @@
 {
   "depcheckConfig": {
-    "ignoreMatches": [
-      "playwright",
-      "playwright-chromium"
-    ]
+    "ignoreMatches": ["@playwright/browser-chromium"]
   },
   "macos": false,
   "name": "@dword-design/node"
