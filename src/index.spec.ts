@@ -444,10 +444,21 @@ test('global components', async ({ page }, testInfo) => {
 test('head in module', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
-  await fs.outputFile(
-    pathLib.join(cwd, 'modules', 'mod.ts'),
-    "export default (options, nuxt) => nuxt.options.app.head.script.push('foo')",
-  );
+  await outputFiles(cwd, {
+    'modules/mod.ts': endent`
+      import { defineNuxtModule } from '@nuxt/kit';
+
+      export default defineNuxtModule({
+        setup: (options, nuxt) => {
+          if (!nuxt.options.app.head.script) {
+            nuxt.options.app.head.script = [];
+          }
+          nuxt.options.app.head.script.push({ src: 'foo' });
+        },
+      });
+    `,
+    'package.json': JSON.stringify({ dependencies: { '@nuxt/kit': '*' } }),
+  });
 
   const base = new Base(config, { cwd });
   await base.prepare();
