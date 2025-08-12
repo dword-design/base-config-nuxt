@@ -8,7 +8,7 @@ export default ({ virtualImports = [], ignore = [] }: Options = {}) => endent`
 
   import withNuxt from './.nuxt/eslint.config.mjs';
 
-  export default withNuxt(
+  export default await withNuxt(
     globalIgnores([${['eslint.config.ts', 'eslint.lint-staged.config.ts', ...ignore].map(pattern => `'${pattern}'`).join(', ')}]),
     config,${
       virtualImports.length > 0
@@ -27,5 +27,5 @@ export default ({ virtualImports = [], ignore = [] }: Options = {}) => endent`
         'unicorn/filename-case': 'off',
       },
     },
-  );
+  ).toConfigs();\n
 `;
