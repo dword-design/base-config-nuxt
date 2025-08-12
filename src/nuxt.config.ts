@@ -5,8 +5,8 @@ import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config';
 
-const isBasicAuthEnabled =
-  process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASSWORD;
+const basicAuthUser = process.env.BASIC_AUTH_USER!;
+const isBasicAuthEnabled = basicAuthUser && process.env.BASIC_AUTH_PASSWORD;
 
 const { config: typescriptConfig } = ts.readConfigFile(
   'tsconfig.json',
@@ -33,11 +33,13 @@ export default {
     defineNuxtModule({
       setup: (options, nuxt) => {
         if (!config.userScalable) {
-          const viewportMeta = nuxt.options.app.head.meta.find(
+          const viewportMeta = nuxt.options.app.head.meta?.find?.(
             meta => meta.name === 'viewport',
           );
 
-          viewportMeta.content += ', user-scalable=0';
+          if (viewportMeta) {
+            viewportMeta.content += ', user-scalable=0';
+          }
         }
       },
     }),
@@ -68,9 +70,7 @@ export default {
   runtimeConfig: {
     ...(isBasicAuthEnabled && {
       basicAuth: {
-        pairs: {
-          [process.env.BASIC_AUTH_USER]: process.env.BASIC_AUTH_PASSWORD,
-        },
+        pairs: { [basicAuthUser]: process.env.BASIC_AUTH_PASSWORD },
       },
     }),
   },

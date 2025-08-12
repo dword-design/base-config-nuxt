@@ -1,3 +1,17 @@
+import type { Base, PartialCommandOptions } from '@dword-design/base';
 import { execaCommand } from 'execa';
 
-export default () => execaCommand('nuxt build --analyze');
+export default function (this: Base, options: PartialCommandOptions = {}) {
+  options = {
+    env: {},
+    log: process.env.NODE_ENV !== 'test',
+    stderr: 'inherit',
+    ...options,
+  };
+
+  return execaCommand('nuxt build --analyze', {
+    ...(options.log && { stdout: 'inherit' }),
+    cwd: this.cwd,
+    stderr: options.stderr,
+  });
+}
