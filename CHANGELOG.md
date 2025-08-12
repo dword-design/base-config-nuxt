@@ -1,3 +1,12 @@
+## [8.1.1](https://github.com/dword-design/base-config-nuxt/compare/v8.1.0...v8.1.1) (2025-08-12)
+
+
+### Bug Fixes
+
+* foo ([1497687](https://github.com/dword-design/base-config-nuxt/commit/149768712025f5efce212c468f2c5c9b4137201e))
+* foo ([434d1d1](https://github.com/dword-design/base-config-nuxt/commit/434d1d14796d620fb3147f30e45c601cc36f577f))
+* upgrades ([#313](https://github.com/dword-design/base-config-nuxt/issues/313)) ([bcaeb76](https://github.com/dword-design/base-config-nuxt/commit/bcaeb76b42907f79d59d1e76b11c49dc2dfe3c40))
+
 # [8.1.0](https://github.com/dword-design/base-config-nuxt/compare/v8.0.4...v8.1.0) (2025-08-03)
 
 
