@@ -1,3 +1,10 @@
+## [8.1.2](https://github.com/dword-design/base-config-nuxt/compare/v8.1.1...v8.1.2) (2025-08-14)
+
+
+### Bug Fixes
+
+* fix path ([5463bce](https://github.com/dword-design/base-config-nuxt/commit/5463bce27108b5b52dbe77a3fe2536cc9fc4495a))
+
 ## [8.1.1](https://github.com/dword-design/base-config-nuxt/compare/v8.1.0...v8.1.1) (2025-08-12)
 
 
