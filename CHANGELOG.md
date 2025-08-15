@@ -1,3 +1,10 @@
+## [8.1.3](https://github.com/dword-design/base-config-nuxt/compare/v8.1.2...v8.1.3) (2025-08-15)
+
+
+### Bug Fixes
+
+* fix lint staged config ([61efa13](https://github.com/dword-design/base-config-nuxt/commit/61efa135e80b092b8471b95e2fabb58263d4453f))
+
 ## [8.1.2](https://github.com/dword-design/base-config-nuxt/compare/v8.1.1...v8.1.2) (2025-08-14)
 
 
