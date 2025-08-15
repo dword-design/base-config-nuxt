@@ -84,7 +84,7 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
     ],
     hasTypescriptConfigRootAlias: false,
     lint,
-    lintStagedConfig: { '.{css,scss,vue}': `${binName`stylelint`} --fix` },
+    lintStagedConfig: { '*.{css,scss,vue}': `${binName`stylelint`} --fix` },
     npmPublish: true,
     packageConfig: { main: 'dist/index.js' },
     prepare: async () => {
