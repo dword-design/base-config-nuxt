@@ -69,3 +69,28 @@ test('linting error in vue file', async ({}, testInfo) => {
     'Parsing error: Unexpected keyword or identifier',
   );
 });
+
+test('unused translation', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await fs.outputFile(
+    pathLib.join(cwd, 'i18n', 'de.json'),
+    JSON.stringify({ foo: 'bar' }),
+  );
+
+  await fs.outputFile(
+    pathLib.join(cwd, 'pages', 'index.vue'),
+    endent`
+      <template>
+        <div />
+      </template>
+    `,
+  );
+
+  const base = new Base(config, { cwd });
+  await base.prepare();
+
+  await expect(base.lint()).rejects.toThrow(
+    "1:2  error  unused 'foo' key  @intlify/vue-i18n/no-unused-keys",
+  );
+});
