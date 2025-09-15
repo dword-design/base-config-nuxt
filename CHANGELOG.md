@@ -1,3 +1,11 @@
+## [8.1.4](https://github.com/dword-design/base-config-nuxt/compare/v8.1.3...v8.1.4) (2025-09-15)
+
+
+### Bug Fixes
+
+* fix depcheck version ([31fb215](https://github.com/dword-design/base-config-nuxt/commit/31fb215573ed66d6002d2cc11bcf9d3d450532ea))
+* lock file maintenance ([#316](https://github.com/dword-design/base-config-nuxt/issues/316)) ([92d0a93](https://github.com/dword-design/base-config-nuxt/commit/92d0a9326f27764f92f117e63e63531c7afae90c))
+
 ## [8.1.3](https://github.com/dword-design/base-config-nuxt/compare/v8.1.2...v8.1.3) (2025-08-15)
 
 
