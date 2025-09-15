@@ -43,7 +43,6 @@
     "@nuxtjs/stylelint-module": "^5.2.1",
     "babel-plugin-add-import-extension": "^1.6.0",
     "babel-plugin-module-resolver": "^5.0.2",
-    "depcheck": "npm:@dword-design/depcheck@^0.0.11",
     "depcheck-bin-name": "^2.0.0",
     "depcheck-package-name": "^4.0.1",
     "endent": "npm:@dword-design/endent@^1.4.7",
@@ -78,6 +77,9 @@
     "port-ready": "^0.1.0",
     "tree-kill-promise": "^4.0.0",
     "xml-formatter": "^3.6.6"
+  },
+  "peerDependencies": {
+    "depcheck": "*"
   },
   "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677",
   "engines": {

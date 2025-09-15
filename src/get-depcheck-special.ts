@@ -18,7 +18,7 @@ export default ({ cwd = '.' }) =>
       return modules
         .map(mod => [mod].flat()[0])
         .filter(name => typeof name === 'string')
-        .map(name => requirePackageName(name));
+        .map(name => requirePackageName(name)!);
     }
 
     return [];
