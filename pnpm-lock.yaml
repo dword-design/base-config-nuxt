@@ -45,8 +45,8 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2
       depcheck:
-        specifier: npm:@dword-design/depcheck@^0.0.11
-        version: '@dword-design/depcheck@0.0.11'
+        specifier: npm:@dword-design/depcheck@^0.0.12
+        version: '@dword-design/depcheck@0.0.12'
       depcheck-bin-name:
         specifier: ^2.0.0
         version: 2.0.0
@@ -456,8 +456,8 @@ packages:
     resolution: {integrity: sha512-WXVEIWxgS3G4kXhb1IgU9i+cJO7kkx6qAwibeqsnjzuFQaIfzQlHvbPyoU3DPc6SvRYREQdzNB1CFg9MC79abw==}
     engines: {node: '>=20'}
 
-  '@dword-design/depcheck@0.0.11':
-    resolution: {integrity: sha512-H+9KOHEszcJTY/dFHIw8Jsfmq4pdUwgQbRH8B8NuewdBUPSo48vW40OhhaSAat/4NbjoqeY44brJ3M0mEgyw6w==}
+  '@dword-design/depcheck@0.0.12':
+    resolution: {integrity: sha512-cTkvdU6mgc57B642oE3XSqwH2tBlt2KBjNIaf9lVvJp+NSBmIO2bSzmOJO4Iih7j6tpb3x6xESDuHZMva7Evfg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -8188,7 +8188,7 @@ snapshots:
       lodash-es: 4.17.21
       sass: 1.62.1
 
-  '@dword-design/depcheck@0.0.11':
+  '@dword-design/depcheck@0.0.12':
     dependencies:
       '@babel/parser': 7.28.3
       '@babel/traverse': 7.28.3
