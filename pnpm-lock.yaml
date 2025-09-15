@@ -44,9 +44,6 @@ importers:
       babel-plugin-module-resolver:
         specifier: ^5.0.2
         version: 5.0.2
-      depcheck:
-        specifier: npm:@dword-design/depcheck@^0.0.11
-        version: '@dword-design/depcheck@0.0.11'
       depcheck-bin-name:
         specifier: ^2.0.0
         version: 2.0.0
@@ -438,11 +435,6 @@ packages:
   '@dword-design/depcheck-parser-sass@5.0.0':
     resolution: {integrity: sha512-WXVEIWxgS3G4kXhb1IgU9i+cJO7kkx6qAwibeqsnjzuFQaIfzQlHvbPyoU3DPc6SvRYREQdzNB1CFg9MC79abw==}
     engines: {node: '>=20'}
-
-  '@dword-design/depcheck@0.0.11':
-    resolution: {integrity: sha512-H+9KOHEszcJTY/dFHIw8Jsfmq4pdUwgQbRH8B8NuewdBUPSo48vW40OhhaSAat/4NbjoqeY44brJ3M0mEgyw6w==}
-    engines: {node: '>=10'}
-    hasBin: true
 
   '@dword-design/depcheck@0.0.12':
     resolution: {integrity: sha512-cTkvdU6mgc57B642oE3XSqwH2tBlt2KBjNIaf9lVvJp+NSBmIO2bSzmOJO4Iih7j6tpb3x6xESDuHZMva7Evfg==}
@@ -7596,34 +7588,6 @@ snapshots:
       get-package-name: 2.2.0
       lodash-es: 4.17.21
       sass: 1.62.1
-
-  '@dword-design/depcheck@0.0.11':
-    dependencies:
-      '@babel/parser': 7.28.4
-      '@babel/traverse': 7.28.4
-      '@babel/types': 7.28.4
-      '@vue/compiler-sfc': 3.5.21
-      callsites: 3.1.0
-      camelcase: 6.3.0
-      cosmiconfig: 7.1.0
-      debug: 4.4.3
-      deps-regex: 0.2.0
-      findup-sync: 5.0.0
-      ignore: 5.3.2
-      is-core-module: 2.16.1
-      js-yaml: 3.14.1
-      json5: 2.2.3
-      lodash: 4.17.21
-      minimatch: 7.4.6
-      multimatch: 5.0.0
-      please-upgrade-node: 3.2.0
-      readdirp: 3.6.0
-      require-package-name: 2.0.1
-      resolve: 1.22.10
-      semver: 7.7.2
-      yargs: 16.2.0
-    transitivePeerDependencies:
-      - supports-color
 
   '@dword-design/depcheck@0.0.12':
     dependencies:
