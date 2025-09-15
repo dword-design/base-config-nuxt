@@ -45,8 +45,8 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2
       depcheck:
-        specifier: ^1.4.7
-        version: 1.4.7
+        specifier: npm:@dword-design/depcheck@^0.0.11
+        version: '@dword-design/depcheck@0.0.11'
       depcheck-bin-name:
         specifier: ^2.0.0
         version: 2.0.0
@@ -455,6 +455,11 @@ packages:
   '@dword-design/depcheck-parser-sass@5.0.0':
     resolution: {integrity: sha512-WXVEIWxgS3G4kXhb1IgU9i+cJO7kkx6qAwibeqsnjzuFQaIfzQlHvbPyoU3DPc6SvRYREQdzNB1CFg9MC79abw==}
     engines: {node: '>=20'}
+
+  '@dword-design/depcheck@0.0.11':
+    resolution: {integrity: sha512-H+9KOHEszcJTY/dFHIw8Jsfmq4pdUwgQbRH8B8NuewdBUPSo48vW40OhhaSAat/4NbjoqeY44brJ3M0mEgyw6w==}
+    engines: {node: '>=10'}
+    hasBin: true
 
   '@dword-design/depcheck@0.0.9':
     resolution: {integrity: sha512-gUsIXzLg+UTyOT3IaS0g4om4AnAhjoBvrgnb8tWAW6M5aDMPuQ2/M/RAGIWoM/yM+ijAklbb1G/DGNkrNoLrBQ==}
@@ -3384,11 +3389,6 @@ packages:
   depcheck-package-name@4.0.1:
     resolution: {integrity: sha512-Jt6XKYnjtC9AMP8+lD+I7J+Fr39e9Ll6O7xg6pzqhxFiCtUuDFPLrY89bMLtXBqFvzTE8h071K33CshYJmRuIg==}
     engines: {node: '>=20'}
-
-  depcheck@1.4.7:
-    resolution: {integrity: sha512-1lklS/bV5chOxwNKA/2XUUk/hPORp8zihZsXflr8x0kLwmcZ9Y9BsS6Hs3ssvA+2wUVbG0U2Ciqvm1SokNjPkA==}
-    engines: {node: '>=10'}
-    hasBin: true
 
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
@@ -8188,6 +8188,34 @@ snapshots:
       lodash-es: 4.17.21
       sass: 1.62.1
 
+  '@dword-design/depcheck@0.0.11':
+    dependencies:
+      '@babel/parser': 7.28.3
+      '@babel/traverse': 7.28.3
+      '@babel/types': 7.28.2
+      '@vue/compiler-sfc': 3.5.18
+      callsites: 3.1.0
+      camelcase: 6.3.0
+      cosmiconfig: 7.1.0
+      debug: 4.4.1
+      deps-regex: 0.2.0
+      findup-sync: 5.0.0
+      ignore: 5.3.2
+      is-core-module: 2.16.1
+      js-yaml: 3.14.1
+      json5: 2.2.3
+      lodash: 4.17.21
+      minimatch: 7.4.6
+      multimatch: 5.0.0
+      please-upgrade-node: 3.2.0
+      readdirp: 3.6.0
+      require-package-name: 2.0.1
+      resolve: 1.22.10
+      semver: 7.7.2
+      yargs: 16.2.0
+    transitivePeerDependencies:
+      - supports-color
+
   '@dword-design/depcheck@0.0.9':
     dependencies:
       '@babel/parser': 7.28.3
@@ -11388,34 +11416,6 @@ snapshots:
   depcheck-package-name@4.0.1:
     dependencies:
       tagged-template-noop: 2.1.1
-
-  depcheck@1.4.7:
-    dependencies:
-      '@babel/parser': 7.28.3
-      '@babel/traverse': 7.28.3
-      '@vue/compiler-sfc': 3.5.18
-      callsite: 1.0.0
-      camelcase: 6.3.0
-      cosmiconfig: 7.1.0
-      debug: 4.4.1
-      deps-regex: 0.2.0
-      findup-sync: 5.0.0
-      ignore: 5.3.2
-      is-core-module: 2.16.1
-      js-yaml: 3.14.1
-      json5: 2.2.3
-      lodash: 4.17.21
-      minimatch: 7.4.6
-      multimatch: 5.0.0
-      please-upgrade-node: 3.2.0
-      readdirp: 3.6.0
-      require-package-name: 2.0.1
-      resolve: 1.22.10
-      resolve-from: 5.0.0
-      semver: 7.7.2
-      yargs: 16.2.0
-    transitivePeerDependencies:
-      - supports-color
 
   depd@2.0.0: {}
 

@@ -43,7 +43,7 @@
     "@nuxtjs/stylelint-module": "^5.2.1",
     "babel-plugin-add-import-extension": "^1.6.0",
     "babel-plugin-module-resolver": "^5.0.2",
-    "depcheck": "^1.4.7",
+    "depcheck": "npm:@dword-design/depcheck@^0.0.11",
     "depcheck-bin-name": "^2.0.0",
     "depcheck-package-name": "^4.0.1",
     "endent": "npm:@dword-design/endent@^1.4.7",
