@@ -71,7 +71,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/lodash-es": "^4.17.12",
     "axios": "^1.11.0",
-    "delay": "^6.0.0",
+    "delay": "^7.0.0",
     "get-port": "^7.1.0",
     "nuxt-dev-ready": "^5.0.1",
     "port-ready": "^0.1.0",
