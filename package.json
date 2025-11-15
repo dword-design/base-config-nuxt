@@ -48,7 +48,7 @@
     "endent": "npm:@dword-design/endent@^1.4.7",
     "execa": "^9.6.0",
     "fs-extra": "^11.3.1",
-    "globby": "^14.1.0",
+    "globby": "^16.0.0",
     "jiti": "^2.5.1",
     "lodash-es": "^4.17.21",
     "nuxt": "^3.18.1",
