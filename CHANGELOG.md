@@ -1,3 +1,10 @@
+## [8.1.5](https://github.com/dword-design/base-config-nuxt/compare/v8.1.4...v8.1.5) (2025-11-19)
+
+
+### Bug Fixes
+
+* add server utils dir ([2da2c97](https://github.com/dword-design/base-config-nuxt/commit/2da2c97ac3600357223462c7502676630519ab21))
+
 ## [8.1.4](https://github.com/dword-design/base-config-nuxt/compare/v8.1.3...v8.1.4) (2025-09-15)
 
 
