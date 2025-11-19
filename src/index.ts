@@ -37,6 +37,7 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       'server/plugins/**/*.ts',
       'server/routes/**/*.ts',
       'server/middleware/**/*.ts',
+      'server/utils/**/*.ts',
       'app.vue',
       'assets',
       'components',
