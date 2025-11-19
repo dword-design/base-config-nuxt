@@ -111,7 +111,11 @@ test('async modules', async ({ page }, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port }, log: true });
+
+  const nuxt = base.run('dev', {
+    env: { NODE_ENV: '', PORT: port },
+    log: true,
+  });
 
   try {
     await nuxtDevReady(port);
@@ -145,7 +149,11 @@ test('basic auth', async ({}, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port }, log: true });
+
+  const nuxt = base.run('dev', {
+    env: { NODE_ENV: '', PORT: port },
+    log: true,
+  });
 
   try {
     await nuxtDevReady(port);
