@@ -83,11 +83,12 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       '/dist',
       '/nuxt.config.ts',
     ],
+    hasTypeModule: false,
     hasTypescriptConfigRootAlias: false,
     lint,
     lintStagedConfig: { '*.{css,scss,vue}': `${binName`stylelint`} --fix` },
     npmPublish: true,
-    packageConfig: { main: 'dist/index.js' },
+    packageConfig: { main: 'dist/index.js' }, // TODO: Remove this when https://github.com/nuxt/nuxt/issues/33733 is fixed
     prepare: async () => {
       const configPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/config'
