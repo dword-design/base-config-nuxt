@@ -1,3 +1,10 @@
+## [8.1.6](https://github.com/dword-design/base-config-nuxt/compare/v8.1.5...v8.1.6) (2025-11-20)
+
+
+### Bug Fixes
+
+* remove type module temporarily ([86ee772](https://github.com/dword-design/base-config-nuxt/commit/86ee7725e5d800c6c667de4d25ef0e6bacf4a540))
+
 ## [8.1.5](https://github.com/dword-design/base-config-nuxt/compare/v8.1.4...v8.1.5) (2025-11-19)
 
 
