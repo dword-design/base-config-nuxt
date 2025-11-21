@@ -68,12 +68,14 @@ test('basic auth', async ({ request }, testInfo) => {
     // TODO: For some reason parallelizing these two requests don't work in Node.js 22
     await request.get(`http://localhost:${port}`, {
       headers: { Authorization: `Basic ${auth}` },
+      timeout: 10_000,
     });
 
     console.log('response not 401');
 
     await request.get(`http://localhost:${port}/api/foo`, {
       headers: { Authorization: `Basic ${auth}` },
+      timeout: 10_000,
     });
 
     console.log('response api 401');
