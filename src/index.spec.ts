@@ -63,7 +63,7 @@ test('basic auth', async ({}, testInfo) => {
           authenticated = users.some(
             (user) => user.username === username && user.password === password,
           );*/
-          autheticated = username === 'foo' && password === 'bar';
+          authenticated = username === 'foo' && password === 'bar';
         }
 
         if (!authenticated) {
