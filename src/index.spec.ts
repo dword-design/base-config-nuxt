@@ -35,14 +35,14 @@ test('basic auth', async ({}, testInfo) => {
     'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
     'server/middleware/basic-auth.ts': endent`
       export default defineEventHandler(() => {
-        /*if (
+        if (
           event.node.req.headers?.["x-nitro-prerender"] &&
           import.meta.env.NODE_ENV === "prerender"
         ) {
           return;
         }
 
-        let authenticated = false;
+        /*let authenticated = false;
 
         const credentials = event.node.req.headers?.authorization?.split(" ")[1];
 
