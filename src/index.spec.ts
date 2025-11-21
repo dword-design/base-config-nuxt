@@ -68,6 +68,8 @@ test('basic auth', async ({}, testInfo) => {
           authenticated = username === 'foo' && password === 'bar';
         }
 
+        console.log('authenticated', authenticated)
+
         if (!authenticated) {
           event.node.res.setHeader(
             "WWW-Authenticate",
@@ -76,6 +78,7 @@ test('basic auth', async ({}, testInfo) => {
           event.node.res.statusCode = 401;
           event.node.res.end("Access denied");
         }
+        console.log('middleware done')
       });
     `,
   });
