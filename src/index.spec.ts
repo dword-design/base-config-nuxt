@@ -53,13 +53,14 @@ test('basic auth', async ({}, testInfo) => {
             .toString("utf8")
             .split(":");
 
-          /*const users = Array.isArray(config.users)
+          const users = Array.isArray(config.users)
             ? config.users
             : config.users.split(config.usersDelimiter ?? ",").map((user) => {
                 const [username, password] = user.split(":");
                 return { username, password };
-              });*/
+              });
           console.log(config.users)
+          console.log(users)
 
           /*authenticated = users.some(
             (user) => user.username === username && user.password === password,
