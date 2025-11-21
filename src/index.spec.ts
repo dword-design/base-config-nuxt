@@ -46,26 +46,36 @@ test('basic auth', async ({}, testInfo) => {
 
   try {
     await nuxtDevReady(port);
+    console.log('port ready');
 
     await expect(axios.get(`http://localhost:${port}`)).rejects.toHaveProperty(
       'response.status',
       401,
     );
 
+    console.log('response 401');
+
     await expect(
       axios.get(`http://localhost:${port}/api/foo`),
     ).rejects.toHaveProperty('response.status', 401);
+
+    console.log('response api 401');
 
     // TODO: For some reason parallelizing these two requests don't work in Node.js 22
     await axios.get(`http://localhost:${port}`, {
       auth: { password: 'bar', username: 'foo' },
     });
 
+    console.log('response not 401');
+
     await axios.get(`http://localhost:${port}/api/foo`, {
       auth: { password: 'bar', username: 'foo' },
     });
+
+    console.log('response api 401');
   } finally {
     await kill(nuxt.pid);
+    console.log('killed');
   }
 });
 
