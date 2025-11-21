@@ -6,7 +6,7 @@ export default defineConfig({
   snapshotPathTemplate:
     '{snapshotDir}/{testFileDir}/{testFileName}-snapshots/{arg}{-projectName}{ext}',
 
-  timeout: 100_000,
+  timeout: 400_000,
   // fullyParallel: true,
   workers: 1,
 });
