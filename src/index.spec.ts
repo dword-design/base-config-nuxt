@@ -15,7 +15,7 @@ import xmlFormatter from 'xml-formatter';
 
 import config from '.';
 
-test('basic auth', async ({}, testInfo) => {
+test('basic auth', async ({ request }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
@@ -60,20 +60,22 @@ test('basic auth', async ({}, testInfo) => {
     ).rejects.toHaveProperty('response.status', 401);
 
     console.log('response api 401');
+    const auth = Buffer.from('foo:bar').toString('base64');
 
     // TODO: For some reason parallelizing these two requests don't work in Node.js 22
-    await axios.get(`http://localhost:${port}`, {
-      auth: { password: 'bar', username: 'foo' },
+    await request.get(`http://localhost:${port}`, {
+      headers: { Authorization: `Basic ${auth}` },
     });
 
     console.log('response not 401');
 
-    await axios.get(`http://localhost:${port}/api/foo`, {
-      auth: { password: 'bar', username: 'foo' },
+    await request.get(`http://localhost:${port}/api/foo`, {
+      headers: { Authorization: `Basic ${auth}` },
     });
 
     console.log('response api 401');
   } finally {
+    console.log('test done');
     await kill(nuxt.pid);
     console.log('killed');
   }
