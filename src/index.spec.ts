@@ -54,14 +54,14 @@ test('basic auth', async ({}, testInfo) => {
           authenticated = username === 'foo' && password === 'bar';
         }
 
-        /*if (!authenticated) {
+        if (!authenticated) {
           event.node.res.setHeader(
             "WWW-Authenticate",
             'Basic realm="Secure Area", charset="UTF-8"',
           );
           event.node.res.statusCode = 401;
           event.node.res.end("Access denied");
-        }*/
+        }
       });
     `,
   });
