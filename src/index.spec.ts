@@ -74,6 +74,9 @@ test('basic auth', async ({ request }, testInfo) => {
     });
 
     console.log('response api 401');
+  } catch (error) {
+    console.log(error);
+    throw error;
   } finally {
     console.log('test done');
     await kill(nuxt.pid);
