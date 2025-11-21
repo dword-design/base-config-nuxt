@@ -35,6 +35,8 @@ test('basic auth', async ({}, testInfo) => {
     'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
     'server/middleware/basic-auth.ts': endent`
       export default defineEventHandler(event => {
+        const config = useRuntimeConfig().basicAuth
+
         if (
           event.node.req.headers?.["x-nitro-prerender"] &&
           import.meta.env.NODE_ENV === "prerender"
@@ -51,7 +53,16 @@ test('basic auth', async ({}, testInfo) => {
             .toString("utf8")
             .split(":");
 
-          authenticated = username === 'foo' && password === 'bar';
+          const users = Array.isArray(config.users)
+            ? config.users
+            : config.users.split(config.usersDelimiter ?? ",").map((user) => {
+                const [username, password] = user.split(":");
+                return { username, password };
+              });
+
+          authenticated = users.some(
+            (user) => user.username === username && user.password === password,
+          );
         }
 
         if (!authenticated) {

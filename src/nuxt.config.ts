@@ -72,11 +72,17 @@ export default {
   ],
   router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {
-    ...(isBasicAuthEnabled && {
-      basicAuth: {
-        pairs: { [basicAuthUser]: process.env.BASIC_AUTH_PASSWORD },
-      },
-    }),
+    basicAuth: {
+      enabled: !!isBasicAuthEnabled,
+      ...(isBasicAuthEnabled && {
+        users: [
+          {
+            password: process.env.BASIC_AUTH_PASSWORD,
+            username: basicAuthUser,
+          },
+        ],
+      }),
+    },
   },
   typescript: { strict: !!typescriptConfig.compilerOptions.strict },
   vite: {
