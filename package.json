@@ -38,7 +38,6 @@
     "@dword-design/nuxt-i18n": "^1.0.1",
     "@dword-design/nuxt-page-title": "^1.0.0",
     "@dword-design/stylelint-config": "^4.1.0",
-    "@kgierke/nuxt-basic-auth": "^1.7.0",
     "@nuxt/eslint": "^1.10.0",
     "@nuxt/kit": "^4.2.1",
     "@nuxtjs/stylelint-module": "^5.2.1",

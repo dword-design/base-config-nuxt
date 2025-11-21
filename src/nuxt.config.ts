@@ -51,7 +51,6 @@ export default {
         }
       },
     }),
-    packageName`@kgierke/nuxt-basic-auth`,
     packageName`@nuxt/eslint`,
     [
       packageName`@nuxtjs/stylelint-module`,

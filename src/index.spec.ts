@@ -33,6 +33,49 @@ test('basic auth', async ({ request }, testInfo) => {
       </template>
     `,
     'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
+    'server/middleware/basic-auth.ts': endent`
+      export default defineEventHandler((event) => {
+        /**
+         * If the request is a prerender request, do nothing.
+         */
+        if (
+          event.node.req.headers?.["x-nitro-prerender"] &&
+          import.meta.env.NODE_ENV === "prerender"
+        ) {
+          return;
+        }
+
+        let authenticated = false;
+
+        /**
+         * Get the credentials from the Authorization header.
+         */
+        const credentials = event.node.req.headers?.authorization?.split(" ")[1];
+
+        /**
+         * If the credentials are defined, check if they match any of the users.
+         */
+        if (credentials) {
+          const [username, password] = Buffer.from(credentials, "base64")
+            .toString("utf8")
+            .split(":");
+
+          authenticated = username === 'foo' && password === 'bar';
+        }
+
+        /**
+         * If the user is not authenticated or the credentials are not defined, send a 401 response.
+         */
+        if (!authenticated) {
+          event.node.res.setHeader(
+            "WWW-Authenticate",
+            'Basic realm="Secure Area", charset="UTF-8"',
+          );
+          event.node.res.statusCode = 401;
+          event.node.res.end("Access denied");
+        }
+      });
+    `,
   });
 
   const base = new Base(config, { cwd });
@@ -76,7 +119,7 @@ test('basic auth', async ({ request }, testInfo) => {
       headers: { Authorization: `Basic ${auth}` },
     });
 
-    console.log('response api 401');
+    console.log('response not 401');
   } catch (error) {
     console.log(error);
     throw error;
