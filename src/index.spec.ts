@@ -42,7 +42,7 @@ test('basic auth', async ({}, testInfo) => {
           return;
         }
 
-        /*let authenticated = false;
+        let authenticated = false;
 
         const credentials = event.node.req.headers?.authorization?.split(" ")[1];
 
@@ -54,7 +54,7 @@ test('basic auth', async ({}, testInfo) => {
           authenticated = username === 'foo' && password === 'bar';
         }
 
-        if (!authenticated) {
+        /*if (!authenticated) {
           event.node.res.setHeader(
             "WWW-Authenticate",
             'Basic realm="Secure Area", charset="UTF-8"',
