@@ -1,3 +1,10 @@
+## [8.1.9](https://github.com/dword-design/base-config-nuxt/compare/v8.1.8...v8.1.9) (2025-11-22)
+
+
+### Bug Fixes
+
+* foo ([45be0e4](https://github.com/dword-design/base-config-nuxt/commit/45be0e4bd4fc62d61f58ebbdd1b37c071f8a0b6e))
+
 ## [8.1.8](https://github.com/dword-design/base-config-nuxt/compare/v8.1.7...v8.1.8) (2025-11-22)
 
 
