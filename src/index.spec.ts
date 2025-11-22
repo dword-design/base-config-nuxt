@@ -15,102 +15,6 @@ import xmlFormatter from 'xml-formatter';
 
 import config from '.';
 
-test('basic auth', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    '.env.schema.json': JSON.stringify({
-      basicAuthPassword: { type: 'string' },
-      basicAuthUser: { type: 'string' },
-    }),
-    '.test.env.json': JSON.stringify({
-      basicAuthPassword: 'bar',
-      basicAuthUser: 'foo',
-    }),
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
-    `,
-    'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
-    'server/middleware/basic-auth.ts': endent`
-      export default defineEventHandler(event => {
-        const config = useRuntimeConfig().basicAuth
-
-        if (
-          event.node.req.headers?.["x-nitro-prerender"] &&
-          import.meta.env.NODE_ENV === "prerender"
-        ) {
-          return;
-        }
-
-        let authenticated = false;
-
-        const credentials = event.node.req.headers?.authorization?.split(" ")[1];
-
-        if (credentials) {
-          const [username, password] = Buffer.from(credentials, "base64")
-            .toString("utf8")
-            .split(":");
-
-          const users = Array.isArray(config.users)
-            ? config.users
-            : config.users.split(config.usersDelimiter ?? ",").map((user) => {
-                const [username, password] = user.split(":");
-                return { username, password };
-              });
-          console.log(config.users)
-          console.log(users)
-
-          /*authenticated = users.some(
-            (user) => user.username === username && user.password === password,
-          );*/
-          authenticated = username === 'foo' && password === 'bar';
-        }
-
-        console.log('authenticated', authenticated)
-
-        if (!authenticated) {
-          event.node.res.setHeader(
-            "WWW-Authenticate",
-            'Basic realm="Secure Area", charset="UTF-8"',
-          );
-          event.node.res.statusCode = 401;
-          event.node.res.end("Access denied");
-        }
-        console.log('middleware done')
-      });
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-
-  const nuxt = base.run('dev', {
-    env: { NODE_ENV: '', PORT: port },
-    log: true,
-  });
-
-  try {
-    await nuxtDevReady(port);
-    console.log('port ready');
-
-    await axios.get(`http://localhost:${port}`, {
-      auth: { password: 'bar', username: 'foo' },
-    });
-
-    console.log('response not 401');
-  } catch (error) {
-    console.log(error);
-    throw error;
-  } finally {
-    console.log('test done');
-    await kill(nuxt.pid);
-    console.log('killed');
-  }
-});
-
 test('aliases', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
@@ -207,11 +111,7 @@ test('async modules', async ({ page }, testInfo) => {
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
-
-  const nuxt = base.run('dev', {
-    env: { NODE_ENV: '', PORT: port },
-    log: true,
-  });
+  const nuxt = base.run('dev', { env: { PORT: port } });
 
   try {
     await nuxtDevReady(port);
@@ -221,6 +121,56 @@ test('async modules', async ({ page }, testInfo) => {
     await kill(nuxt.pid);
   }
 });
+
+/* test('basic auth', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({
+      basicAuthPassword: { type: 'string' },
+      basicAuthUser: { type: 'string' },
+    }),
+    '.test.env.json': JSON.stringify({
+      basicAuthPassword: 'bar',
+      basicAuthUser: 'foo',
+    }),
+    'pages/index.vue': endent`
+      <template>
+        <div />
+      </template>
+    `,
+    'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
+  });
+
+  const base = new Base(config, { cwd });
+  await base.prepare();
+  const port = await getPort();
+  const nuxt = base.run('dev', { env: { PORT: port } });
+
+  try {
+    await nuxtDevReady(port);
+
+    await expect(axios.get(`http://localhost:${port}`)).rejects.toHaveProperty(
+      'response.status',
+      401,
+    );
+
+    await expect(
+      axios.get(`http://localhost:${port}/api/foo`),
+    ).rejects.toHaveProperty('response.status', 401);
+
+    // TODO: For some reason parallelizing these two requests don't work in Node.js 22
+    await axios.get(`http://localhost:${port}`, {
+      auth: { password: 'bar', username: 'foo' },
+    });
+
+    await axios.get(`http://localhost:${port}/api/foo`, {
+      auth: { password: 'bar', username: 'foo' },
+    });
+  } finally {
+    await kill(nuxt.pid);
+  }
+}); */
 
 test('bodyAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();

@@ -27,14 +27,6 @@ export default {
       ],
     },
   },
-  basicAuth: {
-    enabled: !!isBasicAuthEnabled,
-    ...(isBasicAuthEnabled && {
-      users: [
-        { password: process.env.BASIC_AUTH_PASSWORD, username: basicAuthUser },
-      ],
-    }),
-  },
   devtools: { enabled: true },
   eslint: { checker: { fix: true }, config: { standalone: false } },
   modules: [
@@ -51,6 +43,10 @@ export default {
         }
       },
     }),
+    [
+      packageName`nuxt-basic-authentication-module`,
+      { enabled: !!isBasicAuthEnabled },
+    ],
     packageName`@nuxt/eslint`,
     [
       packageName`@nuxtjs/stylelint-module`,
@@ -72,17 +68,11 @@ export default {
   ],
   router: { options: { linkActiveClass: 'active' } },
   runtimeConfig: {
-    basicAuth: {
-      enabled: !!isBasicAuthEnabled,
-      ...(isBasicAuthEnabled && {
-        users: [
-          {
-            password: process.env.BASIC_AUTH_PASSWORD,
-            username: basicAuthUser,
-          },
-        ],
-      }),
-    },
+    ...(isBasicAuthEnabled && {
+      basicAuth: {
+        pairs: { [basicAuthUser]: process.env.BASIC_AUTH_PASSWORD },
+      },
+    }),
   },
   typescript: { strict: !!typescriptConfig.compilerOptions.strict },
   vite: {
