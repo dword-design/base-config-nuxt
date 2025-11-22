@@ -1,3 +1,15 @@
+## [8.1.7](https://github.com/dword-design/base-config-nuxt/compare/v8.1.6...v8.1.7) (2025-11-22)
+
+
+### Bug Fixes
+
+* fix allowed matches ([a5efcd6](https://github.com/dword-design/base-config-nuxt/commit/a5efcd636bd0df0035559ea31f2c4a98680e90eb))
+* foo ([1c6bbb1](https://github.com/dword-design/base-config-nuxt/commit/1c6bbb129cf036c01d1a401b97e6cd8fe196ced3))
+* lock file maintenance ([#322](https://github.com/dword-design/base-config-nuxt/issues/322)) ([0c45caa](https://github.com/dword-design/base-config-nuxt/commit/0c45caafebeb5caac39304b47236aacc885695d4))
+* undo last change ([61a15b9](https://github.com/dword-design/base-config-nuxt/commit/61a15b92c6f722e15a62aa618b693967756ea838))
+* update config files ([6b3a4d7](https://github.com/dword-design/base-config-nuxt/commit/6b3a4d7541598313cd246828733840c6e429f3b2))
+* update pnpm to v10.23.0 ([#282](https://github.com/dword-design/base-config-nuxt/issues/282)) ([c9d43ef](https://github.com/dword-design/base-config-nuxt/commit/c9d43efc63af182936d7a20556c5283c1289ce18))
+
 ## [8.1.6](https://github.com/dword-design/base-config-nuxt/compare/v8.1.5...v8.1.6) (2025-11-20)
 
 
