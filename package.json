@@ -64,7 +64,7 @@
   "devDependencies": {
     "@dword-design/defu": "^1.0.3",
     "@nuxtjs/sitemap": "^7.4.7",
-    "@nuxtjs/tailwindcss": "7.0.0-beta.0",
+    "@nuxtjs/tailwindcss": "7.0.0-beta.1",
     "@playwright/browser-chromium": "^1.56.1",
     "@playwright/test": "^1.56.1",
     "@types/babel__core": "^7.20.5",

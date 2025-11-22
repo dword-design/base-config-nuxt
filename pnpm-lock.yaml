@@ -103,8 +103,8 @@ importers:
         specifier: ^7.4.7
         version: 7.4.7(h3@1.15.4)(magicast@0.5.1)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       '@nuxtjs/tailwindcss':
-        specifier: 7.0.0-beta.0
-        version: 7.0.0-beta.0(magicast@0.5.1)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))
+        specifier: 7.0.0-beta.1
+        version: 7.0.0-beta.1(magicast@0.5.1)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))
       '@playwright/browser-chromium':
         specifier: ^1.56.1
         version: 1.56.1
@@ -1203,8 +1203,8 @@ packages:
     peerDependencies:
       stylelint: '>=13'
 
-  '@nuxtjs/tailwindcss@7.0.0-beta.0':
-    resolution: {integrity: sha512-0I7RBg6KUC6TqUpaUSJTuhoE5aV1m9QAjDuHa5+6van+DG0kYSeLSKSpSl//l/tboxQ02Zq5TPNqwVCeCy+JTA==}
+  '@nuxtjs/tailwindcss@7.0.0-beta.1':
+    resolution: {integrity: sha512-oaILm+parts21JuGwntiIwyjJAqfumfeZk9/SXsBhss5Pqfn1gSA6Msxe7cd+QLXZtpXfj4mgv5DhFUcMmSJiA==}
 
   '@octokit/auth-token@4.0.0':
     resolution: {integrity: sha512-tY/msAuJo6ARbK6SPIxZrPBms3xPbfwBrulZe0Wtr/DIY9lje2HeV1uoebShn6mx7SjCHif6EjMvoREj+gZ+SA==}
@@ -9426,11 +9426,12 @@ snapshots:
       - vite
       - webpack
 
-  '@nuxtjs/tailwindcss@7.0.0-beta.0(magicast@0.5.1)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))':
+  '@nuxtjs/tailwindcss@7.0.0-beta.1(magicast@0.5.1)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))':
     dependencies:
-      '@nuxt/kit': 3.20.1(magicast@0.5.1)
+      '@nuxt/kit': 4.2.1(magicast@0.5.1)
       '@tailwindcss/postcss': 4.1.17
       '@tailwindcss/vite': 4.1.17(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))
+      exsolve: 1.0.8
       pathe: 2.0.3
       tailwindcss: 4.1.17
     transitivePeerDependencies:
