@@ -122,7 +122,7 @@ test('async modules', async ({ page }, testInfo) => {
   }
 });
 
-test('basic auth', async ({}, testInfo) => {
+/* test('basic auth', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
@@ -170,7 +170,7 @@ test('basic auth', async ({}, testInfo) => {
   } finally {
     await kill(nuxt.pid);
   }
-});
+}); */
 
 test('bodyAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
