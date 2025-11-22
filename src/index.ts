@@ -49,7 +49,7 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       'model',
       'modules',
       'config.ts',
-      'pages/*.vue',
+      'pages/**/*.vue',
       'plugins/*.ts',
       'public',
       'shared/utils/*.ts',
