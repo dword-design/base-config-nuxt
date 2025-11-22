@@ -71,6 +71,9 @@ importers:
       nuxt:
         specifier: ^3.20.1
         version: 3.20.1(@parcel/watcher@2.5.1)(@types/node@24.10.1)(@vue/compiler-sfc@3.5.24)(db0@0.3.4)(eslint@9.39.1(jiti@2.6.1))(ioredis@5.8.2)(lightningcss@1.30.2)(magicast@0.5.1)(meow@13.2.0)(ms@2.1.3)(optionator@0.9.4)(rollup@4.53.2)(sass@1.94.1)(stylelint@16.25.0(typescript@5.9.3))(terser@5.44.1)(tsx@4.20.6)(typescript@5.9.3)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.1)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue-tsc@3.1.4(typescript@5.9.3))(yaml@2.8.1)
+      nuxt-basic-authentication-module:
+        specifier: ^0.2.1
+        version: 0.2.1(magicast@0.5.1)
       output-files:
         specifier: ^3.0.0
         version: 3.0.0
@@ -2696,6 +2699,10 @@ packages:
     resolution: {integrity: sha512-sXdt2elaVnhpDNRDz+1BDx1JQoJRuNk7oVlAlbGiFkLikHCAQiccexF/9e91zVi6RCgqspl04aP+6Cnl9zRLrA==}
     hasBin: true
 
+  basic-auth@2.0.1:
+    resolution: {integrity: sha512-NF+epuEdnUYVlGuhaxbbq+dvJttwLnGY+YixlXlME5KpQ5W3CnXA5cVTneY3SPbPDRkcjMbifrwmFYcClgOZeg==}
+    engines: {node: '>= 0.8'}
+
   before-after-hook@2.2.3:
     resolution: {integrity: sha512-NzUnlZexiaH/46WDhANlyR2bXRopNg4F/zuSA3OpZnllCUgRaOF2znDioDWrmbNVsuZk6l9pMquQB38cfBZwkQ==}
 
@@ -5306,6 +5313,9 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+
+  nuxt-basic-authentication-module@0.2.1:
+    resolution: {integrity: sha512-xjKC7pjORo093L6BbiJif7ZXnZxXKPo52LT2zyganz1OTCOMlJyDq/R6H8bpRduYETKJPmqMWeYT7eDLcIobNw==}
 
   nuxt-dev-ready@5.0.1:
     resolution: {integrity: sha512-gC4kYDoTqITfpzUXsIj28IPuMXlVDHgn6uaob5Jid0uB8hLg/JDmeA7HkJ8Ayje07wJsP6DtF6yhqRi4YoX5tQ==}
@@ -10377,6 +10387,10 @@ snapshots:
 
   baseline-browser-mapping@2.8.29: {}
 
+  basic-auth@2.0.1:
+    dependencies:
+      safe-buffer: 5.1.2
+
   before-after-hook@2.2.3: {}
 
   binary-extensions@2.3.0: {}
@@ -13042,6 +13056,13 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
+
+  nuxt-basic-authentication-module@0.2.1(magicast@0.5.1):
+    dependencies:
+      '@nuxt/kit': 3.20.1(magicast@0.5.1)
+      basic-auth: 2.0.1
+    transitivePeerDependencies:
+      - magicast
 
   nuxt-dev-ready@5.0.1:
     dependencies:
