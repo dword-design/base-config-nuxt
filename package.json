@@ -50,7 +50,7 @@
     "globby": "^16.0.0",
     "jiti": "^2.6.1",
     "lodash-es": "^4.17.21",
-    "nuxt": "^3.20.1",
+    "nuxt": "^4.0.0",
     "nuxt-basic-authentication-module": "^0.2.1",
     "output-files": "^3.0.0",
     "require-package-name": "^2.0.1",
