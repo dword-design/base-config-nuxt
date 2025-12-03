@@ -1,3 +1,11 @@
+## [8.1.10](https://github.com/dword-design/base-config-nuxt/compare/v8.1.9...v8.1.10) (2025-12-03)
+
+
+### Bug Fixes
+
+* delete .devcontainer/postcreate.sh ([07c121e](https://github.com/dword-design/base-config-nuxt/commit/07c121e10eb1cf9ebf8b27dd449b9354bb7fe928))
+* update base ([b637198](https://github.com/dword-design/base-config-nuxt/commit/b637198958b1462469275525fc4d64bd15da6051))
+
 ## [8.1.9](https://github.com/dword-design/base-config-nuxt/compare/v8.1.8...v8.1.9) (2025-11-22)
 
 
