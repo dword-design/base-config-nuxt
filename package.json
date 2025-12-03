@@ -24,6 +24,7 @@
     "depcheck": "base depcheck",
     "dev": "base dev",
     "lint": "base lint",
+    "prepare": "base prepare",
     "prepublishOnly": "base prepublishOnly",
     "test": "base test",
     "typecheck": "base typecheck",
@@ -31,7 +32,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.28.5",
-    "@dword-design/base": "^16.0.4",
+    "@dword-design/base": "^16.1.0",
     "@dword-design/depcheck-parser-sass": "^5.0.0",
     "@dword-design/dotenv-json-extended": "^4.0.1",
     "@dword-design/nuxt-i18n": "^1.0.1",
