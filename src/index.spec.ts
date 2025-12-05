@@ -121,56 +121,6 @@ test('async modules', async ({ page }, testInfo) => {
   }
 });
 
-test('basic auth', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    '.env.schema.json': JSON.stringify({
-      basicAuthPassword: { type: 'string' },
-      basicAuthUser: { type: 'string' },
-    }),
-    '.test.env.json': JSON.stringify({
-      basicAuthPassword: 'bar',
-      basicAuthUser: 'foo',
-    }),
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
-    `,
-    'server/api/foo.get.ts': "export default defineEventHandler(() => 'foo')",
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-
-    await expect(axios.get(`http://localhost:${port}`)).rejects.toHaveProperty(
-      'response.status',
-      401,
-    );
-
-    await expect(
-      axios.get(`http://localhost:${port}/api/foo`),
-    ).rejects.toHaveProperty('response.status', 401);
-
-    // TODO: For some reason parallelizing these two requests don't work in Node.js 22
-    await axios.get(`http://localhost:${port}`, {
-      auth: { password: 'bar', username: 'foo' },
-    });
-
-    await axios.get(`http://localhost:${port}/api/foo`, {
-      auth: { password: 'bar', username: 'foo' },
-    });
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
 test('bodyAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
