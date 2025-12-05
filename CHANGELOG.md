@@ -1,3 +1,18 @@
+# [9.0.0](https://github.com/dword-design/base-config-nuxt/compare/v8.1.10...v9.0.0) (2025-12-05)
+
+
+### Bug Fixes
+
+* update dependency nuxt to v4 ([#303](https://github.com/dword-design/base-config-nuxt/issues/303)) ([9786bd1](https://github.com/dword-design/base-config-nuxt/commit/9786bd1f988026a58a313a29bde6f1e27fa12551))
+
+
+### BREAKING CHANGES
+
+* Upgrade Nuxt to 4
+* Drop @dword-design/nuxt-i18n
+* Drop nuxt-basic-authentication-module
+* Drop vite-svg-loader
+
 ## [8.1.10](https://github.com/dword-design/base-config-nuxt/compare/v8.1.9...v8.1.10) (2025-12-03)
 
 
