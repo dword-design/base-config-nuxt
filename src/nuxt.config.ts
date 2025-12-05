@@ -1,12 +1,8 @@
 import { defineNuxtModule } from '@nuxt/kit';
 import packageName from 'depcheck-package-name';
 import ts from 'typescript';
-import viteSvgLoader from 'vite-svg-loader';
 
 import config from './config';
-
-const basicAuthUser = process.env.BASIC_AUTH_USER!;
-const isBasicAuthEnabled = basicAuthUser && process.env.BASIC_AUTH_PASSWORD;
 
 const { config: typescriptConfig } = ts.readConfigFile(
   'tsconfig.json',
@@ -43,10 +39,6 @@ export default {
         }
       },
     }),
-    [
-      packageName`nuxt-basic-authentication-module`,
-      { enabled: !!isBasicAuthEnabled },
-    ],
     packageName`@nuxt/eslint`,
     [
       packageName`@nuxtjs/stylelint-module`,
@@ -61,23 +53,11 @@ export default {
       packageName`@dword-design/nuxt-page-title`,
       { description: config.title, name: config.name },
     ],
-    [
-      packageName`@dword-design/nuxt-i18n`,
-      { ...(process.env.BASE_URL && { baseUrl: process.env.BASE_URL }) },
-    ],
   ],
   router: { options: { linkActiveClass: 'active' } },
-  runtimeConfig: {
-    ...(isBasicAuthEnabled && {
-      basicAuth: {
-        pairs: { [basicAuthUser]: process.env.BASIC_AUTH_PASSWORD },
-      },
-    }),
-  },
   typescript: { strict: !!typescriptConfig.compilerOptions.strict },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
-    plugins: [viteSvgLoader()],
     vue: { template: { transformAssetUrls: false } },
   },
 };
