@@ -38,23 +38,23 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       'server/routes/**/*.ts',
       'server/middleware/**/*.ts',
       'server/utils/**/*.ts',
-      'app.vue',
-      'assets',
-      'components/**/*.vue',
-      'composables/*.ts',
+      'app/app.vue',
+      'app/assets',
+      'app/components/**/*.vue',
+      'app/composables/*.ts',
       'content',
       'i18n/*/*.ts',
-      'layouts/*.vue',
-      'middleware/*.ts',
+      'app/layouts/*.vue',
+      'app/middleware/*.ts',
+      'app/pages/**/*.vue',
+      'app/plugins/*.ts',
+      'app/utils/*.ts',
       'model',
       'modules',
       'config.ts',
-      'pages/**/*.vue',
-      'plugins/*.ts',
       'public',
       'shared/utils/*.ts',
       'shared/types/*.ts',
-      'utils/*.ts',
     ],
     commands: { analyze, build, dev, prepublishOnly, start },
     depcheckConfig: {
@@ -138,3 +138,19 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
 });
 
 export { default as getEslintConfig } from './get-eslint-config';
+
+// TODO: Otherwise the full type of the config cannot be inferred by TypeScript when used somewhere else
+
+export { default as analyze } from './analyze';
+
+export { default as dev } from './dev';
+
+export { default as build } from './build';
+
+export { default as prepublishOnly } from './prepublish-only';
+
+export { default as lint } from './lint';
+
+export { default as typecheck } from './typecheck';
+
+export { default as start } from './start';
