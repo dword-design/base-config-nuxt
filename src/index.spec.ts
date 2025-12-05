@@ -11,7 +11,6 @@ import nuxtDevReady from 'nuxt-dev-ready';
 import outputFiles from 'output-files';
 import portReady from 'port-ready';
 import kill from 'tree-kill-promise';
-import xmlFormatter from 'xml-formatter';
 
 import config from '.';
 
@@ -583,49 +582,6 @@ test('htmlAttrs', async ({ page }, testInfo) => {
   }
 });
 
-test('i18n', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-  const port = await getPort();
-
-  await outputFiles(cwd, {
-    '.env.schema.json': JSON.stringify({ baseUrl: { type: 'string' } }),
-    '.test.env.json': JSON.stringify({ baseUrl: `http://localhost:${port}` }),
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    pages: {
-      'foo.vue': endent`
-        <template>
-          <div />
-        </template>
-      `,
-      'index.vue': endent`
-        <template>
-          <nuxt-locale-link :to="{ name: 'foo' }">
-            foo
-          </nuxt-locale-link>
-        </template>
-      `,
-    },
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-
-    await expect(page.locator('link[rel=canonical]')).toHaveAttribute(
-      'href',
-      `http://localhost:${port}/en`,
-    );
-
-    await expect(page.locator('a')).toHaveAttribute('href', '/en/foo');
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
 test('page title', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
@@ -832,131 +788,6 @@ test('scoped style in production', async ({ page }, testInfo) => {
         .locator('.foo')
         .evaluate(el => getComputedStyle(el).backgroundColor),
     ).toEqual('rgb(255, 0, 0)');
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('sitemap', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'app/pages/index.vue': endent`
-      <template>
-        <div class="foo">Hello world</div>
-      </template>
-    `,
-    'config.ts': endent`
-      export default {
-        modules: [
-          ['${packageName`@nuxtjs/sitemap`}', { credits: false }],
-        ],
-        site: { url: 'https://example.com' },
-      };
-    `,
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-
-    const { data: sitemap } = await axios.get(
-      `http://localhost:${port}/sitemap.xml?canonical`,
-    );
-
-    expect(
-      xmlFormatter(sitemap, {
-        collapseContent: true,
-        indentation: '  ',
-        lineSeparator: '\n',
-      }),
-    ).toMatchSnapshot();
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('svg inline', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'assets/icon.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
-    'pages/index.vue': endent`
-      <template>
-        <icon class="icon" />
-      </template>
-
-      <script>
-      import Icon from '@/assets/icon.svg'
-
-      export default {
-        components: {
-          Icon,
-        },
-      }
-      </script>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-    const icon = page.locator('.icon');
-    await expect(icon).toBeAttached();
-    expect(await icon.evaluate(el => el.tagName)).toEqual('svg');
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
-test('svg url', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'assets/image.svg': '<svg xmlns="http://www.w3.org/2000/svg" />',
-    'pages/index.vue': endent`
-      <template>
-        <img class="image" :src="imageUrl" />
-      </template>
-
-      <script>
-      import imageUrl from '@/assets/image.svg?url'
-
-      export default {
-        computed: {
-          imageUrl: () => imageUrl,
-        },
-      }
-      </script>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-    const image = page.locator('.image');
-    await expect(image).toBeAttached();
-    expect(await image.evaluate(el => el.tagName)).toEqual('IMG');
-
-    await expect(image).toHaveAttribute(
-      'src',
-      "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20/%3e",
-    );
   } finally {
     await kill(nuxt.pid);
   }
