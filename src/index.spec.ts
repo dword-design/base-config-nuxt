@@ -841,6 +841,11 @@ test('sitemap', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div class="foo">Hello world</div>
+      </template>
+    `,
     'config.ts': endent`
       export default {
         modules: [
@@ -850,11 +855,6 @@ test('sitemap', async ({}, testInfo) => {
       };
     `,
     i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'pages/index.vue': endent`
-      <template>
-        <div class="foo">Hello world</div>
-      </template>
-    `,
   });
 
   const base = new Base(config, { cwd });
