@@ -1,3 +1,11 @@
+## [9.0.1](https://github.com/dword-design/base-config-nuxt/compare/v9.0.0...v9.0.1) (2025-12-05)
+
+
+### Bug Fixes
+
+* dotenv for lint and typecheck ([00874b3](https://github.com/dword-design/base-config-nuxt/commit/00874b3d6df8aeabaeac03dd365a10bf96622447))
+* some fixes ([96e95ee](https://github.com/dword-design/base-config-nuxt/commit/96e95ee698d6427a95522c880d1a58e475b466e5))
+
 # [9.0.0](https://github.com/dword-design/base-config-nuxt/compare/v8.1.10...v9.0.0) (2025-12-05)
 
 
