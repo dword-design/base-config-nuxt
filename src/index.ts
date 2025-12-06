@@ -139,4 +139,18 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
 
 export { default as getEslintConfig } from './get-eslint-config';
 
-export { analyze, dev, build, prepublishOnly, lint, typecheck, start }; // TODO: Otherwise the full type of the config cannot be inferred by TypeScript when used somewhere else
+// TODO: Otherwise the full type of the config cannot be inferred by TypeScript when used somewhere else
+
+export { default as dev } from './dev';
+
+export { default as analyze } from './analyze';
+
+export { default as prepublishOnly } from './prepublish-only';
+
+export { default as build } from './build';
+
+export { default as typecheck } from './typecheck';
+
+export { default as lint } from './lint';
+
+export { default as start } from './start';
