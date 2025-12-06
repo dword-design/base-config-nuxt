@@ -1,3 +1,10 @@
+## [9.0.3](https://github.com/dword-design/base-config-nuxt/compare/v9.0.2...v9.0.3) (2025-12-06)
+
+
+### Bug Fixes
+
+* shorten syntax ([a420300](https://github.com/dword-design/base-config-nuxt/commit/a420300962539ab3ebfe9a033f30239c6e4948b9))
+
 ## [9.0.2](https://github.com/dword-design/base-config-nuxt/compare/v9.0.1...v9.0.2) (2025-12-06)
 
 
