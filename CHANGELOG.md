@@ -1,3 +1,10 @@
+## [9.0.2](https://github.com/dword-design/base-config-nuxt/compare/v9.0.1...v9.0.2) (2025-12-06)
+
+
+### Bug Fixes
+
+* add model path to tsconfig ([455ce78](https://github.com/dword-design/base-config-nuxt/commit/455ce7803061d70faf4719fbb96f80991533e954))
+
 ## [9.0.1](https://github.com/dword-design/base-config-nuxt/compare/v9.0.0...v9.0.1) (2025-12-05)
 
 
