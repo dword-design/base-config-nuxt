@@ -1,3 +1,10 @@
+## [9.0.4](https://github.com/dword-design/base-config-nuxt/compare/v9.0.3...v9.0.4) (2025-12-06)
+
+
+### Bug Fixes
+
+* allow spec files in pages dir ([1d51e68](https://github.com/dword-design/base-config-nuxt/commit/1d51e687722d744a2ce7fb239f8983ac8a655066))
+
 ## [9.0.3](https://github.com/dword-design/base-config-nuxt/compare/v9.0.2...v9.0.3) (2025-12-06)
 
 
