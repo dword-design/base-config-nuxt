@@ -24,8 +24,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(magicast@0.5.1)
       '@dword-design/stylelint-config':
-        specifier: ^4.1.0
-        version: 4.1.0(postcss@8.5.6)(prettier@3.7.4)(stylelint@16.26.1(typescript@5.9.3))(tailwindcss@4.1.17)
+        specifier: ^5.0.0
+        version: 5.0.1(postcss@8.5.6)(prettier@3.7.4)(stylelint@16.26.1(typescript@5.9.3))(tailwindcss@4.1.17)
       '@nuxt/eslint':
         specifier: ^1.10.0
         version: 1.11.0(@typescript-eslint/utils@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-sfc@3.5.25)(eslint@9.39.1(jiti@2.6.1))(magicast@0.5.1)(typescript@5.9.3)(vite-plugin-eslint2@5.0.4(eslint@9.39.1(jiti@2.6.1))(rollup@4.53.3)(vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)))(vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.94.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
@@ -511,9 +511,9 @@ packages:
   '@dword-design/plugin-name-to-package-name@0.1.2':
     resolution: {integrity: sha512-kATg/RzRkq/Yv0qNJziPqwAzKstBTzuXnowH4MvAMyqW6C7o5HlgZtik3GzO0kBKCBZBoRswBSvo9AHclOTxfg==}
 
-  '@dword-design/stylelint-config@4.1.0':
-    resolution: {integrity: sha512-3n7LpQ1NZTyQT2xVEDFNzuW3xZjOSzRgNfJu5Ua5rVnD8h0pJdqNzToMDBDGiph+kOL8oclrIJnOjsD2Zz50tA==}
-    engines: {node: '>=18'}
+  '@dword-design/stylelint-config@5.0.1':
+    resolution: {integrity: sha512-kbp3j4evOtfcMay9gBKbDjsTPSH3BcPcujaRMy96zGKjApYQ/CRrS7BHIZg+2cF65k2EmEiOPxq+53Sh8DW3QQ==}
+    engines: {node: '>=22'}
 
   '@dxup/nuxt@0.2.2':
     resolution: {integrity: sha512-RNpJjDZs9+JcT9N87AnOuHsNM75DEd58itADNd/s1LIF6BZbTLZV0xxilJZb55lntn4TYvscTaXLCBX2fq9CXg==}
@@ -3111,10 +3111,6 @@ packages:
 
   depcheck-detector-package-name@3.0.4:
     resolution: {integrity: sha512-NJpk3gOZ+UhAs3O2nebM7tWQCiXG95/d+ZovyoD5dObbGxqvGr1NSFyz4NXgmV7BP/42z5Mr6L3GRbcJ1hU+3w==}
-    engines: {node: '>=14'}
-
-  depcheck-package-name@3.0.1:
-    resolution: {integrity: sha512-7rR+VPs0wZCOgAyNe4klyXc+93cXl62pQ4akwHcnQQypdqDC18cy3LNLXmgu8geb3on8pgcxOhfbQ66+yLaNoQ==}
     engines: {node: '>=14'}
 
   depcheck-package-name@4.0.1:
@@ -7862,9 +7858,9 @@ snapshots:
     dependencies:
       is-absolute: 1.0.0
 
-  '@dword-design/stylelint-config@4.1.0(postcss@8.5.6)(prettier@3.7.4)(stylelint@16.26.1(typescript@5.9.3))(tailwindcss@4.1.17)':
+  '@dword-design/stylelint-config@5.0.1(postcss@8.5.6)(prettier@3.7.4)(stylelint@16.26.1(typescript@5.9.3))(tailwindcss@4.1.17)':
     dependencies:
-      depcheck-package-name: 3.0.1
+      depcheck-package-name: 4.0.1
       postcss-html: 1.8.0
       stylelint-config-hudochenkov: 11.0.0(stylelint-order@6.0.4(stylelint@16.26.1(typescript@5.9.3)))(stylelint@16.26.1(typescript@5.9.3))
       stylelint-config-recommended-vue: 1.6.1(postcss-html@1.8.0)(stylelint@16.26.1(typescript@5.9.3))
@@ -10595,10 +10591,6 @@ snapshots:
       parse-packagejson-name: 1.0.1
 
   depcheck-detector-package-name@3.0.4: {}
-
-  depcheck-package-name@3.0.1:
-    dependencies:
-      tagged-template-noop: 2.1.1
 
   depcheck-package-name@4.0.1:
     dependencies:
