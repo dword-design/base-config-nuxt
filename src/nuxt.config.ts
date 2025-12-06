@@ -1,5 +1,6 @@
 import { defineNuxtModule } from '@nuxt/kit';
 import packageName from 'depcheck-package-name';
+import { defineNuxtConfig } from 'nuxt/config';
 import ts from 'typescript';
 
 import config from './config';
@@ -9,22 +10,27 @@ const { config: typescriptConfig } = ts.readConfigFile(
   ts.sys.readFile,
 );
 
-export default {
+export default defineNuxtConfig({
   app: {
     head: {
       meta: [
-        { content: config.name, hid: 'description', name: 'description' },
+        { content: config.name, name: 'description' },
         ...(config.webApp
           ? [{ content: 'yes', name: 'apple-mobile-web-app-capable' }]
           : []),
         ...(config.ogImage
-          ? [{ content: config.ogImage, hid: 'og:image', name: 'og:image' }]
+          ? [{ content: config.ogImage, name: 'og:image' }]
           : []),
       ],
     },
   },
   devtools: { enabled: true },
-  eslint: { checker: { fix: true }, config: { standalone: false } },
+  hooks: {
+    'prepare:types': opts => {
+      opts.tsConfig.include = opts.tsConfig.include || [];
+      opts.tsConfig.include.push('../model/**/*');
+    },
+  },
   modules: [
     defineNuxtModule({
       setup: (options, nuxt) => {
@@ -39,7 +45,10 @@ export default {
         }
       },
     }),
-    packageName`@nuxt/eslint`,
+    [
+      packageName`@nuxt/eslint`,
+      { checker: { fix: true }, config: { standalone: false } },
+    ],
     [
       packageName`@nuxtjs/stylelint-module`,
       {
@@ -60,4 +69,4 @@ export default {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
     vue: { template: { transformAssetUrls: false } },
   },
-};
+});
