@@ -1,3 +1,10 @@
+## [9.0.5](https://github.com/dword-design/base-config-nuxt/compare/v9.0.4...v9.0.5) (2025-12-10)
+
+
+### Bug Fixes
+
+* fix alias in model build ([334b1c1](https://github.com/dword-design/base-config-nuxt/commit/334b1c16b1ec2afe17f9fa582079fec8ac020637))
+
 ## [9.0.4](https://github.com/dword-design/base-config-nuxt/compare/v9.0.3...v9.0.4) (2025-12-06)
 
 
