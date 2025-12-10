@@ -10,7 +10,7 @@ export default async ({ cwd = '.' } = {}) => {
     plugins: [
       [
         packageName`babel-plugin-module-resolver`,
-        { alias: { '@/model': './dist' }, cwd },
+        { alias: { '@@/model': './dist' }, cwd },
       ],
       packageName`babel-plugin-add-import-extension`,
     ],
