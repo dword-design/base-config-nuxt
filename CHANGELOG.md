@@ -1,3 +1,10 @@
+## [9.0.6](https://github.com/dword-design/base-config-nuxt/compare/v9.0.5...v9.0.6) (2025-12-12)
+
+
+### Bug Fixes
+
+* outsource typings into own packages ([4a11b46](https://github.com/dword-design/base-config-nuxt/commit/4a11b46b2e8166f605b00ddd21f1d8ec3df18b62))
+
 ## [9.0.5](https://github.com/dword-design/base-config-nuxt/compare/v9.0.4...v9.0.5) (2025-12-10)
 
 
