@@ -52,7 +52,7 @@
     "lodash-es": "^4.17.21",
     "nuxt": "^4.0.0",
     "output-files": "^3.0.0",
-    "require-package-name": "^2.0.1",
+    "require-package-name": "npm:@dword-design/require-package-name-fork@^0.0.1",
     "sass": "^1.94.2",
     "stylelint": "^16.26.0",
     "typescript": "^5.9.3",
@@ -70,7 +70,7 @@
     "delay": "^7.0.0",
     "get-port": "^7.1.0",
     "nuxt-dev-ready": "^5.0.1",
-    "port-ready": "^0.1.0",
+    "port-ready": "npm:@dword-design/port-ready-fork@^0.0.3",
     "tree-kill-promise": "^4.0.0"
   },
   "peerDependencies": {
