@@ -1,3 +1,10 @@
+## [9.0.7](https://github.com/dword-design/base-config-nuxt/compare/v9.0.6...v9.0.7) (2025-12-23)
+
+
+### Bug Fixes
+
+* fix css module type generation ([9210afa](https://github.com/dword-design/base-config-nuxt/commit/9210afa66dfe7885a712634550251f5e87fd93f1))
+
 ## [9.0.6](https://github.com/dword-design/base-config-nuxt/compare/v9.0.5...v9.0.6) (2025-12-12)
 
 
