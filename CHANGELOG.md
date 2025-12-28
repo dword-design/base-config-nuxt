@@ -1,3 +1,10 @@
+## [9.0.8](https://github.com/dword-design/base-config-nuxt/compare/v9.0.7...v9.0.8) (2025-12-28)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/depcheck-parser-sass to v6 ([#336](https://github.com/dword-design/base-config-nuxt/issues/336)) ([04bc107](https://github.com/dword-design/base-config-nuxt/commit/04bc1075845e408f416319c2abf6e1734236c365))
+
 ## [9.0.7](https://github.com/dword-design/base-config-nuxt/compare/v9.0.6...v9.0.7) (2025-12-23)
 
 
