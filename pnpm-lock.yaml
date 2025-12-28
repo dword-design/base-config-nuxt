@@ -15,8 +15,8 @@ importers:
         specifier: ^16.1.0
         version: 16.1.0(@types/node@24.10.1)(@typescript-eslint/parser@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/utils@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-core@3.5.25)(esbuild@0.27.1)(sass@1.94.2)
       '@dword-design/depcheck-parser-sass':
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^6.0.0
+        version: 6.0.2
       '@dword-design/dotenv-json-extended':
         specifier: ^4.0.1
         version: 4.0.1
@@ -455,10 +455,15 @@ packages:
   '@dword-design/defu@1.0.3':
     resolution: {integrity: sha512-QEM8a6CPIrMvudnuNDwr3IxWJ0dcMKG9tgxt3zuPk/NmXV0ejk4qxQJ1PfquJwRzu59UsqNpUAACMG485VMIUA==}
     engines: {node: '>=18'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@dword-design/depcheck-parser-sass@5.0.0':
     resolution: {integrity: sha512-WXVEIWxgS3G4kXhb1IgU9i+cJO7kkx6qAwibeqsnjzuFQaIfzQlHvbPyoU3DPc6SvRYREQdzNB1CFg9MC79abw==}
     engines: {node: '>=20'}
+
+  '@dword-design/depcheck-parser-sass@6.0.2':
+    resolution: {integrity: sha512-iflcdy9X6gu9v6EF26azDrzz9TpqYA4sv72daNF6w8DVj0AQt9MaK5VGog6qXbVZC3emIBAfgOfcoVhUiGX1Yw==}
+    engines: {node: '>=22'}
 
   '@dword-design/depcheck@0.0.12':
     resolution: {integrity: sha512-cTkvdU6mgc57B642oE3XSqwH2tBlt2KBjNIaf9lVvJp+NSBmIO2bSzmOJO4Iih7j6tpb3x6xESDuHZMva7Evfg==}
@@ -3246,6 +3251,10 @@ packages:
     resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
     engines: {node: '>=10.13.0'}
 
+  enhanced-resolve@5.18.4:
+    resolution: {integrity: sha512-LgQMM4WXU3QI+SYgEc2liRgznaD5ojbmY3sb8LxyguVkIg5FxdpTkvk72te2R38/TGKxH634oLxXRGY6d7AP+Q==}
+    engines: {node: '>=10.13.0'}
+
   entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
@@ -6001,6 +6010,11 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
+  sass@1.97.1:
+    resolution: {integrity: sha512-uf6HoO8fy6ClsrShvMgaKUn14f2EHQLQRtpsZZLeU/Mv0Q1K5P0+x2uvH6Cub39TVVbWNSrraUhDAoFph6vh0A==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+
   sax@1.4.3:
     resolution: {integrity: sha512-yqYn1JhPczigF94DMS+shiDMjDowYO6y9+wB/4WgO0Y19jWYk0lQ4tuG5KI7kj4FTp1wxPj5IFfcrz/s1c3jjQ==}
 
@@ -7725,6 +7739,13 @@ snapshots:
       get-package-name: 2.2.0
       lodash-es: 4.17.21
       sass: 1.62.1
+
+  '@dword-design/depcheck-parser-sass@6.0.2':
+    dependencies:
+      enhanced-resolve: 5.18.4
+      get-package-name: 2.2.0
+      lodash-es: 4.17.21
+      sass: 1.97.1
 
   '@dword-design/depcheck@0.0.12':
     dependencies:
@@ -10710,6 +10731,11 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.3.0
 
+  enhanced-resolve@5.18.4:
+    dependencies:
+      graceful-fs: 4.2.11
+      tapable: 2.3.0
+
   entities@4.5.0: {}
 
   env-ci@11.2.0:
@@ -13656,6 +13682,14 @@ snapshots:
       source-map-js: 1.2.1
 
   sass@1.94.2:
+    dependencies:
+      chokidar: 4.0.3
+      immutable: 5.1.4
+      source-map-js: 1.2.1
+    optionalDependencies:
+      '@parcel/watcher': 2.5.1
+
+  sass@1.97.1:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.4
