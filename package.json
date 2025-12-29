@@ -36,7 +36,7 @@
     "@dword-design/depcheck-parser-sass": "^6.0.0",
     "@dword-design/dotenv-json-extended": "^4.0.1",
     "@dword-design/nuxt-page-title": "^1.0.0",
-    "@dword-design/stylelint-config": "^4.1.0",
+    "@dword-design/stylelint-config": "^5.0.0",
     "@nuxt/eslint": "^1.10.0",
     "@nuxt/kit": "^4.2.1",
     "@nuxtjs/stylelint-module": "^5.2.1",
