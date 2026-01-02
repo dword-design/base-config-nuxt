@@ -1,3 +1,10 @@
+## [9.0.9](https://github.com/dword-design/base-config-nuxt/compare/v9.0.8...v9.0.9) (2026-01-02)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/stylelint-config to v5 ([#333](https://github.com/dword-design/base-config-nuxt/issues/333)) ([815dfd6](https://github.com/dword-design/base-config-nuxt/commit/815dfd6ef8740fd74fa695b104833e387aa9fc75))
+
 ## [9.0.8](https://github.com/dword-design/base-config-nuxt/compare/v9.0.7...v9.0.8) (2025-12-28)
 
 
