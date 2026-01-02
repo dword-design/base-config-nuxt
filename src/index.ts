@@ -129,10 +129,21 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
     },
     typecheck,
     typescriptConfig: {
-      compilerOptions: {
-        declaration: false, // TypeScript errors that declaration cannot be generated for private router types. Comes from the Nuxt-generated TypeScript config.
-      },
-      extends: './.nuxt/tsconfig.json',
+      "files": [],
+      "references": [
+        {
+          "path": "./.nuxt/tsconfig.app.json"
+        },
+        {
+          "path": "./.nuxt/tsconfig.server.json"
+        },
+        {
+          "path": "./.nuxt/tsconfig.shared.json"
+        },
+        {
+          "path": "./.nuxt/tsconfig.node.json"
+        }
+      ],
       vueCompilerOptions: {
         cssModulesLocalsConvention: 'camelCaseOnly',
         strictCssModules: true,
