@@ -1,3 +1,11 @@
+## [9.0.10](https://github.com/dword-design/base-config-nuxt/compare/v9.0.9...v9.0.10) (2026-01-03)
+
+
+### Bug Fixes
+
+* fix ts aliases and drop model ([48f207b](https://github.com/dword-design/base-config-nuxt/commit/48f207baf432f93a88ec84637d08fc6214a9d3c6))
+* use nuxt split typescript configs ([af9c810](https://github.com/dword-design/base-config-nuxt/commit/af9c810a3cb9997779ab054cbc281dd26b3dc5d7))
+
 ## [9.0.9](https://github.com/dword-design/base-config-nuxt/compare/v9.0.8...v9.0.9) (2026-01-02)
 
 
