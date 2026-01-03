@@ -14,43 +14,6 @@ import kill from 'tree-kill-promise';
 
 import config from '.';
 
-test('aliases', async ({ page }, testInfo) => {
-  const cwd = testInfo.outputPath();
-
-  await outputFiles(cwd, {
-    'model/foo.ts': "export default 'Hello world'",
-    'pages/index.vue': endent`
-      <template>
-        <div class="foo">{{ foo }}</div>
-      </template>
-
-      <script>
-      import foo from '@/model/foo'
-
-      export default {
-        computed: {
-          foo: () => foo,
-        },
-      }
-      </script>
-    `,
-  });
-
-  const base = new Base(config, { cwd });
-  await base.prepare();
-  const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
-
-  try {
-    await nuxtDevReady(port);
-    await page.goto(`http://localhost:${port}`);
-    const foo = page.locator('.foo');
-    await expect(foo).toHaveText('Hello world');
-  } finally {
-    await kill(nuxt.pid);
-  }
-});
-
 test('api', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
@@ -81,6 +44,15 @@ test('async modules', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div class="foo">{{ $foo }}</div>
+      </template>
+
+      <script setup lang="ts">
+      const { $foo } = useNuxtApp()
+      </script>
+    `,
     'modules/foo': {
       'index.ts': endent`
         import delay from '${packageName`delay`}'
@@ -96,15 +68,6 @@ test('async modules', async ({ page }, testInfo) => {
       'plugin.ts':
         "export default defineNuxtPlugin(() => ({ provide: { foo: 'Hello world' } }))",
     },
-    'pages/index.vue': endent`
-      <template>
-        <div class="foo">{{ $foo }}</div>
-      </template>
-
-      <script setup lang="ts">
-      const { $foo } = useNuxtApp()
-      </script>
-    `,
   });
 
   const base = new Base(config, { cwd });
@@ -125,6 +88,11 @@ test('bodyAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div>Hello world</div>
+      </template>\n
+    `,
     'config.ts': endent`
       export default {
         app: {
@@ -135,11 +103,6 @@ test('bodyAttrs', async ({ page }, testInfo) => {
           },
         },
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div>Hello world</div>
-      </template>\n
     `,
   });
 
@@ -161,22 +124,24 @@ test('css', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'assets/style.scss': endent`
-      .foo {
-        background: red;
-      }
-    `,
+    app: {
+      'assets/style.scss': endent`
+        .foo {
+          background: red;
+        }
+      `,
+      'pages/index.vue': endent`
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
+      `,
+    },
     'config.ts': endent`
       export default {
         css: [
           '@/assets/style.scss',
         ],
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div class="foo">Hello world</div>
-      </template>
     `,
   });
 
@@ -202,8 +167,9 @@ test('css', async ({ page }, testInfo) => {
 test('css modules', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
-  await outputFiles(cwd, {
-    'pages/index.vue': endent`
+  await fs.outputFile(
+    pathLib.join(cwd, 'app', 'pages', 'index.vue'),
+    endent`
       <template>
         <div class="foo" :class="$style.fooBar">Hello world</div>
       </template>
@@ -214,7 +180,7 @@ test('css modules', async ({ page }, testInfo) => {
       }
       </style>
     `,
-  });
+  );
 
   const base = new Base(config, { cwd });
   await base.prepare();
@@ -238,13 +204,14 @@ test('css modules', async ({ page }, testInfo) => {
 test('do not import image urls in production', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
-  await outputFiles(cwd, {
-    'pages/index.vue': endent`
+  await fs.outputFile(
+    pathLib.join(cwd, 'app', 'pages', 'index.vue'),
+    endent`
       <template>
         <img src="/api/foo.png" />
       </template>
     `,
-  });
+  );
 
   const base = new Base(config, { cwd });
   await base.prepare();
@@ -265,7 +232,7 @@ test('do not transpile other language than js in vue', async ({
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'pages', 'index.vue'),
+    pathLib.join(cwd, 'app', 'pages', 'index.vue'),
     endent`
       <template>
         <div class="foo">{{ foo }}</div>
@@ -298,15 +265,15 @@ test('dotenv: config', async ({ page }, testInfo) => {
     '.env.json': JSON.stringify({ foo: 'Foo' }),
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'Bar' }),
+    'app/pages/index.vue': endent`
+      <template>
+        <div>Hello world</div>
+      </template>
+    `,
     'config.ts': endent`
       export default {
         name: process.env.FOO,
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div>Hello world</div>
-      </template>
     `,
   });
 
@@ -330,12 +297,7 @@ test('dotenv: module', async ({ page }, testInfo) => {
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
     '.test.env.json': JSON.stringify({ foo: 'bar' }),
-    'config.ts': endent`
-      export default {
-        runtimeConfig: { public: { foo: process.env.FOO } },
-      };
-    `,
-    'pages/index.vue': endent`
+    'app/pages/index.vue': endent`
       <template>
         <div :class="foo" />
       </template>
@@ -343,6 +305,11 @@ test('dotenv: module', async ({ page }, testInfo) => {
       <script setup lang="ts">
       const { public: { foo } } = useRuntimeConfig();
       </script>
+    `,
+    'config.ts': endent`
+      export default {
+        runtimeConfig: { public: { foo: process.env.FOO } },
+      };
     `,
   });
 
@@ -364,16 +331,18 @@ test('global components', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'components/foo.vue': endent`
-      <template>
-        <div class="foo">Hello world</div>
-      </template>
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <foo />
-      </template>
-    `,
+    app: {
+      'components/foo.vue': endent`
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
+      `,
+      'pages/index.vue': endent`
+        <template>
+          <foo />
+        </template>
+      `,
+    },
   });
 
   const base = new Base(config, { cwd });
@@ -418,6 +387,11 @@ test('head link', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div />
+      </template>
+    `,
     'config.ts': endent`
       export default {
         app: {
@@ -428,11 +402,6 @@ test('head link', async ({ page }, testInfo) => {
           },
         },
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
     `,
   });
 
@@ -461,20 +430,22 @@ test('hexrgba', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'assets/style.css': endent`
-      body {
-        background: rgba(#fff, .5);
-      }
-    `,
+    app: {
+      'assets/style.css': endent`
+        body {
+          background: rgba(#fff, .5);
+        }
+      `,
+      'pages/index.vue': endent`
+        <template>
+          <div />
+        </template>
+      `,
+    },
     'config.ts': endent`
       export default {
         css: ['@/assets/style.css'],
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
     `,
   });
 
@@ -500,6 +471,11 @@ test('htmlAttrs', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div>Hello world</div>
+      </template>
+    `,
     'config.ts': endent`
       export default {
         app: {
@@ -510,11 +486,6 @@ test('htmlAttrs', async ({ page }, testInfo) => {
           },
         },
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div>Hello world</div>
-      </template>
     `,
   });
 
@@ -536,16 +507,16 @@ test('page title', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div>Hello world</div>
+      </template>
+    `,
     'config.ts': endent`
       export default {
         name: 'Test-App',
         title: 'This is the ultimate app!',
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div>Hello world</div>
-      </template>
     `,
   });
 
@@ -567,15 +538,15 @@ test('ogImage', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div />
+      </template>
+    `,
     'config.ts': endent`
       export default {
         ogImage: 'https://example.com/og-image',
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
     `,
   });
 
@@ -605,7 +576,7 @@ test('port', async ({ page }, testInfo) => {
   await outputFiles(cwd, {
     '.env.schema.json': JSON.stringify({ port: { type: 'integer' } }),
     '.test.env.json': JSON.stringify({ port }),
-    'pages/index.vue': endent`
+    'app/pages/index.vue': endent`
       <template>
         <div class="foo" />
       </template>
@@ -629,8 +600,7 @@ test('request body', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'package.json': JSON.stringify({ peerDependencies: { h3: '*' } }),
-    'pages/index.vue': endent`
+    'app/pages/index.vue': endent`
       <template>
         <form method="POST" :class="{ sent }">
           <button class="submit-button" name="submit" type="submit">Send</button>
@@ -651,6 +621,7 @@ test('request body', async ({ page }, testInfo) => {
       })();
       </script>
     `,
+    'package.json': JSON.stringify({ peerDependencies: { h3: '*' } }),
   });
 
   const base = new Base(config, { cwd });
@@ -672,6 +643,14 @@ test('router config', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages': {
+      'index.vue': endent`
+        <template>
+          <nuxt-link :to="{ name: 'index' }" class="foo" />
+        </template>
+      `,
+      'inner/info.vue': '<template />',
+    },
     'config.ts': endent`
       export default {
         router: {
@@ -681,14 +660,6 @@ test('router config', async ({ page }, testInfo) => {
         },
       }
     `,
-    pages: {
-      'index.vue': endent`
-        <template>
-          <nuxt-link :to="{ name: 'index' }" class="foo" />
-        </template>
-      `,
-      'inner/info.vue': '<template />',
-    },
   });
 
   const base = new Base(config, { cwd });
@@ -709,7 +680,7 @@ test('scoped style in production', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'pages', 'index.vue'),
+    pathLib.join(cwd, 'app', 'pages', 'index.vue'),
     endent`
       <template>
         <div class="foo" />
@@ -747,15 +718,15 @@ test('userScalable', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    'app/pages/index.vue': endent`
+      <template>
+        <div />
+      </template>
+    `,
     'config.ts': endent`
       export default {
         userScalable: false,
       }
-    `,
-    'pages/index.vue': endent`
-      <template>
-        <div />
-      </template>
     `,
   });
 
@@ -780,7 +751,7 @@ test('valid', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await fs.outputFile(
-    pathLib.join(cwd, 'pages', 'index.vue'),
+    pathLib.join(cwd, 'app', 'pages', 'index.vue'),
     endent`
       <template>
         <div class="foo">Hello world</div>
@@ -806,7 +777,7 @@ test('tailwind .nuxt folder stylelint', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'app.vue': endent`
+    'app/app.vue': endent`
       <template>
         <div class="foo text-gray-500" />
       </template>

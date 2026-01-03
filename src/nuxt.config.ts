@@ -25,12 +25,6 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
-  hooks: {
-    'prepare:types': opts => {
-      opts.tsConfig.include = opts.tsConfig.include || [];
-      opts.tsConfig.include.push('../model/**/*');
-    },
-  },
   modules: [
     defineNuxtModule({
       setup: (options, nuxt) => {

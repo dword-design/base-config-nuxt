@@ -4,7 +4,6 @@ import { Base } from '@dword-design/base';
 import { expect, test } from '@playwright/test';
 import endent from 'endent';
 import fs from 'fs-extra';
-import outputFiles from 'output-files';
 
 import config from '.';
 
@@ -27,20 +26,10 @@ test('ignored', async ({}, testInfo) => {
 test('linting error in ts file', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
-  await outputFiles(cwd, {
-    'model/foo.ts': 'const foo = 1',
-    'pages/index.vue': endent`
-      <script>
-      import foo from '@/model/foo'
-
-      export default {
-        computed: {
-          foo: () => foo,
-        },
-      }
-      </script>\n
-    `,
-  });
+  await fs.outputFile(
+    pathLib.join(cwd, 'server/utils/foo.ts'),
+    'const foo = 1\n',
+  );
 
   const base = new Base(config, { cwd });
   await base.prepare();

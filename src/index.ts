@@ -2,14 +2,13 @@ import { createRequire } from 'node:module';
 import pathLib from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { Base, Config } from '@dword-design/base';
+import type { Base } from '@dword-design/base';
 import { defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
 import binName from 'depcheck-bin-name';
 import packageName from 'depcheck-package-name';
 import javascript from 'endent';
-import { pick } from 'lodash-es';
 import outputFiles from 'output-files';
 
 import analyze from './analyze';
@@ -26,9 +25,7 @@ const __dirname = pathLib.dirname(fileURLToPath(import.meta.url));
 const resolver = createRequire(import.meta.url);
 const isInNodeModules = __dirname.split(pathLib.sep).includes('node_modules');
 
-type ConfigNuxt = Config & { virtualImports?: string[] };
-
-export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
+export default defineBaseConfig(function (this: Base) {
   return {
     allowedMatches: [
       '.stylelintignore',
@@ -50,7 +47,6 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       'app/pages/**/*.spec.ts',
       'app/plugins/*.ts',
       'app/utils/*.ts',
-      'model',
       'modules',
       'config.ts',
       'public',
@@ -75,7 +71,7 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
       'dist',
       'nuxt.config.ts',
     ],
-    eslintConfig: getEslintConfig(pick(config, ['virtualImports'])),
+    eslintConfig: getEslintConfig(),
     gitignore: [
       '/.eslintcache',
       '/.nuxt',
@@ -129,20 +125,12 @@ export default defineBaseConfig(function (this: Base, config: ConfigNuxt) {
     },
     typecheck,
     typescriptConfig: {
-      "files": [],
-      "references": [
-        {
-          "path": "./.nuxt/tsconfig.app.json"
-        },
-        {
-          "path": "./.nuxt/tsconfig.server.json"
-        },
-        {
-          "path": "./.nuxt/tsconfig.shared.json"
-        },
-        {
-          "path": "./.nuxt/tsconfig.node.json"
-        }
+      files: [],
+      references: [
+        { path: './.nuxt/tsconfig.app.json' },
+        { path: './.nuxt/tsconfig.server.json' },
+        { path: './.nuxt/tsconfig.shared.json' },
+        { path: './.nuxt/tsconfig.node.json' },
       ],
       vueCompilerOptions: {
         cssModulesLocalsConvention: 'camelCaseOnly',

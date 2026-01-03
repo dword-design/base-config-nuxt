@@ -5,34 +5,20 @@ import { execaCommand } from 'execa';
 import outputFiles from 'output-files';
 
 const tests = {
-  'file extension: alias: existing': {
-    error:
-      '1:8  error  Unexpected use of file extension "ts" for "@/model/foo.ts"  import-x/extension',
-    filename: 'server/api/foo.ts',
-    files: {
-      'model/foo.ts': '',
-      'server/api/foo.ts': "import '@/model/foo.ts';\n",
-    },
-  },
-  'file extension: alias: missing': {
-    filename: 'server/api/foo.ts',
-    files: {
-      'model/foo.ts': '',
-      'server/api/foo.ts': "import '@/model/foo';\n",
-    },
-  },
   'loader import syntax': {
     files: {
-      'assets/hero.svg': '',
-      'pages/index.vue': endent`
-        <template>
-          <div />
-        </template>
+      app: {
+        'assets/hero.svg': '',
+        'pages/index.vue': endent`
+          <template>
+            <div />
+          </template>
 
-        <script setup>
-        import '@/assets/hero.svg?url';
-        </script>\n
-      `,
+          <script setup>
+          import '@/assets/hero.svg?url';
+          </script>\n
+        `,
+      },
     },
   },
   'page and filename with camelCase': {
@@ -50,17 +36,6 @@ const tests = {
     files: {
       'server/api/[paramId].get.ts':
         "export default defineEventHandler(() => '');\n",
-    },
-  },
-  'virtual import': {
-    config: { virtualImports: ['#auth'] },
-    filename: 'pages/index.vue',
-    files: {
-      'pages/index.vue': endent`
-        <script setup>
-        import '#auth';
-        </script>\n
-      `,
     },
   },
 };
@@ -82,8 +57,14 @@ for (const [name, _testConfig] of Object.entries(tests)) {
 
     await (testConfig.error
       ? expect(
-          execaCommand(`eslint ${testConfig.filename}`, { cwd }),
+          execaCommand(`eslint ${testConfig.filename}`, {
+            cwd,
+            stdio: 'inherit',
+          }),
         ).rejects.toThrow(testConfig.error)
-      : execaCommand(`eslint ${testConfig.filename}`, { cwd }));
+      : execaCommand(`eslint ${testConfig.filename}`, {
+          cwd,
+          stdio: 'inherit',
+        }));
   });
 }
