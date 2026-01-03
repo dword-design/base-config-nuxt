@@ -14,7 +14,7 @@ const tests = {
             <div />
           </template>
 
-          <script setup>
+          <script setup lang="ts">
           import '@/assets/hero.svg?url';
           </script>\n
         `,
@@ -22,9 +22,9 @@ const tests = {
     },
   },
   'page and filename with camelCase': {
-    filename: 'pages/[paramId].vue',
+    filename: 'app/pages/[paramId].vue',
     files: {
-      'pages/[paramId].vue': endent`
+      'app/pages/[paramId].vue': endent`
         <template>
           <div />
         </template>\n
@@ -44,7 +44,7 @@ for (const [name, _testConfig] of Object.entries(tests)) {
   const testConfig = {
     config: {},
     error: '',
-    filename: 'pages/index.vue',
+    filename: 'app/pages/index.vue',
     ..._testConfig,
   };
 
