@@ -62,6 +62,9 @@ importers:
       stylelint:
         specifier: ^16.26.1
         version: 16.26.1(typescript@5.9.3)
+      tinyexec:
+        specifier: ^1.0.2
+        version: 1.0.2
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
