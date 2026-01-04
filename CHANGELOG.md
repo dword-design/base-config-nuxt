@@ -1,3 +1,10 @@
+## [9.0.14](https://github.com/dword-design/base-config-nuxt/compare/v9.0.13...v9.0.14) (2026-01-04)
+
+
+### Bug Fixes
+
+* fix shared lib allowed match ([c1adce5](https://github.com/dword-design/base-config-nuxt/commit/c1adce5e6dfa8da2cb9b6436a5ba7ef37f558cb7))
+
 ## [9.0.13](https://github.com/dword-design/base-config-nuxt/compare/v9.0.12...v9.0.13) (2026-01-04)
 
 
