@@ -1,3 +1,10 @@
+## [9.0.11](https://github.com/dword-design/base-config-nuxt/compare/v9.0.10...v9.0.11) (2026-01-04)
+
+
+### Bug Fixes
+
+* quickfix unresolved imports errors ([433464e](https://github.com/dword-design/base-config-nuxt/commit/433464e9c9704f2b11044307cf4d5c5cfd0b6ab7))
+
 ## [9.0.10](https://github.com/dword-design/base-config-nuxt/compare/v9.0.9...v9.0.10) (2026-01-03)
 
 
