@@ -1,3 +1,10 @@
+## [9.0.12](https://github.com/dword-design/base-config-nuxt/compare/v9.0.11...v9.0.12) (2026-01-04)
+
+
+### Bug Fixes
+
+* move locals convention to nuxt typescript config ([00fc09e](https://github.com/dword-design/base-config-nuxt/commit/00fc09e8920ada8ef1f8d23f98b70af8b1a3b402))
+
 ## [9.0.11](https://github.com/dword-design/base-config-nuxt/compare/v9.0.10...v9.0.11) (2026-01-04)
 
 
