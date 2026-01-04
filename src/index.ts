@@ -50,7 +50,7 @@ export default defineBaseConfig(function (this: Base) {
       'modules',
       'config.ts',
       'public',
-      'shared/utils/**/*.ts',
+      'shared/lib/**/*.ts',
       'shared/utils/**/*.ts',
       'shared/types/*.ts',
     ],
