@@ -58,7 +58,17 @@ export default defineNuxtConfig({
     ],
   ],
   router: { options: { linkActiveClass: 'active' } },
-  typescript: { strict: !!typescriptConfig.compilerOptions.strict },
+  typescript: {
+    strict: !!typescriptConfig.compilerOptions.strict,
+    tsConfig: {
+      vueCompilerOptions: {
+        // TODO: https://github.com/vuejs/language-tools/pull/5901
+        // @ts-expect-error See the link above
+        cssModulesLocalsConvention: 'camelCaseOnly',
+        strictCssModules: true,
+      },
+    },
+  },
   vite: {
     css: { modules: { localsConvention: 'camelCaseOnly' } },
     vue: { template: { transformAssetUrls: false } },
