@@ -127,8 +127,13 @@ export default defineBaseConfig(function (this: Base) {
     typescriptConfig: {
       files: [],
       references: [
-        { path: './.nuxt/tsconfig.app.json' },
+        /**
+         * TODO: I needed to swap app and server here because otherwise eslint-plugin-import-x
+         * (via the TypeScript resolver) won't find #auth in a server file. According to
+         * https://nuxt.com/docs/4.x/directory-structure/tsconfig, app should be first though.
+         */
         { path: './.nuxt/tsconfig.server.json' },
+        { path: './.nuxt/tsconfig.app.json' },
         { path: './.nuxt/tsconfig.shared.json' },
         { path: './.nuxt/tsconfig.node.json' },
       ],
