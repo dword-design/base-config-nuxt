@@ -49,6 +49,7 @@
     "require-package-name": "npm:@dword-design/require-package-name-fork@^0.0.1",
     "sass": "^1.97.1",
     "stylelint": "^16.26.1",
+    "tinyexec": "^1.0.2",
     "typescript": "^5.9.3",
     "vite-plugin-eslint2": "^5.0.4"
   },
