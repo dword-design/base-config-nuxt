@@ -8,7 +8,6 @@ import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
 import binName from 'depcheck-bin-name';
 import packageName from 'depcheck-package-name';
-import javascript from 'endent';
 import outputFiles from 'output-files';
 
 import analyze from './analyze';
@@ -48,7 +47,7 @@ export default defineBaseConfig(function (this: Base) {
       'app/types/*.ts',
       'app/utils/**/*.ts',
       'modules',
-      'config.ts',
+      'nuxt.config.ts',
       'public',
       'shared/lib/**/*.ts',
       'shared/utils/**/*.ts',
@@ -68,9 +67,9 @@ export default defineBaseConfig(function (this: Base) {
       '.stylelintignore',
       '.stylelintrc.json',
       '.nuxt',
+      '.nuxtrc',
       '.output',
       'dist',
-      'nuxt.config.ts',
     ],
     eslintConfig: getEslintConfig(),
     gitignore: [
@@ -79,7 +78,6 @@ export default defineBaseConfig(function (this: Base) {
       '/.output',
       '/.stylelintcache',
       '/dist',
-      '/nuxt.config.ts',
     ],
     hasTypescriptConfigRootAlias: false,
     lint,
@@ -87,16 +85,6 @@ export default defineBaseConfig(function (this: Base) {
     npmPublish: true,
     packageConfig: { main: 'dist/index.js' },
     prepare: async () => {
-      const configPath = isInNodeModules
-        ? '@dword-design/base-config-nuxt/config'
-        : `./${pathLib
-            .relative(
-              this.cwd,
-              resolver.resolve('./config').slice(0, -'.ts'.length),
-            )
-            .split(pathLib.sep)
-            .join('/')}`;
-
       const parentConfigPath = isInNodeModules
         ? '@dword-design/base-config-nuxt/nuxt.config'
         : `./${pathLib
@@ -114,14 +102,7 @@ export default defineBaseConfig(function (this: Base) {
           undefined,
           2,
         )}\n`,
-        'nuxt.config.ts': javascript`
-          import config from '${configPath}';
-
-          export default {
-            extends: ['${parentConfigPath}'],
-            ...config,
-          };\n
-        `,
+        '.nuxtrc': `extends[]=${parentConfigPath}\n`,
       });
     },
     typecheck,
@@ -148,6 +129,7 @@ export default defineBaseConfig(function (this: Base) {
 });
 
 export { default as getEslintConfig } from './get-eslint-config';
+export type { AppConfig } from './app-config';
 
 // TODO: Otherwise the full type of the config cannot be inferred by TypeScript when used somewhere else
 
