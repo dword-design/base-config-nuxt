@@ -503,27 +503,29 @@ test('htmlAttrs', async ({ page }, testInfo) => {
   }
 });
 
-test('page title', async ({ page }, testInfo) => {
+test.only('page title', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    'app/pages/index.vue': endent`
-      <template>
-        <div>Hello world</div>
-      </template>
-    `,
-    'config.ts': endent`
-      export default {
-        name: 'Test-App',
-        title: 'This is the ultimate app!',
-      }
-    `,
+    app: {
+      'pages/index.vue': endent`
+        <template>
+          <div>Hello world</div>
+        </template>
+      `,
+      'app.config.ts': endent`
+        export default defineAppConfig({
+          name: 'Test-App',
+          title: 'This is the ultimate app!',
+        });
+      `,
+    },
   });
 
   const base = new Base(config, { cwd });
   await base.prepare();
   const port = await getPort();
-  const nuxt = base.run('dev', { env: { PORT: port } });
+  const nuxt = base.run('dev', { env: { PORT: port, NODE_ENV: '' }, log: true });
 
   try {
     await nuxtDevReady(port);

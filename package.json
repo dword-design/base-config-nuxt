@@ -12,7 +12,11 @@
       "types": "./dist/index.d.ts"
     },
     "./config": "./dist/config.js",
-    "./nuxt.config": "./dist/nuxt.config.js"
+    "./nuxt.config": "./dist/nuxt.config.js",
+    "./types": {
+      "default": "./dist/types.js",
+      "types": "./dist/types.d.ts"
+    }
   },
   "main": "dist/index.js",
   "files": [

@@ -3,8 +3,6 @@ import packageName from 'depcheck-package-name';
 import { defineNuxtConfig } from 'nuxt/config';
 import ts from 'typescript';
 
-import config from './config';
-
 const { config: typescriptConfig } = ts.readConfigFile(
   'tsconfig.json',
   ts.sys.readFile,
@@ -14,13 +12,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [
-        { content: config.name, name: 'description' },
-        ...(config.webApp
-          ? [{ content: 'yes', name: 'apple-mobile-web-app-capable' }]
-          : []),
-        ...(config.ogImage
-          ? [{ content: config.ogImage, name: 'og:image' }]
-          : []),
+        { content: '', name: 'description' },
       ],
     },
   },
@@ -28,15 +20,50 @@ export default defineNuxtConfig({
   modules: [
     defineNuxtModule({
       setup: (options, nuxt) => {
-        if (!config.userScalable) {
-          const viewportMeta = nuxt.options.app.head.meta?.find?.(
-            meta => meta.name === 'viewport',
-          );
-
-          if (viewportMeta) {
-            viewportMeta.content += ', user-scalable=0';
+        // Set runtime config from app.config
+        const appConfig = nuxt.options.appConfig;
+        
+        nuxt.options.runtimeConfig.public.pageTitle = {
+          name: appConfig.name,
+          description: appConfig.title,
+        };
+        
+        // Read from app.config at runtime
+        nuxt.hook('app:resolve', () => {
+          // Set meta tags based on app.config
+          if (appConfig.name) {
+            const descMeta = nuxt.options.app.head.meta?.find?.(
+              meta => meta.name === 'description',
+            );
+            if (descMeta) {
+              descMeta.content = appConfig.name;
+            }
           }
-        }
+          
+          if (appConfig.webApp) {
+            nuxt.options.app.head.meta?.push({
+              content: 'yes',
+              name: 'apple-mobile-web-app-capable',
+            });
+          }
+          
+          if (appConfig.ogImage) {
+            nuxt.options.app.head.meta?.push({
+              content: appConfig.ogImage,
+              name: 'og:image',
+            });
+          }
+          
+          if (!appConfig.userScalable) {
+            const viewportMeta = nuxt.options.app.head.meta?.find?.(
+              meta => meta.name === 'viewport',
+            );
+
+            if (viewportMeta) {
+              viewportMeta.content += ', user-scalable=0';
+            }
+          }
+        });
       },
     }),
     [
@@ -52,10 +79,7 @@ export default defineNuxtConfig({
         lintOnStart: false,
       },
     ],
-    [
-      packageName`@dword-design/nuxt-page-title`,
-      { description: config.title, name: config.name },
-    ],
+    packageName`@dword-design/nuxt-page-title`,
   ],
   router: { options: { linkActiveClass: 'active' } },
   typescript: {
