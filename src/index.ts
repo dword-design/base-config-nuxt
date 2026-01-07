@@ -79,7 +79,6 @@ export default defineBaseConfig(function (this: Base) {
       '/.output',
       '/.stylelintcache',
       '/dist',
-      '/nuxt.config.ts',
     ],
     hasTypescriptConfigRootAlias: false,
     lint,
