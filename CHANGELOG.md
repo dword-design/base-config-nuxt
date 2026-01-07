@@ -1,3 +1,10 @@
+## [9.0.15](https://github.com/dword-design/base-config-nuxt/compare/v9.0.14...v9.0.15) (2026-01-07)
+
+
+### Bug Fixes
+
+* add nuxt.config.ts to repo ([a5bf49c](https://github.com/dword-design/base-config-nuxt/commit/a5bf49cc2567c21cf113e7623457349cb10c045c))
+
 ## [9.0.14](https://github.com/dword-design/base-config-nuxt/compare/v9.0.13...v9.0.14) (2026-01-04)
 
 
