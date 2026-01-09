@@ -1,3 +1,10 @@
+## [9.0.16](https://github.com/dword-design/base-config-nuxt/compare/v9.0.15...v9.0.16) (2026-01-09)
+
+
+### Bug Fixes
+
+* fix meta tag for mobile web app capability ([22d4a4e](https://github.com/dword-design/base-config-nuxt/commit/22d4a4e0e5eec6188f4526450f651b57908a84bd))
+
 ## [9.0.15](https://github.com/dword-design/base-config-nuxt/compare/v9.0.14...v9.0.15) (2026-01-07)
 
 
