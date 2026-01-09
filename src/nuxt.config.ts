@@ -16,7 +16,7 @@ export default defineNuxtConfig({
       meta: [
         { content: config.name, name: 'description' },
         ...(config.webApp
-          ? [{ content: 'yes', name: 'apple-mobile-web-app-capable' }]
+          ? [{ content: 'yes', name: 'mobile-web-app-capable' }]
           : []),
         ...(config.ogImage
           ? [{ content: config.ogImage, name: 'og:image' }]
