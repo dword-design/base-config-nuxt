@@ -9,7 +9,7 @@ export default ({ ignore = [] }: Options = {}) => endent`
   import withNuxt from './.nuxt/eslint.config.mjs';
 
   export default await withNuxt(
-    globalIgnores([${['eslint.config.ts', 'eslint.lint-staged.config.ts', ...ignore].map(pattern => `'${pattern}'`).join(', ')}]),
+    globalIgnores([${['eslint.config.ts', 'eslint.lint-staged.config.ts', 'nuxt.config.ts', ...ignore].map(pattern => `'${pattern}'`).join(', ')}]),
     config,
     {
       files: ['**/pages/**/*.{vue,ts}', 'server/api/**/*.ts'],
