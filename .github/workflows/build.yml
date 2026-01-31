@@ -41,9 +41,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm verify
+      - run: pnpm verify
       - if: always()
         uses: actions/upload-artifact@v4
         with:
