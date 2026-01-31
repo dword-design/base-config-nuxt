@@ -1,3 +1,11 @@
+## [9.0.17](https://github.com/dword-design/base-config-nuxt/compare/v9.0.16...v9.0.17) (2026-01-31)
+
+
+### Bug Fixes
+
+* ignore nuxt.config.ts for linting ([973bdb6](https://github.com/dword-design/base-config-nuxt/commit/973bdb6cb2d2d1b3822536994c15a21763b3502c))
+* upgrade base ([d5ac439](https://github.com/dword-design/base-config-nuxt/commit/d5ac4398d74233c91da9f74f4316fec435636fa0))
+
 ## [9.0.16](https://github.com/dword-design/base-config-nuxt/compare/v9.0.15...v9.0.16) (2026-01-09)
 
 
