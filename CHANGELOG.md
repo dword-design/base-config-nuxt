@@ -1,3 +1,10 @@
+## [9.0.18](https://github.com/dword-design/base-config-nuxt/compare/v9.0.17...v9.0.18) (2026-02-01)
+
+
+### Bug Fixes
+
+* make nuxt.config.ts an allowed match ([36851e2](https://github.com/dword-design/base-config-nuxt/commit/36851e2635c2d5100cbeb3c15527ed6de46e8d4b))
+
 ## [9.0.17](https://github.com/dword-design/base-config-nuxt/compare/v9.0.16...v9.0.17) (2026-01-31)
 
 
