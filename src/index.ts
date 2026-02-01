@@ -30,6 +30,7 @@ export default defineBaseConfig(function (this: Base) {
     allowedMatches: [
       '.stylelintignore',
       '.stylelintrc.json',
+      'config.ts',
       'server/api/**/*.ts',
       'server/plugins/**/*.ts',
       'server/routes/**/*.ts',
@@ -48,7 +49,7 @@ export default defineBaseConfig(function (this: Base) {
       'app/types/*.ts',
       'app/utils/**/*.ts',
       'modules',
-      'config.ts',
+      'nuxt.config.ts',
       'public',
       'shared/lib/**/*.ts',
       'shared/utils/**/*.ts',
