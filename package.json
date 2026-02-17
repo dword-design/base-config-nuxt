@@ -63,7 +63,7 @@
     "get-port": "^7.1.0",
     "nuxt-dev-ready": "^5.0.1",
     "port-ready": "npm:@dword-design/port-ready-fork@^0.0.3",
-    "tree-kill-promise": "^4.0.0"
+    "tree-kill-promise": "^5.0.0"
   },
   "peerDependencies": {
     "depcheck": "*"
