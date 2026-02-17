@@ -33,8 +33,8 @@ importers:
         specifier: ^5.2.1
         version: 5.2.1(magicast@0.5.2)(postcss@8.5.6)(rollup@4.57.1)(stylelint@16.26.1(typescript@5.9.3))(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       depcheck-bin-name:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       depcheck-package-name:
         specifier: ^4.0.1
         version: 4.0.1
@@ -3179,9 +3179,9 @@ packages:
     resolution: {integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==}
     engines: {node: '>=0.10'}
 
-  depcheck-bin-name@2.0.0:
-    resolution: {integrity: sha512-X9MquOzrPPXoo4ZYqpO3K+DSDAyias3MLncwPh6eNYFqiafeHG8LlNmj0CODnsr21T3p7U0cdy8/wiyuZw+w0g==}
-    engines: {node: '>=20'}
+  depcheck-bin-name@3.0.0:
+    resolution: {integrity: sha512-UrwoRIstfwbwHOyJhWh9NTxov+ihl3F+oEMbdh2xeepdHQefvyQlMbL9yg+zZo9GNjYIFXbetpunb3p22na7Uw==}
+    engines: {node: '>=22'}
 
   depcheck-detector-bin-name@1.0.2:
     resolution: {integrity: sha512-NCJ8B0De9ILI+ClVwqJn3J6Dj1TKM9xmAWXTGu/ThQePMpt83KXt1abed+ndBEV5AbnwGmU7PVx1jpDH69oklg==}
@@ -10643,7 +10643,7 @@ snapshots:
 
   denque@2.1.0: {}
 
-  depcheck-bin-name@2.0.0:
+  depcheck-bin-name@3.0.0:
     dependencies:
       tagged-template-noop: 2.1.1
 

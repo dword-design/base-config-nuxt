@@ -39,7 +39,7 @@
     "@nuxt/eslint": "^1.12.1",
     "@nuxt/kit": "^4.2.2",
     "@nuxtjs/stylelint-module": "^5.2.1",
-    "depcheck-bin-name": "^2.0.0",
+    "depcheck-bin-name": "^3.0.0",
     "depcheck-package-name": "^4.0.1",
     "endent": "npm:@dword-design/endent@^1.4.7",
     "execa": "^9.6.1",
