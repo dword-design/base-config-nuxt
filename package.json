@@ -61,7 +61,7 @@
     "axios": "^1.13.2",
     "delay": "^7.0.0",
     "get-port": "^7.1.0",
-    "nuxt-dev-ready": "^5.0.1",
+    "nuxt-dev-ready": "^6.0.0",
     "port-ready": "npm:@dword-design/port-ready-fork@^0.0.3",
     "tree-kill-promise": "^4.0.0"
   },
