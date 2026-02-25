@@ -1,3 +1,10 @@
+## [9.0.19](https://github.com/dword-design/base-config-nuxt/compare/v9.0.18...v9.0.19) (2026-02-25)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/dotenv-json-extended to v5 ([#348](https://github.com/dword-design/base-config-nuxt/issues/348)) ([7445711](https://github.com/dword-design/base-config-nuxt/commit/744571120441acbaf6a3d3421d1436b123866974))
+
 ## [9.0.18](https://github.com/dword-design/base-config-nuxt/compare/v9.0.17...v9.0.18) (2026-02-01)
 
 
