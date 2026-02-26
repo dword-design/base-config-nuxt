@@ -1,3 +1,10 @@
+## [9.0.20](https://github.com/dword-design/base-config-nuxt/compare/v9.0.19...v9.0.20) (2026-02-26)
+
+
+### Bug Fixes
+
+* do not pass env variables to build ([fd89f1a](https://github.com/dword-design/base-config-nuxt/commit/fd89f1af54e1a914f9f98527a7c65399fbe2e99a))
+
 ## [9.0.19](https://github.com/dword-design/base-config-nuxt/compare/v9.0.18...v9.0.19) (2026-02-25)
 
 
