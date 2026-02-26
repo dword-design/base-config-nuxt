@@ -1,5 +1,4 @@
 import type { Base, PartialCommandOptions } from '@dword-design/base';
-import dotenv from '@dword-design/dotenv-json-extended';
 import { execaCommand } from 'execa';
 
 export default async function (
@@ -20,7 +19,7 @@ export default async function (
       ? { env: { NUXT_TELEMETRY_DISABLED: 1 } }
       : {}),
     cwd: this.cwd,
-    env: { ...dotenv.parse({ cwd: this.cwd }), ...options.env },
+    env: options.env,
   });
 
   return nuxt;
