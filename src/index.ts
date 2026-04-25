@@ -143,7 +143,6 @@ export default defineBaseConfig(function (this: Base) {
         strictCssModules: true,
       },
     },
-    useJobMatrix: true,
   };
 });
 
