@@ -1,3 +1,10 @@
+## [9.0.22](https://github.com/dword-design/base-config-nuxt/compare/v9.0.21...v9.0.22) (2026-04-25)
+
+
+### Bug Fixes
+
+* remove unneeded useJobMatrix ([bf12366](https://github.com/dword-design/base-config-nuxt/commit/bf1236673e90dd0cc23320fc569295217a74cdc2))
+
 ## [9.0.21](https://github.com/dword-design/base-config-nuxt/compare/v9.0.20...v9.0.21) (2026-03-17)
 
 
